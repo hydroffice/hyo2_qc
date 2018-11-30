@@ -1,0 +1,22 @@
+<PAMDataset>
+  <Metadata>
+    <MDI key="AREA_OR_POINT">Point</MDI>
+    <MDI key="BagVersion">1.6.0</MDI>
+  </Metadata>
+  <PAMRasterBand band="1">
+    <Description>Elevation</Description>
+    <NoDataValue>1.00000000000000E+006</NoDataValue>
+    <UnitType>m</UnitType>
+    <Metadata>
+      <MDI key="Band_Direction">Height</MDI>
+    </Metadata>
+  </PAMRasterBand>
+  <PAMRasterBand band="2">
+    <Description>Uncertainty</Description>
+    <NoDataValue>1.00000000000000E+006</NoDataValue>
+    <UnitType>m</UnitType>
+    <Metadata>
+      <MDI key="Band_Direction">NAP</MDI>
+    </Metadata>
+  </PAMRasterBand>
+</PAMDataset>
