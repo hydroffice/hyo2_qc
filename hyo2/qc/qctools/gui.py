@@ -23,6 +23,7 @@ QtCore.qInstallMessageHandler(qt_custom_handler)
 def gui():
     """Run the QC Tools gui"""
 
+    sys.argv.append("--disable-web-security")  # temporary fix for CORS warning (QTBUG-70228)
     app = QtWidgets.QApplication(sys.argv)
     app.setStyleSheet(AppStyle.load_stylesheet())
 
