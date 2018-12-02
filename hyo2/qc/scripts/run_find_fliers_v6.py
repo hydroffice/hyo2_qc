@@ -3,18 +3,17 @@ pyximport.install()
 import Cython.Compiler.Options
 Cython.Compiler.Options.annotate = True
 
-from PySide import QtGui, QtCore
-import os
+from PySide2 import QtCore, QtWidgets
 
-from hyo2.qc.common import default_logging
+import os
 import logging
 
-default_logging.load()
-logger = logging.getLogger()
-
+from hyo2.qc.common import default_logging
 from hyo2.qc.survey.project import SurveyProject
 from hyo2.qc.common.helper import Helper
 
+default_logging.load()
+logger = logging.getLogger()
 
 # set settings
 
@@ -37,7 +36,7 @@ open_output_folder = True
 
 # create a Qt application (required to get the dialog to select folders)
 
-app = QtGui.QApplication([])
+app = QtWidgets.QApplication([])
 app.setApplicationName('run_find_fliers_v6')
 app.setOrganizationName("HydrOffice")
 app.setOrganizationDomain("hydroffice.org")
@@ -47,7 +46,7 @@ app.setOrganizationDomain("hydroffice.org")
 if ask_for_input_folder:
     # noinspection PyArgumentList
     input_folder = QtWidgets.QFileDialog.getExistingDirectory(parent=None, caption="Select input folder with BAGs",
-                                                          dir=QtCore.QSettings().value("run_ff6_input_folder"))
+                                                              dir=QtCore.QSettings().value("run_ff6_input_folder"))
 
     if input_folder == str():
         logger.error("input folder not selected")
@@ -68,11 +67,10 @@ else:
 
 logger.debug("input folder: %s" % input_folder)
 
-
 # create a list with all the BAG paths (walking recursively across the sub-folders, if present)
 
 bag_todo_list = list()
-try:   # Trapping Exceptions like OSError (File permissions)
+try:  # Trapping Exceptions like OSError (File permissions)
     for root, dirs, files in os.walk(input_folder):
 
         for file in files:
@@ -90,13 +88,12 @@ if nr_bag_todo == 0:
 
 logger.debug("BAG listed: %d" % nr_bag_todo)
 
-
 # manage the output folder by asking to user OR using the hand-written path (required to instantiate a SurveyProject)
 
 if ask_for_output_folder:
     # noinspection PyArgumentList
     output_folder = QtWidgets.QFileDialog.getExistingDirectory(parent=None, caption="Select output folder",
-                                                           dir=QtCore.QSettings().value("run_ff6_output_folder"))
+                                                               dir=QtCore.QSettings().value("run_ff6_output_folder"))
 
     if output_folder == str():
         logger.error("output folder not selected")
@@ -117,7 +114,6 @@ else:
 
 logger.debug("output folder: %s" % output_folder)
 
-
 # create the project
 
 prj = SurveyProject(output_folder=output_folder)
@@ -130,7 +126,6 @@ prj.output_kml = out_kml
 
 for bag_path in bag_todo_list:
     prj.add_to_grid_list(bag_path)
-
 
 # create 3 empty lists: one for the BAGs successfully processed, one for the ones with fliers, and another for crashes
 
@@ -152,7 +147,7 @@ for i, bag_path in enumerate(prj.grid_list):
 
         prj.clear_survey_label()
         prj.open_grid(path=bag_path)
-        prj.find_fliers_v6(height=height_value,
+        prj.find_fliers_v7(height=height_value,
                            check_laplacian=check_laplacian,
                            check_curv=check_curv,
                            check_adjacent=check_adjacent,
@@ -201,12 +196,9 @@ if write_report_on_disk:
     except Exception as e:
         logger.warning("issue in saving report on disk: %s (%s)" % (report_path, e))
 
-
 # open the output folder
 
 if open_output_folder:
-
     Helper.explore_folder(output_folder)
-
 
 logger.debug("DONE!")

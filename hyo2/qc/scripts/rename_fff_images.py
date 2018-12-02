@@ -3,19 +3,16 @@ pyximport.install()
 import Cython.Compiler.Options
 Cython.Compiler.Options.annotate = True
 
-from PySide import QtGui, QtCore
+import logging
 import os
 
+from PySide2 import QtGui, QtCore, QtWidgets
 from hyo2.qc.common import default_logging
-import logging
+
+from hyo2.qc.common.helper import Helper
 
 default_logging.load()
 logger = logging.getLogger()
-
-from hyo2.qc.survey.project import SurveyProject
-from hyo2.qc.common.helper import Helper
-
-from hyo2.qc.common import s57_aux
 
 # set settings
 
@@ -26,7 +23,7 @@ open_output_folder = True
 
 # create a Qt application (required to get the dialog to select folders)
 
-app = QtGui.QApplication([])
+app = QtWidgets.QApplication([])
 app.setApplicationName('run_find_fliers_v6')
 app.setOrganizationName("HydrOffice")
 app.setOrganizationDomain("hydroffice.org")
@@ -36,7 +33,7 @@ app.setOrganizationDomain("hydroffice.org")
 if ask_for_input_folder:
     # noinspection PyArgumentList
     input_folder = QtWidgets.QFileDialog.getExistingDirectory(parent=None, caption="Select input folder with S57 file",
-                                                          dir=QtCore.QSettings().value("rename_fff_images_folder"))
+                                                              dir=QtCore.QSettings().value("rename_fff_images_folder"))
 
     if input_folder == str():
         logger.error("input folder not selected")
@@ -61,8 +58,10 @@ logger.debug("input folder: %s" % input_folder)
 
 if ask_for_multimedia_folder:
     # noinspection PyArgumentList
-    input_multimedia_folder = QtWidgets.QFileDialog.getExistingDirectory(parent=None, caption="Select input Multimedia folder",
-                                                          dir=QtCore.QSettings().value("input_multimedia_folder"))
+    input_multimedia_folder = QtWidgets.QFileDialog.getExistingDirectory(parent=None,
+                                                                         caption="Select input Multimedia folder",
+                                                                         dir=QtCore.QSettings().value(
+                                                                             "input_multimedia_folder"))
 
     if input_multimedia_folder == str():
         logger.error("input multimedia folder not selected")
@@ -88,7 +87,7 @@ logger.debug("input folder: %s" % input_multimedia_folder)
 if ask_for_output_folder:
     # noinspection PyArgumentList
     output_folder = QtWidgets.QFileDialog.getExistingDirectory(parent=None, caption="Select output folder",
-                                                           dir=QtCore.QSettings().value("rename_fff_images_folder"))
+                                                               dir=QtCore.QSettings().value("rename_fff_images_folder"))
 
     if output_folder == str():
         logger.error("output folder not selected")
@@ -109,10 +108,12 @@ else:
 
 logger.debug("output folder: %s" % output_folder)
 
+
 class S57ImageRename(BaseScan):
     def __init__(self, s57):
         super().__init__(s57=s57)
         self.all_features = self.s57.rec10s
+
 
 # select all features with images
 def check_features_for_attribute(self, objects, attribute, possible=False):
@@ -133,11 +134,10 @@ def check_features_for_attribute(self, objects, attribute, possible=False):
         else:
             return features_without_images
 
+
 # open the output folder
 
 if open_output_folder:
-
     Helper.explore_folder(output_folder)
-
 
 logger.debug("DONE!")

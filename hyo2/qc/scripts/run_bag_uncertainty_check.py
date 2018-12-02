@@ -3,17 +3,17 @@ pyximport.install()
 import Cython.Compiler.Options
 Cython.Compiler.Options.annotate = True
 
-from PySide import QtGui, QtCore
 import os
+import logging
+
+from PySide2 import QtCore, QtWidgets
 
 from hyo2.qc.common import default_logging
-import logging
+from hyo2.qc.survey.project import SurveyProject
+from hyo2.qc.common.helper import Helper
 
 default_logging.load()
 logger = logging.getLogger()
-
-from hyo2.qc.survey.project import SurveyProject
-from hyo2.qc.common.helper import Helper
 
 # set settings
 
@@ -25,7 +25,7 @@ open_output_folder = True
 
 # create a Qt application (required to get the dialog to select folders)
 
-app = QtGui.QApplication([])
+app = QtWidgets.QApplication([])
 app.setApplicationName('run_bag_uncertainty_check')
 app.setOrganizationName("HydrOffice")
 app.setOrganizationDomain("hydroffice.org")
