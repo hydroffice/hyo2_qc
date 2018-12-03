@@ -9,8 +9,8 @@ from PySide2 import QtCore, QtGui, QtWidgets
 import matplotlib
 matplotlib.use('Qt5Agg')
 
-from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavToolbar
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavToolbar
 from matplotlib.figure import Figure
 from matplotlib import rc_context
 
@@ -41,7 +41,6 @@ class MainWin(QtWidgets.QMainWindow):
         'axes.ymargin': 0.01,
         'lines.linewidth': 1.0,
         'grid.alpha': 0.2,
-        'backend.qt5': 'PySide2'
     }
 
     def __init__(self, main_win=None):

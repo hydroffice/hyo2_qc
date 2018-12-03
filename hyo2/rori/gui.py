@@ -1,29 +1,30 @@
 import sys
 import traceback
-from PySide import QtGui, QtCore
+from PySide2 import QtCore, QtWidgets
 
 import logging
 
+from hyo2.rori.mainwin import MainWin
+from hyo2.rori.stylesheet import stylesheet
+
 logger = logging.getLogger(__name__)
 
-from hyo.rori.mainwin import MainWin
-from hyo.rori.stylesheet import stylesheet
 
-
-def qt_custom_handler(error_type, error_context):
-    logger.info("Qt error: %s [%s]" % (str(error_type), str(error_context)))
+def qt_custom_handler(error_type: QtCore.QtMsgType, error_context: QtCore.QMessageLogContext, message: str):
+    logger.info("Qt error: %s [%s] -> %s"
+                % (error_type, error_context, message))
 
     for line in traceback.format_stack():
         logger.debug("- %s" % line.strip())
 
 
-QtCore.qInstallMsgHandler(qt_custom_handler)
+QtCore.qInstallMessageHandler(qt_custom_handler)
 
 
 def gui():
     """Run the gui"""
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     app.setStyleSheet(stylesheet.load(pyside=True))
 
     main = MainWin()
