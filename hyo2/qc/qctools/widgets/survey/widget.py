@@ -3,10 +3,8 @@ import logging
 
 from PySide2 import QtWidgets, QtGui, QtCore
 
-logger = logging.getLogger(__name__)
-
+from hyo2.abc.app.qt_progress import QtProgress
 from hyo2.qc.survey.project import SurveyProject
-from hyo2.qc.qctools.qt_progress import QtProgress
 from hyo2.qc.common.grid_callback.qt_grid_callback import QtGridCallback
 from hyo2.qc.qctools.widgets.widget import AbstractWidget
 from hyo2.qc.qctools.widgets.survey.inputs import InputsTab
@@ -19,7 +17,7 @@ from hyo2.qc.qctools.widgets.survey.valsou import ValsouTab
 from hyo2.qc.qctools.widgets.survey.sbdare import SbdareTab
 from hyo2.qc.qctools.widgets.survey.submission import SubmissionTab
 
-prf_dev = False
+logger = logging.getLogger(__name__)
 
 
 class SurveyWidget(AbstractWidget):
@@ -182,8 +180,6 @@ class SurveyWidget(AbstractWidget):
             self.tabs.setTabEnabled(self.idx_designated, False)
         if self.has_grid:
             self.tabs.setTabEnabled(self.idx_valsou, True)
-        if prf_dev:
-            self.tabs.setTabEnabled(self.idx_prf, True)
 
         self.has_s57 = True
 
@@ -192,8 +188,5 @@ class SurveyWidget(AbstractWidget):
         self.tabs.setTabEnabled(self.idx_scan, False)
         self.tabs.setTabEnabled(self.idx_sbdare, False)
         self.tabs.setTabEnabled(self.idx_valsou, False)
-
-        if prf_dev:
-            self.tabs.setTabEnabled(self.idx_prf, False)
 
         self.has_s57 = False

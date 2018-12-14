@@ -1,14 +1,14 @@
 import re
 import os
 import logging
-logger = logging.getLogger(__name__)
 
+from hyo2.abc.lib.progress.abstract_progress import AbstractProgress
+from hyo2.abc.lib.progress.cli_progress import CliProgress
 from hyo2.qc.common.helper import Helper
-from hyo2.qc.common.progress.abstract_progress import AbstractProgress
-from hyo2.qc.common.progress.cli_progress import CliProgress
-
 from hyo2.grids.grids_manager import GridsManager
 from hyo2.qc.common.features import Features
+
+logger = logging.getLogger(__name__)
 
 
 class BaseProject:
@@ -207,7 +207,7 @@ class BaseProject:
         if not survey_label:
             survey_label = os.path.basename(file_path).split('.')[0]  # basename of the path without extension
             if len(survey_label) > 6:  # name too long, shorten it
-                survey_label = survey_label.split('.')[-1][0:6]
+                survey_label = survey_label.split(b'.')[-1][0:6]
             elif len(survey_label) < 6:  # name too short, elongate it adding "_"
                 survey_label = "{:_<6}".format(survey_label)
             logger.debug('survey label based on basename: %s' % os.path.basename(file_path))

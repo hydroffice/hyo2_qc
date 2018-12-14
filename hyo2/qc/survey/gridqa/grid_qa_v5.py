@@ -799,7 +799,7 @@ class GridQAV5(BaseGridQA):
         for i in ((grid_info.q1 <= bins) & (bins <= grid_info.q3)).nonzero()[0]:
             shaded_colors[i] = GridQAV5.RGB_PuBu3
 
-        p1 = ax.bar(left=bins, height=100 * density, width=bin_width, align='center', linewidth=0, color=shaded_colors)
+        p1 = ax.bar(x=bins, height=100 * density, width=bin_width, align='center', linewidth=0, color=shaded_colors)
         p2, = ax.plot(bins - bin_width / 2., 100 * density, drawstyle="steps-post", fillstyle="bottom")
         ax.grid()
 

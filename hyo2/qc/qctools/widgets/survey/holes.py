@@ -4,10 +4,10 @@ import os
 import traceback
 import logging
 
-logger = logging.getLogger(__name__)
-
 from hyo2.qc.qctools.gui_settings import GuiSettings
 from hyo2.qc.common.helper import Helper
+
+logger = logging.getLogger(__name__)
 
 
 class HolesTab(QtWidgets.QMainWindow):

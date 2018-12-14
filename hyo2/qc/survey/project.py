@@ -6,11 +6,9 @@ import shutil
 import traceback
 import logging
 
-logger = logging.getLogger(__name__)
-
+from hyo2.abc.lib.progress.cli_progress import CliProgress
 from hyo2.qc.common.project import BaseProject
 from hyo2.qc.common.helper import Helper
-from hyo2.qc.common.progress.cli_progress import CliProgress
 from hyo2.qc.common.writers.s57_writer import S57Writer
 from hyo2.qc.common.writers.svp_writer import SvpWriter
 from hyo2.qc.common.writers.kml_writer import KmlWriter
@@ -38,6 +36,8 @@ from hyo2.qc.survey.sbdare.sbdare_export_v4 import SbdareExportV4
 from hyo2.qc.survey.submission.base_submission import BaseSubmission, submission_algos
 from hyo2.qc.survey.submission.submission_checks_v3 import SubmissionChecksV3
 from hyo2.grids._grids import FLOAT as GRIDS_FLOAT, DOUBLE as GRIDS_DOUBLE
+
+logger = logging.getLogger(__name__)
 
 
 class SurveyProject(BaseProject):

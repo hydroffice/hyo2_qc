@@ -1,11 +1,11 @@
+import logging
 import os
 
-from PySide2 import QtCore, QtGui, QtWidgets
+from PySide2 import QtCore, QtWidgets
 
-import logging
+from hyo2.abc.app.qt_progress import QtProgress
+
 logger = logging.getLogger(__name__)
-
-from hyo2.qc.qctools.qt_progress import QtProgress
 
 
 class AbstractWidget(QtWidgets.QMainWindow):

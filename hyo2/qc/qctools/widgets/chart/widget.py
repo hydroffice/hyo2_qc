@@ -3,10 +3,8 @@ import logging
 
 from PySide2 import QtCore, QtGui, QtWidgets
 
-logger = logging.getLogger(__name__)
-
+from hyo2.abc.app.qt_progress import QtProgress
 from hyo2.qc.chart.project import ChartProject
-from hyo2.qc.qctools.qt_progress import QtProgress
 from hyo2.qc.common.grid_callback.qt_grid_callback import QtGridCallback
 from hyo2.qc.qctools.widgets.widget import AbstractWidget
 from hyo2.qc.qctools.widgets.chart.inputs import InputsTab
@@ -15,6 +13,8 @@ from hyo2.qc.qctools.widgets.chart.grid_xyz import GridXyzTab
 from hyo2.qc.qctools.widgets.chart.s57_truncate import S57TruncateTab
 from hyo2.qc.qctools.widgets.chart.scan import ScanTab
 from hyo2.qc.qctools.widgets.chart.triangle import TriangleTab
+
+logger = logging.getLogger(__name__)
 
 
 class ChartWidget(AbstractWidget):

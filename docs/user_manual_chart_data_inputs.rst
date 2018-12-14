@@ -56,7 +56,7 @@ In **Data outputs:**
 
 .. _chart_folder_structure:
 .. figure:: _static/chart_folder_structure.png
-    :width: 600px
+    :width: 400px
     :align: center
     :alt: output flags
     :figclass: align-center
