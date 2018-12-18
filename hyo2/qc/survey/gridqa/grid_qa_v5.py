@@ -832,7 +832,7 @@ class GridQAV5(BaseGridQA):
         str_fmt = '%.1f%%' if ax.get_ylim()[-1] < 10 else '%.0f%%'
         ax.yaxis.set_major_formatter(FormatStrFormatter(str_fmt))
 
-        fig.savefig(png_path, dpi=75, format='png')
+        fig.savefig(png_path, dpi=144, format='png')
         plt.close()
 
     def _init_plot_depth_vs_density(self):
@@ -872,7 +872,7 @@ class GridQAV5(BaseGridQA):
 
         title = self.density_fig.text(.5, .94, 'Node Depth vs. Sounding Density', fontsize=18, ha='center')
         self.density_ax.set_xlabel('Soundings per node')
-        self.density_fig.savefig(png_path, dpi=75, format='png')
+        self.density_fig.savefig(png_path, dpi=144, format='png')
 
     def _init_plot_depth_vs_tvu_qc(self):
         self.tvu_qc_fig = plt.figure()
@@ -920,7 +920,7 @@ class GridQAV5(BaseGridQA):
 
         x_min, x_max = self.tvu_qc_ax.get_xlim()
         out_path = Helper.truncate_too_long(png_path.replace('.png', '.full_range.png'), left_truncation=True)
-        self.tvu_qc_fig.savefig(out_path, dpi=75, format='png')
+        self.tvu_qc_fig.savefig(out_path, dpi=144, format='png')
 
         if x_max > 1.0:  # plot zoom on good data, if applicable
 
@@ -929,4 +929,4 @@ class GridQAV5(BaseGridQA):
             sub_title.set_text(sub_title_txt)
             out_path = Helper.truncate_too_long(png_path.replace('.png', '.zoom_on_good_data.png'),
                                                 left_truncation=True)
-            self.tvu_qc_fig.savefig(out_path, dpi=75, format='png')
+            self.tvu_qc_fig.savefig(out_path, dpi=144, format='png')
