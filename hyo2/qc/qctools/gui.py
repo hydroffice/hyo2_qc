@@ -4,10 +4,10 @@ from PySide2 import QtCore, QtWidgets
 
 import logging
 
-logger = logging.getLogger(__name__)
-
 from hyo2.abc.app.app_style import AppStyle
 from hyo2.qc.qctools.mainwin import MainWin
+
+logger = logging.getLogger(__name__)
 
 
 def qt_custom_handler(error_type: QtCore.QtMsgType, error_context: QtCore.QMessageLogContext, message: str):
