@@ -3,12 +3,13 @@ from PySide2 import QtCore, QtGui, QtWidgets
 import os
 import logging
 
-logger = logging.getLogger(__name__)
-
 from hyo2.qc.qctools.gui_settings import GuiSettings
-from hyo2.qc.common.helper import Helper
+from hyo2.qc.common import lib_info
+from hyo2.abc.lib.helper import Helper
 from hyo2.qc.survey.fliers.find_fliers_v7 import FindFliersV7
 from hyo2.qc.survey.fliers.find_fliers_v8 import FindFliersV8
+
+logger = logging.getLogger(__name__)
 
 
 class FliersTab(QtWidgets.QMainWindow):
@@ -972,7 +973,7 @@ class FliersTab(QtWidgets.QMainWindow):
         else:
             raise RuntimeError("unknown Find Fliers' version: %s" % version)
 
-        self.parent_win.change_info_url(Helper.web_url(suffix="survey_find_fliers_%d_fh_%s" % (version, height_mode)))
+        self.parent_win.change_info_url(Helper(lib_info=lib_info).web_url(suffix="survey_find_fliers_%d_fh_%s" % (version, height_mode)))
 
         self._parse_user_height(version=version)
 

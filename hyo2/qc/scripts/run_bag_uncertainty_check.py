@@ -1,8 +1,3 @@
-import pyximport
-pyximport.install()
-import Cython.Compiler.Options
-Cython.Compiler.Options.annotate = True
-
 import os
 import logging
 
@@ -10,7 +5,7 @@ from PySide2 import QtCore, QtWidgets
 
 from hyo2.qc.common import default_logging
 from hyo2.qc.survey.project import SurveyProject
-from hyo2.qc.common.helper import Helper
+from hyo2.abc.lib.helper import Helper
 
 default_logging.load()
 logger = logging.getLogger()
@@ -21,7 +16,6 @@ ask_for_input_folder = True
 ask_for_output_folder = True
 write_report_on_disk = True
 open_output_folder = True
-
 
 # create a Qt application (required to get the dialog to select folders)
 
@@ -35,7 +29,8 @@ app.setOrganizationDomain("hydroffice.org")
 if ask_for_input_folder:
     # noinspection PyArgumentList
     input_folder = QtWidgets.QFileDialog.getExistingDirectory(parent=None, caption="Select input folder with BAGs",
-                                                          dir=QtCore.QSettings().value("run_bag_uncertainty_check_folder"))
+                                                              dir=QtCore.QSettings().value(
+                                                                  "run_bag_uncertainty_check_folder"))
 
     if input_folder == str():
         logger.error("input folder not selected")
@@ -56,11 +51,10 @@ else:
 
 logger.debug("input folder: %s" % input_folder)
 
-
 # create a list with all the BAG paths (walking recursively across the sub-folders, if present)
 
 bag_todo_list = list()
-try:   # Trapping Exceptions like OSError (File permissions)
+try:  # Trapping Exceptions like OSError (File permissions)
     for root, dirs, files in os.walk(input_folder):
 
         for file in files:
@@ -78,13 +72,13 @@ if nr_bag_todo == 0:
 
 logger.debug("BAG listed: %d" % nr_bag_todo)
 
-
 # manage the output folder by asking to user OR using the hand-written path (required to instantiate a SurveyProject)
 
 if ask_for_output_folder:
     # noinspection PyArgumentList
     output_folder = QtWidgets.QFileDialog.getExistingDirectory(parent=None, caption="Select output folder",
-                                                           dir=QtCore.QSettings().value("run_bag_uncertainty_check_output_folder"))
+                                                               dir=QtCore.QSettings().value(
+                                                                   "run_bag_uncertainty_check_output_folder"))
 
     if output_folder == str():
         logger.error("output folder not selected")
@@ -105,7 +99,6 @@ else:
 
 logger.debug("output folder: %s" % output_folder)
 
-
 # create the project
 
 prj = SurveyProject(output_folder=output_folder)
@@ -115,8 +108,8 @@ prj = SurveyProject(output_folder=output_folder)
 for bag_path in bag_todo_list:
     prj.add_to_grid_list(bag_path)
 
-
-# create 3 empty lists: one for the BAGs successfully processed, one for the ones without Uncertainty lauyer, and another for crashes
+# create 3 empty lists: one for the BAGs successfully processed, one for the ones without Uncertainty lauyer,
+# and another for crashes
 
 bag_done_list = list()
 bag_without_uncertainty_list = list()
@@ -150,7 +143,6 @@ for i, bag_path in enumerate(prj.grid_list):
         bag_crash_list.append(bag_path)
         continue
 
-
 # provide a final report (on screen)
 
 report = str()
@@ -163,7 +155,6 @@ for bag_crash in bag_crash_list:
     report += "  . %s\n" % bag_crash
 
 logger.info("\n%s" % report)
-
 
 # save on disk a final report
 
@@ -178,12 +169,9 @@ if write_report_on_disk:
     except Exception as e:
         logger.warning("issue in saving report on disk: %s (%s)" % (report_path, e))
 
-
 # open the output folder
 
 if open_output_folder:
-
     Helper.explore_folder(output_folder)
-
 
 logger.debug("DONE!")

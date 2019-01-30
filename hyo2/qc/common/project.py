@@ -4,8 +4,9 @@ import logging
 
 from hyo2.abc.lib.progress.abstract_progress import AbstractProgress
 from hyo2.abc.lib.progress.cli_progress import CliProgress
-from hyo2.qc.common.helper import Helper
+from hyo2.abc.lib.helper import Helper
 from hyo2.grids.grids_manager import GridsManager
+from hyo2.qc.common import lib_info
 from hyo2.qc.common.features import Features
 
 logger = logging.getLogger(__name__)
@@ -67,7 +68,8 @@ class BaseProject:
     @classmethod
     def default_output_folder(cls):
 
-        output_folder = os.path.join(Helper.qc2_package_folder(), cls.__name__.replace("Project", ""))
+        output_folder = os.path.join(Helper(lib_info=lib_info).package_folder(),
+                                     cls.__name__.replace("Project", ""))
         if not os.path.exists(output_folder):  # create it if it does not exist
             os.makedirs(output_folder)
 
@@ -106,7 +108,7 @@ class BaseProject:
 
     @survey_label.setter
     def survey_label(self, value):
-        re.sub('[^\w\-_\. ]', '_', value)
+        re.sub(r'[^\w\-_\. ]', '_', value)
         logger.debug("survey label: %s" % value)
         self._survey = value
 

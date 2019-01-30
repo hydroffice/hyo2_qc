@@ -3,15 +3,9 @@ from PySide2 import QtCore, QtGui, QtWidgets
 import os
 import logging
 
-logger = logging.getLogger(__name__)
-
 from hyo2.qc.qctools.gui_settings import GuiSettings
-from hyo2.qc.common.helper import Helper
 
-# Use NSURL as a workaround to pyside/Qt4 behaviour for dragging and dropping on OSx
-if Helper.is_darwin():
-    # noinspection PyUnresolvedReferences
-    from Foundation import NSURL
+logger = logging.getLogger(__name__)
 
 
 class InputsTab(QtWidgets.QMainWindow):
@@ -285,11 +279,7 @@ class InputsTab(QtWidgets.QMainWindow):
 
                     for url in e.mimeData().urls():
 
-                        if Helper.is_darwin():
-                            dropped_path = str(NSURL.URLWithString_(str(url.toString())).filePathURL().path())
-
-                        else:
-                            dropped_path = str(url.toLocalFile())
+                        dropped_path = str(url.toLocalFile())
 
                         if os.path.splitext(dropped_path)[-1].lower() in (".bag",):
                             e.accept()
@@ -301,11 +291,7 @@ class InputsTab(QtWidgets.QMainWindow):
 
                     for url in e.mimeData().urls():
 
-                        if Helper.is_darwin():
-                            dropped_path = str(NSURL.URLWithString_(str(url.toString())).filePathURL().path())
-
-                        else:
-                            dropped_path = str(url.toLocalFile())
+                        dropped_path = str(url.toLocalFile())
 
                         if os.path.splitext(dropped_path)[-1].lower() in (".000",):
                             e.accept()
@@ -317,11 +303,7 @@ class InputsTab(QtWidgets.QMainWindow):
 
                     for url in e.mimeData().urls():
 
-                        if Helper.is_darwin():
-                            dropped_path = str(NSURL.URLWithString_(str(url.toString())).filePathURL().path())
-
-                        else:
-                            dropped_path = str(url.toLocalFile())
+                        dropped_path = str(url.toLocalFile())
 
                         dropped_path = os.path.abspath(dropped_path)
 
@@ -346,11 +328,7 @@ class InputsTab(QtWidgets.QMainWindow):
                     # Workaround for OSx dragging and dropping
                     for url in e.mimeData().urls():
 
-                        if Helper.is_darwin():
-                            dropped_path = str(NSURL.URLWithString_(str(url.toString())).filePathURL().path())
-
-                        else:
-                            dropped_path = str(url.toLocalFile())
+                        dropped_path = str(url.toLocalFile())
 
                         logger.debug("dropped file: %s" % dropped_path)
                         if os.path.splitext(dropped_path)[-1] in (".bag",):
@@ -375,11 +353,7 @@ class InputsTab(QtWidgets.QMainWindow):
                     # Workaround for OSx dragging and dropping
                     for url in e.mimeData().urls():
 
-                        if Helper.is_darwin():
-                            dropped_path = str(NSURL.URLWithString_(str(url.toString())).filePathURL().path())
-
-                        else:
-                            dropped_path = str(url.toLocalFile())
+                        dropped_path = str(url.toLocalFile())
 
                         logger.debug("dropped file: %s" % dropped_path)
                         if os.path.splitext(dropped_path)[-1] in (".000",):
@@ -404,11 +378,7 @@ class InputsTab(QtWidgets.QMainWindow):
                     # Workaround for OSx dragging and dropping
                     for url in e.mimeData().urls():
 
-                        if Helper.is_darwin():
-                            dropped_path = str(NSURL.URLWithString_(str(url.toString())).filePathURL().path())
-
-                        else:
-                            dropped_path = str(url.toLocalFile())
+                        dropped_path = str(url.toLocalFile())
 
                         logger.debug("dropped path: %s" % dropped_path)
                         if os.path.splitext(dropped_path)[-1] in (".000",):
@@ -433,11 +403,7 @@ class InputsTab(QtWidgets.QMainWindow):
                     # Workaround for OSx dragging and dropping
                     for url in e.mimeData().urls():
 
-                        if Helper.is_darwin():
-                            dropped_path = str(NSURL.URLWithString_(str(url.toString())).filePathURL().path())
-
-                        else:
-                            dropped_path = str(url.toLocalFile())
+                        dropped_path = str(url.toLocalFile())
 
                         dropped_path = os.path.abspath(dropped_path)
 

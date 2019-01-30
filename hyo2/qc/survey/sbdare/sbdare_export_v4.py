@@ -1,15 +1,16 @@
-from osgeo import ogr
+import ogr
 import os
 import shutil
 import piexif
 from PIL import Image
 import logging
-logger = logging.getLogger(__name__)
 
 from hyo2.qc.survey.sbdare.base_sbdare import BaseSbdare, sbdare_algos, s57_to_cmecs
 from hyo2.qc.common.s57_aux import S57Aux
 from hyo2.qc.common.geodesy import Geodesy
-from hyo2.qc.common.gdal_aux import GdalAux
+from hyo2.abc.lib.gdal_aux import GdalAux
+
+logger = logging.getLogger(__name__)
 
 
 class SbdareInfo:

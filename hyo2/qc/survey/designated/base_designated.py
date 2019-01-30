@@ -1,8 +1,8 @@
 import logging
+
+from hyo2.abc.lib.helper import Helper
+
 logger = logging.getLogger(__name__)
-
-from hyo2.qc.common.helper import Helper
-
 
 designated_algos = {
     "BASE": 0,
@@ -28,4 +28,3 @@ class BaseDesignated:
         msg += "    <flagged designated: %s>\n" % len(self.flagged_designated)
 
         return msg
-

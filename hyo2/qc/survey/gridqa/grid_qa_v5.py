@@ -2,10 +2,9 @@ import os
 import sys
 from collections import OrderedDict, defaultdict
 import numpy as np
+# noinspection PyProtectedMember
 from hyo2.grids._grids import FLOAT as GRIDS_FLOAT, DOUBLE as GRIDS_DOUBLE, \
     UINT32 as GRIDS_UINT32, UINT64 as GRIDS_UINT64, INT32 as GRIDS_INT32, INT64 as GRIDS_INT64
-
-from matplotlib import rcParams
 
 import matplotlib
 matplotlib.use('Qt5Agg')
@@ -16,11 +15,12 @@ import warnings
 warnings.simplefilter(action="ignore", category=RuntimeWarning)
 
 import logging
-logger = logging.getLogger(__name__)
 
 from hyo2.qc.survey.gridqa.base_qa import BaseGridQA, qa_algos
 from hyo2.qc.survey.gridqa.grid_qa_calc_v4 import calc_tvu_qc_dd, calc_tvu_qc_df, calc_tvu_qc_fd, calc_tvu_qc_ff
-from hyo2.qc.common.helper import Helper
+from hyo2.abc.lib.helper import Helper
+
+logger = logging.getLogger(__name__)
 
 
 class GridInfoV5:
@@ -157,33 +157,6 @@ class GridQAV5(BaseGridQA):
         self.pct_od_ax = None
         self.pct_cc_fig = None
         self.pct_cc_ax = None
-
-    def _memory_info(self):
-        # logger.info("---------------------------")
-        tot_size = 0
-
-        tot_size += Helper.total_size(self.bathy_dict)
-        tot_size += Helper.total_size(self.density_dict)
-        tot_size += Helper.total_size(self.tvu_qc_dict)
-        tot_size += Helper.total_size(self.pct_od_dict)
-        tot_size += Helper.total_size(self.pct_cc_dict)
-
-        tot_size += Helper.total_size(self.bathy_values)
-        tot_size += Helper.total_size(self.density_values)
-        tot_size += Helper.total_size(self.tvu_qc_values)
-        tot_size += Helper.total_size(self.pct_od_values)
-        tot_size += Helper.total_size(self.pct_cc_values)
-
-        tot_size += Helper.total_size(self.density_fig)
-        tot_size += Helper.total_size(self.density_ax)
-        tot_size += Helper.total_size(self.tvu_qc_fig)
-        tot_size += Helper.total_size(self.tvu_qc_ax)
-        tot_size += Helper.total_size(self.pct_od_fig)
-        tot_size += Helper.total_size(self.pct_od_ax)
-        tot_size += Helper.total_size(self.pct_cc_fig)
-        tot_size += Helper.total_size(self.pct_cc_ax)
-
-        logger.info("tot size: %.1f KB" % (tot_size / 1024.0))
 
     def run(self):
         logger.info("parameters for Grid QA: force-tvu-qc=%s, has_depth=%s, has_product_uncertainty=%s, "

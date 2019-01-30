@@ -3,12 +3,14 @@ import locale
 import numpy as np
 from osgeo import osr
 import logging
-logger = logging.getLogger(__name__)
 
 from hyo2.qc.survey.valsou.base_valsou import BaseValsou, valsou_algos
 from hyo2.qc.common.s57_aux import S57Aux
-from hyo2.qc.common.gdal_aux import GdalAux
+from hyo2.abc.lib.gdal_aux import GdalAux
+# noinspection PyProtectedMember
 from hyo2.grids._grids import FLOAT as GRIDS_FLOAT, DOUBLE as GRIDS_DOUBLE
+
+logger = logging.getLogger(__name__)
 
 
 class ValsouCheckV6(BaseValsou):
@@ -152,7 +154,8 @@ class ValsouCheckV6(BaseValsou):
             valsou_1node_features = S57Aux.filter_by_attribute_value(objects=self.valsou_features, attribute='WATLEV',
                                                                      value_filter=['4', '5'])
             if self.version == "2015":
-                valsou_1node_features = S57Aux.filter_by_attribute_value(objects=valsou_1node_features, attribute='descrp',
+                valsou_1node_features = S57Aux.filter_by_attribute_value(objects=valsou_1node_features,
+                                                                         attribute='descrp',
                                                                          value_filter=['2', ])
             self.valsou_1node_features = valsou_1node_features
 
@@ -309,7 +312,6 @@ class ValsouCheckV6(BaseValsou):
             # logger.debug("#%d -> closest (%s, %s)" % (i, closest[1], closest[0]))
 
             if (closest[1] < r_min) or (closest[0] < c_min) or (closest[1] >= r_max) or (closest[0] >= c_max):
-
                 self.flagged_features.append([self.valsou_geo[i][0], self.valsou_geo[i][1], 'out-of-bbox'])
                 logger.warning("Feature at (%s, %s) out of bbox" % (self.valsou_geo[i][0], self.valsou_geo[i][1]))
 
@@ -329,7 +331,7 @@ class ValsouCheckV6(BaseValsou):
         self.dist_2mm = 0.002 * self.scale / self.bathy_transform[1]
         logger.debug("2-mm in nodes: %f (scale: %f, res: %f)" % (self.dist_2mm, self.scale, self.bathy_transform[1]))
         # epsilon used to compare floating-point depths
-        eps_depth = 10**-(depth_precision + 1)
+        eps_depth = 10 ** -(depth_precision + 1)
         logger.debug("epsilon depth: %f" % (eps_depth))
 
         self._calc_array_coords_in_cur_tile(depth_precision=depth_precision)
@@ -484,7 +486,7 @@ class ValsouCheckV6(BaseValsou):
                         # 2 - depth and position issues
                         if position_issue:
                             self.flagged_features.append([self.valsou_geo[i][0], self.valsou_geo[i][1],
-                                                         'depth discrepancy and position issue %s %s'
+                                                          'depth discrepancy and position issue %s %s'
                                                           % (position_issue_msg, nodata_token)])
                             logger.info("+1  -> depth discrepancy and position issue %s: %s, %s"
                                         % (position_issue_msg, self.valsou_geo[i][0], self.valsou_geo[i][1]))

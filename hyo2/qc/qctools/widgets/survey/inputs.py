@@ -3,15 +3,9 @@ from PySide2 import QtWidgets, QtGui, QtCore
 import os
 import logging
 
-logger = logging.getLogger(__name__)
-
 from hyo2.qc.qctools.gui_settings import GuiSettings
-from hyo2.qc.common.helper import Helper
 
-# Use NSURL as a workaround to pyside/Qt4 behaviour for dragging and dropping on OSx
-if Helper.is_darwin():
-    # noinspection PyUnresolvedReferences
-    from Foundation import NSURL
+logger = logging.getLogger(__name__)
 
 
 class InputsTab(QtWidgets.QMainWindow):
@@ -236,10 +230,7 @@ class InputsTab(QtWidgets.QMainWindow):
             e.accept()
             # Workaround for OSx dragging and dropping
             for url in e.mimeData().urls():
-                if Helper.is_darwin():
-                    dropped_path = str(NSURL.URLWithString_(str(url.toString())).filePathURL().path())
-                else:
-                    dropped_path = str(url.toLocalFile())
+                dropped_path = str(url.toLocalFile())
                 dropped_path = os.path.abspath(dropped_path).replace("\\", "/")
 
                 logger.debug("dropped path: %s" % dropped_path)

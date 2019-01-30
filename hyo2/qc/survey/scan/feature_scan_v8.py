@@ -1,11 +1,11 @@
 import datetime
 import logging
 
-logger = logging.getLogger(__name__)
-
 from hyo2.qc.survey.scan.base_scan import BaseScan, scan_algos, survey_areas
 from hyo2.qc.common.s57_aux import S57Aux
-from hyo2.qc.common.helper import Helper
+from hyo2.abc.lib.helper import Helper
+
+logger = logging.getLogger(__name__)
 
 
 class FeatureScanV8(BaseScan):
@@ -74,6 +74,7 @@ class FeatureScanV8(BaseScan):
         self.flagged_m_covr_ninfom = list()
         self.flagged_onotes = list()
         self.flagged_hsdrec_empty = list()
+        self.flagged_prohibited = list()
         self.flagged_fish_haven = list()
         self.flagged_mooring_buoy = list()
         self.flagged_m_qual_catzoc = list()
@@ -126,6 +127,7 @@ class FeatureScanV8(BaseScan):
         cast_issue = False
         timestamp = None
         now = None
+        # noinspection PyBroadException
         try:
             timestamp = datetime.datetime(year=int(value[0:4]),
                                           month=int(value[4:6]),
@@ -454,14 +456,14 @@ class FeatureScanV8(BaseScan):
                 if attr.acronym == "WATLEV":
                     try:
                         watlev = int(attr.value)
-                    except ValueError as e:
+                    except ValueError:
                         logger.warning("issue with WATLEV value:'%s' at position: %s, %s" %
                                        (attr.value, obj.centroid.x, obj.centroid.y))
 
                 elif attr.acronym == "VALSOU":
                     try:
                         valsou = float(attr.value)
-                    except ValueError as e:
+                    except ValueError:
                         logger.warning("issue with VALSOU value:'%s' at position: %s, %s" %
                                        (attr.value, obj.centroid.x, obj.centroid.y))
 
@@ -1474,8 +1476,8 @@ class FeatureScanV8(BaseScan):
         # @ Ensure new or updated shoreline construction has catslc
         self.report += "New or Updated SLCONS with empty/missing mandatory attribute CATSLC [CHECK]"
         self.flagged_slcons = self.flag_features_with_attribute_value(slcons, attribute='CATSLC',
-                                                values_to_flag=['', ],
-                                                check_attrib_existence=True)
+                                                                      values_to_flag=['', ],
+                                                                      check_attrib_existence=True)
         # @ Isolate new or updated land elevation
         lndelv = S57Aux.select_by_object(objects=new_update_features, object_filter=['LNDELV', ])
         # @ Ensure new or updated land elevation has elevat
@@ -1497,8 +1499,8 @@ class FeatureScanV8(BaseScan):
         # @ Ensure M_COVR has catcov
         self.report += "M_COVR with empty/missing mandatory attribute CATCOV [CHECK]"
         self.flagged_m_covr_catcov = self.flag_features_with_attribute_value(mcovr, attribute='CATCOV',
-                                                values_to_flag=['', ],
-                                                check_attrib_existence=True)
+                                                                             values_to_flag=['', ],
+                                                                             check_attrib_existence=True)
         # @ Ensure M_COVR has inform
         self.report += "M_COVR missing mandatory attribute INFORM [CHECK]"
         self.flagged_m_covr_inform = self.check_features_for_attribute(mcovr, 'INFORM')

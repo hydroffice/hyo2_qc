@@ -2,24 +2,26 @@ import os
 import sys
 from collections import OrderedDict, defaultdict
 import numpy as np
+# noinspection PyProtectedMember
 from hyo2.grids._grids import FLOAT as GRIDS_FLOAT, DOUBLE as GRIDS_DOUBLE, UINT32 as GRIDS_UINT32
 
-from matplotlib import rcParams
-
 import matplotlib
+
 matplotlib.use('Qt5Agg')
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FormatStrFormatter, ScalarFormatter
 
 import warnings
+
 warnings.simplefilter(action="ignore", category=RuntimeWarning)
 
 import logging
-logger = logging.getLogger(__name__)
 
 from hyo2.qc.survey.gridqa.base_qa import BaseGridQA, qa_algos
 from hyo2.qc.survey.gridqa.grid_qa_calc_v4 import calc_tvu_qc_dd, calc_tvu_qc_df, calc_tvu_qc_fd, calc_tvu_qc_ff
-from hyo2.qc.common.helper import Helper
+from hyo2.abc.lib.helper import Helper
+
+logger = logging.getLogger(__name__)
 
 
 class GridInfoV4:
@@ -80,7 +82,6 @@ class GridInfoV4:
 
 
 class GridQAV4(BaseGridQA):
-
     RGB_PuBu1 = (.92, .90, .95)
     RGB_PuBu2 = (.65, .74, .86)
     RGB_PuBu3 = (.17, .55, .75)
@@ -177,7 +178,7 @@ class GridQAV4(BaseGridQA):
             layers.append(self.grids.density_layer_name())
             if self.has_tvu_qc:
                 layers.append(self.grids.tvu_qc_layer_name())
-        logger.debug("selected layers: %s" % (layers, ))
+        logger.debug("selected layers: %s" % (layers,))
 
         while self.grids.read_next_tile(layers=layers):
             # logger.debug("new tile")
@@ -207,7 +208,7 @@ class GridQAV4(BaseGridQA):
         bathy_png_file = "%s.QAv4.depth.png" % os.path.splitext(self.grids.current_basename)[0]
         bathy_png_path = os.path.join(self.output_folder, bathy_png_file)
         bathy_png_path = Helper.truncate_too_long(bathy_png_path, left_truncation=True)
-        GridQAV4.plot_hysto(layer_name="Depth", bins=bathy_bins, density=bathy_density, bin_width=(1/self.bathy_mul),
+        GridQAV4.plot_hysto(layer_name="Depth", bins=bathy_bins, density=bathy_density, bin_width=(1 / self.bathy_mul),
                             grid_info=self.bathy_info, png_path=bathy_png_path)
 
         # density
@@ -246,7 +247,8 @@ class GridQAV4(BaseGridQA):
             density_png_path = os.path.join(self.output_folder, density_png_file)
             density_png_path = Helper.truncate_too_long(density_png_path, left_truncation=True)
             GridQAV4.plot_hysto(layer_name="Density", bins=density_bins, density=density_density,
-                                bin_width=(1/self.density_mul), grid_info=self.density_info, png_path=density_png_path)
+                                bin_width=(1 / self.density_mul), grid_info=self.density_info,
+                                png_path=density_png_path)
             # save the depth vs. density plot as png
             self._finish_plot_depth_vs_density()
             # delete the density array
@@ -270,7 +272,8 @@ class GridQAV4(BaseGridQA):
             self.tvu_qc_info.q3 = tvu_qc_bins[np.searchsorted(tvu_qc_cumsum, 0.75)]
             # noinspection PyTypeChecker
             self.tvu_qc_info.p97_5 = tvu_qc_bins[np.searchsorted(tvu_qc_cumsum, 0.975)]
-            self.tvu_qc_info.pct_of_passed_nodes = self.tvu_qc_info.nr_of_passed_nodes / float(self.tvu_qc_info.nr_of_nodes)
+            self.tvu_qc_info.pct_of_passed_nodes = self.tvu_qc_info.nr_of_passed_nodes / float(
+                self.tvu_qc_info.nr_of_nodes)
             if self.tvu_qc_info.pct_of_passed_nodes >= 0.95:
                 logger.debug("%.2f%% of grid nodes meets the maximum allowable TVU"
                              % (self.tvu_qc_info.pct_of_passed_nodes * 100.0))
@@ -286,7 +289,7 @@ class GridQAV4(BaseGridQA):
             tvu_qc_png_path = os.path.join(self.output_folder, tvu_qc_png_file)
             tvu_qc_png_path = Helper.truncate_too_long(tvu_qc_png_path, left_truncation=True)
             GridQAV4.plot_hysto(layer_name="TVU QC", bins=tvu_qc_bins, density=tvu_qc_density,
-                                bin_width=(1/self.tvu_qc_mul), grid_info=self.tvu_qc_info,
+                                bin_width=(1 / self.tvu_qc_mul), grid_info=self.tvu_qc_info,
                                 png_path=tvu_qc_png_path)
             # save the depth vs. tvu qc plot as png
             self._finish_plot_depth_vs_tvu_qc()
@@ -316,7 +319,8 @@ class GridQAV4(BaseGridQA):
                 self.pct_od_info.q3 = pct_od_bins[np.searchsorted(pct_od_cumsum, 0.75)]
                 # noinspection PyTypeChecker
                 self.pct_od_info.p97_5 = pct_od_bins[np.searchsorted(pct_od_cumsum, 0.975)]
-                self.pct_od_info.pct_of_passed_nodes = self.pct_od_info.nr_of_passed_nodes / float(self.pct_od_info.nr_of_nodes)
+                self.pct_od_info.pct_of_passed_nodes = self.pct_od_info.nr_of_passed_nodes / float(
+                    self.pct_od_info.nr_of_nodes)
                 if self.pct_od_info.pct_of_passed_nodes >= 0.95:
                     logger.debug("%.2f%% of grid nodes meets the coarsest allowable resolution"
                                  % (self.pct_od_info.pct_of_passed_nodes * 100.0))
@@ -356,7 +360,8 @@ class GridQAV4(BaseGridQA):
                 self.pct_cc_info.q3 = pct_cc_bins[np.searchsorted(pct_cc_cumsum, 0.75)]
                 # noinspection PyTypeChecker
                 self.pct_cc_info.p97_5 = pct_cc_bins[np.searchsorted(pct_cc_cumsum, 0.975)]
-                self.pct_cc_info.pct_of_passed_nodes = self.pct_cc_info.nr_of_passed_nodes / float(self.pct_cc_info.nr_of_nodes)
+                self.pct_cc_info.pct_of_passed_nodes = self.pct_cc_info.nr_of_passed_nodes / float(
+                    self.pct_cc_info.nr_of_nodes)
                 if self.pct_cc_info.pct_of_passed_nodes >= 0.95:
                     logger.debug("%.2f%% of grid nodes meets the coarsest allowable resolution"
                                  % (self.pct_cc_info.pct_of_passed_nodes * 100.0))
@@ -413,7 +418,6 @@ class GridQAV4(BaseGridQA):
                     self.density_info.max = np.max(self.density_values)
 
                 for density in self.density_values:
-
                     density_key = density
                     self.density_dict[density_key] += 1
 
@@ -430,8 +434,7 @@ class GridQAV4(BaseGridQA):
                     self.tvu_qc_info.max = np.max(self.tvu_qc_values)
 
                 for tvu_qc in self.tvu_qc_values:
-
-                    tvu_qc_key = int(round(tvu_qc*self.tvu_qc_mul))
+                    tvu_qc_key = int(round(tvu_qc * self.tvu_qc_mul))
                     self.tvu_qc_dict[tvu_qc_key] += 1
 
                 self._update_plot_depth_vs_tvu_qc()
@@ -453,7 +456,7 @@ class GridQAV4(BaseGridQA):
 
                     for pct_od in self.pct_od_values:
                         # logger.debug("- value: %s" % pct_od)
-                        pct_od_key = int(round(pct_od*self.pct_od_mul))
+                        pct_od_key = int(round(pct_od * self.pct_od_mul))
                         self.pct_od_dict[pct_od_key] += 1
 
             # - pct cc
@@ -609,10 +612,10 @@ class GridQAV4(BaseGridQA):
                                        self.grids.tvu_qc)
                 else:
                     raise RuntimeError("Unsupported data type for uncertainty")
-                #logger.debug(self.grids.tvu_qc)
+                # logger.debug(self.grids.tvu_qc)
 
                 self.tvu_qc_values = np.fabs(self.grids.tvu_qc[~np.isnan(self.grids.tvu_qc)])
-                #logger.debug(self.tvu_qc_values)
+                # logger.debug(self.tvu_qc_values)
                 self.tvu_qc_recalculated = True
                 self.tvu_qc_info.histo_x_label = "Node uncertainty as a fraction of allowable IHO TVU (computed)"
 
@@ -643,7 +646,7 @@ class GridQAV4(BaseGridQA):
             else:
                 raise RuntimeError("Unsupported data type for density")
             # logger.debug('pct od values: %s' % len(self.pct_od_values))
-        
+
         # - complete coverage
         if self.full_coverage:
 
@@ -801,13 +804,13 @@ class GridQAV4(BaseGridQA):
             p1, = self.tvu_qc_ax.plot(self.tvu_qc_values[other_indices][pass_slice],
                                       self.bathy_values[other_indices][pass_slice], 'b+', alpha=0.5)
         except IndexError as e:
-            logger.error("index issue while plotting pass slide, %s" % (e, ))
+            logger.error("index issue while plotting pass slide, %s" % (e,))
 
         try:
             p2, = self.tvu_qc_ax.plot(self.tvu_qc_values[other_indices][fail_slice],
                                       self.bathy_values[other_indices][fail_slice], 'r+', alpha=0.5)
         except IndexError as e:
-            logger.error("index issue while plotting fail slice, %s" % (e, ))
+            logger.error("index issue while plotting fail slice, %s" % (e,))
 
     def _finish_plot_depth_vs_tvu_qc(self):
 

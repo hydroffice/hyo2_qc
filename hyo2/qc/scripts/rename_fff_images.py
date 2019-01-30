@@ -1,15 +1,10 @@
-import pyximport
-pyximport.install()
-import Cython.Compiler.Options
-Cython.Compiler.Options.annotate = True
-
 import logging
 import os
 
-from PySide2 import QtGui, QtCore, QtWidgets
+from PySide2 import QtCore, QtWidgets
 from hyo2.qc.common import default_logging
 
-from hyo2.qc.common.helper import Helper
+from hyo2.abc.lib.helper import Helper
 
 default_logging.load()
 logger = logging.getLogger()
@@ -109,14 +104,8 @@ else:
 logger.debug("output folder: %s" % output_folder)
 
 
-class S57ImageRename(BaseScan):
-    def __init__(self, s57):
-        super().__init__(s57=s57)
-        self.all_features = self.s57.rec10s
-
-
 # select all features with images
-def check_features_for_attribute(self, objects, attribute, possible=False):
+def check_features_for_attribute(objects, attribute):
     """Check if the passed features have the passed attribute"""
     features_with_images = list()
     features_without_images = list()

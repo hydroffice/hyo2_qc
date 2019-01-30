@@ -2,10 +2,12 @@ from PySide2 import QtCore, QtGui, QtWidgets
 
 import os
 import logging
-logger = logging.getLogger(__name__)
 
 from hyo2.qc.qctools.gui_settings import GuiSettings
-from hyo2.qc.common.helper import Helper
+from hyo2.qc.common import lib_info
+from hyo2.abc.lib.helper import Helper
+
+logger = logging.getLogger(__name__)
 
 
 class GridXyzTab(QtWidgets.QMainWindow):
@@ -164,7 +166,7 @@ class GridXyzTab(QtWidgets.QMainWindow):
         # library takes care of progress bar
 
         version = 1
-        self.parent_win.change_info_url(Helper.web_url(suffix="chart_grid_xyz_%d" % version))
+        self.parent_win.change_info_url(Helper(lib_info=lib_info).web_url(suffix="chart_grid_xyz_%d" % version))
 
         self.prj.grid_xyz(version=version,
                           geographic=self.set_geo_xyv1.isChecked(),

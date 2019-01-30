@@ -4,8 +4,8 @@ import traceback
 import logging
 
 from hyo2.abc.lib.progress.cli_progress import CliProgress
+from hyo2.abc.lib.helper import Helper
 from hyo2.qc.common.project import BaseProject
-from hyo2.qc.common.helper import Helper
 from hyo2.qc.common.writers.s57_writer import S57Writer
 from hyo2.qc.common.writers.kml_writer import KmlWriter
 from hyo2.qc.common.writers.shp_writer import ShpWriter
@@ -189,7 +189,7 @@ class ChartProject(BaseProject):
 
             # output naming
             output_name = str(os.path.basename(s57_file).split(".")[0]) + \
-                              ".truncV" + str(version) + "d" + str(decimal_places) + ".000"
+                          ".truncV" + str(version) + "d" + str(decimal_places) + ".000"
             if self.output_project_folder:
                 output_folder = os.path.join(self.output_folder, survey_label)
             else:

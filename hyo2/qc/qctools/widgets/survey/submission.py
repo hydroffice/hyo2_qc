@@ -3,15 +3,11 @@ from PySide2 import QtCore, QtGui, QtWidgets
 import os
 import logging
 
-logger = logging.getLogger(__name__)
-
 from hyo2.qc.qctools.gui_settings import GuiSettings
-from hyo2.qc.common.helper import Helper
+from hyo2.qc.common import lib_info
+from hyo2.abc.lib.helper import Helper
 
-# Use NSURL as a workaround to pyside/Qt4 behaviour for dragging and dropping on OSx
-if Helper.is_darwin():
-    # noinspection PyUnresolvedReferences
-    from Foundation import NSURL
+logger = logging.getLogger(__name__)
 
 
 class SubmissionTab(QtWidgets.QMainWindow):
@@ -150,10 +146,7 @@ class SubmissionTab(QtWidgets.QMainWindow):
             for url in e.mimeData().urls():
 
                 # Workaround for OSx dragging and dropping
-                if Helper.is_darwin():
-                    dropped_folder = str(NSURL.URLWithString_(str(url.toString())).filePathURL().path())
-                else:
-                    dropped_folder = str(url.toLocalFile())
+                dropped_folder = str(url.toLocalFile())
                 logger.debug("dropped path: %s" % dropped_folder)
 
                 if not os.path.isdir(dropped_folder):
@@ -476,7 +469,8 @@ class SubmissionTab(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.warning(self, "Warning", msg, QtWidgets.QMessageBox.Ok)
             return
 
-        self.parent_win.change_info_url(Helper.web_url(suffix="survey_submission_check_%d" % version))
+        self.parent_win.change_info_url(
+            Helper(lib_info=lib_info).web_url(suffix="survey_submission_check_%d" % version))
 
         # for each file in the project grid list
         msg = "Errors/warnings per submission folder:\n"

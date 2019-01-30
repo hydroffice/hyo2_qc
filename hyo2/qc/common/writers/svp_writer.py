@@ -1,14 +1,14 @@
 import os
 from datetime import datetime
-
 import logging
-logger = logging.getLogger(__name__)
 
 from hyo2.qc.common.geodesy import Geodesy as Gd
-from hyo2.qc.common.helper import Helper
+from hyo2.abc.lib.helper import Helper
+
+logger = logging.getLogger(__name__)
 
 
-class SvpWriter(object):
+class SvpWriter:
 
     @classmethod
     def write(cls, feature_list, path):

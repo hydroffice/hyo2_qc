@@ -1,14 +1,13 @@
 import math
 from scipy import ndimage
-from hyo2.qc.common.gdal_aux import GdalAux
+from hyo2.abc.lib.gdal_aux import GdalAux
 from osgeo import osr, gdal
+# noinspection PyProtectedMember
 from hyo2.grids._grids import FLOAT as GRIDS_FLOAT, DOUBLE as GRIDS_DOUBLE
 from hyo2.s57.s57 import S57
 import numpy as np
 import os
 import logging
-
-logger = logging.getLogger(__name__)
 
 from hyo2.qc.survey.fliers.find_fliers_checks_v8 import \
     check_laplacian_operator_float, check_laplacian_operator_double, \
@@ -19,6 +18,9 @@ from hyo2.qc.survey.fliers.find_fliers_checks_v8 import \
 from hyo2.qc.survey.fliers.base_fliers import BaseFliers, fliers_algos
 from hyo2.qc.common.s57_aux import S57Aux
 from hyo2.qc.survey.fliers.thresholds_v8 import ThresholdsV8
+
+
+logger = logging.getLogger(__name__)
 
 
 class FindFliersV8(BaseFliers):

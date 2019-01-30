@@ -2,8 +2,8 @@ import os
 import logging
 
 from hyo2.qc.common import lib_info
-from hyo2.qc.common.helper import Helper
-from hyo2.qc.common.report import Report
+from hyo2.abc.lib.helper import Helper
+from hyo2.abc.app.report import Report
 
 logger = logging.getLogger(__name__)
 

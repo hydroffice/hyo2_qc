@@ -1,11 +1,13 @@
 from PySide2 import QtCore, QtGui, QtWidgets
+# noinspection PyProtectedMember
 from hyo2.grids import _gappy
 import os
 import traceback
 import logging
 
 from hyo2.qc.qctools.gui_settings import GuiSettings
-from hyo2.qc.common.helper import Helper
+from hyo2.qc.common import lib_info
+from hyo2.abc.lib.helper import Helper
 
 logger = logging.getLogger(__name__)
 
@@ -601,7 +603,7 @@ class HolesTab(QtWidgets.QMainWindow):
         if len(self.prj.grid_list) == 0:
             raise RuntimeError("the grid list is empty")
 
-        self.parent_win.change_info_url(Helper.web_url(suffix="survey_find_holes_%d" % version))
+        self.parent_win.change_info_url(Helper(lib_info=lib_info).web_url(suffix="survey_find_holes_%d" % version))
 
         # for each file in the project grid list
         msg = "Potential holidays per input:\n"

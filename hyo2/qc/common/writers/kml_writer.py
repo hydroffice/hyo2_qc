@@ -1,14 +1,14 @@
 from osgeo import ogr
 import os
-
 import logging
+
+from hyo2.abc.lib.gdal_aux import GdalAux
+from hyo2.abc.lib.helper import Helper
+
 logger = logging.getLogger(__name__)
 
-from hyo2.qc.common.gdal_aux import GdalAux
-from hyo2.qc.common.helper import Helper
 
-
-class KmlWriter(object):
+class KmlWriter:
 
     @classmethod
     def _create_ogr_point_lyr_and_fields(cls, ds):

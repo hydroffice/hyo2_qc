@@ -3,12 +3,14 @@ import locale
 import numpy as np
 from osgeo import osr
 import logging
-logger = logging.getLogger(__name__)
 
 from hyo2.qc.survey.valsou.base_valsou import BaseValsou, valsou_algos
 from hyo2.qc.common.s57_aux import S57Aux
-from hyo2.qc.common.gdal_aux import GdalAux
+from hyo2.abc.lib.gdal_aux import GdalAux
+# noinspection PyProtectedMember
 from hyo2.grids._grids import FLOAT as GRIDS_FLOAT, DOUBLE as GRIDS_DOUBLE
+
+logger = logging.getLogger(__name__)
 
 
 class ValsouCheckV7(BaseValsou):

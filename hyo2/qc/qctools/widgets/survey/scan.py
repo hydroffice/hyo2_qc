@@ -4,11 +4,12 @@ import os
 import traceback
 import logging
 
-logger = logging.getLogger(__name__)
-
 from hyo2.qc.qctools.gui_settings import GuiSettings
-from hyo2.qc.common.helper import Helper
+from hyo2.qc.common import lib_info
+from hyo2.abc.lib.helper import Helper
 from hyo2.qc.survey.scan.base_scan import survey_areas
+
+logger = logging.getLogger(__name__)
 
 
 class ScanTab(QtWidgets.QMainWindow):
@@ -577,7 +578,7 @@ class ScanTab(QtWidgets.QMainWindow):
     def _click_feature_scan(self, version):
         """abstract the feature scan calling mechanism"""
 
-        self.parent_win.change_info_url(Helper.web_url(suffix="survey_feature_scan_%d" % version))
+        self.parent_win.change_info_url(Helper(lib_info=lib_info).web_url(suffix="survey_feature_scan_%d" % version))
 
         # library takes care of progress bar
 

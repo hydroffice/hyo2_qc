@@ -2,21 +2,19 @@ from osgeo import osr
 import numpy as np
 import time
 import os
-import shutil
 import traceback
 import logging
 
 from hyo2.abc.lib.progress.cli_progress import CliProgress
+from hyo2.abc.lib.gdal_aux import GdalAux
+from hyo2.abc.lib.helper import Helper
 from hyo2.qc.common.project import BaseProject
-from hyo2.qc.common.helper import Helper
 from hyo2.qc.common.writers.s57_writer import S57Writer
-from hyo2.qc.common.writers.svp_writer import SvpWriter
 from hyo2.qc.common.writers.kml_writer import KmlWriter
 from hyo2.qc.common.writers.shp_writer import ShpWriter
-from hyo2.qc.common.gdal_aux import GdalAux
-from hyo2.qc.survey.fliers.base_fliers import fliers_algos
 from hyo2.qc.survey.fliers.find_fliers_v7 import FindFliersV7
 from hyo2.qc.survey.fliers.find_fliers_v8 import FindFliersV8
+# noinspection PyProtectedMember
 from hyo2.grids.gappy import _gappy
 from hyo2.qc.survey.gridqa.grid_qa_v4 import GridQAV4
 from hyo2.qc.survey.gridqa.grid_qa_v5 import GridQAV5
@@ -35,6 +33,7 @@ from hyo2.qc.survey.sbdare.sbdare_export_v3 import SbdareExportV3
 from hyo2.qc.survey.sbdare.sbdare_export_v4 import SbdareExportV4
 from hyo2.qc.survey.submission.base_submission import BaseSubmission, submission_algos
 from hyo2.qc.survey.submission.submission_checks_v3 import SubmissionChecksV3
+# noinspection PyProtectedMember
 from hyo2.grids._grids import FLOAT as GRIDS_FLOAT, DOUBLE as GRIDS_DOUBLE
 
 logger = logging.getLogger(__name__)
@@ -308,6 +307,7 @@ class SurveyProject(BaseProject):
         S57Writer.write_soundings(feature_list=self._fliers.flagged_fliers, path=s57_file2)
         self.file_fliers_s57 = s57_file2
 
+        # noinspection PyBroadException
         try:
             out_file = s57_file2[:-4]
             if self.output_kml:
@@ -392,7 +392,7 @@ class SurveyProject(BaseProject):
                 # store as list of list
                 holes += lonlat.tolist()
 
-        except Exception as e:
+        except Exception:
             raise RuntimeError("Unable to perform conversion of the possible holes to geographic: {e}")
 
         logger.info(f"Detected candidate holes: {len(holes)}")
@@ -523,7 +523,7 @@ class SurveyProject(BaseProject):
         algo_type = "HFv4"
         basename = os.path.join(output_folder, "%s.%s.%s.%s"
                                 % (basename, algo_type, mode_type, upper_limit_sizer))
-        svp_file = basename + ".svp"
+        # svp_file = basename + ".svp"
         s57_file = basename + ".000"
 
         S57Writer.write_soundings(feature_list=flagged_holes, path=s57_file)
@@ -781,6 +781,7 @@ class SurveyProject(BaseProject):
 
         S57Writer.write_bluenotes(feature_list=self._designated.flagged_designated, path=s57_file)
         self.file_designated_s57 = s57_file
+        # noinspection PyBroadException
         try:
             out_file = s57_file[:-4]
             if self.output_kml:
@@ -1062,6 +1063,7 @@ class SurveyProject(BaseProject):
 
         S57Writer.write_bluenotes(feature_list=self._scan.flagged_features, path=s57_file)
         self.file_scan_s57 = s57_file
+        # noinspection PyBroadException
         try:
             out_file = s57_file[:-4]
 
@@ -1202,7 +1204,7 @@ class SurveyProject(BaseProject):
             self.add_to_grid_list2(i_grid_file)
             self.set_cur_grid2(path=i_grid_file)
             self.open_to_read_cur_grid2()
-            self.selected_layers_in_cur_grid2 = [layer_types["depth"], ]
+            # self.selected_layers_in_cur_grid2 = [layer_types["depth"], ]
 
             nr_of_features = len(self._valsou.flagged_features)
             logger.debug("features to test: %d" % nr_of_features)
@@ -1245,10 +1247,8 @@ class SurveyProject(BaseProject):
                 # logger.debug("types: %s" % (list(tile.types),))
 
                 # convert feature to array coords
-                valsou_array[:, 0] = (valsou_array[:, 0] - tile.bbox.transform[0]) / \
-                                     tile.bbox.transform[1] - 0.5
-                valsou_array[:, 1] = (valsou_array[:, 1] - tile.bbox.transform[3]) / \
-                                     tile.bbox.transform[5] - 0.5
+                valsou_array[:, 0] = (valsou_array[:, 0] - tile.bbox.transform[0]) / tile.bbox.transform[1] - 0.5
+                valsou_array[:, 1] = (valsou_array[:, 1] - tile.bbox.transform[3]) / tile.bbox.transform[5] - 0.5
 
                 # convert to the closest array coordinates
                 valsou_closest = np.empty_like(valsou_array)
@@ -1259,23 +1259,23 @@ class SurveyProject(BaseProject):
                 depth_idx = tile.band_index(self._gr2.depth_layer_name())
                 # logger.debug("depth layer: %s [idx: %s]" % (self.grids.grid_data_type(depth_type), depth_idx))
 
-                bathy_is_double = None
-                bathy_values = None
-                bathy_nodata = None
+                # bathy_is_double = None
+                # bathy_values = None
+                # bathy_nodata = None
                 if depth_type == GRIDS_DOUBLE:
 
-                    bathy_is_double = True
+                    # bathy_is_double = True
                     bathy_values = tile.doubles[depth_idx]
-                    bathy_nodata = tile.doubles_nodata[depth_idx]
+                    # bathy_nodata = tile.doubles_nodata[depth_idx]
                     bathy_values[tile.doubles[depth_idx] == tile.doubles_nodata[depth_idx]] = np.nan
                     if len(bathy_values) == 0:
                         raise RuntimeError("No bathy values")
 
                 elif depth_type == GRIDS_FLOAT:
 
-                    bathy_is_double = False
+                    # bathy_is_double = False
                     bathy_values = tile.floats[depth_idx]
-                    bathy_nodata = tile.floats_nodata[depth_idx]
+                    # bathy_nodata = tile.floats_nodata[depth_idx]
                     bathy_values[tile.floats[depth_idx] == tile.floats_nodata[depth_idx]] = np.nan
                     if len(bathy_values) == 0:
                         raise RuntimeError("No bathy values")
@@ -1283,7 +1283,7 @@ class SurveyProject(BaseProject):
                 else:
                     raise RuntimeError("Unsupported data type for bathy")
 
-                depth_closest = None
+                # depth_closest = None
                 for idx, closest_node in enumerate(valsou_closest):
 
                     # if the "[*]" is NOT found (there were data under the flagged feature)
@@ -1300,7 +1300,8 @@ class SurveyProject(BaseProject):
                             (c < 0) or (c >= tile.bbox.cols):
                         self._valsou.flagged_features.append(temp_flagged_features[idx])
                         # logger.debug("adding (%s, %s) -> out of bbox (%s, %s)"
-                        #              % (c, r, self._gr2.cur_grids.cur_slice.start, self._gr2.cur_grids.cur_slice.stop))
+                        #              % (c, r, self._gr2.cur_grids.cur_slice.start,
+                        #              self._gr2.cur_grids.cur_slice.stop))
                         continue
 
                     logger.debug("point (%s, %s) -> (%s, %s) in grid (%s, %s)"
@@ -1391,6 +1392,7 @@ class SurveyProject(BaseProject):
         logger.debug("output: %s" % s57_file)
         S57Writer.write_bluenotes(feature_list=self._valsou.flagged_features, path=s57_file, list_of_list=False)
         self.file_valsou_s57 = s57_file
+        # noinspection PyBroadException
         try:
 
             out_file = s57_file[:-4]

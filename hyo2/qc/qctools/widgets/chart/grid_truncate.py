@@ -2,10 +2,12 @@ from PySide2 import QtCore, QtGui, QtWidgets
 
 import os
 import logging
-logger = logging.getLogger(__name__)
 
+from hyo2.qc.common import lib_info
 from hyo2.qc.qctools.gui_settings import GuiSettings
-from hyo2.qc.common.helper import Helper
+from hyo2.abc.lib.helper import Helper
+
+logger = logging.getLogger(__name__)
 
 
 class GridTruncateTab(QtWidgets.QMainWindow):
@@ -114,5 +116,5 @@ class GridTruncateTab(QtWidgets.QMainWindow):
         # library takes care of progress bar
 
         version = 2
-        self.parent_win.change_info_url(Helper.web_url(suffix="chart_grid_truncate_%d" % version))
+        self.parent_win.change_info_url(Helper(lib_info=lib_info).web_url(suffix="chart_grid_truncate_%d" % version))
         self.prj.grid_truncate(version=version, decimal_places=int(self.set_dec_places_gtv2.text()))

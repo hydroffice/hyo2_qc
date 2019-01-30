@@ -1,8 +1,3 @@
-import pyximport
-pyximport.install()
-import Cython.Compiler.Options
-Cython.Compiler.Options.annotate = True
-
 from PySide2 import QtCore, QtWidgets
 
 import os
@@ -10,7 +5,7 @@ import logging
 
 from hyo2.qc.common import default_logging
 from hyo2.qc.survey.project import SurveyProject
-from hyo2.qc.common.helper import Helper
+from hyo2.abc.lib.helper import Helper
 
 default_logging.load()
 logger = logging.getLogger()
