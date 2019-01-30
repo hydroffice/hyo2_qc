@@ -1,9 +1,10 @@
 import logging
-logger = logging.getLogger(__name__)
 
+from hyo2.qc.common import lib_info
 from hyo2.qc.common.helper import Helper
 from hyo2.qc.common.report import Report
 
+logger = logging.getLogger(__name__)
 
 scan_algos = {
     "BASE": 0,
@@ -26,6 +27,7 @@ survey_areas = {
     "Atlantic Coast": 2,
 }
 
+
 class BaseScan:
 
     def __init__(self, s57):
@@ -38,7 +40,7 @@ class BaseScan:
         # outputs
         self.flagged_features = [[], [], []]
         # report
-        self.report = Report()
+        self.report = Report(lib_name=lib_info.lib_name, lib_version=lib_info.lib_version)
 
     def __repr__(self):
         msg = "  <BaseScan>\n"

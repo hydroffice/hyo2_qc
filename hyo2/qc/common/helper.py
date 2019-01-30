@@ -10,10 +10,10 @@ from collections import deque
 from appdirs import user_data_dir
 import logging
 
-logger = logging.getLogger(__name__)
-
 from hyo2.qc import __version__ as qc2_version
 from hyo2.qc import name as qc2_name
+
+logger = logging.getLogger(__name__)
 
 
 class Helper:

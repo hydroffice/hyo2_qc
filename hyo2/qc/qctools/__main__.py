@@ -1,5 +1,8 @@
 import logging
+from hyo2.qc.qctools import gui
+
 logger = logging.getLogger()
+
 
 def set_logging(default_logging=logging.WARNING, hyo2_logging=logging.INFO, abc_logging=logging.DEBUG):
     logging.basicConfig(
@@ -11,7 +14,5 @@ def set_logging(default_logging=logging.WARNING, hyo2_logging=logging.INFO, abc_
 
 
 set_logging()
-
-from hyo2.qc.qctools import gui
 
 gui.gui()

@@ -1,9 +1,10 @@
 import logging
-logger = logging.getLogger(__name__)
 
+from hyo2.qc.common import lib_info
 from hyo2.qc.common.helper import Helper
 from hyo2.qc.common.report import Report
 
+logger = logging.getLogger(__name__)
 
 triangle_algos = {
     "BASE": 0,
@@ -29,7 +30,7 @@ class BaseTriangle:
         # outputs
         self.flagged_features = [[], [], []]
         # report
-        self.report = Report()
+        self.report = Report(lib_name=lib_info.lib_name, lib_version=lib_info.lib_version)
         # progress bar
         self.progress = progress
 

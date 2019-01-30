@@ -2,46 +2,46 @@ import os
 import datetime
 import logging
 
-logger = logging.getLogger(__name__)
+from hyo2.abc.lib.helper import Helper
 
-from hyo2.qc import __version__ as qc_version
-from hyo2.qc.common.helper import Helper
+logger = logging.getLogger(__name__)
 
 
 class Report:
     """A class used to abstract a report"""
 
-    def __init__(self):
+    def __init__(self, lib_name: str, lib_version: str):
+        self.lib_name = lib_name
+        self.lib_version = lib_version
         self.records = list()  # list of strings to be converted in human-readable form
 
-    def __iadd__(self, record):
+    def __iadd__(self, record: str) -> "Report":
         """Add a record to the existing list of string records"""
-        if not isinstance(record, str):
-            raise TypeError("the input record must be a unicode string: %s IS %s" % (record, type(record)))
         self.records.append(record)
         return self
 
-    def display(self):
+    def display(self) -> None:
         """Print the content of the report on the monitor"""
         logger.info("<<<   START OF REPORT   >>>")
         for rec in self.records:
             logger.info("||| %s" % rec)
         logger.info("<<<    END OF REPORT    >>>")
 
-    def generate_pdf(self, path, title="Document", use_colors=False, small=False):
+    def generate_pdf(self, path: str, title: str = "Document", use_colors: bool = False, small: bool = False) -> bool:
         """Generate a multiple-page document, with passed title and list of strings"""
 
         # this function heavily relies on PySide for pdf creation, the import is local
         # to the function so that the class can still be used also without Pyside
 
         try:
-            from PySide import QtGui
-            from PySide import QtCore
+            from PySide2 import QtGui
+            from PySide2 import QtCore
+            from PySide2 import QtPrintSupport
 
         except (ImportError, ValueError, IOError):
-            logger.warning("PySide is not properly installed, thus you cannot create a pdf file")
+            logger.warning("PySide2 is not properly installed, thus you cannot create a pdf file")
             self.display()
-            return
+            return False
 
         # some preliminary tests
         if len(path) == 0:
@@ -89,12 +89,12 @@ class Report:
         cc_flags = QtCore.Qt.AlignCenter | QtCore.Qt.TextWordWrap
 
         # create the printer for pdf
-        printer = QtGui.QPrinter(QtGui.QPrinter.HighResolution)
+        printer = QtPrintSupport.QPrinter(QtPrintSupport.QPrinter.HighResolution)
         printer.setCreator("HydrOffice")
         printer.setDocName("HydrOffice.pdf")
-        printer.setOutputFormat(QtGui.QPrinter.PdfFormat)
-        printer.setPageSize(QtGui.QPrinter.A4)
-        printer.setOrientation(QtGui.QPrinter.Portrait)
+        printer.setOutputFormat(QtPrintSupport.QPrinter.PdfFormat)
+        printer.setPageSize(QtPrintSupport.QPrinter.A4)
+        printer.setOrientation(QtPrintSupport.QPrinter.Portrait)
         printer.setOutputFileName(path)
         page_rect = printer.pageRect()
         doc_width = page_rect.width()
@@ -158,8 +158,8 @@ class Report:
             # time-stamp
             now_time = datetime.datetime.now()
             painter.setFont(small_font)
-            painter.drawText(bottom_area, cc_flags,
-                             "time-stamp: %s, v.%s" % (now_time.strftime("%a, %d %b %Y %H:%M:%S"), qc_version))
+            painter.drawText(bottom_area, cc_flags, "time-stamp: %s, %s v.%s"
+                             % (now_time.strftime("%a, %d %b %Y %H:%M:%S"), self.lib_name, self.lib_version))
             # page number
             page_area = QtCore.QRect(doc_width - doc_margin - 2*row_height, doc_height - doc_margin - row_height,
                                      2*row_height, row_height)
@@ -182,6 +182,7 @@ class Report:
 
             # title document only for the first page
             if first_page:
+
                 # document title
                 if small:
                     row_counter = 4
@@ -202,9 +203,11 @@ class Report:
 
             # manage a new page creation
             if row_counter >= (max_rows - 4):
+
                 if not printer.newPage():
                     logger.warning("Failed in flushing page to disk, disk full?")
                     return False
+
                 page_nr += 1
                 print_page_template()
                 row_area = QtCore.QRect(doc_margin + hor_pad, doc_margin + row_height,
@@ -216,20 +219,24 @@ class Report:
 
             last_item = content_item.split(' ')[-1]
             if last_item.isdigit():
+
                 if int(last_item) > 0:  # troubles -> red pen
                     if use_colors:
                         painter.setPen(red_pen)
                     painter.drawText(row_area, lc_flags, "- " + content_item)
                     if use_colors:
                         painter.setPen(black_pen)
+
                 else:  # all good -> black pen
                     painter.drawText(row_area, lc_flags, "- " + content_item)
+
             elif last_item == "[SKIP_REP]":  # skip report for this item
                 if use_colors:
                     painter.setPen(gray_pen)
                 painter.drawText(row_area, lc_flags, "- " + content_item.rsplit(' ', 1)[0])
                 if use_colors:
                     painter.setPen(black_pen)
+
             elif last_item == "[CHECK]" or last_item == "[TOTAL]":  # the string is a section separator
                 # leave an empty row
                 row_area.moveTo(row_area.x(), row_area.y() + row_height)
@@ -240,6 +247,7 @@ class Report:
                                  "%s. %s" % (section_nr, content_item.rsplit(' ', 1)[0]))  # cut the final token
                 painter.setFont(normal_font)
                 section_nr += 1
+
             elif last_item == "[SKIP_CHK]":  # the string is a section separator
                 if use_colors:
                     painter.setPen(gray_pen)
@@ -254,12 +262,14 @@ class Report:
                 section_nr += 1
                 if use_colors:
                     painter.setPen(black_pen)
+
             elif last_item == "OK":  # no issues, green ok
                 if use_colors:
                     painter.setPen(green_pen)
                 painter.drawText(row_area, lc_flags, content_item)
                 if use_colors:
                     painter.setPen(black_pen)
+
             else:
                 painter.drawText(row_area, lc_flags, content_item)
 

@@ -1,10 +1,11 @@
 import os
 import logging
-logger = logging.getLogger(__name__)
 
+from hyo2.qc.common import lib_info
 from hyo2.qc.common.helper import Helper
 from hyo2.qc.common.report import Report
 
+logger = logging.getLogger(__name__)
 
 submission_algos = {
     "BASE": 0,
@@ -71,7 +72,7 @@ class BaseSubmission:
         self.warnings = list()
 
         # report
-        self.report = Report()
+        self.report = Report(lib_name=lib_info.lib_name, lib_version=lib_info.lib_version)
 
     @classmethod
     def is_valid_project_folder(cls, path, version="2016", opr=True):
