@@ -1,25 +1,22 @@
 import os
 import sys
 import subprocess
+import logging
 
 from PySide2 import QtCore, QtGui, QtWidgets
-
 import matplotlib
-
-matplotlib.use('Qt5Agg')
-
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavToolbar
 from matplotlib.figure import Figure
 from matplotlib import rc_context
 
-import logging
-
-logger = logging.getLogger(__name__)
-
 from hyo2.rori import __version__ as rori_version
 from hyo2.rori import __doc__ as rori_name
 from hyo2.rori.gui_settings import GuiSettings
+
+
+matplotlib.use('Qt5Agg')
+logger = logging.getLogger(__name__)
 
 
 class MainWin(QtWidgets.QMainWindow):
@@ -55,7 +52,7 @@ class MainWin(QtWidgets.QMainWindow):
         else:
             self.setWindowTitle('%s' % (self.name,))
         self.setMinimumSize(200, 200)
-        self.resize(640, 900)
+        self.resize(600, 900)
 
         # only called when stand-alone (without Sound Speed Manager)
         # noinspection PyArgumentList
@@ -115,21 +112,21 @@ class MainWin(QtWidgets.QMainWindow):
         # hssd
         text_1ab = QtWidgets.QLabel("")
         text_1ab.setAlignment(QtCore.Qt.AlignCenter)
-        text_1ab.setFixedWidth(120)
+        text_1ab.setFixedWidth(100)
         label_hbox.addWidget(text_1ab)
         # spacing
-        label_hbox.addSpacing(80)
+        label_hbox.addSpacing(10)
         # specs
         text_1ab = QtWidgets.QLabel("Great Lakes")
         text_1ab.setAlignment(QtCore.Qt.AlignCenter)
-        text_1ab.setFixedWidth(120)
+        text_1ab.setFixedWidth(100)
         label_hbox.addWidget(text_1ab)
         # spacing
-        label_hbox.addSpacing(80)
+        label_hbox.addSpacing(10)
         # specs
         text_1ab = QtWidgets.QLabel("")
         text_1ab.setAlignment(QtCore.Qt.AlignCenter)
-        text_1ab.setFixedWidth(120)
+        text_1ab.setFixedWidth(100)
         label_hbox.addWidget(text_1ab)
         # stretch
         label_hbox.addStretch()
@@ -150,7 +147,7 @@ class MainWin(QtWidgets.QMainWindow):
         self.toggle_hssd.valueChanged.connect(self.on_settings_changed)
         toggle_hbox.addWidget(self.toggle_hssd)
         # spacing
-        toggle_hbox.addSpacing(160)
+        toggle_hbox.addSpacing(105)
         # area
         self.toggle_area = QtWidgets.QDial()
         self.toggle_area.setNotchesVisible(True)
@@ -162,8 +159,8 @@ class MainWin(QtWidgets.QMainWindow):
         # noinspection PyUnresolvedReferences
         self.toggle_area.valueChanged.connect(self.on_settings_changed)
         toggle_hbox.addWidget(self.toggle_area)
-        # spacing
-        toggle_hbox.addSpacing(160)
+        # spacing0
+        toggle_hbox.addSpacing(105)
         # specs
         self.toggle_z = QtWidgets.QDial()
         self.toggle_z.setNotchesVisible(True)
@@ -183,34 +180,34 @@ class MainWin(QtWidgets.QMainWindow):
         # stretch
         label2_hbox.addStretch()
         # specs
-        text_special = QtWidgets.QLabel("HSSD 2018")
-        text_special.setAlignment(QtCore.Qt.AlignCenter)
-        text_special.setFixedWidth(80)
+        text_special = QtWidgets.QLabel("HSSD 2018 ")
+        text_special.setAlignment(QtCore.Qt.AlignRight)
+        text_special.setFixedWidth(70)
         label2_hbox.addWidget(text_special)
-        text_2 = QtWidgets.QLabel("HSSD 2019")
-        text_2.setAlignment(QtCore.Qt.AlignCenter)
-        text_2.setFixedWidth(90)
+        text_2 = QtWidgets.QLabel(" HSSD 2019")
+        text_2.setAlignment(QtCore.Qt.AlignLeft)
+        text_2.setFixedWidth(70)
         label2_hbox.addWidget(text_2)
         # stretch
-        label2_hbox.addSpacing(40)
+        label2_hbox.addSpacing(10)
         # area
-        text_special = QtWidgets.QLabel("Pacific Coast")
-        text_special.setAlignment(QtCore.Qt.AlignCenter)
-        text_special.setFixedWidth(80)
+        text_special = QtWidgets.QLabel("Pacific Coast ")
+        text_special.setAlignment(QtCore.Qt.AlignRight)
+        text_special.setFixedWidth(70)
         label2_hbox.addWidget(text_special)
-        text_2 = QtWidgets.QLabel("Atlantic Coast")
-        text_2.setAlignment(QtCore.Qt.AlignCenter)
-        text_2.setFixedWidth(80)
+        text_2 = QtWidgets.QLabel(" Atlantic Coast")
+        text_2.setAlignment(QtCore.Qt.AlignLeft)
+        text_2.setFixedWidth(70)
         label2_hbox.addWidget(text_2)
         # stretch
-        label2_hbox.addSpacing(70)
+        label2_hbox.addSpacing(10)
         # specs
-        text_special = QtWidgets.QLabel("Depth")
-        text_special.setAlignment(QtCore.Qt.AlignCenter)
-        text_special.setFixedWidth(50)
+        text_special = QtWidgets.QLabel("Depth ")
+        text_special.setAlignment(QtCore.Qt.AlignRight)
+        text_special.setFixedWidth(70)
         label2_hbox.addWidget(text_special)
-        text_2 = QtWidgets.QLabel("Elevation")
-        text_2.setAlignment(QtCore.Qt.AlignCenter)
+        text_2 = QtWidgets.QLabel(" Elevation")
+        text_2.setAlignment(QtCore.Qt.AlignLeft)
         text_2.setFixedWidth(70)
         label2_hbox.addWidget(text_2)
         # stretch
@@ -493,7 +490,7 @@ class MainWin(QtWidgets.QMainWindow):
 
             self.levels_ax.clear()
             # self.levels_ax.set_xlabel('Depth [m]')
-            if self.toggle_hssd.value() == 0: #2018 HSSD
+            if self.toggle_hssd.value() == 0:  # 2018 HSSD
                 if self.toggle_z.value() == 0:
                     self.levels_ax.set_ylabel('Depth [m]')
                     if self.toggle_area.value() == 1:
@@ -528,7 +525,8 @@ class MainWin(QtWidgets.QMainWindow):
 
                         if self.toggle_area.value() == 0:
                             self.levels_ax.axhspan(-mhw - 0.6096, -max_z, facecolor='orange', alpha=alpha)
-                            self.levels_ax.text(text_shift, (-mhw - 0.6096 - max_z) / 2.0, 'ALWAYS DRY', color=text_color,
+                            self.levels_ax.text(text_shift, (-mhw - 0.6096 - max_z) / 2.0, 'ALWAYS DRY',
+                                                color=text_color,
                                                 rotation=0)
                             self.levels_ax.axhspan(-0.6096, -mhw - 0.6096, facecolor='yellow', alpha=alpha)
                             self.levels_ax.text(text_shift, (-0.6096 - mhw - 0.6096) / 2.0, 'COVERS & UNCOVERS',
@@ -538,11 +536,13 @@ class MainWin(QtWidgets.QMainWindow):
                             self.levels_ax.text(text_shift, (0.6096 - 0.6096) / 2.0, 'AWASH', color=text_color,
                                                 rotation=0)
                             self.levels_ax.axhspan(max_z, 0.6096, facecolor='#0099ff', alpha=alpha)
-                            self.levels_ax.text(text_shift, (max_z + 0.6096) / 2.0, 'ALWAYS UNDERWATER', color=text_color,
+                            self.levels_ax.text(text_shift, (max_z + 0.6096) / 2.0, 'ALWAYS UNDERWATER',
+                                                color=text_color,
                                                 rotation=0)
                         else:
                             self.levels_ax.axhspan(-mhw - 0.3048, -max_z, facecolor='orange', alpha=alpha)
-                            self.levels_ax.text(text_shift, (-mhw - 0.3048 - max_z) / 2.0, 'ALWAYS DRY', color=text_color,
+                            self.levels_ax.text(text_shift, (-mhw - 0.3048 - max_z) / 2.0, 'ALWAYS DRY',
+                                                color=text_color,
                                                 rotation=0)
                             self.levels_ax.axhspan(-0.3048, -mhw - 0.3048, facecolor='yellow', alpha=alpha)
                             self.levels_ax.text(text_shift, (-0.3048 - mhw - 0.3048) / 2.0, 'COVERS & UNCOVERS',
@@ -552,7 +552,8 @@ class MainWin(QtWidgets.QMainWindow):
                             self.levels_ax.text(text_shift, (0.3048 - 0.3048) / 2.0, 'AWASH', color=text_color,
                                                 rotation=0)
                             self.levels_ax.axhspan(max_z, 0.3048, facecolor='#0099ff', alpha=alpha)
-                            self.levels_ax.text(text_shift, (max_z + 0.3048) / 2.0, 'ALWAYS UNDERWATER', color=text_color,
+                            self.levels_ax.text(text_shift, (max_z + 0.3048) / 2.0, 'ALWAYS UNDERWATER',
+                                                color=text_color,
                                                 rotation=0)
                     self.levels_ax.set_ylim([max_z, -max_z])
 
@@ -597,7 +598,8 @@ class MainWin(QtWidgets.QMainWindow):
                                                 color=text_color,
                                                 rotation=0)
                             self.levels_ax.axhspan(-mhw - 0.6096, -mhw + 0.6096, facecolor='cyan', alpha=alpha)
-                            self.levels_ax.text(text_shift, (-mhw - 0.6096 - mhw + 0.6096) / 2.0, 'AWASH', color=text_color,
+                            self.levels_ax.text(text_shift, (-mhw - 0.6096 - mhw + 0.6096) / 2.0, 'AWASH',
+                                                color=text_color,
                                                 rotation=0)
                             self.levels_ax.axhspan(-max_z, -mhw - 0.6096, facecolor='#0099ff', alpha=alpha)
                             self.levels_ax.text(text_shift, (-max_z - mhw - 0.6096) / 2.0, 'ALWAYS UNDERWATER',
@@ -612,7 +614,8 @@ class MainWin(QtWidgets.QMainWindow):
                                                 color=text_color,
                                                 rotation=0)
                             self.levels_ax.axhspan(-mhw - 0.3048, -mhw + 0.3048, facecolor='cyan', alpha=alpha)
-                            self.levels_ax.text(text_shift, (-mhw - 0.3048 - mhw + 0.3048) / 2.0, 'AWASH', color=text_color,
+                            self.levels_ax.text(text_shift, (-mhw - 0.3048 - mhw + 0.3048) / 2.0, 'AWASH',
+                                                color=text_color,
                                                 rotation=0)
                             self.levels_ax.axhspan(-max_z, -mhw - 0.3048, facecolor='#0099ff', alpha=alpha)
                             self.levels_ax.text(text_shift, (-max_z - mhw - 0.3048) / 2.0, 'ALWAYS UNDERWATER',
@@ -620,7 +623,8 @@ class MainWin(QtWidgets.QMainWindow):
                                                 rotation=0)
 
                     self.levels_ax.set_ylim([-max_z, max_z])
-            else: # 2019 HSSD
+
+            else:  # 2019 HSSD
                 if self.toggle_z.value() == 0:
                     self.levels_ax.set_ylabel('Depth [m]')
                     if self.toggle_area.value() == 1:
@@ -653,7 +657,7 @@ class MainWin(QtWidgets.QMainWindow):
                         self.levels_ax.axhline(y=depth, color='r', linestyle='-')
                         self.levels_ax.text(0.01, depth + 0.01, 'depth', rotation=0)
 
-                        if self.toggle_area.value() in [0,2]:
+                        if self.toggle_area.value() in [0, 2]:
                             self.levels_ax.axhspan(-mhw - 0.1, -max_z, facecolor='orange', alpha=alpha)
                             self.levels_ax.text(text_shift, (-mhw - 0.1 - max_z) / 2.0, 'ALWAYS DRY',
                                                 color=text_color,
@@ -864,7 +868,7 @@ class MainWin(QtWidgets.QMainWindow):
             else:
                 logger.debug("draw elevation")
 
-                if self.toggle_area.value() in [0,2]:
+                if self.toggle_area.value() in [0, 2]:
                     logger.debug("East/West Coast")
                     self.always_dry_min_value.setText("")
                     self.always_dry_max_value.setText("> +0.1 MHW")
@@ -983,7 +987,7 @@ class MainWin(QtWidgets.QMainWindow):
                     logger.debug("%s [%s]" % (watlev, wl_dict[watlev]))
 
             else:
-                if self.toggle_area.value() in [0,2]:
+                if self.toggle_area.value() in [0, 2]:
                     if depth < (-mhw - 0.1):
                         logger.debug("Islet")
                         elevation = -mhw - depth

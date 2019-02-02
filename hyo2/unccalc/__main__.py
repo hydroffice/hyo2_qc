@@ -9,6 +9,6 @@ ch.setFormatter(ch_formatter)
 logger.addHandler(ch)
 
 
-from hyo.unccalc import gui
+from hyo2.unccalc import gui
 
 gui.gui()

@@ -1611,7 +1611,7 @@ class FeatureScanV8(BaseScan):
     # noinspection PyStatementEffect
     def run_2019(self):
         """HSSD 2019 checks """
-    #     raise RuntimeError("HSSD 2019 checks are currently not available!")
+
         # @ Ensure no feature redundancy
         self.report += "Redundant features [CHECK]"
         self.all_features = self.check_feature_redundancy_and_geometry()
