@@ -11,6 +11,8 @@ def set_logging(default_logging=logging.WARNING, hyo2_logging=logging.INFO, abc_
     )
     logging.getLogger("hyo2").setLevel(hyo2_logging)
     logging.getLogger("hyo2.qc").setLevel(abc_logging)
+    logging.getLogger("hyo2.rori").setLevel(abc_logging)
+    logging.getLogger("hyo2.unccalc").setLevel(abc_logging)
 
 
 set_logging()
