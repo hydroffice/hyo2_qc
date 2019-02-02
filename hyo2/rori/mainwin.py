@@ -55,7 +55,7 @@ class MainWin(QtWidgets.QMainWindow):
         else:
             self.setWindowTitle('%s' % (self.name,))
         self.setMinimumSize(200, 200)
-        self.resize(600, 900)
+        self.resize(640, 900)
 
         # only called when stand-alone (without Sound Speed Manager)
         # noinspection PyArgumentList
@@ -112,6 +112,13 @@ class MainWin(QtWidgets.QMainWindow):
         settings_vbox.addLayout(label_hbox)
         # stretch
         label_hbox.addStretch()
+        # hssd
+        text_1ab = QtWidgets.QLabel("")
+        text_1ab.setAlignment(QtCore.Qt.AlignCenter)
+        text_1ab.setFixedWidth(120)
+        label_hbox.addWidget(text_1ab)
+        # spacing
+        label_hbox.addSpacing(80)
         # specs
         text_1ab = QtWidgets.QLabel("Great Lakes")
         text_1ab.setAlignment(QtCore.Qt.AlignCenter)
@@ -131,7 +138,20 @@ class MainWin(QtWidgets.QMainWindow):
         settings_vbox.addLayout(toggle_hbox)
         # stretch
         toggle_hbox.addStretch()
-        # specs
+        # HSSD
+        self.toggle_hssd = QtWidgets.QDial()
+        self.toggle_hssd.setNotchesVisible(True)
+        self.toggle_hssd.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.toggle_hssd.setRange(0, 1)
+        self.toggle_hssd.setValue(0)
+        self.toggle_hssd.setFixedSize(QtCore.QSize(50, 50))
+        self.toggle_hssd.setInvertedAppearance(False)
+        # noinspection PyUnresolvedReferences
+        self.toggle_hssd.valueChanged.connect(self.on_settings_changed)
+        toggle_hbox.addWidget(self.toggle_hssd)
+        # spacing
+        toggle_hbox.addSpacing(160)
+        # area
         self.toggle_area = QtWidgets.QDial()
         self.toggle_area.setNotchesVisible(True)
         self.toggle_area.setFocusPolicy(QtCore.Qt.StrongFocus)
@@ -163,6 +183,17 @@ class MainWin(QtWidgets.QMainWindow):
         # stretch
         label2_hbox.addStretch()
         # specs
+        text_special = QtWidgets.QLabel("HSSD 2018")
+        text_special.setAlignment(QtCore.Qt.AlignCenter)
+        text_special.setFixedWidth(80)
+        label2_hbox.addWidget(text_special)
+        text_2 = QtWidgets.QLabel("HSSD 2019")
+        text_2.setAlignment(QtCore.Qt.AlignCenter)
+        text_2.setFixedWidth(90)
+        label2_hbox.addWidget(text_2)
+        # stretch
+        label2_hbox.addSpacing(40)
+        # area
         text_special = QtWidgets.QLabel("Pacific Coast")
         text_special.setAlignment(QtCore.Qt.AlignCenter)
         text_special.setFixedWidth(80)
@@ -172,15 +203,15 @@ class MainWin(QtWidgets.QMainWindow):
         text_2.setFixedWidth(80)
         label2_hbox.addWidget(text_2)
         # stretch
-        label2_hbox.addSpacing(40)
+        label2_hbox.addSpacing(70)
         # specs
         text_special = QtWidgets.QLabel("Depth")
         text_special.setAlignment(QtCore.Qt.AlignCenter)
-        text_special.setFixedWidth(80)
+        text_special.setFixedWidth(50)
         label2_hbox.addWidget(text_special)
         text_2 = QtWidgets.QLabel("Elevation")
         text_2.setAlignment(QtCore.Qt.AlignCenter)
-        text_2.setFixedWidth(80)
+        text_2.setFixedWidth(70)
         label2_hbox.addWidget(text_2)
         # stretch
         label2_hbox.addStretch()
@@ -462,44 +493,21 @@ class MainWin(QtWidgets.QMainWindow):
 
             self.levels_ax.clear()
             # self.levels_ax.set_xlabel('Depth [m]')
-            if self.toggle_z.value() == 0:
-                self.levels_ax.set_ylabel('Depth [m]')
-                if self.toggle_area.value() == 1:
-                    self.levels_ax.axhline(y=0, color='b', linestyle=':')
-                    self.levels_ax.text(0.01, -0.01, 'LWD', rotation=0)
+            if self.toggle_hssd.value() == 0: #2018 HSSD
+                if self.toggle_z.value() == 0:
+                    self.levels_ax.set_ylabel('Depth [m]')
+                    if self.toggle_area.value() == 1:
+                        self.levels_ax.axhline(y=0, color='b', linestyle=':')
+                        self.levels_ax.text(0.01, -0.01, 'LWD', rotation=0)
 
-                    self.levels_ax.axhline(y=depth, color='r', linestyle='-')
-                    self.levels_ax.text(0.01, depth + 0.01, 'depth', rotation=0)
+                        self.levels_ax.axhline(y=depth, color='r', linestyle='-')
+                        self.levels_ax.text(0.01, depth + 0.01, 'depth', rotation=0)
 
-                    self.levels_ax.axhspan(- 1.2192, -max_z, facecolor='orange', alpha=alpha)
-                    self.levels_ax.text(text_shift, (- 1.2192 - max_z) / 2.0, 'ALWAYS DRY', color=text_color,
-                                        rotation=0)
-                    self.levels_ax.axhspan(-0.6096, - 1.2192, facecolor='yellow', alpha=alpha)
-                    self.levels_ax.text(text_shift, (-0.6096 - 1.2192) / 2.0, 'COVERS & UNCOVERS',
-                                        color=text_color,
-                                        rotation=0)
-                    self.levels_ax.axhspan(0.6096, -0.6096, facecolor='cyan', alpha=alpha)
-                    self.levels_ax.text(text_shift, (0.6096 - 0.6096) / 2.0, 'AWASH', color=text_color,
-                                        rotation=0)
-                    self.levels_ax.axhspan(max_z, 0.6096, facecolor='#0099ff', alpha=alpha)
-                    self.levels_ax.text(text_shift, (max_z + 0.6096) / 2.0, 'ALWAYS UNDERWATER', color=text_color,
-                                        rotation=0)
-                else:
-                    self.levels_ax.axhline(y=0.0, color='b', linestyle=':')
-                    self.levels_ax.text(0.01, 0.01, 'MLLW', rotation=0)
-
-                    self.levels_ax.axhline(y=-mhw, color='orange', linestyle=':')
-                    self.levels_ax.text(0.01, -mhw - 0.01, 'MHW', rotation=0)
-
-                    self.levels_ax.axhline(y=depth, color='r', linestyle='-')
-                    self.levels_ax.text(0.01, depth + 0.01, 'depth', rotation=0)
-
-                    if self.toggle_area.value() == 0:
-                        self.levels_ax.axhspan(-mhw - 0.6096, -max_z, facecolor='orange', alpha=alpha)
-                        self.levels_ax.text(text_shift, (-mhw - 0.6096 - max_z) / 2.0, 'ALWAYS DRY', color=text_color,
+                        self.levels_ax.axhspan(- 1.2192, -max_z, facecolor='orange', alpha=alpha)
+                        self.levels_ax.text(text_shift, (- 1.2192 - max_z) / 2.0, 'ALWAYS DRY', color=text_color,
                                             rotation=0)
-                        self.levels_ax.axhspan(-0.6096, -mhw - 0.6096, facecolor='yellow', alpha=alpha)
-                        self.levels_ax.text(text_shift, (-0.6096 - mhw - 0.6096) / 2.0, 'COVERS & UNCOVERS',
+                        self.levels_ax.axhspan(-0.6096, - 1.2192, facecolor='yellow', alpha=alpha)
+                        self.levels_ax.text(text_shift, (-0.6096 - 1.2192) / 2.0, 'COVERS & UNCOVERS',
                                             color=text_color,
                                             rotation=0)
                         self.levels_ax.axhspan(0.6096, -0.6096, facecolor='cyan', alpha=alpha)
@@ -509,184 +517,385 @@ class MainWin(QtWidgets.QMainWindow):
                         self.levels_ax.text(text_shift, (max_z + 0.6096) / 2.0, 'ALWAYS UNDERWATER', color=text_color,
                                             rotation=0)
                     else:
-                        self.levels_ax.axhspan(-mhw - 0.3048, -max_z, facecolor='orange', alpha=alpha)
-                        self.levels_ax.text(text_shift, (-mhw - 0.3048 - max_z) / 2.0, 'ALWAYS DRY', color=text_color,
-                                            rotation=0)
-                        self.levels_ax.axhspan(-0.3048, -mhw - 0.3048, facecolor='yellow', alpha=alpha)
-                        self.levels_ax.text(text_shift, (-0.3048 - mhw - 0.3048) / 2.0, 'COVERS & UNCOVERS',
-                                            color=text_color,
-                                            rotation=0)
-                        self.levels_ax.axhspan(0.3048, -0.3048, facecolor='cyan', alpha=alpha)
-                        self.levels_ax.text(text_shift, (0.3048 - 0.3048) / 2.0, 'AWASH', color=text_color,
-                                            rotation=0)
-                        self.levels_ax.axhspan(max_z, 0.3048, facecolor='#0099ff', alpha=alpha)
-                        self.levels_ax.text(text_shift, (max_z + 0.3048) / 2.0, 'ALWAYS UNDERWATER', color=text_color,
-                                            rotation=0)
-                self.levels_ax.set_ylim([max_z, -max_z])
+                        self.levels_ax.axhline(y=0.0, color='b', linestyle=':')
+                        self.levels_ax.text(0.01, 0.01, 'MLLW', rotation=0)
 
-            else:
-                self.levels_ax.set_ylabel('Elevation [m]')
-                if self.toggle_area.value() == 1:
-                    self.levels_ax.axhline(y=0, color='b', linestyle=':')
-                    self.levels_ax.text(0.01, 0.01, 'LWD', rotation=0)
+                        self.levels_ax.axhline(y=-mhw, color='orange', linestyle=':')
+                        self.levels_ax.text(0.01, -mhw - 0.01, 'MHW', rotation=0)
 
-                    self.levels_ax.axhline(y=-depth, color='r', linestyle='-')
-                    self.levels_ax.text(0.01, -depth - 0.01, 'depth', rotation=0)
+                        self.levels_ax.axhline(y=depth, color='r', linestyle='-')
+                        self.levels_ax.text(0.01, depth + 0.01, 'depth', rotation=0)
 
-                    self.levels_ax.axhspan(1.2192, max_z, facecolor='orange', alpha=alpha)
-                    self.levels_ax.text(text_shift, (1.2192 + max_z) / 2.0, 'ALWAYS DRY', color=text_color,
-                                        rotation=0)
-                    self.levels_ax.axhspan(+0.6096, + 1.2192, facecolor='yellow', alpha=alpha)
-                    self.levels_ax.text(text_shift, (+0.6096 + 1.2192) / 2.0, 'COVERS & UNCOVERS',
-                                        color=text_color,
-                                        rotation=0)
-                    self.levels_ax.axhspan(-0.6096, 0.6096, facecolor='cyan', alpha=alpha)
-                    self.levels_ax.text(text_shift, (-0.6096 + 0.6096) / 2.0, 'AWASH', color=text_color,
-                                        rotation=0)
-                    self.levels_ax.axhspan(-max_z, -0.6096, facecolor='#0099ff', alpha=alpha)
-                    self.levels_ax.text(text_shift, (-max_z - 0.6096) / 2.0, 'ALWAYS UNDERWATER', color=text_color,
-                                        rotation=0)
+                        if self.toggle_area.value() == 0:
+                            self.levels_ax.axhspan(-mhw - 0.6096, -max_z, facecolor='orange', alpha=alpha)
+                            self.levels_ax.text(text_shift, (-mhw - 0.6096 - max_z) / 2.0, 'ALWAYS DRY', color=text_color,
+                                                rotation=0)
+                            self.levels_ax.axhspan(-0.6096, -mhw - 0.6096, facecolor='yellow', alpha=alpha)
+                            self.levels_ax.text(text_shift, (-0.6096 - mhw - 0.6096) / 2.0, 'COVERS & UNCOVERS',
+                                                color=text_color,
+                                                rotation=0)
+                            self.levels_ax.axhspan(0.6096, -0.6096, facecolor='cyan', alpha=alpha)
+                            self.levels_ax.text(text_shift, (0.6096 - 0.6096) / 2.0, 'AWASH', color=text_color,
+                                                rotation=0)
+                            self.levels_ax.axhspan(max_z, 0.6096, facecolor='#0099ff', alpha=alpha)
+                            self.levels_ax.text(text_shift, (max_z + 0.6096) / 2.0, 'ALWAYS UNDERWATER', color=text_color,
+                                                rotation=0)
+                        else:
+                            self.levels_ax.axhspan(-mhw - 0.3048, -max_z, facecolor='orange', alpha=alpha)
+                            self.levels_ax.text(text_shift, (-mhw - 0.3048 - max_z) / 2.0, 'ALWAYS DRY', color=text_color,
+                                                rotation=0)
+                            self.levels_ax.axhspan(-0.3048, -mhw - 0.3048, facecolor='yellow', alpha=alpha)
+                            self.levels_ax.text(text_shift, (-0.3048 - mhw - 0.3048) / 2.0, 'COVERS & UNCOVERS',
+                                                color=text_color,
+                                                rotation=0)
+                            self.levels_ax.axhspan(0.3048, -0.3048, facecolor='cyan', alpha=alpha)
+                            self.levels_ax.text(text_shift, (0.3048 - 0.3048) / 2.0, 'AWASH', color=text_color,
+                                                rotation=0)
+                            self.levels_ax.axhspan(max_z, 0.3048, facecolor='#0099ff', alpha=alpha)
+                            self.levels_ax.text(text_shift, (max_z + 0.3048) / 2.0, 'ALWAYS UNDERWATER', color=text_color,
+                                                rotation=0)
+                    self.levels_ax.set_ylim([max_z, -max_z])
+
                 else:
-                    self.levels_ax.axhline(y=0.0, color='orange', linestyle=':')
-                    self.levels_ax.text(0.01, 0.01, 'MHW', rotation=0)
+                    self.levels_ax.set_ylabel('Elevation [m]')
+                    if self.toggle_area.value() == 1:
+                        self.levels_ax.axhline(y=0, color='b', linestyle=':')
+                        self.levels_ax.text(0.01, 0.01, 'LWD', rotation=0)
 
-                    self.levels_ax.axhline(y=-mhw, color='b', linestyle=':')
-                    self.levels_ax.text(0.01, -mhw - 0.01, 'MLLW', rotation=0)
+                        self.levels_ax.axhline(y=-depth, color='r', linestyle='-')
+                        self.levels_ax.text(0.01, -depth - 0.01, 'depth', rotation=0)
 
-                    self.levels_ax.axhline(y=-mhw - depth, color='r', linestyle='-')
-                    self.levels_ax.text(0.01, -mhw - depth - 0.01, 'depth', rotation=0)
-
-                    if self.toggle_area.value() == 0:
-                        self.levels_ax.axhspan(0.6096, max_z, facecolor='orange', alpha=alpha)
-                        self.levels_ax.text(text_shift, (0.6096 + max_z) / 2.0, 'ALWAYS DRY', color=text_color,
+                        self.levels_ax.axhspan(1.2192, max_z, facecolor='orange', alpha=alpha)
+                        self.levels_ax.text(text_shift, (1.2192 + max_z) / 2.0, 'ALWAYS DRY', color=text_color,
                                             rotation=0)
-                        self.levels_ax.axhspan(-mhw + 0.6096, 0.6096, facecolor='yellow', alpha=alpha)
-                        self.levels_ax.text(text_shift, (-mhw + 0.6096 + 0.6096) / 2.0, 'COVERS & UNCOVERS',
+                        self.levels_ax.axhspan(+0.6096, + 1.2192, facecolor='yellow', alpha=alpha)
+                        self.levels_ax.text(text_shift, (+0.6096 + 1.2192) / 2.0, 'COVERS & UNCOVERS',
                                             color=text_color,
                                             rotation=0)
-                        self.levels_ax.axhspan(-mhw - 0.6096, -mhw + 0.6096, facecolor='cyan', alpha=alpha)
-                        self.levels_ax.text(text_shift, (-mhw - 0.6096 - mhw + 0.6096) / 2.0, 'AWASH', color=text_color,
+                        self.levels_ax.axhspan(-0.6096, 0.6096, facecolor='cyan', alpha=alpha)
+                        self.levels_ax.text(text_shift, (-0.6096 + 0.6096) / 2.0, 'AWASH', color=text_color,
                                             rotation=0)
-                        self.levels_ax.axhspan(-max_z, -mhw - 0.6096, facecolor='#0099ff', alpha=alpha)
-                        self.levels_ax.text(text_shift, (-max_z - mhw - 0.6096) / 2.0, 'ALWAYS UNDERWATER',
-                                            color=text_color,
+                        self.levels_ax.axhspan(-max_z, -0.6096, facecolor='#0099ff', alpha=alpha)
+                        self.levels_ax.text(text_shift, (-max_z - 0.6096) / 2.0, 'ALWAYS UNDERWATER', color=text_color,
                                             rotation=0)
                     else:
-                        self.levels_ax.axhspan(0.3048, max_z, facecolor='orange', alpha=alpha)
-                        self.levels_ax.text(text_shift, (0.3048 + max_z) / 2.0, 'ALWAYS DRY', color=text_color,
-                                            rotation=0)
-                        self.levels_ax.axhspan(-mhw + 0.3048, 0.3048, facecolor='yellow', alpha=alpha)
-                        self.levels_ax.text(text_shift, (-mhw + 0.3048 + 0.3048) / 2.0, 'COVERS & UNCOVERS',
-                                            color=text_color,
-                                            rotation=0)
-                        self.levels_ax.axhspan(-mhw - 0.3048, -mhw + 0.3048, facecolor='cyan', alpha=alpha)
-                        self.levels_ax.text(text_shift, (-mhw - 0.3048 - mhw + 0.3048) / 2.0, 'AWASH', color=text_color,
-                                            rotation=0)
-                        self.levels_ax.axhspan(-max_z, -mhw - 0.3048, facecolor='#0099ff', alpha=alpha)
-                        self.levels_ax.text(text_shift, (-max_z - mhw - 0.3048) / 2.0, 'ALWAYS UNDERWATER',
-                                            color=text_color,
-                                            rotation=0)
+                        self.levels_ax.axhline(y=0.0, color='orange', linestyle=':')
+                        self.levels_ax.text(0.01, 0.01, 'MHW', rotation=0)
 
-                self.levels_ax.set_ylim([-max_z, max_z])
+                        self.levels_ax.axhline(y=-mhw, color='b', linestyle=':')
+                        self.levels_ax.text(0.01, -mhw - 0.01, 'MLLW', rotation=0)
+
+                        self.levels_ax.axhline(y=-mhw - depth, color='r', linestyle='-')
+                        self.levels_ax.text(0.01, -mhw - depth - 0.01, 'depth', rotation=0)
+
+                        if self.toggle_area.value() == 0:
+                            self.levels_ax.axhspan(0.6096, max_z, facecolor='orange', alpha=alpha)
+                            self.levels_ax.text(text_shift, (0.6096 + max_z) / 2.0, 'ALWAYS DRY', color=text_color,
+                                                rotation=0)
+                            self.levels_ax.axhspan(-mhw + 0.6096, 0.6096, facecolor='yellow', alpha=alpha)
+                            self.levels_ax.text(text_shift, (-mhw + 0.6096 + 0.6096) / 2.0, 'COVERS & UNCOVERS',
+                                                color=text_color,
+                                                rotation=0)
+                            self.levels_ax.axhspan(-mhw - 0.6096, -mhw + 0.6096, facecolor='cyan', alpha=alpha)
+                            self.levels_ax.text(text_shift, (-mhw - 0.6096 - mhw + 0.6096) / 2.0, 'AWASH', color=text_color,
+                                                rotation=0)
+                            self.levels_ax.axhspan(-max_z, -mhw - 0.6096, facecolor='#0099ff', alpha=alpha)
+                            self.levels_ax.text(text_shift, (-max_z - mhw - 0.6096) / 2.0, 'ALWAYS UNDERWATER',
+                                                color=text_color,
+                                                rotation=0)
+                        else:
+                            self.levels_ax.axhspan(0.3048, max_z, facecolor='orange', alpha=alpha)
+                            self.levels_ax.text(text_shift, (0.3048 + max_z) / 2.0, 'ALWAYS DRY', color=text_color,
+                                                rotation=0)
+                            self.levels_ax.axhspan(-mhw + 0.3048, 0.3048, facecolor='yellow', alpha=alpha)
+                            self.levels_ax.text(text_shift, (-mhw + 0.3048 + 0.3048) / 2.0, 'COVERS & UNCOVERS',
+                                                color=text_color,
+                                                rotation=0)
+                            self.levels_ax.axhspan(-mhw - 0.3048, -mhw + 0.3048, facecolor='cyan', alpha=alpha)
+                            self.levels_ax.text(text_shift, (-mhw - 0.3048 - mhw + 0.3048) / 2.0, 'AWASH', color=text_color,
+                                                rotation=0)
+                            self.levels_ax.axhspan(-max_z, -mhw - 0.3048, facecolor='#0099ff', alpha=alpha)
+                            self.levels_ax.text(text_shift, (-max_z - mhw - 0.3048) / 2.0, 'ALWAYS UNDERWATER',
+                                                color=text_color,
+                                                rotation=0)
+
+                    self.levels_ax.set_ylim([-max_z, max_z])
+            else: # 2019 HSSD
+                if self.toggle_z.value() == 0:
+                    self.levels_ax.set_ylabel('Depth [m]')
+                    if self.toggle_area.value() == 1:
+                        self.levels_ax.axhline(y=0, color='b', linestyle=':')
+                        self.levels_ax.text(0.01, -0.01, 'LWD', rotation=0)
+
+                        self.levels_ax.axhline(y=depth, color='r', linestyle='-')
+                        self.levels_ax.text(0.01, depth + 0.01, 'depth', rotation=0)
+
+                        self.levels_ax.axhspan(- 0.1, -max_z, facecolor='orange', alpha=alpha)
+                        self.levels_ax.text(text_shift, (- 0.1 - max_z) / 2.0, 'ALWAYS DRY', color=text_color,
+                                            rotation=0)
+                        self.levels_ax.axhspan(-0.1, - 0.1, facecolor='yellow', alpha=alpha)
+                        self.levels_ax.text(text_shift, (-0.1 - 0.1) / 2.0, 'COVERS & UNCOVERS',
+                                            color=text_color,
+                                            rotation=0)
+                        self.levels_ax.axhspan(0.1, -0.1, facecolor='cyan', alpha=alpha)
+                        self.levels_ax.text(text_shift, (0.1 - 0.1) / 2.0, 'AWASH', color=text_color,
+                                            rotation=0)
+                        self.levels_ax.axhspan(max_z, 0.1, facecolor='#0099ff', alpha=alpha)
+                        self.levels_ax.text(text_shift, (max_z + 0.1) / 2.0, 'ALWAYS UNDERWATER', color=text_color,
+                                            rotation=0)
+                    else:
+                        self.levels_ax.axhline(y=0.0, color='b', linestyle=':')
+                        self.levels_ax.text(0.01, 0.01, 'MLLW', rotation=0)
+
+                        self.levels_ax.axhline(y=-mhw, color='orange', linestyle=':')
+                        self.levels_ax.text(0.01, -mhw - 0.01, 'MHW', rotation=0)
+
+                        self.levels_ax.axhline(y=depth, color='r', linestyle='-')
+                        self.levels_ax.text(0.01, depth + 0.01, 'depth', rotation=0)
+
+                        if self.toggle_area.value() in [0,2]:
+                            self.levels_ax.axhspan(-mhw - 0.1, -max_z, facecolor='orange', alpha=alpha)
+                            self.levels_ax.text(text_shift, (-mhw - 0.1 - max_z) / 2.0, 'ALWAYS DRY',
+                                                color=text_color,
+                                                rotation=0)
+                            self.levels_ax.axhspan(-0.1, -mhw - 0.1, facecolor='yellow', alpha=alpha)
+                            self.levels_ax.text(text_shift, (-0.1 - mhw - 0.1) / 2.0, 'COVERS & UNCOVERS',
+                                                color=text_color,
+                                                rotation=0)
+                            self.levels_ax.axhspan(0.1, -0.1, facecolor='cyan', alpha=alpha)
+                            self.levels_ax.text(text_shift, (0.1 - 0.1) / 2.0, 'AWASH', color=text_color,
+                                                rotation=0)
+                            self.levels_ax.axhspan(max_z, 0.1, facecolor='#0099ff', alpha=alpha)
+                            self.levels_ax.text(text_shift, (max_z + 0.1) / 2.0, 'ALWAYS UNDERWATER',
+                                                color=text_color,
+                                                rotation=0)
+                    self.levels_ax.set_ylim([max_z, -max_z])
+
+                else:
+                    self.levels_ax.set_ylabel('Elevation [m]')
+                    if self.toggle_area.value() == 1:
+                        self.levels_ax.axhline(y=0, color='b', linestyle=':')
+                        self.levels_ax.text(0.01, 0.01, 'LWD', rotation=0)
+
+                        self.levels_ax.axhline(y=-depth, color='r', linestyle='-')
+                        self.levels_ax.text(0.01, -depth - 0.01, 'depth', rotation=0)
+
+                        self.levels_ax.axhspan(0.1, max_z, facecolor='orange', alpha=alpha)
+                        self.levels_ax.text(text_shift, (0.1 + max_z) / 2.0, 'ALWAYS DRY', color=text_color,
+                                            rotation=0)
+                        self.levels_ax.axhspan(+0., + 0.1, facecolor='yellow', alpha=alpha)
+                        self.levels_ax.text(text_shift, (+0.1 + 0.1) / 2.0, 'COVERS & UNCOVERS',
+                                            color=text_color,
+                                            rotation=0)
+                        self.levels_ax.axhspan(-0.1, 0.1, facecolor='cyan', alpha=alpha)
+                        self.levels_ax.text(text_shift, (-0.1 + 0.1) / 2.0, 'AWASH', color=text_color,
+                                            rotation=0)
+                        self.levels_ax.axhspan(-max_z, -0.1, facecolor='#0099ff', alpha=alpha)
+                        self.levels_ax.text(text_shift, (-max_z - 0.1) / 2.0, 'ALWAYS UNDERWATER', color=text_color,
+                                            rotation=0)
+                    else:
+                        self.levels_ax.axhline(y=0.0, color='orange', linestyle=':')
+                        self.levels_ax.text(0.01, 0.01, 'MHW', rotation=0)
+
+                        self.levels_ax.axhline(y=-mhw, color='b', linestyle=':')
+                        self.levels_ax.text(0.01, -mhw - 0.01, 'MLLW', rotation=0)
+
+                        self.levels_ax.axhline(y=-mhw - depth, color='r', linestyle='-')
+                        self.levels_ax.text(0.01, -mhw - depth - 0.01, 'depth', rotation=0)
+
+                        if self.toggle_area.value() in [0, 2]:
+                            self.levels_ax.axhspan(0.1, max_z, facecolor='orange', alpha=alpha)
+                            self.levels_ax.text(text_shift, (0.1 + max_z) / 2.0, 'ALWAYS DRY', color=text_color,
+                                                rotation=0)
+                            self.levels_ax.axhspan(-mhw + 0.1, 0.1, facecolor='yellow', alpha=alpha)
+                            self.levels_ax.text(text_shift, (-mhw + 0.1 + 0.1) / 2.0, 'COVERS & UNCOVERS',
+                                                color=text_color,
+                                                rotation=0)
+                            self.levels_ax.axhspan(-mhw - 0.1, -mhw + 0.1, facecolor='cyan', alpha=alpha)
+                            self.levels_ax.text(text_shift, (-mhw - 0.1 - mhw + 0.1) / 2.0, 'AWASH',
+                                                color=text_color,
+                                                rotation=0)
+                            self.levels_ax.axhspan(-max_z, -mhw - 0.1, facecolor='#0099ff', alpha=alpha)
+                            self.levels_ax.text(text_shift, (-max_z - mhw - 0.1) / 2.0, 'ALWAYS UNDERWATER',
+                                                color=text_color,
+                                                rotation=0)
+                    self.levels_ax.set_ylim([-max_z, max_z])
 
     def on_settings_changed(self):
-        if self.toggle_z.value() == 0:
-            logger.debug("draw depth")
+        if self.toggle_hssd.value() == 0:
+            logger.debug("draw HSSD 2018")
 
-            if self.toggle_area.value() == 0:
-                logger.debug("West Coast")
-                self.always_dry_min_value.setText("")
-                self.always_dry_max_value.setText("< -0.6096 MHW")
-                self.covers_and_uncovers_min_value.setText(">= -0.6096 MHW")
-                self.covers_and_uncovers_max_value.setText("< -0.6096 MLLW")
-                self.awash_min_value.setText(">= -0.6096 MLLW")
-                self.awash_max_value.setText("< +0.6096 MLLW")
-                self.always_underwater_min_value.setText(">= +0.6096 MLLW")
-                self.always_underwater_max_value.setText("")
+            if self.toggle_z.value() == 0:
+                logger.debug("draw depth")
 
-                self.mhw_text.setText("MHW [m]: ")
-                self.mhw_value.setEnabled(True)
+                if self.toggle_area.value() == 0:
+                    logger.debug("West Coast")
+                    self.always_dry_min_value.setText("")
+                    self.always_dry_max_value.setText("< -0.6096 MHW")
+                    self.covers_and_uncovers_min_value.setText(">= -0.6096 MHW")
+                    self.covers_and_uncovers_max_value.setText("< -0.6096 MLLW")
+                    self.awash_min_value.setText(">= -0.6096 MLLW")
+                    self.awash_max_value.setText("< +0.6096 MLLW")
+                    self.always_underwater_min_value.setText(">= +0.6096 MLLW")
+                    self.always_underwater_max_value.setText("")
 
-            elif self.toggle_area.value() == 1:
-                logger.debug("Great Lakes")
-                self.always_dry_min_value.setText("")
-                self.always_dry_max_value.setText("< -1.2192 LWD")
-                self.covers_and_uncovers_min_value.setText(">= -1.2192 LWD")
-                self.covers_and_uncovers_max_value.setText("< -0.6096 LWD")
-                self.awash_min_value.setText(">= -0.6096 LWD")
-                self.awash_max_value.setText("< +0.6096 LWD")
-                self.always_underwater_min_value.setText(">= +0.6096 LWD")
-                self.always_underwater_max_value.setText("")
+                    self.mhw_text.setText("MHW [m]: ")
+                    self.mhw_value.setEnabled(True)
 
-                self.mhw_text.setText("LWD [m]: ")
-                self.mhw_value.setDisabled(True)
+                elif self.toggle_area.value() == 1:
+                    logger.debug("Great Lakes")
+                    self.always_dry_min_value.setText("")
+                    self.always_dry_max_value.setText("< -1.2192 LWD")
+                    self.covers_and_uncovers_min_value.setText(">= -1.2192 LWD")
+                    self.covers_and_uncovers_max_value.setText("< -0.6096 LWD")
+                    self.awash_min_value.setText(">= -0.6096 LWD")
+                    self.awash_max_value.setText("< +0.6096 LWD")
+                    self.always_underwater_min_value.setText(">= +0.6096 LWD")
+                    self.always_underwater_max_value.setText("")
 
-            elif self.toggle_area.value() == 2:
-                logger.debug("East Coast")
-                self.always_dry_min_value.setText("")
-                self.always_dry_max_value.setText("< -0.3048 MHW")
-                self.covers_and_uncovers_min_value.setText(">= -0.3048 MHW")
-                self.covers_and_uncovers_max_value.setText("< -0.3048 MLLW")
-                self.awash_min_value.setText(">= -0.3048 MLLW")
-                self.awash_max_value.setText("< +0.3048 MLLW")
-                self.always_underwater_min_value.setText(">= +0.3048 MLLW")
-                self.always_underwater_max_value.setText("")
+                    self.mhw_text.setText("LWD [m]: ")
+                    self.mhw_value.setDisabled(True)
+                    self.mhw_value.setText("0.0")
 
-                self.mhw_text.setText("MHW [m]: ")
-                self.mhw_value.setEnabled(True)
+                elif self.toggle_area.value() == 2:
+                    logger.debug("East Coast")
+                    self.always_dry_min_value.setText("")
+                    self.always_dry_max_value.setText("< -0.3048 MHW")
+                    self.covers_and_uncovers_min_value.setText(">= -0.3048 MHW")
+                    self.covers_and_uncovers_max_value.setText("< -0.3048 MLLW")
+                    self.awash_min_value.setText(">= -0.3048 MLLW")
+                    self.awash_max_value.setText("< +0.3048 MLLW")
+                    self.always_underwater_min_value.setText(">= +0.3048 MLLW")
+                    self.always_underwater_max_value.setText("")
+
+                    self.mhw_text.setText("MHW [m]: ")
+                    self.mhw_value.setEnabled(True)
+
+                else:
+                    logger.warning("unknown area")
+                    return
 
             else:
-                logger.warning("unknown area")
-                return
+                logger.debug("draw elevation")
 
+                if self.toggle_area.value() == 0:
+                    logger.debug("West Coast")
+                    self.always_dry_min_value.setText("")
+                    self.always_dry_max_value.setText("> +0.6096 MHW")
+                    self.covers_and_uncovers_min_value.setText("<= +0.6096 MHW")
+                    self.covers_and_uncovers_max_value.setText("> +0.6096 MLLW")
+                    self.awash_min_value.setText("<= +0.6096 MLLW")
+                    self.awash_max_value.setText("> -0.6096 MLLW")
+                    self.always_underwater_min_value.setText("<= -0.6096 MLLW")
+                    self.always_underwater_max_value.setText("")
+
+                    self.mhw_text.setText("MHW [m]: ")
+                    self.mhw_value.setEnabled(True)
+
+                elif self.toggle_area.value() == 1:
+                    logger.debug("Great Lakes")
+                    self.always_dry_min_value.setText("")
+                    self.always_dry_max_value.setText("> +1.2192 LWD")
+                    self.covers_and_uncovers_min_value.setText("<= +1.2192 LWD")
+                    self.covers_and_uncovers_max_value.setText("> +0.6096 LWD")
+                    self.awash_min_value.setText("<= +0.6096 LWD")
+                    self.awash_max_value.setText("> -0.6096 LWD")
+                    self.always_underwater_min_value.setText("<= -0.6096 LWD")
+                    self.always_underwater_max_value.setText("")
+
+                    self.mhw_text.setText("LWD [m]: ")
+                    self.mhw_value.setDisabled(True)
+
+                elif self.toggle_area.value() == 2:
+                    logger.debug("East Coast")
+                    self.always_dry_min_value.setText("")
+                    self.always_dry_max_value.setText("> +0.3048 MHW")
+                    self.covers_and_uncovers_min_value.setText("<= +0.3048 MHW")
+                    self.covers_and_uncovers_max_value.setText("> +0.3048 MLLW")
+                    self.awash_min_value.setText("<= +0.3048 MLLW")
+                    self.awash_max_value.setText("> -0.3048 MLLW")
+                    self.always_underwater_min_value.setText("<= -0.3048 MLLW")
+                    self.always_underwater_max_value.setText("")
+
+                    self.mhw_text.setText("MHW [m]: ")
+                    self.mhw_value.setEnabled(True)
+
+                else:
+                    logger.warning("unknown area")
+                    return
         else:
-            logger.debug("draw elevation")
+            logger.debug("draw HSSD 2019")
 
-            if self.toggle_area.value() == 0:
-                logger.debug("West Coast")
-                self.always_dry_min_value.setText("")
-                self.always_dry_max_value.setText("> +0.6096 MHW")
-                self.covers_and_uncovers_min_value.setText("<= +0.6096 MHW")
-                self.covers_and_uncovers_max_value.setText("> +0.6096 MLLW")
-                self.awash_min_value.setText("<= +0.6096 MLLW")
-                self.awash_max_value.setText("> -0.6096 MLLW")
-                self.always_underwater_min_value.setText("<= -0.6096 MLLW")
-                self.always_underwater_max_value.setText("")
+            if self.toggle_z.value() == 0:
+                logger.debug("draw depth")
 
-                self.mhw_text.setText("MHW [m]: ")
-                self.mhw_value.setEnabled(True)
+                if self.toggle_area.value() in [0, 2]:
+                    logger.debug("East/West Coast")
+                    self.always_dry_min_value.setText("")
+                    self.always_dry_max_value.setText("< -0.1 MHW")
+                    self.covers_and_uncovers_min_value.setText(">= -0.1 MHW")
+                    self.covers_and_uncovers_max_value.setText("< -0.1 MLLW")
+                    self.awash_min_value.setText(">= -0.1 MLLW")
+                    self.awash_max_value.setText("< +0.1 MLLW")
+                    self.always_underwater_min_value.setText(">= +0.1 MLLW")
+                    self.always_underwater_max_value.setText("")
 
-            elif self.toggle_area.value() == 1:
-                logger.debug("Great Lakes")
-                self.always_dry_min_value.setText("")
-                self.always_dry_max_value.setText("> +1.2192 LWD")
-                self.covers_and_uncovers_min_value.setText("<= +1.2192 LWD")
-                self.covers_and_uncovers_max_value.setText("> +0.6096 LWD")
-                self.awash_min_value.setText("<= +0.6096 LWD")
-                self.awash_max_value.setText("> -0.6096 LWD")
-                self.always_underwater_min_value.setText("<= -0.6096 LWD")
-                self.always_underwater_max_value.setText("")
+                    self.mhw_text.setText("MHW [m]: ")
+                    self.mhw_value.setEnabled(True)
 
-                self.mhw_text.setText("LWD [m]: ")
-                self.mhw_value.setDisabled(True)
+                elif self.toggle_area.value() == 1:
+                    logger.debug("Great Lakes")
+                    self.always_dry_min_value.setText("")
+                    self.always_dry_max_value.setText("< -0.1 LWD")
+                    self.covers_and_uncovers_min_value.setText(">= -0.1 LWD")
+                    self.covers_and_uncovers_max_value.setText("< -0.1 LWD")
+                    self.awash_min_value.setText(">= -0.1 LWD")
+                    self.awash_max_value.setText("< +0.1 LWD")
+                    self.always_underwater_min_value.setText(">= +0.1 LWD")
+                    self.always_underwater_max_value.setText("")
 
-            elif self.toggle_area.value() == 2:
-                logger.debug("East Coast")
-                self.always_dry_min_value.setText("")
-                self.always_dry_max_value.setText("> +0.3048 MHW")
-                self.covers_and_uncovers_min_value.setText("<= +0.3048 MHW")
-                self.covers_and_uncovers_max_value.setText("> +0.3048 MLLW")
-                self.awash_min_value.setText("<= +0.3048 MLLW")
-                self.awash_max_value.setText("> -0.3048 MLLW")
-                self.always_underwater_min_value.setText("<= -0.3048 MLLW")
-                self.always_underwater_max_value.setText("")
+                    self.mhw_text.setText("LWD [m]: ")
+                    self.mhw_value.setDisabled(True)
 
-                self.mhw_text.setText("MHW [m]: ")
-                self.mhw_value.setEnabled(True)
+                else:
+                    logger.warning("unknown area")
+                    return
 
             else:
-                logger.warning("unknown area")
-                return
+                logger.debug("draw elevation")
+
+                if self.toggle_area.value() in [0,2]:
+                    logger.debug("East/West Coast")
+                    self.always_dry_min_value.setText("")
+                    self.always_dry_max_value.setText("> +0.1 MHW")
+                    self.covers_and_uncovers_min_value.setText("<= +0.1 MHW")
+                    self.covers_and_uncovers_max_value.setText("> +0.1 MLLW")
+                    self.awash_min_value.setText("<= +0.1 MLLW")
+                    self.awash_max_value.setText("> -0.1 MLLW")
+                    self.always_underwater_min_value.setText("<= -0.1 MLLW")
+                    self.always_underwater_max_value.setText("")
+
+                    self.mhw_text.setText("MHW [m]: ")
+                    self.mhw_value.setEnabled(True)
+
+                elif self.toggle_area.value() == 1:
+                    logger.debug("Great Lakes")
+                    self.always_dry_min_value.setText("")
+                    self.always_dry_max_value.setText("> +0.1 LWD")
+                    self.covers_and_uncovers_min_value.setText("<= +0.1 LWD")
+                    self.covers_and_uncovers_max_value.setText("> +0.1 LWD")
+                    self.awash_min_value.setText("<= +0.1 LWD")
+                    self.awash_max_value.setText("> -0.1 LWD")
+                    self.always_underwater_min_value.setText("<= -0.1 LWD")
+                    self.always_underwater_max_value.setText("")
+
+                    self.mhw_text.setText("LWD [m]: ")
+                    self.mhw_value.setDisabled(True)
+                    self.mhw_value.setText("0.0")
+
+                else:
+                    logger.warning("unknown area")
+                    return
 
         self.on_calculate()
 
@@ -705,27 +914,13 @@ class MainWin(QtWidgets.QMainWindow):
             "Always Underwater": 3
         }
 
-        if self.toggle_area.value() == 1:
-            if depth < - 1.2192:
-                logger.debug("Islet")
-                elevation = -depth
-            else:
-                logger.debug("Rock")
-                if depth < -0.6096:
-                    watlev = "Covers & Uncovers"
-                elif depth < 0.6096:
-                    watlev = "Awash"
-                else:
-                    watlev = "Always Underwater"
+        if self.toggle_hssd.value() == 0:
+            logger.debug("draw HSSD 2018")
 
-                logger.debug("%s [%s]" % (watlev, wl_dict[watlev]))
-
-        else:
-
-            if self.toggle_area.value() == 0:
-                if depth < (-mhw - 0.6096):
+            if self.toggle_area.value() == 1:
+                if depth < - 1.2192:
                     logger.debug("Islet")
-                    elevation = -mhw - depth
+                    elevation = -depth
                 else:
                     logger.debug("Rock")
                     if depth < -0.6096:
@@ -738,19 +933,70 @@ class MainWin(QtWidgets.QMainWindow):
                     logger.debug("%s [%s]" % (watlev, wl_dict[watlev]))
 
             else:
-                if depth < (-mhw - 0.3048):
+
+                if self.toggle_area.value() == 0:
+                    if depth < (-mhw - 0.6096):
+                        logger.debug("Islet")
+                        elevation = -mhw - depth
+                    else:
+                        logger.debug("Rock")
+                        if depth < -0.6096:
+                            watlev = "Covers & Uncovers"
+                        elif depth < 0.6096:
+                            watlev = "Awash"
+                        else:
+                            watlev = "Always Underwater"
+
+                        logger.debug("%s [%s]" % (watlev, wl_dict[watlev]))
+
+                else:
+                    if depth < (-mhw - 0.3048):
+                        logger.debug("Islet")
+                        elevation = -mhw - depth
+                    else:
+                        logger.debug("Rock")
+                        if depth < -0.3048:
+                            watlev = "Covers & Uncovers"
+                        elif depth < 0.3048:
+                            watlev = "Awash"
+                        else:
+                            watlev = "Always Underwater"
+
+                        logger.debug("%s [%s]" % (watlev, wl_dict[watlev]))
+
+        else:
+            logger.debug("draw HSSD 2019")
+
+            if self.toggle_area.value() == 1:
+                if depth < - 0.1:
                     logger.debug("Islet")
-                    elevation = -mhw - depth
+                    elevation = -depth
                 else:
                     logger.debug("Rock")
-                    if depth < -0.3048:
+                    if depth < -0.1:
                         watlev = "Covers & Uncovers"
-                    elif depth < 0.3048:
+                    elif depth < 0.1:
                         watlev = "Awash"
                     else:
                         watlev = "Always Underwater"
 
                     logger.debug("%s [%s]" % (watlev, wl_dict[watlev]))
+
+            else:
+                if self.toggle_area.value() in [0,2]:
+                    if depth < (-mhw - 0.1):
+                        logger.debug("Islet")
+                        elevation = -mhw - depth
+                    else:
+                        logger.debug("Rock")
+                        if depth < -0.1:
+                            watlev = "Covers & Uncovers"
+                        elif depth < 0.1:
+                            watlev = "Awash"
+                        else:
+                            watlev = "Always Underwater"
+
+                        logger.debug("%s [%s]" % (watlev, wl_dict[watlev]))
 
         if elevation is not None:
             logger.debug("elevation: %.3f" % elevation)
