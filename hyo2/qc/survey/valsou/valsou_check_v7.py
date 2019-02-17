@@ -576,8 +576,8 @@ class ValsouCheckV7(BaseValsou):
         # logger.debug("geo: %s" % self.valsou_geo)
         # logger.debug("loc: %s" % self.valsou_loc)
         valsou_array = np.copy(self.valsou_utm)
-        valsou_array[:, 0] = (self.valsou_utm[:, 0] - self.bathy_transform[0]) / self.bathy_transform[1]
-        valsou_array[:, 1] = (self.valsou_utm[:, 1] - self.bathy_transform[3]) / self.bathy_transform[5]
+        valsou_array[:, 0] = (self.valsou_utm[:, 0] - self.bathy_transform[0]) / self.bathy_transform[1] - 0.5
+        valsou_array[:, 1] = (self.valsou_utm[:, 1] - self.bathy_transform[3]) / self.bathy_transform[5] - 0.5
         # logger.debug("array: %s" % valsou_array)
 
         # convert to the closest array coordinates
