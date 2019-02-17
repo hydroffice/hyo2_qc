@@ -55,9 +55,6 @@ class SbdareExportV4(BaseSbdare):
         self.all_features = self.s57.rec10s
         self.sbdare_features = list()
 
-        self.flagged_natsur = list()
-        self.flagged_colour = list()
-
         self.output_ascii = None
         self.cmecs_output_folder = None
         self.output_shp = None
@@ -82,13 +79,6 @@ class SbdareExportV4(BaseSbdare):
 
         self.images_folder = multimedia_folder
         logger.debug("images folder: %s" % self.images_folder)
-
-    def has_sbdare_issues(self):
-        """Return true is there are issues with sbdare attributes"""
-
-        natsur_flagged = len(self.flagged_natsur) > 0
-        colour_flagged = len(self.flagged_colour) > 0
-        return natsur_flagged or colour_flagged
 
     def run(self):
         """Execute the set of check of the SBDARE check algorithm"""
