@@ -38,6 +38,7 @@ class SbdareInfo:
         self.c_cen2 = str()
         self.c_cec2 = str()
 
+        self.colour_list = list()
         self.natqua_list = list()
         self.natsur_list = list()
         self.images_list = list()
@@ -224,14 +225,24 @@ class SbdareExportV4(BaseSbdare):
 
             elif attribute.acronym == 'COLOUR':
                 info.colour = self._commaed_str(attribute.value)
+                info.colour_list = info.colour.split(",")
+                if len(info.colour_list) > 3:
+                    info.colour = ",".join(info.colour_list[:3])
+                    info.colour_list = info.colour_list[:3]
 
             elif attribute.acronym == 'NATQUA':
                 info.natqua = self._commaed_str(attribute.value)
                 info.natqua_list = info.natqua.split(",")
+                if len(info.natqua_list) > 3:
+                    info.natqua = ",".join(info.natqua_list[:3])
+                    info.natqua_list = info.natqua_list[:3]
 
             elif attribute.acronym == 'NATSUR':
                 info.natsur = self._commaed_str(attribute.value)
                 info.natsur_list = info.natsur.split(",")
+                if len(info.natsur_list) > 3:
+                    info.natsur = ",".join(info.natsur_list[:3])
+                    info.natsur_list = info.natsur_list[:3]
 
             elif attribute.acronym == 'remrks':
                 info.remrks = self._commaed_str(attribute.value)
@@ -245,6 +256,10 @@ class SbdareExportV4(BaseSbdare):
             elif attribute.acronym == 'images':
                 info.images = self._commaed_str(attribute.value.replace(";", ","))
                 info.images_list = info.images.split(",")
+                if len(info.images_list) > 4:
+                    info.images = ",".join(info.images_list[:4])
+                    info.images_list = info.images_list[:4]
+
                 if len(info.images_list) > 0:
                     self.has_images = True
 
