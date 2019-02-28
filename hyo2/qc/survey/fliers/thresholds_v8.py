@@ -130,9 +130,9 @@ class ThresholdsV8:
                 std_gauss_curv = self.std_gauss_curv[r, c]
                 if (std_gauss_curv < 0.01) or (np.isnan(std_gauss_curv)):
                     pass
-                if std_gauss_curv < 0.03:
+                elif std_gauss_curv < 0.03:
                     pct_height += 0.5
-                elif std_gauss_curv > 0.06:
+                elif std_gauss_curv < 0.06:
                     pct_height += 1.0
                 elif std_gauss_curv < 0.1:
                     pct_height += 1.5
