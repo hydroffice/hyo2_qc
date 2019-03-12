@@ -5,7 +5,7 @@ Credits
 Authors
 ~~~~~~~
 
-HydrOffice QC Tools 2 is written and maintained by:
+HydrOffice QC Tools is written and maintained by:
 
 - `Giuseppe Masetti <mailto:gmasetti@ccom.unh.edu>`_
 
