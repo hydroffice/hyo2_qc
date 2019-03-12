@@ -3,7 +3,7 @@ pyximport.install()
 import Cython.Compiler.Options
 Cython.Compiler.Options.annotate = True
 
-from PySide import QtGui
+from PySide2 import QtWidgets
 
 from hyo2.qc.common import default_logging
 import logging
@@ -11,7 +11,7 @@ import logging
 default_logging.load()
 logger = logging.getLogger()
 
-from hyo2.qc.qctools.qt_progress import QtProgress
+from hyo2.abc.app.qt_progress import QtProgress
 from hyo2.qc.survey.project import SurveyProject
 from hyo2.qc.common import testing
 
@@ -30,8 +30,8 @@ check_edges = True
 filter_designated = True
 filter_fff = True
 
-app = QtGui.QApplication([])
-wid = QtGui.QWidget()
+app = QtWidgets.QApplication([])
+wid = QtWidgets.QWidget()
 
 # create the project
 prj = SurveyProject(output_folder=testing.output_data_folder(), progress=QtProgress(parent=wid))
