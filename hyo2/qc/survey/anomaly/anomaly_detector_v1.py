@@ -10,11 +10,8 @@ import os
 import logging
 
 from hyo2.qc.survey.anomaly.anomaly_detector_v1_checks import \
-    check_laplacian_operator_float, check_laplacian_operator_double, \
-    check_gaussian_curvature_float, check_gaussian_curvature_double, \
-    check_adjacent_cells_float, check_adjacent_cells_double, \
-    check_small_groups_float, check_small_groups_double, \
-    check_noisy_edges_float, check_noisy_edges_double
+    check_laplacian_operator_float, check_gaussian_curvature_float, \
+    check_adjacent_cells_float, check_small_groups_float, check_noisy_edges_float
 from hyo2.qc.survey.anomaly.base_anomaly_detector import BaseAnomalyDetector, anomaly_algos
 from hyo2.qc.survey.anomaly.anomaly_detector_v1_thresholds import ThresholdsV1
 
@@ -63,7 +60,6 @@ class AnomalyDetectorV1(BaseAnomalyDetector):
 
         # dtm
         self.bathy_values = None
-        self.bathy_is_double = False
         self.bathy_hrs = None
         self.bathy_transform = None
         self.bathy_tile = 0
@@ -88,7 +84,7 @@ class AnomalyDetectorV1(BaseAnomalyDetector):
 
     @property
     def basename(self) -> str:
-        algo_type = "FFv8"
+        algo_type = "ADv1"
 
         basename = "%s.%s" % (self.grids.current_basename, algo_type)
         if self.flier_height is not None:
@@ -206,16 +202,14 @@ class AnomalyDetectorV1(BaseAnomalyDetector):
     def _save_proxies_as_geotiff(self) -> None:
         # logger.debug("saving geotiff for heights")
 
+        nodata = -9999.0
+
         # depths
 
         geotiff_path = os.path.join(self.output_folder, "%s.t%05d.depths.tif" % (self.basename, self.bathy_tile))
         # logger.debug("heights output: %s" % geotiff_path)
 
-        nodata = -9999.0
-        if self.bathy_values.dtype == np.float32:
-            array = np.empty_like(self.dtm_mask, dtype=np.float32)
-        else:
-            array = np.empty_like(self.dtm_mask, dtype=np.float64)
+        array = np.empty_like(self.dtm_mask, dtype=np.float32)
         array[self.dtm_mask.mask] = nodata
         array[~self.dtm_mask.mask] = self.bathy_values[~self.dtm_mask.mask]
 
@@ -226,11 +220,7 @@ class AnomalyDetectorV1(BaseAnomalyDetector):
         geotiff_path = os.path.join(self.output_folder, "%s.t%05d.medians.tif" % (self.basename, self.bathy_tile))
         # logger.debug("heights output: %s" % geotiff_path)
 
-        nodata = -9999.0
-        if self.dtm_mask.dtype == np.float32:
-            array = np.empty_like(self.dtm_mask, dtype=np.float32)
-        else:
-            array = np.empty_like(self.dtm_mask, dtype=np.float64)
+        array = np.empty_like(self.dtm_mask, dtype=np.float32)
         array[self.dtm_mask.mask] = nodata
         array[~self.dtm_mask.mask] = self.ths.median[~self.dtm_mask.mask]
 
@@ -241,11 +231,7 @@ class AnomalyDetectorV1(BaseAnomalyDetector):
         geotiff_path = os.path.join(self.output_folder, "%s.t%05d.nmads.tif" % (self.basename, self.bathy_tile))
         # logger.debug("heights output: %s" % geotiff_path)
 
-        nodata = -9999.0
-        if self.dtm_mask.dtype == np.float32:
-            array = np.empty_like(self.dtm_mask, dtype=np.float32)
-        else:
-            array = np.empty_like(self.dtm_mask, dtype=np.float64)
+        array = np.empty_like(self.dtm_mask, dtype=np.float32)
         array[self.dtm_mask.mask] = nodata
         array[~self.dtm_mask.mask] = self.ths.nmad[~self.dtm_mask.mask]
 
@@ -257,11 +243,7 @@ class AnomalyDetectorV1(BaseAnomalyDetector):
                                     % (self.basename, self.bathy_tile))
         # logger.debug("heights output: %s" % geotiff_path)
 
-        nodata = -9999.0
-        if self.dtm_mask.dtype == np.float32:
-            array = np.empty_like(self.dtm_mask, dtype=np.float32)
-        else:
-            array = np.empty_like(self.dtm_mask, dtype=np.float64)
+        array = np.empty_like(self.dtm_mask, dtype=np.float32)
         array[self.dtm_mask.mask] = nodata
         array[~self.dtm_mask.mask] = self.ths.std_gauss_curv[~self.dtm_mask.mask]
 
@@ -272,11 +254,7 @@ class AnomalyDetectorV1(BaseAnomalyDetector):
         geotiff_path = os.path.join(self.output_folder, "%s.t%05d.gauss_curvs.tif" % (self.basename, self.bathy_tile))
         # logger.debug("heights output: %s" % geotiff_path)
 
-        nodata = -9999.0
-        if self.dtm_mask.dtype == np.float32:
-            array = np.empty_like(self.dtm_mask, dtype=np.float32)
-        else:
-            array = np.empty_like(self.dtm_mask, dtype=np.float64)
+        array = np.empty_like(self.dtm_mask, dtype=np.float32)
         array[self.dtm_mask.mask] = nodata
         array[~self.dtm_mask.mask] = self.gauss_curv[~self.dtm_mask.mask]
 
@@ -285,14 +263,12 @@ class AnomalyDetectorV1(BaseAnomalyDetector):
     def _save_heights_as_geotiff(self) -> None:
         # logger.debug("saving geotiff for heights")
 
+        nodata = -9999.0
+
         geotiff_path = os.path.join(self.output_folder, "%s.t%05d.th_heights.tif" % (self.basename, self.bathy_tile))
         # logger.debug("heights output: %s" % geotiff_path)
 
-        nodata = -9999.0
-        if self.dtm_mask.dtype == np.float32:
-            array = np.empty_like(self.dtm_mask, dtype=np.float32)
-        else:
-            array = np.empty_like(self.dtm_mask, dtype=np.float64)
+        array = np.empty_like(self.dtm_mask, dtype=np.float32)
         array[self.dtm_mask.mask] = nodata
         array[~self.dtm_mask.mask] = self.cur_th_height[~self.dtm_mask.mask]
 
@@ -301,14 +277,12 @@ class AnomalyDetectorV1(BaseAnomalyDetector):
     def _save_curvatures_as_geotiff(self) -> None:
         # logger.debug("saving geotiff for curvatures")
 
+        nodata = -9999.0
+
         geotiff_path = os.path.join(self.output_folder, "%s.t%05d.th_curvatures.tif" % (self.basename, self.bathy_tile))
         # logger.debug("heights output: %s" % geotiff_path)
 
-        nodata = -9999.0
-        if self.dtm_mask.dtype == np.float32:
-            array = np.empty_like(self.dtm_mask, dtype=np.float32)
-        else:
-            array = np.empty_like(self.dtm_mask, dtype=np.float64)
+        array = np.empty_like(self.dtm_mask, dtype=np.float32)
         array[self.dtm_mask.mask] = nodata
         array[~self.dtm_mask.mask] = self.cur_th_curv[~self.dtm_mask.mask]
 
@@ -316,10 +290,7 @@ class AnomalyDetectorV1(BaseAnomalyDetector):
 
     def _save_array_as_geotiff(self, geotiff_path: str, array: np.ndarray, nodata: float) -> None:
         driver = gdal.GetDriverByName('GTiff')
-        if array.dtype == np.float32:
-            ds = driver.Create(geotiff_path, array.shape[1], array.shape[0], 1, gdal.GDT_Float32, )
-        else:
-            ds = driver.Create(geotiff_path, array.shape[1], array.shape[0], 1, gdal.GDT_Float64, )
+        ds = driver.Create(geotiff_path, array.shape[1], array.shape[0], 1, gdal.GDT_Float32, )
         ds.SetProjection(self.bathy_hrs)
         # logger.debug("transform: [%s, %s, %s, %s, %s, %s]"
         #              % (self.bathy_transform[0], self.bathy_transform[1], self.bathy_transform[2],
@@ -358,6 +329,7 @@ class AnomalyDetectorV1(BaseAnomalyDetector):
                     self.progress.add(quantum=0.0001)
 
             # logger.debug("new tile")
+            # if self.bathy_tile == 107:
             self._run_slice()
             self.grids.clear_tiles()
             self.bathy_tile += 1
@@ -405,10 +377,7 @@ class AnomalyDetectorV1(BaseAnomalyDetector):
 
         lap = ndimage.filters.laplace(self.bathy_values)
 
-        if self.bathy_is_double:
-            check_laplacian_operator_double(lap, self.flag_grid, th)
-        else:
-            check_laplacian_operator_float(lap, self.flag_grid, th)
+        check_laplacian_operator_float(lap, self.flag_grid, th)
         # logging.debug("*** CHECK #1: END ***")
 
         # # The above function call is the optimized version of:
@@ -423,42 +392,34 @@ class AnomalyDetectorV1(BaseAnomalyDetector):
 
         # logging.debug("*** CHECK #2: START ***")
 
-        self._calc_gaussian_curvatures()
+        # self._calc_gaussian_curvatures()
 
-        if self.bathy_is_double:
-            check_gaussian_curvature_double(self.gauss_curv, self.flag_grid, self.cur_th_curv)
-        else:
-            check_gaussian_curvature_float(self.gauss_curv, self.flag_grid, self.cur_th_curv)
+        # logger.debug("gauss curv: %s" % self.gauss_curv)
+        # logger.debug("cur th curv: %s" % self.cur_th_curv)
+
+        # check_gaussian_curvature_float(self.gauss_curv, self.flag_grid, self.cur_th_curv)
         # logging.debug("*** CHECK #2: END ***")
 
-        # # The above function call is the optimized version of:
-        # flagged = self.gauss_curv > 6.
-        # nz_y, nz_x = flagged.nonzero()
-        # for i, x in enumerate(nz_x):
-        #     y = nz_y[i]
-        #     if self.flag_grid[y, x] == 0:  # avoid existing flagged nodes
-        #         self.flag_grid[y, x] = 2  # check #2
+        # The above function call is the optimized version of:
+        flagged = self.gauss_curv > self.cur_th_curv
+        nz_y, nz_x = flagged.nonzero()
+        for i, x in enumerate(nz_x):
+            y = nz_y[i]
+            if self.flag_grid[y, x] == 0:  # avoid existing flagged nodes
+                self.flag_grid[y, x] = 2  # check #2
 
     def _check_adjacent_cells(self):
         """Check all the adjacent cells"""
 
         # logging.debug("*** CHECK #3: START ***")
-
-        if self.bathy_is_double:
-            check_adjacent_cells_double(self.bathy_values, self.flag_grid, self.cur_th_height, 0.75, 0.8)
-        else:
-            check_adjacent_cells_float(self.bathy_values, self.flag_grid, self.cur_th_height, 0.75, 0.8)
+        check_adjacent_cells_float(self.bathy_values, self.flag_grid, self.cur_th_height, 0.75, 0.8)
         # logging.debug("*** CHECK #3: END ***")
 
     def _check_edges(self):
         """Check all the adjacent cells"""
 
         # logging.debug("*** CHECK #6: START ***")
-
-        if self.bathy_is_double:
-            check_noisy_edges_double(self.bathy_values, self.flag_grid)
-        else:
-            check_noisy_edges_float(self.bathy_values, self.flag_grid)
+        check_noisy_edges_float(self.bathy_values, self.flag_grid)
 
         # logging.debug("*** CHECK #6: END ***")
 
@@ -475,12 +436,8 @@ class AnomalyDetectorV1(BaseAnomalyDetector):
         # make a binary image
         grid_bin = np.isfinite(self.bathy_values)
 
-        if self.bathy_is_double:
-            check_small_groups_double(grid_bin, self.bathy_values, self.flag_grid, th, area_limit, self.check_slivers,
-                                      self.check_isolated)
-        else:
-            check_small_groups_float(grid_bin, self.bathy_values, self.flag_grid, th, area_limit, self.check_slivers,
-                                     self.check_isolated)
+        check_small_groups_float(grid_bin, self.bathy_values, self.flag_grid, th, area_limit, self.check_slivers,
+                                 self.check_isolated)
         # logging.debug("*** CHECKS #4/5: END ***")
 
     def _load_depths(self):
@@ -497,15 +454,14 @@ class AnomalyDetectorV1(BaseAnomalyDetector):
 
         if depth_type == GRIDS_DOUBLE:
 
-            self.bathy_is_double = True
             self.bathy_values = tile.doubles[depth_idx]
             self.bathy_values[tile.doubles[depth_idx] == tile.doubles_nodata[depth_idx]] = np.nan
             if len(self.bathy_values) == 0:
                 raise RuntimeError("No bathy values")
+            self.bathy_values = self.bathy_values.astype(np.float32, copy=False)
 
         elif depth_type == GRIDS_FLOAT:
 
-            self.bathy_is_double = False
             self.bathy_values = tile.floats[depth_idx]
             self.bathy_values[tile.floats[depth_idx] == tile.floats_nodata[depth_idx]] = np.nan
             if len(self.bathy_values) == 0:

@@ -1,6 +1,6 @@
 import numpy as np
 import time
-import scipy.ndimage as ndimage
+# import scipy.ndimage as ndimage
 from matplotlib import pyplot as plt
 import logging
 
@@ -21,12 +21,6 @@ class ThresholdsV1:
         self.std_gauss_curv = None
         self.th_height = None
         self.th_gauss_curv = None
-
-        self.median2 = None
-        self.nmad2 = None
-        self.std_gauss_curv2 = None
-        self.th_height2 = None
-        self.th_gauss_curv2 = None
 
     def calculate(self, array: np.ndarray):
         logger.info("calculation ...")
@@ -155,12 +149,12 @@ class ThresholdsV1:
                 if np.isnan(std_gauss_curv):
                     th_curv = np.nan
                 else:
-                    th_curv = 6.0
-                    if std_gauss_curv > 0.01:
+                    th_curv = 0.0001
+                    if std_gauss_curv < -0.01:
                         th_curv *= 2.0
-                    if std_gauss_curv > 0.03:
+                    if std_gauss_curv < -0.03:
                         th_curv *= 2.0
-                    if std_gauss_curv > 0.1:
+                    if std_gauss_curv < -0.1:
                         th_curv *= 2.0
 
                 # logger.info("estimated gaussian threshold: %.1f" % th_curv)
@@ -174,29 +168,14 @@ class ThresholdsV1:
             m = plt.imshow(self.median, interpolation='none')
             plt.colorbar(m)
 
-        if self.median2 is not None:
-            plt.figure("median2")
-            m = plt.imshow(self.median2, interpolation='none')
-            plt.colorbar(m)
-
         if self.nmad is not None:
             plt.figure("nmad")
             m = plt.imshow(self.nmad, interpolation='none')
             plt.colorbar(m)
 
-        if self.nmad2 is not None:
-            plt.figure("nmad2")
-            m = plt.imshow(self.nmad2, interpolation='none')
-            plt.colorbar(m)
-
         if self.std_gauss_curv is not None:
             plt.figure("std gaussian curvature")
             m = plt.imshow(self.std_gauss_curv, interpolation='none')
-            plt.colorbar(m)
-
-        if self.std_gauss_curv2 is not None:
-            plt.figure("std gaussian curvature2")
-            m = plt.imshow(self.std_gauss_curv2, interpolation='none')
             plt.colorbar(m)
 
         if self.th_height is not None:

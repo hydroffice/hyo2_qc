@@ -159,7 +159,7 @@ class SurveyProject(BaseProject):
             return 0
         return len(self._fliers.flagged_fliers)
 
-    def flagged_fliers_output_folder(self) -> str:
+    def make_fliers_output_folder(self) -> str:
         # make up the output folder (creating it if it does not exist)
         if self.output_project_folder:
             output_folder = os.path.join(self.output_folder, self._survey)
@@ -200,7 +200,7 @@ class SurveyProject(BaseProject):
                                         save_proxies=export_proxies,
                                         save_heights=export_heights,
                                         save_curvatures=export_curvatures,
-                                        output_folder=self.flagged_fliers_output_folder(),
+                                        output_folder=self.make_fliers_output_folder(),
                                         progress_bar=progress_bar)
 
             start_time = time.time()
@@ -311,7 +311,7 @@ class SurveyProject(BaseProject):
             return 0
         return len(self._anomaly.anomalies)
 
-    def anomalies_output_folder(self) -> str:
+    def make_anomalies_output_folder(self) -> str:
         # make up the output folder (creating it if it does not exist)
         if self.output_project_folder:
             output_folder = os.path.join(self.output_folder, self._survey)
@@ -331,7 +331,7 @@ class SurveyProject(BaseProject):
                             filter_fff=False, filter_designated=False,
                             export_proxies=False, export_heights=False, export_curvatures=False,
                             progress_bar=None):
-        """Look for fliers using the passed parameters and the loaded grids"""
+        """Look for anomalies using the passed parameters and the loaded grids"""
         if not self.has_grid():
             logger.warning("first load some grids")
             return
@@ -353,7 +353,7 @@ class SurveyProject(BaseProject):
                                               save_proxies=export_proxies,
                                               save_heights=export_heights,
                                               save_curvatures=export_curvatures,
-                                              output_folder=self.anomalies_output_folder(),
+                                              output_folder=self.make_anomalies_output_folder(),
                                               progress_bar=progress_bar)
 
             start_time = time.time()
@@ -389,7 +389,7 @@ class SurveyProject(BaseProject):
     #                              ANOMALIES EXPORT METHODS
 
     def save_anomalies(self):
-        """Save fliers in S57 format"""
+        """Save anomalies in S57 format"""
         plot_algos_dict = False  # for visual debugging
 
         if not self.number_of_anomalies():

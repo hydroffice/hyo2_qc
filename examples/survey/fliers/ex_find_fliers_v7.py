@@ -8,13 +8,12 @@ from PySide2 import QtWidgets
 from hyo2.qc.common import default_logging
 import logging
 
-default_logging.load()
-logger = logging.getLogger()
-
 from hyo2.abc.app.qt_progress import QtProgress
 from hyo2.qc.survey.project import SurveyProject
 from hyo2.qc.common import testing
 
+default_logging.load()
+logger = logging.getLogger()
 
 four_gb = 4294967296
 one_mb = 1048576

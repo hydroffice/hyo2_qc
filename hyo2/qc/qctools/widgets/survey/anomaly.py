@@ -37,6 +37,40 @@ class AnomalyTab(QtWidgets.QMainWindow):
         self.vbox = QtWidgets.QVBoxLayout()
         self.panel.setLayout(self.vbox)
 
+        # - anomaly v1
+        self.anomalyDetectorV1 = QtWidgets.QGroupBox("Anomaly Detector v1")
+        self.vbox.addWidget(self.anomalyDetectorV1)
+        adv1_hbox = QtWidgets.QHBoxLayout()
+        self.anomalyDetectorV1.setLayout(adv1_hbox)
+        # -- settings
+        self.setSettingsADv1 = QtWidgets.QGroupBox("Settings")
+        adv1_hbox.addWidget(self.setSettingsADv1)
+        self.paramsADv1 = None
+        self.debugADv1 = None
+        self.editable_v1 = None
+        self.show_heights_adv1 = None
+        self.set_height_label_adv1 = None
+        self.set_height_label2_adv1 = None
+        self.set_height_adv1 = None
+        self.set_check_laplacian_adv1 = None
+        self.set_check_curv_adv1 = None
+        self.set_check_adjacent_adv1 = None
+        self.set_check_slivers_adv1 = None
+        self.set_check_isolated_adv1 = None
+        self.set_check_edges_adv1 = None
+        self.set_filter_fff_adv1 = None
+        self.set_filter_designated_adv1 = None
+        self.check_export_proxies_adv1 = None
+        self.check_export_heights_adv1 = None
+        self.check_export_curvatures_adv1 = None
+        self._ui_settings_adv1()
+        # -- execution
+        self.executeADv1 = QtWidgets.QGroupBox("Execution")
+        adv1_hbox.addWidget(self.executeADv1)
+        self._ui_execute_adv1()
+
+        self.float_height_adv1 = None
+
         self.vbox.addStretch()
 
     def keyPressEvent(self, event):
@@ -270,7 +304,7 @@ class AnomalyTab(QtWidgets.QMainWindow):
         if self.editable_v1.isChecked():
             msg = "Do you really want to change the settings?"
             # noinspection PyCallByClass
-            ret = QtWidgets.QMessageBox.warning(self, "Find Fliers v1 settings", msg,
+            ret = QtWidgets.QMessageBox.warning(self, "Anomaly Detector v1 settings", msg,
                                                 QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.No)
             if ret == QtWidgets.QMessageBox.No:
                 self.editable_v1.setChecked(False)
@@ -395,10 +429,10 @@ class AnomalyTab(QtWidgets.QMainWindow):
         button = QtWidgets.QPushButton()
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
-        button.setFixedWidth(GuiSettings.text_button_width() + 10)
+        button.setFixedWidth(GuiSettings.text_button_width() + 50)
         button.setText("Anomaly Detector v1 beta")
         button.setStyleSheet("QPushButton { color: #D73232;}")
-        button.setToolTip('Find fliers in the loaded surfaces')
+        button.setToolTip('Detect anomalies in the loaded surfaces')
         # noinspection PyUnresolvedReferences
         button.clicked.connect(self.click_anomaly_detector_v1)
         # button.setDisabled(True)
@@ -421,22 +455,22 @@ class AnomalyTab(QtWidgets.QMainWindow):
     @classmethod
     def click_open_manual_v1(cls):
         logger.debug("open manual")
-        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/user_manual_survey_detect_fliers.html")
+        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/user_manual_survey_detect_anomalies.html")
 
-    # ####### find fliers #######
+    # ####### detect anomalies #######
 
     def click_anomaly_detector_v1(self):
         self._click_anomaly_detector(1)
 
     def _click_anomaly_detector(self, version):
-        """abstract the find fliers calling mechanism"""
+        """abstract the detect anomalies calling mechanism"""
 
         # sanity checks
         # - version
         if not isinstance(version, int):
             raise RuntimeError("passed invalid type for version: %s" % type(version))
         if version not in [1, ]:
-            raise RuntimeError("passed invalid Find Fliers version: %s" % version)
+            raise RuntimeError("passed invalid Anomaly Detector version: %s" % version)
         # - list of grids (although the buttons should be never been enabled without grids)
         if len(self.prj.grid_list) == 0:
             raise RuntimeError("the grid list is empty")
@@ -446,9 +480,10 @@ class AnomalyTab(QtWidgets.QMainWindow):
             if self.set_height_adv1.text() != "":
                 height_mode = self.set_height_adv1.text()
         else:
-            raise RuntimeError("unknown Find Fliers' version: %s" % version)
+            raise RuntimeError("unknown Anomaly Detector' version: %s" % version)
 
-        self.parent_win.change_info_url(Helper(lib_info=lib_info).web_url(suffix="survey_find_fliers_%d_fh_%s" % (version, height_mode)))
+        self.parent_win.change_info_url(
+            Helper(lib_info=lib_info).web_url(suffix="survey_anomaly_detector_%d_fh_%s" % (version, height_mode)))
 
         self._parse_user_height(version=version)
 
@@ -465,7 +500,7 @@ class AnomalyTab(QtWidgets.QMainWindow):
                           "\n" \
                           "Do you want to continue with the analysis?"
                     # noinspection PyCallByClass
-                    ret = QtWidgets.QMessageBox.warning(self, "Find Fliers v1 filters", msg,
+                    ret = QtWidgets.QMessageBox.warning(self, "Anomaly Detector v1 filters", msg,
                                                         QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
                     if ret == QtWidgets.QMessageBox.No:
                         return
@@ -481,45 +516,45 @@ class AnomalyTab(QtWidgets.QMainWindow):
                           "but no BAG files have been selected!\n\n" \
                           "Do you want to continue with the analysis?"
                     # noinspection PyCallByClass
-                    ret = QtWidgets.QMessageBox.warning(self, "Find Fliers v1 filters", msg,
+                    ret = QtWidgets.QMessageBox.warning(self, "Anomaly Detector v1 filters", msg,
                                                         QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
                     if ret == QtWidgets.QMessageBox.No:
                         return
 
         # for each file in the project grid list
-        msg = "Potential fliers per input:\n"
+        msg = "Potential anomalies per input:\n"
         opened_folders = list()
         for i, grid_file in enumerate(grid_list):
 
             # we want to be sure that the label is based on the name of the new file input
             self.prj.clear_survey_label()
 
-            # switcher between different versions of find fliers
+            # switcher between different versions of detect anomalies
             if version in [1, ]:
-                self._find_fliers(grid_file=grid_file, version=version, idx=(i + 1), total=len(grid_list))
+                self._anomaly_detector(grid_file=grid_file, version=version, idx=(i + 1), total=len(grid_list))
 
             else:  # this case should be never reached after the sanity checks
-                raise RuntimeError("unknown Find Fliers v%s" % version)
+                raise RuntimeError("unknown Anomaly Detector v%s" % version)
 
-            # export the fliers
-            saved = self._export_fliers()
-            msg += "- %s: %d\n" % (self.prj.cur_grid_basename, self.prj.number_of_fliers())
+            # export the anomalies
+            saved = self._export_anomalies()
+            msg += "- %s: %d\n" % (self.prj.cur_grid_basename, self.prj.number_of_anomalies())
 
             # open the output folder (if not already open)
             if saved:
 
-                if self.prj.fliers_output_folder not in opened_folders:
-                    self.prj.open_fliers_output_folder()
-                    opened_folders.append(self.prj.fliers_output_folder)
+                if self.prj.anomalies_output_folder not in opened_folders:
+                    self.prj.open_anomalies_output_folder()
+                    opened_folders.append(self.prj.anomalies_output_folder)
 
             self.prj.close_cur_grid()
 
         # noinspection PyCallByClass
-        QtWidgets.QMessageBox.information(self, "Find fliers v%d" % version, msg, QtWidgets.QMessageBox.Ok)
+        QtWidgets.QMessageBox.information(self, "Anomaly Detector v%d" % version, msg, QtWidgets.QMessageBox.Ok)
 
     def _parse_user_height(self, version):
 
-        # check for user input as flier height
+        # check for user input as anomaly height
         if version == 1:
             str_height = self.set_height_adv1.text()
 
@@ -575,29 +610,29 @@ class AnomalyTab(QtWidgets.QMainWindow):
                     self.set_height_adv1.clear()
                     self.float_height_adv1 = None
 
-                    msg = "Invalid set of flier heights parsing \"%s\":\n" \
+                    msg = "Invalid set of anomaly heights parsing \"%s\":\n" \
                           " - input values: %s\n" \
                           " - loaded grids: %s\n\n" \
                           "Defaulting to internal estimation!\n" \
                           % (str_height, len(fh_tokens), len(self.prj.grid_list))
                     # noinspection PyCallByClass
                     QtWidgets.QMessageBox.critical(self, "Error", msg, QtWidgets.QMessageBox.Ok)
-                    logger.debug('find fliers v%d: invalid set of fliers height: %s != %s'
+                    logger.debug('detect anomalies v%d: invalid set of anomalies height: %s != %s'
                                  % (version, len(fh_tokens), len(self.prj.grid_list)))
 
-            logger.info("flier height: %s" % (self.float_height_adv1,))
+            logger.info("anomaly height: %s" % (self.float_height_adv1,))
 
         else:  # this case should be never reached after the sanity checks
-            raise RuntimeError("unknown Find Fliers' version: %s" % version)
+            raise RuntimeError("unknown Anomaly Detector' version: %s" % version)
 
-    def _find_fliers(self, grid_file, version, idx, total):
-        """ find fliers in the loaded surface using passed height parameter """
+    def _anomaly_detector(self, grid_file, version, idx, total):
+        """ detect anomalies in the loaded surface using passed height parameter """
 
         # GUI initializes, then passes progress bar
 
-        logger.debug('find fliers v%d ...' % version)
+        logger.debug('detect anomalies v%d ...' % version)
 
-        self.prj.progress.start(title="Find Fliers v%d" % version,
+        self.prj.progress.start(title="Anomaly Detector v%d" % version,
                                 text="Data loading [%d/%d]" % (idx, total),
                                 init_value=2)
 
@@ -611,7 +646,7 @@ class AnomalyTab(QtWidgets.QMainWindow):
             self.prj.progress.setValue(100)
             return
 
-        self.prj.progress.update(value=5, text="Find Fliers v%d [%d/%d]" % (version, idx, total))
+        self.prj.progress.update(value=5, text="Anomaly Detector v%d [%d/%d]" % (version, idx, total))
 
         settings = QtCore.QSettings()
         try:
@@ -660,20 +695,20 @@ class AnomalyTab(QtWidgets.QMainWindow):
                 else:
                     settings.setValue("survey/ad1_designated", 0)
 
-                self.prj.find_fliers_v1(height=height,
-                                        check_laplacian=self.set_check_laplacian_adv1.isChecked(),
-                                        check_curv=self.set_check_curv_adv1.isChecked(),
-                                        check_adjacent=self.set_check_adjacent_adv1.isChecked(),
-                                        check_slivers=self.set_check_slivers_adv1.isChecked(),
-                                        check_isolated=self.set_check_isolated_adv1.isChecked(),
-                                        check_edges=self.set_check_edges_adv1.isChecked(),
-                                        filter_fff=self.set_filter_fff_adv1.isChecked(),
-                                        filter_designated=self.set_filter_designated_adv1.isChecked(),
-                                        export_proxies=save_proxies,
-                                        export_heights=save_heights,
-                                        export_curvatures=save_curvatures,
-                                        progress_bar=self.prj.progress
-                                        )
+                self.prj.detect_anomalies_v1(height=height,
+                                             check_laplacian=self.set_check_laplacian_adv1.isChecked(),
+                                             check_curv=self.set_check_curv_adv1.isChecked(),
+                                             check_adjacent=self.set_check_adjacent_adv1.isChecked(),
+                                             check_slivers=self.set_check_slivers_adv1.isChecked(),
+                                             check_isolated=self.set_check_isolated_adv1.isChecked(),
+                                             check_edges=self.set_check_edges_adv1.isChecked(),
+                                             filter_fff=self.set_filter_fff_adv1.isChecked(),
+                                             filter_designated=self.set_filter_designated_adv1.isChecked(),
+                                             export_proxies=save_proxies,
+                                             export_heights=save_heights,
+                                             export_curvatures=save_curvatures,
+                                             progress_bar=self.prj.progress
+                                             )
 
                 if self.set_check_edges_adv1.isChecked() or self.set_filter_designated_adv1.isChecked():
                     self.prj.close_cur_grid()
@@ -682,10 +717,10 @@ class AnomalyTab(QtWidgets.QMainWindow):
 
                     distance = self._parse_filter_distance_adv1()
                     delta_z = self._parse_filter_delta_z_adv1()
-                    self.prj.find_fliers_v1_apply_filters(distance=distance, delta_z=delta_z)
+                    self.prj.detect_anomalies_v1_apply_filters(distance=distance, delta_z=delta_z)
 
         except MemoryError:
-            err_str = "While finding fliers, there was a memory error. Try to close unused applications!"
+            err_str = "While finding anomalies, there was a memory error. Try to close unused applications!"
             # noinspection PyCallByClass
             QtWidgets.QMessageBox.critical(self, "Error", err_str, QtWidgets.QMessageBox.Ok)
             self.prj.progress.end()
@@ -693,19 +728,18 @@ class AnomalyTab(QtWidgets.QMainWindow):
 
         except Exception as e:
             # noinspection PyCallByClass
-            QtWidgets.QMessageBox.critical(self, "Error", "While finding fliers, %s" % e, QtWidgets.QMessageBox.Ok)
+            QtWidgets.QMessageBox.critical(self, "Error", "While finding anomalies, %s" % e, QtWidgets.QMessageBox.Ok)
             self.prj.progress.end()
             return
 
         self.prj.progress.end()
 
-    def _export_fliers(self):
-        """ export potential fliers """
-        logger.debug('exporting fliers ...')
-        saved = self.prj.save_fliers()
-        logger.debug('exporting fliers: done')
+    def _export_anomalies(self):
+        """ export potential anomalies """
+        logger.debug('exporting anomalies ...')
+        saved = self.prj.save_anomalies()
+        logger.debug('exporting anomalies: done')
         return saved
 
     def grids_changed(self):
-        # self.set_height_adv1.clear()
-        pass
+        self.set_height_adv1.clear()
