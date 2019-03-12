@@ -1,10 +1,10 @@
 .. _grid-truncate-label:
 
-BAG truncate
-------------
+Grid truncate
+-------------
 
 .. index::
-    single: BAG truncate
+    single: Grid truncate
 
 How To Use?
 ^^^^^^^^^^^

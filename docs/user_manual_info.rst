@@ -7,16 +7,20 @@ The Info Tab contains numerous helpful links and utilities:
 	* The HydrOffice QC Tools website
 	* The Online User Manual
 	* The Offline User Manual (PDF)
-	* License Information
-	* QC Tools Change List 
-	* Authors List
-	* `NOAA S-57 Support Files for CARIS <https://www.hydroffice.org/manuals/abc/user_manual_info.html#noaa-s-57-support-files-for-caris>`_
-	* Uncertainty Calculator
-	* The HydrOffice Main Page
+	* A User Bug Report Tool
+	* The HydroOffice Main Page 
+	* The NOAA Nautical Charts Home Page
 	* The Center for Coastal and Ocean Mapping Main Page
 	* The University of New Hampshire Main Page
 
-|
+	* Uncertainty Calculator
+	* The Rock or Islet oracle
+	* `NOAA S-57 Support Files for CARIS <https://www.hydroffice.org/manuals/abc/user_manual_info.html#noaa-s-57-support-files-for-caris>`_
+	* License Information
+	* Contacts List
+	* QC Tools Software Information 
+
+
 
 .. image:: _static/info_tab_full.png
     :align: center
@@ -39,7 +43,7 @@ How To Use?
 |
 
 **RorI** has been created as a tool to help hydrographers determine if their feature is a rock or an islet. RorI is a standalone
-tool that is launched from the botton at the top of the Info tab.
+tool that is launched from the button at the top of the Info tab.
 
 |
 

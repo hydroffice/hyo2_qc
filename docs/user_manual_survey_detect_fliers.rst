@@ -16,13 +16,13 @@ Scan grids for anomalous grid data "fliers".
 .. index::
     single: fliers; height
 
-* For **Flier finder v7**, first consider **Parameters:**
+* For **Flier finder v7**, first consider **Settings:**
 
     * The **Flier height** will be determined automatically by the program and does not need to be set, but the user may choose to do so in order to run a specific **Flier height**.
     * The automatic determination of **Flier height** is performed per tile, and is based on the `median`_ depth (characteristic depth), the `MAD`_ (variability in range), and the standard deviation of the `gaussian curvature`_ (roughness).
-    * The last selected **Checks** are enabled by default. You can enable or disable them in order to run custom analysis (see the "How Does It Work?" section below).
+    * The selected **Checks** are enabled by default. You can enable or disable them in order to run custom analysis (see the "How Does It Work?" section below).
 
-* To change the **Parameters** for **Flier finder v7**:
+* To change the **Settings** for **Flier finder v7**:
 
     * Click the **Unlock** button, and click **OK** to the dialogue.
     * If desired, enter a desired Flier search height in meters in the **Force flier heights** box.
@@ -43,7 +43,7 @@ Scan grids for anomalous grid data "fliers".
     :alt: fliers tab
     :figclass: align-center
 
-    The **Detect fliers** tab.
+    The **Flier finder fliers** tab.
 
 .. index::
     single: find fliers
@@ -61,9 +61,9 @@ Scan grids for anomalous grid data "fliers".
 
     The output message at the end of **Flier finder v7** execution.
 
-* From the output window, drag-and-drop the output into the processing software to guide the review. Each candidate flier is labeled using the identifier of the algorithm that detected it (e.g., "2" for Gaussian Curvature).
+* An output window will open in File Explorer. From the output window, drag-and-drop the desired output file into the processing software to guide the review. Each candidate flier is labeled using the identifier of the algorithm that detected it (e.g., "2" for Gaussian Curvature).
 
-* The output names adopt the following convention:
+* The output file names adopt the following convention:
 
     * [grid filename].FFv7.chk[identifier of each selected algorithm].flt[identifier of each selected filter]
 

@@ -11,6 +11,8 @@ How To Use?
 
 Truncate all "z" values in a feature file (.000) to decimetric precision.
 
+To access this tool, load an S-57 (.000) file into the S57 H-Cell CS box in the **Data Inputs** tab. 
+
 * Select the **S57 truncate v1** tab on the bottom of the QC Tools interface.
 
 * Define the decimal place of the truncation (default is 1, thus decimetric truncation).

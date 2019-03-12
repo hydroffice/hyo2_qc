@@ -9,16 +9,16 @@ Grid QA
 How To Use?
 ^^^^^^^^^^^    
     
-Computes grid statistics to ensure compliance to uncertainty and density requirements.
+Computes grid statistics to ensure compliance with uncertainty and density requirements.
 
 * Select the **Grid QA** tab (:numref:`fig_grid_qa`) on the bottom of the QC Tools interface.
 
 .. index::
     single: grid qa; coverage
 
-* In **Parameters**, check the box to calculate the TVU QC layer regardless of whether or not the grid contains the layer already.
+* In **Settings**, check the box to calculate the TVU QC layer regardless of whether or not the grid contains the layer already.
 
-* Since **Grid QA v5**, it is also possible to select the plots to create.
+* Check the boxes that correspond with the plots you wish to generate. 
 
 .. index::
     single: grid, uncertainty, density
@@ -50,7 +50,7 @@ Computes grid statistics to ensure compliance to uncertainty and density require
 
 .. note::
     The **Plot depth vs. density** and **Plot depth vs. TVU QC** can potentially require a large amount of memory
-    (i.e., when the input grid contains hundred of millions of nodes). As such, both plots are unflagged by default.
+    (i.e., when the input grid contains hundreds of millions of nodes). As such, both plots are unflagged by default.
     You can flag them if you need their output. If having both plots selected triggers a memory error,
     you may try to flag these plots once at a time.
 

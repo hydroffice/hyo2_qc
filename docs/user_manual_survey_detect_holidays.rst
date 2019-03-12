@@ -16,11 +16,14 @@ Scan grids for unpopulated nodes ("holidays").
 
 * Select the **Detect holidays** tab (:numref:`fig_detect_holidays`) on the bottom of the QC Tools interface.
 
-* In **Parameters**, turn the knob to select **All holes**, **Object detection**, or **Full coverage**.
+* In **Parameters**, turn the knob to select **All holes**, **Object detection**, or **Full coverage**, depending on the analysis you wish to run based on the coverage requirements of the survey (see 2.2.4.2 How does it work?)
 
-* Set the **Upper holiday area limit (as multiple of minimum holiday size)**. Unpopulated parts of the grid larger than this setting will not be flagged as holidays.
+* To change the **Parameters** for **Holiday finder v4**:
 
-* In **Execution**, click **Find holiday v4**.
+    * Click the **Unlock** button, and click **OK** to the dialogue.
+    * Set the **Upper holiday area limit (as multiple of minimum holiday size)**. Unpopulated parts of the grid larger than this setting will not be flagged as holidays.
+
+* In **Execution**, click **Find Holiday v4**.
 
 .. _fig_detect_holidays:
 .. figure:: _static/detect_holidays_interface.png
@@ -41,9 +44,9 @@ Scan grids for unpopulated nodes ("holidays").
     The output message at the end of **Find holiday v4** execution.
 
 
-* From the output window, drag-and-drop the output into the processing software to guide the review.
+* An output window will open in File Explorer. From the output window, drag-and-drop the desired output file into the processing software to guide the review.
 
-* The output names adopt the following convention:
+* The output file names adopt the following convention:
 
     * [grid filename].HFv4.["all" for *All holes* | "obj" for *Object detection* | "cov" for *Full coverage*].[min size]
 

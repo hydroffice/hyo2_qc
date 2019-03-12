@@ -14,6 +14,6 @@ The **Chart Review** tab will:
 
 * Truncate all "z" values in an S57 file to decimetric precision (see :ref:`s57-truncate-label`).
 
-* Evaluate chart-scale soundings and features versus survey-scale soundings via "triangle rule" (see :ref:`chart-triangle-rule-label`).
-
 * Scan HCell features to ensure proper attribution (see :ref:`chart-scan-features-label`).
+
+* Evaluate chart-scale soundings and features versus survey-scale soundings via "triangle rule" (see :ref:`chart-triangle-rule-label`).

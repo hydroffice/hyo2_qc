@@ -11,6 +11,8 @@ How To Use?
 
 Ensure surveyed features are properly accounted for in the gridded bathymetry.
 
+In order to access this tool, load a grid and an S-57 file into the **Data Inputs** tab. 
+
 * Select the **VALSOU check** tab (:numref:`fig_valsou_check`) on the bottom of the QC Tools interface.
 
 .. index::

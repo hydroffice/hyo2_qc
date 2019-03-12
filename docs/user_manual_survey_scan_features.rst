@@ -11,6 +11,8 @@ How To Use?
 
 Scan features to ensure proper attribution.
 
+In order to access this tool, load an S-57 file into the **Data Inputs** tab. 
+
 * Select the **Scan features** tab (:numref:`fig_feature_scan`) on the bottom of the QC Tools interface.
 
 * In **Parameters**:
@@ -39,7 +41,7 @@ Scan features to ensure proper attribution.
 
     The **Scan features** tab.
 
-* After computing, the output window opens automatically, and the results are shown (:numref:`fig_feature_scan_output`).
+* After computing, the output window opens automatically, the results are shown(:numref:`fig_feature_scan_output`).
 
 .. _fig_feature_scan_output:
 .. figure:: _static/feature_scan_results.png

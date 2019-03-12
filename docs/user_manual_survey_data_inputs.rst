@@ -3,12 +3,12 @@
 Data inputs
 -----------
 
-Ingest bathymetric grids and feature files.
+Receive bathymetric grids and feature files.
 
 .. index::
     single: survey review
 
-* Select the **Survey Review** tab on the QC Tools interface.
+* Select the **Survey Validation** tab on the QC Tools interface.
 
 .. index::
     single: drag-and-drop

@@ -25,7 +25,7 @@ In **Data inputs:**
 
 * The directory and filename of loaded data will populate in the respective field of **Data inputs**.
 
-* With the addition of a grid, feature file, and survey sounding selections, the **BAG truncate**, **BAG xyz**, **S57 truncate**, **Triangle Rule**, and/or **Scan Features** tabs
+* With the addition of a grid, feature file, and survey sounding selections, the **Grid truncate**, **Grid xyz**, **S57 truncate**, **Triangle Rule**, and/or **Scan Features** tabs
   on the bottom of the interface will become available (:numref:`chart`).
 
 .. _chart:

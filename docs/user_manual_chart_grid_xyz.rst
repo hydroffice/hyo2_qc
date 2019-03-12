@@ -13,7 +13,7 @@ Export elevation values as a point cloud.
 
 * Select the **Grid xyz** tab on the bottom of the QC Tools interface.
 
-* Check the **Force conversion to geographic WGS84** checkbox if you want that the output coordinates are converted to geographic.
+* Check the **Force conversion to geographic WGS84** checkbox if you want the output coordinates converted to geographic. 
 
 * In **Execution** (:numref:`fig_grid_xyz`), click **Grid XYZ v1**.
 

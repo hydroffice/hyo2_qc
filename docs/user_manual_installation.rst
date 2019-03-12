@@ -27,6 +27,6 @@ Installation using the Pydro distribution
 
 If you are on Windows, you can easily install QC Tools 2 as part of the `NOAA Office of Coast Survey Pydro <http://svn.pydro.noaa.gov/Docs/Pydro/_build_online/html/>`_ distribution.
 
-Pydro is a suite of software tools used to support hydrography. It is (almost exclusively) built from open source components as well as public domain custom developed software. Pydro is maintained by Hydrographic Systems and Technology Branch (HSTB) to support NOAA operations (aiding Office of Coast Survey fleet) and is made available for public use.
+Pydro is a suite of software tools used to support hydrography. It is (almost exclusively) built from open source components as well as public domain custom developed software. Pydro is maintained by the Hydrographic Systems and Technology Branch (HSTB) to support NOAA operations (aiding Office of Coast Survey fleet) and is made available for public use.
 
 You can download the latest Pydro installer from `here <http://svn.pydro.noaa.gov/Docs/Pydro/_build_online/html/downloads.html>`_.
