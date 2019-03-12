@@ -1,3 +1,4 @@
+import logging
 import os
 import ssl
 import sys
@@ -8,9 +9,6 @@ import socket
 
 from PySide2 import QtCore, QtGui, QtWidgets
 
-import logging
-logger = logging.getLogger(__name__)
-
 from hyo2.abc.lib.helper import Helper
 from hyo2.abc.app.dialogs.exception.exception_dialog import ExceptionDialog
 
@@ -19,6 +17,8 @@ from hyo2.qc.qctools import app_info
 from hyo2.qc.qctools.widgets.survey.widget import SurveyWidget
 from hyo2.qc.qctools.widgets.chart.widget import ChartWidget
 from hyo2.qc.qctools.widgets.info import InfoWidget
+
+logger = logging.getLogger(__name__)
 
 
 class MainWin(QtWidgets.QMainWindow):

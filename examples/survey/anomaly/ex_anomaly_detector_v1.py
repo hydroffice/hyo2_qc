@@ -3,7 +3,7 @@ pyximport.install()
 import Cython.Compiler.Options
 Cython.Compiler.Options.annotate = True
 
-from PySide import QtGui
+from PySide2 import QtGui, QtWidgets
 
 from hyo2.qc.common import default_logging
 import logging
@@ -11,7 +11,7 @@ import logging
 default_logging.load()
 logger = logging.getLogger()
 
-from hyo2.qc.qctools.qt_progress import QtProgress
+from hyo2.abc.app.qt_progress import QtProgress
 from hyo2.qc.survey.project import SurveyProject
 from hyo2.qc.common import testing
 
@@ -34,8 +34,8 @@ export_proxies = True
 export_heights = True
 export_curvatures = True
 
-app = QtGui.QApplication([])
-wid = QtGui.QWidget()
+app = QtWidgets.QApplication([])
+wid = QtWidgets.QWidget()
 
 # create the project
 prj = SurveyProject(output_folder=testing.output_data_folder(), progress=QtProgress(parent=wid))
@@ -48,7 +48,10 @@ logger.debug("test BAG files: %d" % len(bag_files))
 # prj.add_to_grid_list(csar_files[0])
 prj.add_to_grid_list(bag_files[1])
 # prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\FFv7_filters\test_finalized.csar")
-#prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\FFv7_filters\test_finalized.bag")
+# prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\FFv7_filters\test_finalized.bag")
+# prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\test_data_vr_do.not.use\Test0_H12280_2806_200kHz_DN149_CalderRice.bag")
+# prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\test_data_vr_do.not.use\Test0_H12280_2806_200kHz_DN149_CalderRice.csar")
+prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\VR_Test\H13015_MB_VR_MLLW_Final_Extracted.csar")
 #prj.add_to_s57_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\FFv7_filters\FFv7_filters.000")
 
 logger.debug("grid list: %s" % (prj.grid_list,))

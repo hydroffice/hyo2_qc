@@ -1,12 +1,11 @@
 import os
 import numpy as np
-from matplotlib import pyplot as plt
 import logging
+
+from hyo2.qc.survey.anomaly.anomaly_detector_v1_thresholds import ThresholdsV1
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(os.path.basename(__file__))
-
-from hyo2.qc.survey.fliers.thresholds_v8 import ThresholdsV8
 
 np.random.seed(0)
 
@@ -30,7 +29,7 @@ array[int(array.shape[0]*.1), int(array.shape[1]*.7)] = np.nan
 # ma_array = np.ma.masked_invalid(array)
 
 
-ths = ThresholdsV8()
+ths = ThresholdsV1()
 ths.calculate(array)
 
 # logger.debug("nmad:\n%s" % out_mad)

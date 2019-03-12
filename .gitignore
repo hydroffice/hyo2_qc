@@ -72,3 +72,6 @@ hyo2/qc/survey/fliers/find_fliers_checks_v8.cpp
 
 # resources folder
 resources/~$icons.pptx
+hyo2/qc/survey/fliers/thresholds_funcs_v8.cpp
+hyo2/qc/survey/anomaly/anomaly_detector_v1_checks.cpp
+hyo2/qc/survey/anomaly/anomaly_detector_v1_proxies.cpp

@@ -9,6 +9,7 @@ from hyo2.qc.common.grid_callback.qt_grid_callback import QtGridCallback
 from hyo2.qc.qctools.widgets.widget import AbstractWidget
 from hyo2.qc.qctools.widgets.survey.inputs import InputsTab
 from hyo2.qc.qctools.widgets.survey.fliers import FliersTab
+from hyo2.qc.qctools.widgets.survey.anomaly import AnomalyTab
 from hyo2.qc.qctools.widgets.survey.holes import HolesTab
 from hyo2.qc.qctools.widgets.survey.gridqa import GridQATab
 from hyo2.qc.qctools.widgets.survey.scan import ScanTab
@@ -86,23 +87,30 @@ class SurveyWidget(AbstractWidget):
         self.tabs.setTabToolTip(self.idx_fliers, "Detect fliers")
         self.tabs.setTabEnabled(self.idx_fliers, False)
 
+        # - anomaly detector
+        self.tab_anomaly = AnomalyTab(parent_win=self, prj=self.prj)
+        self.idx_anomaly = self.tabs.insertTab(2, self.tab_anomaly,
+                                               QtGui.QIcon(os.path.join(self.media, 'anomaly.png')), "")
+        self.tabs.setTabToolTip(self.idx_anomaly, "Anomaly detector")
+        self.tabs.setTabEnabled(self.idx_anomaly, False)
+
         # - holiday finder
         self.tab_holes = HolesTab(parent_win=self, prj=self.prj)
-        self.idx_holes = self.tabs.insertTab(2, self.tab_holes,
+        self.idx_holes = self.tabs.insertTab(3, self.tab_holes,
                                              QtGui.QIcon(os.path.join(self.media, 'holes.png')), "")
         self.tabs.setTabToolTip(self.idx_holes, "Detect holidays")
         self.tabs.setTabEnabled(self.idx_holes, False)
 
         # - grid qa
         self.tab_gridqa = GridQATab(parent_win=self, prj=self.prj)
-        self.idx_gridqa = self.tabs.insertTab(3, self.tab_gridqa,
+        self.idx_gridqa = self.tabs.insertTab(4, self.tab_gridqa,
                                               QtGui.QIcon(os.path.join(self.media, 'gridqa.png')), "")
         self.tabs.setTabToolTip(self.idx_gridqa, "Grid QA")
         self.tabs.setTabEnabled(self.idx_gridqa, False)
 
         # - designated
         self.tab_designated = DesignatedTab(parent_win=self, prj=self.prj)
-        self.idx_designated = self.tabs.insertTab(4, self.tab_designated,
+        self.idx_designated = self.tabs.insertTab(5, self.tab_designated,
                                                   QtGui.QIcon(os.path.join(self.media, 'designated.png')), "")
         self.tabs.setTabToolTip(self.idx_designated, "Scan designated (BAG only)")
         self.tabs.setTabEnabled(self.idx_designated, False)
@@ -148,6 +156,7 @@ class SurveyWidget(AbstractWidget):
 
     def grids_loaded(self):
         self.tabs.setTabEnabled(self.idx_fliers, True)
+        self.tabs.setTabEnabled(self.idx_anomaly, True)
         self.tabs.setTabEnabled(self.idx_holes, True)
         self.tabs.setTabEnabled(self.idx_gridqa, True)
         if self.prj.has_bag_grid() and self.has_s57:
@@ -162,6 +171,7 @@ class SurveyWidget(AbstractWidget):
 
     def grids_unloaded(self):
         self.tabs.setTabEnabled(self.idx_fliers, False)
+        self.tabs.setTabEnabled(self.idx_anomaly, False)
         self.tabs.setTabEnabled(self.idx_holes, False)
         self.tabs.setTabEnabled(self.idx_gridqa, False)
         self.tabs.setTabEnabled(self.idx_designated, False)

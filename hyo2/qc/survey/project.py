@@ -1,4 +1,5 @@
 from osgeo import osr
+from collections import defaultdict
 import numpy as np
 import time
 import os
@@ -13,7 +14,7 @@ from hyo2.qc.common.writers.s57_writer import S57Writer
 from hyo2.qc.common.writers.kml_writer import KmlWriter
 from hyo2.qc.common.writers.shp_writer import ShpWriter
 from hyo2.qc.survey.fliers.find_fliers_v7 import FindFliersV7
-from hyo2.qc.survey.fliers.find_fliers_v8 import FindFliersV8
+from hyo2.qc.survey.anomaly.anomaly_detector_v1 import AnomalyDetectorV1
 # noinspection PyProtectedMember
 from hyo2.grids.gappy import _gappy
 from hyo2.qc.survey.gridqa.grid_qa_v4 import GridQAV4
@@ -52,6 +53,12 @@ class SurveyProject(BaseProject):
         # find fliers outputs
         self.file_fliers_svp = str()
         self.file_fliers_s57 = str()
+
+        # anomaly detector
+        self._anomaly = None
+        # anomaly detector outputs
+        self.file_anomaly_svp = str()
+        self.file_anomaly_s57 = str()
 
         # find holes
         self._holes = None
@@ -225,69 +232,12 @@ class SurveyProject(BaseProject):
             self._fliers = None
             raise e
 
-    def find_fliers_v8(self, height, check_laplacian=True, check_curv=True, check_adjacent=True,
-                       check_slivers=True, check_isolated=True, check_edges=True,
-                       filter_fff=False, filter_designated=False,
-                       export_proxies=False, export_heights=False, export_curvatures=False,
-                       progress_bar=None):
-        """Look for fliers using the passed parameters and the loaded grids"""
-        if not self.has_grid():
-            logger.warning("first load some grids")
-            return
-
-        try:
-            self._gr.select_layers_in_current = [self._gr.depth_layer_name(), ]
-
-            self._fliers = FindFliersV8(grids=self._gr,
-                                        height=height,  # can be None in case of just gaussian curv or isolated nodes
-                                        check_laplacian=check_laplacian,
-                                        check_curv=check_curv,
-                                        check_adjacent=check_adjacent,
-                                        check_slivers=check_slivers,
-                                        check_isolated=check_isolated,
-                                        check_edges=check_edges,
-                                        filter_fff=filter_fff,
-                                        filter_designated=filter_designated,
-                                        save_proxies=export_proxies,
-                                        save_heights=export_heights,
-                                        save_curvatures=export_curvatures,
-                                        output_folder=self.flagged_fliers_output_folder(),
-                                        progress_bar=progress_bar)
-
-            start_time = time.time()
-            self._fliers.run()
-            logger.info("find fliers v8 -> execution time: %.3f s" % (time.time() - start_time))
-
-        except Exception as e:
-            traceback.print_exc()
-            self._fliers = None
-            raise e
-
-    def find_fliers_v8_apply_filters(self, distance=1.0, delta_z=0.01):
-        """Look for fliers using the passed parameters and the loaded grids"""
-        if not self.has_grid():
-            logger.warning("first load some grids")
-            return
-
-        try:
-            self._gr.select_layers_in_current = [self._gr.depth_layer_name(), ]
-
-            start_time = time.time()
-
-            self._fliers.apply_filters(s57_list=self.s57_list, distance=distance, delta_z=delta_z)
-
-            logger.info("find fliers v8 filters -> execution time: %.3f s" % (time.time() - start_time))
-
-        except Exception as e:
-            traceback.print_exc()
-            self._fliers = None
-            raise e
-
     # ________________________________________________________________________________
     #                               FLIERS EXPORT METHODS
 
     def save_fliers(self):
-        """Save fliers in two formats: S57 and SVP"""
+        """Save fliers in S57 format"""
+        plot_algos_dict = False  # for visual debugging
 
         if not self.number_of_fliers():
             logger.warning("no fliers to save")
@@ -300,9 +250,17 @@ class SurveyProject(BaseProject):
 
         # converting floats to strings (required by blue notes)
         fliers_for_blue_notes = list()
+
+        algos_dict = defaultdict(int)
         for flagged_flier in self._fliers.flagged_fliers:
             fliers_for_blue_notes.append([flagged_flier[0], flagged_flier[1], "%.0f" % flagged_flier[2]])
+            algos_dict[flagged_flier[2]] += 1
         S57Writer.write_bluenotes(feature_list=fliers_for_blue_notes, path=s57_file1, list_of_list=False)
+        logger.debug("flagged per algo: %s" % algos_dict)
+        if plot_algos_dict:
+            from matplotlib import pyplot as plt
+            plt.bar(algos_dict.keys(), algos_dict.values(), 1.0, color='g')
+            plt.show()
 
         S57Writer.write_soundings(feature_list=self._fliers.flagged_fliers, path=s57_file2)
         self.file_fliers_s57 = s57_file2
@@ -326,9 +284,6 @@ class SurveyProject(BaseProject):
         if self.file_fliers_s57:
             Helper.explore_folder(os.path.dirname(self.file_fliers_s57))
 
-        elif self.file_fliers_svp:
-            Helper.explore_folder(os.path.dirname(self.file_fliers_svp))
-
         else:
             logger.warning('unable to define the output folder to open')
 
@@ -337,8 +292,158 @@ class SurveyProject(BaseProject):
         if self.file_fliers_s57:
             return os.path.dirname(self.file_fliers_s57)
 
-        elif self.file_fliers_svp:
-            return os.path.dirname(self.file_fliers_svp)
+        else:
+            logger.warning('unable to define the output folder to open')
+            return str()
+
+    # ________________________________________________________________________________
+    # ############################ ANOMALY-DETECTOR METHODS ##########################
+
+    @property
+    def anomalies(self):
+        if self.number_of_anomalies():
+            return self._anomaly.anomalies
+        else:
+            return list()
+
+    def number_of_anomalies(self):
+        if not self._anomaly:
+            return 0
+        return len(self._anomaly.anomalies)
+
+    def anomalies_output_folder(self) -> str:
+        # make up the output folder (creating it if it does not exist)
+        if self.output_project_folder:
+            output_folder = os.path.join(self.output_folder, self._survey)
+        else:
+            output_folder = self.output_folder
+        if self.output_subfolders:
+            output_folder = os.path.join(output_folder, "anomalies")
+        else:
+            output_folder = os.path.join(output_folder)
+        if not os.path.exists(output_folder):
+            os.makedirs(output_folder)
+
+        return output_folder
+
+    def detect_anomalies_v1(self, height, check_laplacian=True, check_curv=True, check_adjacent=True,
+                            check_slivers=True, check_isolated=True, check_edges=True,
+                            filter_fff=False, filter_designated=False,
+                            export_proxies=False, export_heights=False, export_curvatures=False,
+                            progress_bar=None):
+        """Look for fliers using the passed parameters and the loaded grids"""
+        if not self.has_grid():
+            logger.warning("first load some grids")
+            return
+
+        try:
+            self._gr.select_layers_in_current = [self._gr.depth_layer_name(), ]
+
+            self._anomaly = AnomalyDetectorV1(grids=self._gr,
+                                              height=height,
+                                              # can be None in case of just gaussian curv or isolated nodes
+                                              check_laplacian=check_laplacian,
+                                              check_curv=check_curv,
+                                              check_adjacent=check_adjacent,
+                                              check_slivers=check_slivers,
+                                              check_isolated=check_isolated,
+                                              check_edges=check_edges,
+                                              filter_fff=filter_fff,
+                                              filter_designated=filter_designated,
+                                              save_proxies=export_proxies,
+                                              save_heights=export_heights,
+                                              save_curvatures=export_curvatures,
+                                              output_folder=self.anomalies_output_folder(),
+                                              progress_bar=progress_bar)
+
+            start_time = time.time()
+            self._anomaly.run()
+            logger.info("anomaly detector v1 -> execution time: %.3f s" % (time.time() - start_time))
+
+        except Exception as e:
+            traceback.print_exc()
+            self._anomaly = None
+            raise e
+
+    def detect_anomalies_v1_apply_filters(self, distance=1.0, delta_z=0.01):
+        """Look for anomalies using the passed parameters and the loaded grids"""
+        if not self.has_grid():
+            logger.warning("first load some grids")
+            return
+
+        try:
+            self._gr.select_layers_in_current = [self._gr.depth_layer_name(), ]
+
+            start_time = time.time()
+
+            self._anomaly.apply_filters(s57_list=self.s57_list, distance=distance, delta_z=delta_z)
+
+            logger.info("anomaly detector v1 filters -> execution time: %.3f s" % (time.time() - start_time))
+
+        except Exception as e:
+            traceback.print_exc()
+            self._anomaly = None
+            raise e
+
+    # ________________________________________________________________________________
+    #                              ANOMALIES EXPORT METHODS
+
+    def save_anomalies(self):
+        """Save fliers in S57 format"""
+        plot_algos_dict = False  # for visual debugging
+
+        if not self.number_of_anomalies():
+            logger.warning("no anomalies to save")
+            return False
+
+        output_folder = self._anomaly.output_folder
+        basename = self._anomaly.basename
+        s57_file1 = os.path.join(output_folder, "%s.blue_notes.000" % basename)
+        s57_file2 = os.path.join(output_folder, "%s.soundings.000" % basename)
+
+        # converting floats to strings (required by blue notes)
+        anomalies_for_blue_notes = list()
+
+        algos_dict = defaultdict(int)
+        for anomaly in self._anomaly.anomalies:
+            anomalies_for_blue_notes.append([anomaly[0], anomaly[1], "%.0f" % anomaly[2]])
+            algos_dict[anomaly[2]] += 1
+        S57Writer.write_bluenotes(feature_list=anomalies_for_blue_notes, path=s57_file1, list_of_list=False)
+        logger.debug("flagged per algo: %s" % algos_dict)
+        if plot_algos_dict:
+            from matplotlib import pyplot as plt
+            plt.bar(algos_dict.keys(), algos_dict.values(), 1.0, color='g')
+            plt.show()
+
+        S57Writer.write_soundings(feature_list=self._anomaly.anomalies, path=s57_file2)
+        self.file_anomaly_s57 = s57_file2
+
+        # noinspection PyBroadException
+        try:
+            out_file = s57_file2[:-4]
+            if self.output_kml:
+                KmlWriter().write_soundings(feature_list=self._anomaly.anomalies, path=out_file)
+
+            if self.output_shp:
+                ShpWriter().write_soundings(feature_list=self._anomaly.anomalies, path=out_file)
+
+        except Exception:
+            traceback.print_exc()
+            logger.info("issue in writing shapefile/kml")
+
+        return True
+
+    def open_anomalies_output_folder(self):
+        if self.file_anomaly_s57:
+            Helper.explore_folder(os.path.dirname(self.file_anomaly_s57))
+
+        else:
+            logger.warning('unable to define the output folder to open')
+
+    @property
+    def anomalies_output_folder(self):
+        if self.file_anomaly_s57:
+            return os.path.dirname(self.file_anomaly_s57)
 
         else:
             logger.warning('unable to define the output folder to open')

@@ -9,21 +9,20 @@ import numpy as np
 import os
 import logging
 
-from hyo2.qc.survey.fliers.find_fliers_checks_v8 import \
+from hyo2.qc.survey.anomaly.anomaly_detector_v1_checks import \
     check_laplacian_operator_float, check_laplacian_operator_double, \
     check_gaussian_curvature_float, check_gaussian_curvature_double, \
     check_adjacent_cells_float, check_adjacent_cells_double, \
     check_small_groups_float, check_small_groups_double, \
     check_noisy_edges_float, check_noisy_edges_double
-from hyo2.qc.survey.fliers.base_fliers import BaseFliers, fliers_algos
-from hyo2.qc.common.s57_aux import S57Aux
-from hyo2.qc.survey.fliers.thresholds_v8 import ThresholdsV8
+from hyo2.qc.survey.anomaly.base_anomaly_detector import BaseAnomalyDetector, anomaly_algos
+from hyo2.qc.survey.anomaly.anomaly_detector_v1_thresholds import ThresholdsV1
 
 
 logger = logging.getLogger(__name__)
 
 
-class FindFliersV8(BaseFliers):
+class AnomalyDetectorV1(BaseAnomalyDetector):
 
     default_filter_distance = 1.0
     default_filter_delta_z = 0.01
@@ -36,7 +35,7 @@ class FindFliersV8(BaseFliers):
                  output_folder=None, progress_bar=None):
 
         super().__init__(grids=grids)
-        self.type = fliers_algos["FIND_FLIERS_v8"]
+        self.type = anomaly_algos["ANOMALY_DETECTOR_v1"]
 
         self.ths = None
 
@@ -174,7 +173,7 @@ class FindFliersV8(BaseFliers):
         self.gx = None
         self._calc_gaussian_curvatures()
 
-        self.ths = ThresholdsV8()
+        self.ths = ThresholdsV1()
         self.ths.calculate(array=self.bathy_values)
 
         if self.flier_height is not None:
@@ -206,6 +205,21 @@ class FindFliersV8(BaseFliers):
 
     def _save_proxies_as_geotiff(self) -> None:
         # logger.debug("saving geotiff for heights")
+
+        # depths
+
+        geotiff_path = os.path.join(self.output_folder, "%s.t%05d.depths.tif" % (self.basename, self.bathy_tile))
+        # logger.debug("heights output: %s" % geotiff_path)
+
+        nodata = -9999.0
+        if self.bathy_values.dtype == np.float32:
+            array = np.empty_like(self.dtm_mask, dtype=np.float32)
+        else:
+            array = np.empty_like(self.dtm_mask, dtype=np.float64)
+        array[self.dtm_mask.mask] = nodata
+        array[~self.dtm_mask.mask] = self.bathy_values[~self.dtm_mask.mask]
+
+        self._save_array_as_geotiff(geotiff_path=geotiff_path, array=array, nodata=nodata)
 
         # median
 
@@ -239,7 +253,8 @@ class FindFliersV8(BaseFliers):
 
         # std gauss curv
 
-        geotiff_path = os.path.join(self.output_folder, "%s.t%05d.std_gauss_curvs.tif" % (self.basename, self.bathy_tile))
+        geotiff_path = os.path.join(self.output_folder, "%s.t%05d.std_gauss_curvs.tif"
+                                    % (self.basename, self.bathy_tile))
         # logger.debug("heights output: %s" % geotiff_path)
 
         nodata = -9999.0
@@ -470,6 +485,7 @@ class FindFliersV8(BaseFliers):
 
     def _load_depths(self):
         """Helper function that loads the depths values"""
+        visual_debug_depths = False
         # logger.debug("depth layer: %s" % self.grids.depth_layer_name())
 
         tile = self.grids.tiles[0]
@@ -498,10 +514,15 @@ class FindFliersV8(BaseFliers):
         else:
             raise RuntimeError("Unsupported data type for bathy")
 
+        if visual_debug_depths:
+            from matplotlib import pyplot as plt
+            plt.imshow(self.bathy_values)
+            plt.show()
+
         if self.bathy_hrs is None:
             self.bathy_hrs = tile.bbox.hrs
         self.bathy_transform = [tile.bbox.transform[0], tile.bbox.transform[1], tile.bbox.transform[2],
-                                tile.bbox.transform[3], tile.bbox.transform[4], tile.bbox.transform[5],]
+                                tile.bbox.transform[3], tile.bbox.transform[4], tile.bbox.transform[5], ]
         # logger.debug("transform: [%s, %s, %s, %s, %s, %s]"
         #              % (self.bathy_transform[0], self.bathy_transform[1], self.bathy_transform[2],
         #                 self.bathy_transform[3], self.bathy_transform[4], self.bathy_transform[5],))
@@ -544,7 +565,7 @@ class FindFliersV8(BaseFliers):
             raise IOError("unable to create a valid coords transform: %s" % e)
 
         if len(fliers_x) == 0:
-            logger.info("No fliers detected in current slice, total fliers: %s" % len(self.flagged_fliers))
+            logger.info("No fliers detected in current slice, total fliers: %s" % len(self.anomalies))
             return
 
         tile = self.grids.tiles[0]
@@ -561,7 +582,7 @@ class FindFliersV8(BaseFliers):
             # logger.debug("#%d: %f %f %d" % (i, xs[i], ys[i], zs[i]))
 
         logger.info("Initial lists length: %s, %s, %s, %s"
-                    % (len(self.flagged_xs), len(self.flagged_ys), len(self.flagged_zs), len(self.flagged_cks)))
+                    % (len(self.anomalies_xs), len(self.anomalies_ys), len(self.anomalies_zs), len(self.anomalies_cks)))
 
         # convert flagged nodes to geographic coords
         try:
@@ -578,15 +599,16 @@ class FindFliersV8(BaseFliers):
             # add checks
             lonlat[:, 2] = cks
             # store as list of list
-            self.flagged_fliers += lonlat.tolist()
-            self.flagged_xs += flagged_xs
-            self.flagged_ys += flagged_ys
-            self.flagged_zs += flagged_zs
-            self.flagged_cks += flagged_cks
+            self.anomalies += lonlat.tolist()
+            self.anomalies_xs += flagged_xs
+            self.anomalies_ys += flagged_ys
+            self.anomalies_zs += flagged_zs
+            self.anomalies_cks += flagged_cks
 
-            logger.info("Detected %s possible fliers" % len(self.flagged_fliers))
+            logger.info("Detected %s possible fliers" % len(self.anomalies))
             logger.info("Resulting lists lengths: %s, %s, %s, %s"
-                        % (len(self.flagged_xs), len(self.flagged_ys), len(self.flagged_zs), len(self.flagged_cks)))
+                        % (len(self.anomalies_xs), len(self.anomalies_ys), len(self.anomalies_zs),
+                           len(self.anomalies_cks)))
             # logger.debug(f"Flagged fliers: {self.flagged_fliers}")
 
         except Exception as e:
@@ -684,7 +706,8 @@ class FindFliersV8(BaseFliers):
         self.flagged_zs = zs
         self.flagged_cks = cks
 
-    def _prepare_fff_list(self, s57_path: str, s57_idx: int):
+    @classmethod
+    def _prepare_fff_list(cls, s57_path: str, s57_idx: int):
         selected_features = list()
 
         # open the file
@@ -721,7 +744,7 @@ class FindFliersV8(BaseFliers):
         grid_res = self.grids.cur_grids.bbox().res_x
         logger.debug("grid resolution: %.3f" % grid_res)
 
-        nr_initially_flagged = len(self.flagged_fliers)
+        nr_initially_flagged = len(self.anomalies)
         logger.debug("initially flagged fliers: %d" % nr_initially_flagged)
 
         fliers = list()
@@ -748,12 +771,12 @@ class FindFliersV8(BaseFliers):
             list_selected_features.append(self._prepare_fff_list(s57_path=s57_path, s57_idx=s57_idx))
 
         # for each flagged flier
-        for flg_idx, flg in enumerate(self.flagged_fliers):
-            flg = self.flagged_fliers[flg_idx]
-            flg_x = self.flagged_xs[flg_idx]
-            flg_y = self.flagged_ys[flg_idx]
-            flg_z = self.flagged_zs[flg_idx]
-            flg_ck = self.flagged_cks[flg_idx]
+        for flg_idx, flg in enumerate(self.anomalies):
+            flg = self.anomalies[flg_idx]
+            flg_x = self.anomalies_xs[flg_idx]
+            flg_y = self.anomalies_ys[flg_idx]
+            flg_z = self.anomalies_zs[flg_idx]
+            flg_ck = self.anomalies_cks[flg_idx]
             logger.debug("[%d/%d] (%.3f, %.3f, %.3f)" % (flg_idx, nr_initially_flagged, flg_x, flg_y, flg_z))
 
             remove_flagged = False
@@ -771,6 +794,7 @@ class FindFliersV8(BaseFliers):
                         # retrieve depth value
                         for geo3_idx, geo3 in enumerate(feature.geo3s):
 
+                            # noinspection PyBroadException
                             try:
                                 # invert sign due to the CSAR/BAG convention (depths are negative)
                                 soundg_depth = -float(geo3.z)
@@ -811,6 +835,7 @@ class FindFliersV8(BaseFliers):
                         for attr in feature.attributes:
 
                             if attr.acronym == 'VALSOU':
+                                # noinspection PyBroadException
                                 try:
                                     # invert sign due to the CSAR/BAG convention (depths are negative)
                                     s57_valsou = -float(attr.value)
@@ -825,7 +850,7 @@ class FindFliersV8(BaseFliers):
                             continue
 
                         # append [long, lat, depth]
-                        valsou_geo = [[feature.centroid.x, feature.centroid.y, s57_valsou],]
+                        valsou_geo = [[feature.centroid.x, feature.centroid.y, s57_valsou], ]
                         valsou_utm = np.array(geo2loc.TransformPoints(np.array(valsou_geo, np.float64)),
                                               np.float64)
 

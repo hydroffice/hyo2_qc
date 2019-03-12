@@ -4,12 +4,12 @@ import scipy.ndimage as ndimage
 from matplotlib import pyplot as plt
 import logging
 
+from hyo2.qc.survey.anomaly.anomaly_detector_v1_proxies import calc_proxies_double, calc_proxies_float
+
 logger = logging.getLogger(__name__)
 
-from hyo2.qc.survey.fliers.thresholds_funcs_v8 import calc_proxies_double, calc_proxies_float
 
-
-class ThresholdsV8:
+class ThresholdsV1:
 
     def __init__(self):
 
