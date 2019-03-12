@@ -7,8 +7,8 @@ Detect fliers
     single: fliers
 
 How To Use?
-^^^^^^^^^^^    
-    
+^^^^^^^^^^^
+
 Scan grids for anomalous grid data "fliers".
 
 * Select the **Detect fliers** tab (:numref:`fig_detect_fliers`) on the bottom of the QC Tools interface.
@@ -112,7 +112,7 @@ Then, the base height is incrementally increased by the level of depth variabili
 
 Increases are +2.0 meters, unless the Base height is 1.0 meter, then the increase is +1.0 meter. In this manner, Estimated flier heights are always on the interval scale of 1 (minimum), 2, 4, 6, 8, 10, 12, 14, 16 (maximum).
 
-For example: 
+For example:
 
 * if a surface has depth median = 12 m, NMAD = 0.15, and STD_CURV = 0.005, then the Estimated height = 2.0 m.
 * if a surface has depth median = 75 m, NMAD = .04, and STD_CURV = 0.08, then the Estimated height = 10.0 m.
@@ -154,7 +154,7 @@ The example in :numref:`la_place_ex` shows grid nodes (depths in meters) recomme
 
 **Gaussian Curvature**
 
-The Gaussian Curvature is a measure of concavity at each node. The gradients are taken in the x and y directions to establish gx and gy, and repeated on each gradient again in the x and y direction to establish gxx, gxy, gyx, and gyy (note that gxy = gyx). The gaussian curvature at each node is then determined by: 
+The Gaussian Curvature is a measure of concavity at each node. The gradients are taken in the x and y directions to establish gx and gy, and repeated on each gradient again in the x and y direction to establish gxx, gxy, gyx, and gyy (note that gxy = gyx). The gaussian curvature at each node is then determined by:
 
 (gxx *  gyy - (gxy * gyx)) / (1 + (gx^2) + (gy^2))^2
 
@@ -173,7 +173,7 @@ In the example below, a single flier is found (regardless of flier height).
 +-----+-----+-----+-----+-----+------+------+------+------+
 |  9  |  9  |  9  |  9  |     |   0  |  -9  |   0  |  -36 |
 +-----+-----+-----+-----+-----+------+------+------+------+
- 
+
 Testing showed that the algorithm on occasion offered unique value by flagging a flier not captured by other algorithms, while also it is not prone to excessive flags. For these reasons this algorithm is enabled by default.
 
 The example in :numref:`gauss_ex` shows grid nodes (depths in meters) and a deep flier found by the Gaussian Curvature (indicated by the red 2).
@@ -236,7 +236,7 @@ The example in :numref:`adj_ex` shows grid nodes (depths in meters) and the type
 
 **Edge Slivers**
 
-The Edge Slivers algorithm identifies small groups of connected nodes (3 nodes or less) that are detached (but within 5 nodes) from the grid. If the depth difference between the nearest detached node and the valid connection to the grid is greater than half the flier search height, a flag is registered. 
+The Edge Slivers algorithm identifies small groups of connected nodes (3 nodes or less) that are detached (but within 5 nodes) from the grid. If the depth difference between the nearest detached node and the valid connection to the grid is greater than half the flier search height, a flag is registered.
 
 Testing showed that the algorithm offers unique value by identifying the quite common fliers that result in areas of sparse data density. For this reason, it is enabled by default.
 

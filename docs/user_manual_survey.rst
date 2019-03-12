@@ -7,6 +7,7 @@ Survey Validation
     user_manual_survey_overview
     user_manual_survey_data_inputs
     user_manual_survey_detect_fliers
+    user_manual_survey_detect_anomalies
     user_manual_survey_detect_holidays
     user_manual_survey_grid_qa
     user_manual_survey_scan_designated
