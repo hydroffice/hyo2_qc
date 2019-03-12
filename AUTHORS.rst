@@ -11,6 +11,8 @@ HydrOffice QC Tools 2 is written and maintained by:
 
 - `Tyanne Faulkes <mailto:tyanne.faulkes@noaa.gov>`_
 
+- `Julia Wallace <mailto:julia.wallace@noaa.gov>`_
+
 - `Brian R. Calder <mailto:brc@ccom.unh.edu>`_
 
 - Matthew J. Wilson (2015-2017)
