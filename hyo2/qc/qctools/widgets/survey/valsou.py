@@ -125,7 +125,7 @@ class ValsouTab(QtWidgets.QMainWindow):
         text_2016.setAlignment(QtCore.Qt.AlignCenter)
         text_2016.setFixedWidth(40)
         label2_hbox.addWidget(text_2016)
-        text_2018 = QtWidgets.QLabel("2018")
+        text_2018 = QtWidgets.QLabel("2018+")
         text_2018.setAlignment(QtCore.Qt.AlignCenter)
         text_2018.setFixedWidth(70)
         label2_hbox.addWidget(text_2018)

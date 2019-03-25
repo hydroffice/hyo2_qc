@@ -266,17 +266,17 @@ class ScanTab(QtWidgets.QMainWindow):
         # space
         label_up_hbox.addSpacing(15)
         # specs
-        text_2017 = QtWidgets.QLabel("2017")
-        text_2017.setAlignment(QtCore.Qt.AlignCenter)
-        text_2017.setFixedWidth(25)
-        label_up_hbox.addWidget(text_2017)
-        # space
-        label_up_hbox.addSpacing(15)
-        # specs
         text_2018 = QtWidgets.QLabel("2018")
         text_2018.setAlignment(QtCore.Qt.AlignCenter)
         text_2018.setFixedWidth(25)
         label_up_hbox.addWidget(text_2018)
+        # space
+        label_up_hbox.addSpacing(20)
+        # specs
+        text_2019 = QtWidgets.QLabel("2019")
+        text_2019.setAlignment(QtCore.Qt.AlignCenter)
+        text_2019.setFixedWidth(25)
+        label_up_hbox.addWidget(text_2019)
 
         # stretch
         label_up_hbox.addStretch()
@@ -301,8 +301,8 @@ class ScanTab(QtWidgets.QMainWindow):
         self.toggle_specs_v8 = QtWidgets.QDial()
         self.toggle_specs_v8.setNotchesVisible(True)
         self.toggle_specs_v8.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.toggle_specs_v8.setRange(2016, 2019)
-        self.toggle_specs_v8.setValue(2018)
+        self.toggle_specs_v8.setRange(2017, 2020)
+        self.toggle_specs_v8.setValue(2019)
         self.toggle_specs_v8.setFixedSize(QtCore.QSize(50, 50))
         self.toggle_specs_v8.setInvertedAppearance(False)
         toggle_hbox.addWidget(self.toggle_specs_v8)
@@ -316,26 +316,26 @@ class ScanTab(QtWidgets.QMainWindow):
         # stretch
         label_hbox.addStretch()
         # profile
-        text_field = QtWidgets.QLabel("Office")
-        text_field.setAlignment(QtCore.Qt.AlignRight)
-        text_field.setFixedWidth(45)
-        label_hbox.addWidget(text_field)
-        text_office = QtWidgets.QLabel("Field")
+        text_office = QtWidgets.QLabel("Office")
         text_office.setAlignment(QtCore.Qt.AlignRight)
-        text_office.setFixedWidth(35)
+        text_office.setFixedWidth(45)
         label_hbox.addWidget(text_office)
+        text_field = QtWidgets.QLabel("Field")
+        text_field.setAlignment(QtCore.Qt.AlignRight)
+        text_field.setFixedWidth(35)
+        label_hbox.addWidget(text_field)
         # space
         label_hbox.addSpacing(20)
         # specs
-        text_2016 = QtWidgets.QLabel("2016")
-        text_2016.setAlignment(QtCore.Qt.AlignCenter)
-        text_2016.setFixedWidth(25)
-        label_hbox.addWidget(text_2016)
-        text_2019 = QtWidgets.QLabel("2019 test")
-        text_2019.setAlignment(QtCore.Qt.AlignRight)
-        text_2019.setFixedWidth(70)
-        text_2019.setStyleSheet("QLabel { color :  rgb(200, 0, 0, 200); }")
-        label_hbox.addWidget(text_2019)
+        text_2017 = QtWidgets.QLabel("2017")
+        text_2017.setAlignment(QtCore.Qt.AlignCenter)
+        text_2017.setFixedWidth(25)
+        label_hbox.addWidget(text_2017)
+        text_2020 = QtWidgets.QLabel("2020 test")
+        text_2020.setAlignment(QtCore.Qt.AlignRight)
+        text_2020.setFixedWidth(70)
+        text_2020.setStyleSheet("QLabel { color :  rgb(200, 0, 0, 200); }")
+        label_hbox.addWidget(text_2020)
         # stretch
         label_hbox.addStretch()
 
@@ -554,7 +554,7 @@ class ScanTab(QtWidgets.QMainWindow):
         """ Change the specs in use """
         logger.info('selected specs %d' % value)
 
-        enable = value in [2018, 2019]
+        enable = value in [2018, 2019, 2020]
         self.text_lakes_v8.setEnabled(enable)
         self.text_atlantic_v8.setEnabled(enable)
         self.text_pacific_v8.setEnabled(enable)
@@ -608,7 +608,7 @@ class ScanTab(QtWidgets.QMainWindow):
             elif version == 8:
 
                 specs_version = self.toggle_specs_v8.value()
-                if specs_version == 2016:
+                if specs_version == 2016: # no 2016
                     specs_version = "2016"
                 elif specs_version == 2017:
                     specs_version = "2017"
@@ -616,6 +616,8 @@ class ScanTab(QtWidgets.QMainWindow):
                     specs_version = "2018"
                 elif specs_version == 2019:
                     specs_version = "2019"
+                elif specs_version == 2020:
+                    specs_version = "2020"
                 else:
                     raise RuntimeError("unknown specs version: %s" % specs_version)
 
