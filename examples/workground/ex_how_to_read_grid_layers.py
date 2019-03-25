@@ -11,7 +11,7 @@ default_logging.load()
 logger = logging.getLogger()
 
 # path = r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\QuickTest.bag"
-path = r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\VR_Test\H13015_MB_VR_MLLW_Final_Extracted_4_tiles.bag"
+path = r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\VR_Test\H13015_MB_VR_MLLW_Final_Extracted_8_tiles.csar"
 DEFAULT_CHUNK_SIZE = 4294967296  # 4GB
 
 grids = GridsManager()

@@ -42,7 +42,7 @@ logger.debug("test BAG files: %d" % len(bag_files))
 
 # prj.add_to_grid_list(csar_files[0])
 # prj.add_to_grid_list(bag_files[0])
-# prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\FFv7_filters\test_finalized.csar")
+prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\FFv7_filters\test_finalized.csar")
 prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\FFv7_filters\test_finalized.bag")
 prj.add_to_s57_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\FFv7_filters\FFv7_filters.000")
 
