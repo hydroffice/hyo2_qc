@@ -1142,6 +1142,10 @@ class SurveyProject(BaseProject):
                 output_pdf = os.path.join(output_folder, "%s.SFSv8.2019.pdf" % self.cur_s57_basename)
                 title_pdf = "Survey Feature Scan v8 - Tests against HSSD 2019"
 
+            elif self._scan.version == '2020':
+                output_pdf = os.path.join(output_folder, "%s.SFSv8.2020.pdf" % self.cur_s57_basename)
+                title_pdf = "Survey Feature Scan v8 - Tests against HSSD 2020"
+
             else:
                 raise RuntimeError("Not implemented version: %s" % self._scan.version)
 

@@ -64,15 +64,20 @@ How Does It Work?
 
 |
 
-At the top of RorI there are two toggles. How rocks and islets are defined depends upon where you are surveying due to
-the tidal range that occurs in these areas. NOAA has three discrete regions: The East Coast (including the Gulf Coast),
+At the top of RorI there are three toggles. In 2019, NOAA's Marine Chart Division updated how to define the WATLEV of 
+rocks and redefined when a rock becomes an islet. 
+
+Pre-2019, how rocks and islets were defined depends upon where you were surveying due to
+the tidal range that occurs in these areas. NOAA had three discrete regions: The East Coast (including the Gulf Coast),
 the West Coast (including Alaska), and the Great Lakes. The user will set the first toggle depending on the location of
 their survey.
 
-The second toggle does not have an impact on how RorI is doing its calculations. The toggle controls two visualizations.
+For 2019 and beyond, the definition has been unified from coast to coast. The only difference between the three options in the second toggle is that the Great Lakes region is referenced to LWD. 
+
+The third toggle does not have an impact on how RorI is doing its calculations. The toggle controls two visualizations.
 First, the boxes below which show you the math being used to define the different WATLEV values. You can either view
 these values in an elevation (positive up) or depth (positive down). The boxes below show the math behind of each WATLEV
-value which are derived from NOAA's 2017 Hydrographic Specifications and Deliverables.
+value which are derived from NOAA's Hydrographic Specifications and Deliverables for their respective years.
 
 |
 
@@ -95,9 +100,13 @@ RorI does not use magic to calculate the difference between a rock or and islet.
 compares the depth to the MHW value (or LWD for the Great Lakes) which are both entered by the user. If the rock is higher in elevation than the following values,
 then it is an islet.
 
-    * Atlantic Coast: 0.3048 m
-    * Pacific Coast: 0.6096 m
-    * Great Lakes: 1.2192 m
+    **2018 HSSD**:
+        * Atlantic Coast: 0.3048 m
+        * Pacific Coast: 0.6096 m
+        * Great Lakes: 1.2192 m
+        
+    **2019 HSSD**
+        * All regions: 0.1 m
 
 |
 
