@@ -82,6 +82,8 @@ class FeatureScanV8(BaseScan):
         self.flagged_m_qual_surend = list()
         self.flagged_m_qual_surend_sordat = list()
         self.flagged_m_qual_tecsou = list()
+        self.flagged_mcd_description = list()
+        self.flagged_mcd_remarks = list ()
 
     @classmethod
     def check_sorind(cls, value, check_space=True):
@@ -1608,6 +1610,14 @@ class FeatureScanV8(BaseScan):
                                                                                  values_to_flag=['', ],
                                                                                  check_attrib_existence=True)
 
+            # Ensure all features have descrp (per MCD)
+            self.report += "Features have empty or missing mandatory attribute description [CHECK]"
+            self.flagged_mcd_description = self.check_features_for_attribute(objects= self.all_features, attribute='descrp')
+
+            # Ensure all features have remrks (per MCD)
+            self.report += "Features missing mandatory attribute remarks [CHECK]"
+            self.flagged_mcd_remarks = self.check_features_for_attribute(self.all_features, attribute='remrks')
+
         # finalize the summary
         self.finalize_summary()
 
@@ -1913,6 +1923,14 @@ class FeatureScanV8(BaseScan):
                                                                                  values_to_flag=['', ],
                                                                                  check_attrib_existence=True)
 
+            # Ensure all features have descrp (per MCD)
+            self.report += "Features have empty or missing mandatory attribute description [CHECK]"
+            self.flagged_mcd_description = self.check_features_for_attribute(objects= self.all_features, attribute='descrp')
+
+            # Ensure all features have remrks (per MCD)
+            self.report += "Features missing mandatory attribute remarks [CHECK]"
+            self.flagged_mcd_remarks = self.check_features_for_attribute(self.all_features, attribute='remrks')
+
         # finalize the summary
         self.finalize_summary()
 
@@ -2217,6 +2235,14 @@ class FeatureScanV8(BaseScan):
                                                                                  values_to_flag=['', ],
                                                                                  check_attrib_existence=True)
 
+            # Ensure all features have descrp (per MCD)
+            self.report += "Features have empty or missing mandatory attribute description [CHECK]"
+            self.flagged_mcd_description = self.check_features_for_attribute(objects= self.all_features, attribute='descrp')
+
+            # Ensure all features have remrks (per MCD)
+            self.report += "Features missing mandatory attribute remarks [CHECK]"
+            self.flagged_mcd_remarks = self.check_features_for_attribute(self.all_features, attribute='remrks')
+
         # finalize the summary
         self.finalize_summary()
 
@@ -2433,4 +2459,12 @@ class FeatureScanV8(BaseScan):
                 count += 1
                 self.report += 'Check %d - M_QUAL features with empty/missing mandatory attribute TECSOU: %s' \
                                % (count, len(self.flagged_m_qual_tecsou))
+                count += 1
+
+                self.report += 'Check %d - Features with empty/unknown attribute descrp: %s' \
+                               % (count, len(self.flagged_mcd_description))
+                count += 1
+
+                self.report += 'Check %d - Features with empty/missing attribute remrks: %s' \
+                               % (count, len(self.flagged_mcd_description))
                 count += 1

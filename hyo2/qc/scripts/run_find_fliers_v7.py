@@ -15,7 +15,7 @@ logger = logging.getLogger()
 ask_for_input_folder = True
 ask_for_output_folder = True
 # If set to False, height_value can be set by user or calculated like when the GUI is left empty.
-calc_min_depth_tvu = True
+calc_min_depth_tvu = False
 # If None, and calc_min_depth_tvu is set to false, then height will be automatically calculated.
 # If set with float (aka number), then the value is used as threshold.
 height_value = None
@@ -86,6 +86,27 @@ if nr_bag_todo == 0:
 
 logger.debug("BAG listed: %d" % nr_bag_todo)
 
+# create a list with all the FFF paths (walking recursively across the sub-folders, if present)
+fff_todo_list = list()
+try:  # Trapping Exceptions like OSError (File permissions)
+    for root, dirs, files in os.walk(input_folder):
+
+        for file in files:
+
+            if file.lower().endswith(".000"):
+                fff_todo_list.append(os.path.join(root, file))
+
+except Exception as e:
+    logger.warning("issue in walking through the input folder: %s" % e)
+
+nr_fff_todo = len(fff_todo_list)
+if nr_fff_todo == 0:
+    logger.debug("no fff files accessible in the input folder: %s" % input_folder)
+    # exit(-1)
+
+
+logger.debug("FFF listed: %d" % nr_fff_todo)
+
 # manage the output folder by asking to user OR using the hand-written path (required to instantiate a SurveyProject)
 
 if ask_for_output_folder:
@@ -125,6 +146,10 @@ prj.output_kml = out_kml
 for bag_path in bag_todo_list:
     prj.add_to_grid_list(bag_path)
 
+# add all FFF files to the project
+for fff in fff_todo_list:
+    prj.add_to_s57_list(fff)
+
 # create 3 empty lists: one for the BAGs successfully processed, one for the ones with fliers, and another for crashes
 
 bag_done_list = list()
@@ -145,6 +170,7 @@ for i, bag_path in enumerate(prj.grid_list):
 
         prj.clear_survey_label()
         prj.open_grid(path=bag_path)
+
         prj.find_fliers_v7(height=height_value,
                            check_laplacian=check_laplacian,
                            check_curv=check_curv,
@@ -155,6 +181,12 @@ for i, bag_path in enumerate(prj.grid_list):
                            filter_designated= filter_designated,
                            filter_fff= filter_fff
                            )
+
+        prj.close_cur_grid()
+
+        prj.open_grid(path=bag_path)
+        prj.find_fliers_v7_apply_filters()
+
         saved = prj.save_fliers()
         if saved:
             bag_with_fliers_list.append(bag_path)
@@ -175,13 +207,20 @@ for i, bag_path in enumerate(prj.grid_list):
 report = str()
 report += "- successfully processed: %d/%d\n" % (len(bag_done_list), nr_bag_todo)
 report += "- processed with fliers: %d/%d\n" % (len(bag_with_fliers_list), len(bag_done_list))
-for bag_with_fliers in bag_with_fliers_list:
-    report += ("  . %s, %.3f, %s\n" %
-               (bag_with_fliers, tvu_height_per_bag_dict[bag_with_fliers], nr_fliers_per_bag_dict[bag_with_fliers]))
-report += "- crashes while processing: %d/%d\n" % (len(bag_crash_list), nr_bag_todo)
-for bag_crash in bag_crash_list:
-    logger.info("  . %s\n" % bag_crash)
-
+if calc_min_depth_tvu is True:
+    for bag_with_fliers in bag_with_fliers_list:
+        report += ("  . %s, %.3f, %s\n" %
+                   (bag_with_fliers, tvu_height_per_bag_dict[bag_with_fliers], nr_fliers_per_bag_dict[bag_with_fliers]))
+    report += "- crashes while processing: %d/%d\n" % (len(bag_crash_list), nr_bag_todo)
+    for bag_crash in bag_crash_list:
+        logger.info("  . %s\n" % bag_crash)
+else:
+    for bag_with_fliers in bag_with_fliers_list:
+        report += ("  . %s, %s\n" %
+                   (bag_with_fliers, nr_fliers_per_bag_dict[bag_with_fliers]))
+    report += "- crashes while processing: %d/%d\n" % (len(bag_crash_list), nr_bag_todo)
+    for bag_crash in bag_crash_list:
+        logger.info("  . %s\n" % bag_crash)
 logger.info("\n%s" % report)
 
 # save on disk a final report
