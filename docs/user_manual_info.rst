@@ -100,13 +100,17 @@ RorI does not use magic to calculate the difference between a rock or and islet.
 compares the depth to the MHW value (or LWD for the Great Lakes) which are both entered by the user. If the rock is higher in elevation than the following values,
 then it is an islet.
 
-    **2018 HSSD**:
-        * Atlantic Coast: 0.3048 m
-        * Pacific Coast: 0.6096 m
-        * Great Lakes: 1.2192 m
+RorI is based on the following specifications:
+
+* **HSSD 2018**:
+
+  * Atlantic Coast: 0.3048 m
+  * Pacific Coast: 0.6096 m
+  * Great Lakes: 1.2192 m
         
-    **2019 HSSD**
-        * All regions: 0.1 m
+* **HSSD 2019**:
+
+  * All regions: 0.1 m
 
 |
 
@@ -156,39 +160,41 @@ The user inputs the depth and displayed below are the results of both the IHO an
 
 |
 
-
------------------------------------------------------------
-
-|
-
 How Does It Work?
 """""""""""""""""
 |
 
-* IHO and NOAA TVU calculations are identical per S-44 and the Hydrographic Survey Specifications and Deliverables.
+IHO and NOAA TVU calculations are identical per S-44 and the Hydrographic Survey Specifications and Deliverables.
 
 .. math::
 
     TVU\, QC = Uncertainty / \sqrt{a^2 + (b * depth)^2}
 
-where :math:`a = 0.25m, b = 0.0075 m` for Special Order, :math:`a = 0.5, b = 0.013` for Order 1 (depths less than 100 m), and :math:`a = 1.0, b = 0.023` for Order 2 (depths greater than 100 m).
+where:
 
-* IHO and NOAA THU utilize the same formula but with different variables.
+* :math:`a = 0.25 m, b = 0.0075` for Special Order
+* :math:`a = 0.5 m, b = 0.013` for Order 1 (depths less than 100 m)
+* :math:`a = 1.0 m, b = 0.023` for Order 2 (depths greater than 100 m)
+
+IHO and NOAA THU utilize the same formula but with different variables.
 
 .. math::
 
-    THU\, QC = ±(k+p x depth)
+    THU\, QC = ±(k + p * depth)
 
 where:
 
-    IHO:
-        * Special Order: where :math:`k = 2 m, p = 0 pct`
-        * Order 1: where :math:`k = 5 m, p = 5 pct`
-        * Order 2: where :math:`k = 20 m, p = 10 pct`
-    NOAA:
-        * All Orders: where :math:`k = 5 m, p = 5 pct`
+* IHO:
 
-* The graph at the bottom of the tool is interactive and visually represents the total vertical and total horizontal
-  uncertainties at that order.
+  * Special Order: where :math:`k = 2 m, p = 0 pct`
+  * Order 1: where :math:`k = 5 m, p = 5 pct`
+  * Order 2: where :math:`k = 20 m, p = 10 pct`
+
+* NOAA:
+
+  * All Orders: where :math:`k = 5 m, p = 5 pct`
+
+The graph at the bottom of the tool is interactive and visually represents the total vertical and total horizontal
+uncertainties at that order.
 
 
