@@ -10,15 +10,7 @@ scan_algos = {
     "BASE": 0,
     "FEATURE_SCAN_v7": 7,
     "FEATURE_SCAN_v8": 8,
-}
-
-specs_vers = {
-    "BASE": 0,
-    "2015": 1,
-    "2016": 2,
-    "2017": 3,
-    "2018": 4,
-    "2019": 5,
+    "FEATURE_SCAN_v9": 9,
 }
 
 survey_areas = {
@@ -33,7 +25,6 @@ class BaseScan:
     def __init__(self, s57):
 
         self.type = scan_algos["BASE"]
-        self.version = specs_vers["BASE"]
 
         # inputs
         self.s57 = s57

@@ -5,6 +5,7 @@ import time
 import os
 import traceback
 import logging
+from typing import Optional
 
 from hyo2.abc.lib.progress.cli_progress import CliProgress
 from hyo2.abc.lib.gdal_aux import GdalAux
@@ -22,8 +23,8 @@ from hyo2.qc.survey.gridqa.grid_qa_v5 import GridQAV5
 from hyo2.grids.grids_manager import layer_types
 from hyo2.qc.survey.scan.base_scan import scan_algos
 from hyo2.qc.survey.scan.base_scan import survey_areas
-from hyo2.qc.survey.scan.feature_scan_v7 import FeatureScanV7
 from hyo2.qc.survey.scan.feature_scan_v8 import FeatureScanV8
+from hyo2.qc.survey.scan.feature_scan_v9 import FeatureScanV9
 from hyo2.qc.survey.designated.base_designated import designated_algos
 from hyo2.qc.survey.designated.designated_scan_v2 import DesignatedScanV2
 from hyo2.qc.survey.valsou.base_valsou import valsou_algos
@@ -944,16 +945,14 @@ class SurveyProject(BaseProject):
             return 0
         return len(self._scan.flagged_features[0])
 
-    def feature_scan(self, version, specs_version,
-                     survey_area=survey_areas["Pacific Coast"], use_mhw=False, mhw_value=0.0,
-                     sorind=None, sordat=None):
+    def feature_scan(self, version: int, specs_version: str,
+                     survey_area: int = survey_areas["Pacific Coast"], use_mhw: bool = False, mhw_value: float = 0.0,
+                     sorind: Optional[str] = None, sordat: Optional[str] = None,
+                     multimedia_folder: Optional[str] = None):
 
         # sanity checks
         # - version
-        if not isinstance(version, int):
-            raise RuntimeError("passed invalid type for version: %s" % type(version))
-
-        if version not in [7, 8, ]:
+        if version not in [8, 9]:
             raise RuntimeError("passed invalid Feature Scan version: %s" % version)
 
         # - list of grids (although the buttons should be never been enabled without grids)
@@ -968,11 +967,18 @@ class SurveyProject(BaseProject):
 
             # we want to be sure that the label is based on the name of the new file input
             self.clear_survey_label()
+
+            if multimedia_folder is None:
+                input_folder = os.path.dirname(s57_file)
+                multimedia_folder = os.path.join(input_folder, "Multimedia")
+                if not os.path.exists(multimedia_folder):
+                    multimedia_folder = None
+            
             # switcher between different versions of feature scan
-            if version in [7, 8]:
+            if version in [8, 9]:
                 self._feature_scan(feature_file=s57_file, version=version, specs_version=specs_version,
                                    survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
-                                   sorind=sorind, sordat=sordat,
+                                   sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder,
                                    idx=(i + 1), total=len(self.s57_list))
 
             else:  # this case should be never reached after the sanity checks
@@ -990,7 +996,7 @@ class SurveyProject(BaseProject):
                     opened_folders.append(self._scan_output_folder)
 
     def _feature_scan(self, feature_file, version, specs_version,
-                      survey_area, use_mhw, mhw_value, sorind, sordat,
+                      survey_area, use_mhw, mhw_value, sorind, sordat, multimedia_folder,
                       idx, total):
         """ feature scan in the loaded s57 features """
         logger.debug('feature scan v%d ...' % version)
@@ -1010,13 +1016,15 @@ class SurveyProject(BaseProject):
 
         try:
 
-            if version == 7:
-                self._scan_features_v7(specs_version=specs_version)
-
             if version == 8:
                 self._scan_features_v8(specs_version=specs_version,
                                        survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
                                        sorind=sorind, sordat=sordat)
+
+            if version == 9:
+                self._scan_features_v9(specs_version=specs_version,
+                                       survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
+                                       sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder)
 
             else:
                 RuntimeError("unknown Feature Scan version: %s" % version)
@@ -1028,25 +1036,8 @@ class SurveyProject(BaseProject):
 
         self.progress.end()
 
-    def _scan_features_v7(self, specs_version="2017"):
-        """Look for fliers using the passed parameters and the loaded grids"""
-        if not self.has_s57():
-            return
-
-        try:
-
-            self._scan = FeatureScanV7(s57=self.cur_s57, profile=self.active_profile, version=specs_version)
-
-            start_time = time.time()
-            self._scan.run()
-            logger.info("scan features v7 -> execution time: %.3f s" % (time.time() - start_time))
-
-        except Exception as e:
-            traceback.print_exc()
-            self._scan = None
-            raise e
-
-    def _scan_features_v8(self, specs_version, survey_area, use_mhw, mhw_value, sorind, sordat):
+    def _scan_features_v8(self, specs_version: str, survey_area: int, use_mhw: bool, mhw_value: float,
+                          sorind: Optional[str], sordat: Optional[str]):
         """Look for fliers using the passed parameters and the loaded grids"""
         if not self.has_s57():
             return
@@ -1060,6 +1051,27 @@ class SurveyProject(BaseProject):
             start_time = time.time()
             self._scan.run()
             logger.info("scan features v8 -> execution time: %.3f s" % (time.time() - start_time))
+
+        except Exception as e:
+            traceback.print_exc()
+            self._scan = None
+            raise e
+
+    def _scan_features_v9(self, specs_version: str, survey_area: int, use_mhw: bool, mhw_value: float,
+                          sorind: Optional[str], sordat: Optional[str], multimedia_folder: Optional[str]):
+        """Look for fliers using the passed parameters and the loaded grids"""
+        if not self.has_s57():
+            return
+
+        try:
+
+            self._scan = FeatureScanV9(s57=self.cur_s57, profile=self.active_profile, version=specs_version,
+                                       survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
+                                       sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder)
+
+            start_time = time.time()
+            self._scan.run()
+            logger.info("scan features v9 -> execution time: %.3f s" % (time.time() - start_time))
 
         except Exception as e:
             traceback.print_exc()
@@ -1099,38 +1111,9 @@ class SurveyProject(BaseProject):
         if not os.path.exists(output_folder):
             os.makedirs(output_folder)
 
-        if self._scan.type == scan_algos['FEATURE_SCAN_v7']:
+        if self._scan.type == scan_algos['FEATURE_SCAN_v8']:
 
-            if self._scan.version == '2015':
-                output_pdf = os.path.join(output_folder, "%s.SFSv7.2015.pdf" % self.cur_s57_basename)
-                title_pdf = "Survey Feature Scan v7 - Tests against HSSD 2015"
-
-            elif self._scan.version == '2016':
-                output_pdf = os.path.join(output_folder, "%s.SFSv7.2016.pdf" % self.cur_s57_basename)
-                title_pdf = "Survey Feature Scan v7 - Tests against HSSD 2016"
-
-            elif self._scan.version == '2017':
-                output_pdf = os.path.join(output_folder, "%s.SFSv7.2017.pdf" % self.cur_s57_basename)
-                title_pdf = "Survey Feature Scan v7 - Tests against HSSD 2017"
-
-            elif self._scan.version == '2018':
-                output_pdf = os.path.join(output_folder, "%s.SFSv7.TEST.pdf" % self.cur_s57_basename)
-                title_pdf = "Survey Feature Scan v7 - Tests against HSSD TEST"
-
-            else:
-                raise RuntimeError("Not implemented version: %s" % self._scan.version)
-
-        elif self._scan.type == scan_algos['FEATURE_SCAN_v8']:
-
-            if self._scan.version == '2015':
-                output_pdf = os.path.join(output_folder, "%s.SFSv8.2015.pdf" % self.cur_s57_basename)
-                title_pdf = "Survey Feature Scan v8 - Tests against HSSD 2015"
-
-            elif self._scan.version == '2016':
-                output_pdf = os.path.join(output_folder, "%s.SFSv8.2016.pdf" % self.cur_s57_basename)
-                title_pdf = "Survey Feature Scan v8 - Tests against HSSD 2016"
-
-            elif self._scan.version == '2017':
+            if self._scan.version == '2017':
                 output_pdf = os.path.join(output_folder, "%s.SFSv8.2017.pdf" % self.cur_s57_basename)
                 title_pdf = "Survey Feature Scan v8 - Tests against HSSD 2017"
 
@@ -1145,6 +1128,27 @@ class SurveyProject(BaseProject):
             elif self._scan.version == '2020':
                 output_pdf = os.path.join(output_folder, "%s.SFSv8.2020.pdf" % self.cur_s57_basename)
                 title_pdf = "Survey Feature Scan v8 - Tests against HSSD 2020"
+
+            else:
+                raise RuntimeError("Not implemented version: %s" % self._scan.version)
+
+        elif self._scan.type == scan_algos['FEATURE_SCAN_v9']:
+
+            if self._scan.version == '2017':
+                output_pdf = os.path.join(output_folder, "%s.SFSv9.2017.pdf" % self.cur_s57_basename)
+                title_pdf = "Survey Feature Scan v9 - Tests against HSSD 2017"
+
+            elif self._scan.version == '2018':
+                output_pdf = os.path.join(output_folder, "%s.SFSv9.2018.pdf" % self.cur_s57_basename)
+                title_pdf = "Survey Feature Scan v9 - Tests against HSSD 2018"
+
+            elif self._scan.version == '2019':
+                output_pdf = os.path.join(output_folder, "%s.SFSv9.2019.pdf" % self.cur_s57_basename)
+                title_pdf = "Survey Feature Scan v9 - Tests against HSSD 2019"
+
+            elif self._scan.version == '2020':
+                output_pdf = os.path.join(output_folder, "%s.SFSv9.2020.pdf" % self.cur_s57_basename)
+                title_pdf = "Survey Feature Scan v9 - Tests against HSSD 2020"
 
             else:
                 raise RuntimeError("Not implemented version: %s" % self._scan.version)

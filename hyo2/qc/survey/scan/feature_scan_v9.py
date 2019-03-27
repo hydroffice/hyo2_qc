@@ -1,5 +1,7 @@
 import datetime
 import logging
+import os
+from typing import Optional
 
 from hyo2.qc.survey.scan.base_scan import BaseScan, scan_algos, survey_areas
 from hyo2.qc.common.s57_aux import S57Aux
@@ -8,13 +10,13 @@ from hyo2.abc.lib.helper import Helper
 logger = logging.getLogger(__name__)
 
 
-class FeatureScanV8(BaseScan):
-    def __init__(self, s57, profile=0, version="2018",
-                 survey_area=survey_areas["Pacific Coast"], use_mhw=False, mhw_value=0.0,
-                 sorind=None, sordat=None):
+class FeatureScanV9(BaseScan):
+    def __init__(self, s57, profile: int = 0, version: str = "2019",
+                 survey_area: int = survey_areas["Pacific Coast"], use_mhw: bool = False, mhw_value: float = 0.0,
+                 sorind: Optional[str] = None, sordat: Optional[str] = None, multimedia_folder: Optional[str] = None):
         super().__init__(s57=s57)
 
-        self.type = scan_algos["FEATURE_SCAN_v8"]
+        self.type = scan_algos["FEATURE_SCAN_v9"]
         self.version = version
         self.all_features = self.s57.rec10s
         self.profile = profile
@@ -23,6 +25,7 @@ class FeatureScanV8(BaseScan):
         self.mhw_value = mhw_value
         self.sorind = sorind
         self.sordat = sordat
+        self.multimedia_folder = multimedia_folder
 
         # summary info
         self.redundancy = list()
@@ -84,6 +87,7 @@ class FeatureScanV8(BaseScan):
         self.flagged_m_qual_tecsou = list()
         self.flagged_mcd_description = list()
         self.flagged_mcd_remarks = list()
+        self.flagged_images_no_sbdare = list()
 
     @classmethod
     def check_sorind(cls, value, check_space=True):
@@ -649,6 +653,81 @@ class FeatureScanV8(BaseScan):
             self.report += "OK"
 
         logger.debug("checking for invalid ELEVAT -> flagged: %d" % len(flagged))
+
+        return flagged
+
+    def _check_features_for_images(self, objects):
+        """Check if the passed features have valid ELEVAT"""
+        logger.debug("checking for invalid IMAGES ...")
+
+        flagged = list()
+
+        for obj in objects:
+            images = None
+            for attr in obj.attributes:
+                if attr.acronym == "images":
+                    images = attr.value
+
+            if images is None:
+                continue
+
+            images_list = images.split(";")
+
+            for image_filename in images_list:
+
+                if "," in image_filename:
+                    # add to the flagged feature list and to the flagged report
+                    self._append_flagged(obj.centroid.x, obj.centroid.y, "invalid separator")
+                    self.report += 'found %s at (%s, %s) with image having invalid separator: %s' % \
+                                   (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
+                    flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
+                    continue
+
+                tokens = image_filename.split("_")
+                if len(tokens) not in [2, 3]:
+                    # add to the flagged feature list and to the flagged report
+                    self._append_flagged(obj.centroid.x, obj.centroid.y, "invalid filenaming")
+                    self.report += 'found %s at (%s, %s) with image having invalid filenaming (nr. of "_"): %s' % \
+                                   (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
+                    flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
+                    continue
+
+                if len(tokens[0]) != 6:
+                    # add to the flagged feature list and to the flagged report
+                    self._append_flagged(obj.centroid.x, obj.centroid.y, "invalid survey in filename")
+                    self.report += 'found %s at (%s, %s) with image having invalid survey in filename: %s' % \
+                                   (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
+                    flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
+                    continue
+
+                if len(tokens[1]) != 15:
+                    # add to the flagged feature list and to the flagged report
+                    self._append_flagged(obj.centroid.x, obj.centroid.y, "invalid FIDN+FIDS in filename")
+                    self.report += 'found %s at (%s, %s) with image having invalid FIDN+FIDS in filename: %s' % \
+                                   (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
+                    flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
+                    continue
+
+                if self.multimedia_folder is None:
+                    # add to the flagged feature list and to the flagged report
+                    self._append_flagged(obj.centroid.x, obj.centroid.y, "missing images folder")
+                    self.report += 'found %s at (%s, %s) with missing images folder: %s' % \
+                                   (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
+                    flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
+                    continue
+
+                img_path = os.path.join(self.multimedia_folder, image_filename.strip())
+                if not os.path.exists(img_path):
+                    self._append_flagged(obj.centroid.x, obj.centroid.y, "invalid path")
+                    self.report += 'found %s at (%s, %s) with invalid path to image: %s' % \
+                                   (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
+                    flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
+                    continue
+
+        if len(flagged) == 0:
+            self.report += "OK"
+
+        logger.debug("checking for invalid images -> flagged: %d" % len(flagged))
 
         return flagged
 
@@ -1562,6 +1641,10 @@ class FeatureScanV8(BaseScan):
         self.report += "M_COVR missing mandatory attribute NINFOM [CHECK]"
         self.flagged_m_covr_ninfom = self.check_features_for_attribute(mcovr, 'NINFOM')
 
+        self.report += "Invalid IMAGES attribute for no-SBDARE features [CHECK]"
+        no_sbdare_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=["SBDARE",])
+        self.flagged_images_no_sbdare = self._check_features_for_images(no_sbdare_features)
+
         # For the office profile, ensure all features have onotes
         if self.profile == 0:  # office
             self.report += "Features missing onotes [CHECK]"
@@ -1876,6 +1959,10 @@ class FeatureScanV8(BaseScan):
         self.report += "M_COVR missing mandatory attribute NINFOM [CHECK]"
         self.flagged_m_covr_ninfom = self.check_features_for_attribute(mcovr, 'NINFOM')
 
+        self.report += "Invalid IMAGES attribute for no-SBDARE features [CHECK]"
+        no_sbdare_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=["SBDARE",])
+        self.flagged_images_no_sbdare = self._check_features_for_images(no_sbdare_features)
+
         # For the office profile, ensure all features have onotes
         if self.profile == 0:  # office
             self.report += "Features missing onotes [CHECK]"
@@ -2189,6 +2276,10 @@ class FeatureScanV8(BaseScan):
         self.report += "M_COVR missing mandatory attribute NINFOM [CHECK]"
         self.flagged_m_covr_ninfom = self.check_features_for_attribute(mcovr, 'NINFOM')
 
+        self.report += "Invalid IMAGES attribute for no-SBDARE features [CHECK]"
+        no_sbdare_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=["SBDARE",])
+        self.flagged_images_no_sbdare = self._check_features_for_images(no_sbdare_features)
+
         # For the office profile, ensure all features have onotes
         if self.profile == 0:  # office
             self.report += "Features missing onotes [CHECK]"
@@ -2431,6 +2522,12 @@ class FeatureScanV8(BaseScan):
         self.report += 'Check %d - M_COVR missing mandatory attribute NINFOM: %s' \
                        % (count, len(self.flagged_m_covr_ninfom))
         count += 1
+
+        if self.version in ["2018", "2019", "2020"]:
+
+            self.report += 'Check %d - Invalid IMAGES attribute for no-SBDARE features: %s' \
+                           % (count, len(self.flagged_images_no_sbdare))
+            count += 1
 
         if self.profile == 0:  # not used in 'field' profile
 

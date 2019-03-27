@@ -390,7 +390,7 @@ class SbdareTab(QtWidgets.QMainWindow):
 
                     else:
                         logger.debug("selected images folder: %s" % images_folder)
-                        QtCore.QSettings().value("bottom_samples_images_folder", images_folder)
+                        QtCore.QSettings().setValue("bottom_samples_images_folder", images_folder)
 
                 try:
                     self.prj.sbdare_export_v4(exif=self.set_exif_tags_v4.isChecked(), images_folder=images_folder)
