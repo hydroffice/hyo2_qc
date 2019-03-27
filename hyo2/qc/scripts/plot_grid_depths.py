@@ -88,7 +88,7 @@ for grid_path in grids.grid_list:
             depth_nodata = tile.floats_nodata[depth_idx]
             bathy_values = tile.floats[depth_idx]
         bathy_values[bathy_values == depth_nodata] = np.nan
-        plt.imshow(bathy_values)
+        plt.imshow(bathy_values, origin='lower')
         plt.show()
 
         grids.clear_tiles()
