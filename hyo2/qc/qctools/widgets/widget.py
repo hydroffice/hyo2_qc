@@ -14,6 +14,7 @@ class AbstractWidget(QtWidgets.QMainWindow):
 
     def __init__(self, main_win):
         QtWidgets.QMainWindow.__init__(self)
+        self.setFocusPolicy(QtCore.Qt.ClickFocus)
 
         self.main_win = main_win
         self.media = self.main_win.media

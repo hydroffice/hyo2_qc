@@ -23,8 +23,6 @@ logger = logging.getLogger(__name__)
 
 class SurveyWidget(AbstractWidget):
 
-    here = os.path.abspath(os.path.join(os.path.dirname(__file__)))  # overloading
-
     def __init__(self, main_win):
         AbstractWidget.__init__(self, main_win=main_win)
         self.prj = SurveyProject(progress=QtProgress(parent=self))
@@ -88,6 +86,7 @@ class SurveyWidget(AbstractWidget):
         self.tabs.setTabEnabled(self.idx_fliers, False)
 
         # - anomaly detector
+        self.test_anomaly = False
         self.tab_anomaly = AnomalyTab(parent_win=self, prj=self.prj)
         self.idx_anomaly = self.tabs.insertTab(2, self.tab_anomaly,
                                                QtGui.QIcon(os.path.join(self.media, 'anomaly.png')), "")
@@ -150,13 +149,33 @@ class SurveyWidget(AbstractWidget):
         self.has_grid = False
         self.has_s57 = False
 
+    def keyPressEvent(self, event):
+        key = event.key()
+        # noinspection PyUnresolvedReferences
+        if event.modifiers() == QtCore.Qt.ControlModifier:
+
+            # noinspection PyUnresolvedReferences
+            if key in [QtCore.Qt.Key_A, ]:
+
+                if self.test_anomaly:
+                    self.test_anomaly = False
+                    self.tabs.setTabEnabled(self.idx_anomaly, False)
+                else:
+                    self.test_anomaly = True
+                    if self.has_grid:
+                        self.tabs.setTabEnabled(self.idx_anomaly, True)
+                logger.debug("anomaly detector: %s" % self.test_anomaly)
+                # return True
+        return super(SurveyWidget, self).keyPressEvent(event)
+
     def do(self):
         """DEBUGGING"""
         pass
 
     def grids_loaded(self):
         self.tabs.setTabEnabled(self.idx_fliers, True)
-        self.tabs.setTabEnabled(self.idx_anomaly, True)
+        if self.test_anomaly:
+            self.tabs.setTabEnabled(self.idx_anomaly, True)
         self.tabs.setTabEnabled(self.idx_holes, True)
         self.tabs.setTabEnabled(self.idx_gridqa, True)
         if self.prj.has_bag_grid() and self.has_s57:

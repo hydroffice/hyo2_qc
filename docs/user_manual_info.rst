@@ -20,7 +20,7 @@ The Info Tab contains numerous helpful links and utilities:
 	* Contacts List
 	* QC Tools Software Information 
 
-
+|
 
 .. image:: _static/info_tab_full.png
     :align: center
