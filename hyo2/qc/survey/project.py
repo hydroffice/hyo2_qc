@@ -973,7 +973,7 @@ class SurveyProject(BaseProject):
                 multimedia_folder = os.path.join(input_folder, "Multimedia")
                 if not os.path.exists(multimedia_folder):
                     multimedia_folder = None
-            
+
             # switcher between different versions of feature scan
             if version in [8, 9]:
                 self._feature_scan(feature_file=s57_file, version=version, specs_version=specs_version,

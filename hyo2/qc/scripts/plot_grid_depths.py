@@ -1,5 +1,6 @@
 import logging
-from PySide2 import QtWidgets
+import os
+from PySide2 import QtWidgets, QtCore
 from matplotlib import pyplot as plt
 import numpy as np
 
@@ -10,8 +11,43 @@ from hyo2.grids.common import default_logging
 default_logging.load()
 logger = logging.getLogger()
 
-# path = r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\QuickTest.bag"
-path = r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\VR_Test\H13015_MB_VR_MLLW_Final_Extracted.csar"
+# set settings
+
+ask_for_input_file = True
+
+# create a Qt application (required to get the dialog to select folders)
+
+app = QtWidgets.QApplication([])
+app.setApplicationName('plot_depths')
+app.setOrganizationName("HydrOffice")
+app.setOrganizationDomain("hydroffice.org")
+
+# manage the input file by asking to user OR using the hand-written path
+
+if ask_for_input_file:
+    # noinspection PyArgumentList
+    path, _ = QtWidgets.QFileDialog.getOpenFileName(parent=None, caption="Select input grid file",
+                                                    dir=QtCore.QSettings().value("plot_depths_folder", ""))
+
+    if path == str():
+        logger.error("input file not selected")
+        exit(-1)
+
+    QtCore.QSettings().setValue("plot_depths_folder", os.path.dirname(path))
+
+else:
+    path = r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\VR_Test\H13015_MB_VR_MLLW_Final_Extracted.csar"
+
+    if not os.path.exists(path):
+        logger.error("input file does not exist: %s" % path)
+        exit(-1)
+
+    if not os.path.isfile(path):
+        logger.error("input file is actually not a file: %s" % path)
+        exit(-1)
+
+logger.debug("input file: %s" % path)
+
 DEFAULT_CHUNK_SIZE = 4294967296  # 4GB
 
 grids = GridsManager()
