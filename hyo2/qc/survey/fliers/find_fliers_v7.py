@@ -16,7 +16,7 @@ from hyo2.qc.survey.fliers.find_fliers_checks_v7 import \
     check_small_groups_float, check_small_groups_double, \
     check_noisy_edges_float, check_noisy_edges_double
 from hyo2.qc.survey.fliers.base_fliers import BaseFliers, fliers_algos
-from hyo2.qc.common.s57_aux import S57Aux
+
 
 logger = logging.getLogger(__name__)
 
@@ -173,16 +173,22 @@ class FindFliersV7(BaseFliers):
 
         self.gy = None
         self.gx = None
-        self.median = np.nanmedian(self.dtm_mask)  # compute the median along a flattened version of the array
-        self.dtm_mean = np.mean(self.dtm_mask)
-        self.dtm_std = np.std(self.dtm_mask)
+        # logger.debug("dtm_mask: %s" % self.dtm_mask)
+        # np.savetxt('array_%d' % self.bathy_tile, self.dtm_mask)
+        self.median = np.ma.median(self.dtm_mask)  # compute the median along a flattened version of the array
+        self.dtm_mean = np.ma.mean(self.dtm_mask)
+        self.dtm_std = np.ma.std(self.dtm_mask)
         self.dtm_mad = abs(self.median - self.dtm_mean)  # median absolute deviation to measure the data variability
         self.nmad = self.dtm_mad / self.dtm_std
         self._calc_gaussian_curvatures()
 
+        # noinspection PyStringFormat
+        logger.debug("proxies -> median: %f, nmad: %f, std curv: %f" % (self.median, self.nmad, self.std_gauss_curv))
+
         # bug fix for nan cases
         if np.isnan(self.median) or np.isnan(self.nmad) or np.isnan(self.std_gauss_curv):
-            logger.warning("skipping calculation due to nan proxies")
+            logger.warning("skipping calculation due to nan proxies: %s, %s, %s"
+                           % (np.isnan(self.median), np.isnan(self.nmad), np.isnan(self.std_gauss_curv)))
             self.cur_height = 1.0
             self.cur_curv_th = 6.0
             return
@@ -220,9 +226,6 @@ class FindFliersV7(BaseFliers):
         if self.std_gauss_curv > 0.1:
             estimated_height += 2.0
             estimated_curv_th *= 2.0
-
-        # noinspection PyStringFormat
-        logger.debug("proxies -> median: %f, nmad: %f, std curv: %f" % (self.median, self.nmad, self.std_gauss_curv))
 
         if self.cur_height is not None:
             logger.debug("using user-selected height: %s" % self.cur_height)
@@ -366,10 +369,10 @@ class FindFliersV7(BaseFliers):
                 elif self.progress.value <= 99:
                     self.progress.add(quantum=0.0001)
 
-            # logger.debug("new tile")
             self._run_slice()
             self.grids.clear_tiles()
             self.bathy_tile += 1
+            logger.debug("new tile: %s" % self.bathy_tile)
 
     def _run_slice(self):
 
