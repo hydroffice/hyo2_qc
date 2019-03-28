@@ -15,7 +15,7 @@ logger = logging.getLogger()
 ask_for_input_folder = True
 ask_for_output_folder = True
 # If set to False, height_value can be set by user or calculated like when the GUI is left empty.
-calc_min_depth_tvu = False
+calc_min_depth_tvu = True
 # If None, and calc_min_depth_tvu is set to false, then height will be automatically calculated.
 # If set with float (aka number), then the value is used as threshold.
 height_value = None
