@@ -392,14 +392,11 @@ class SubmissionChecksV3(BaseSubmission):
             ["Water_Levels", ],
         ]
 
+        if self.noaa_only:
+            subs.append(["Sonar_Data", "%s_GSF" %(self.cur_xnnnnn)])
+
         is_caris_user = os.path.exists(os.path.join(path, "Sonar_Data", "HDCS_Data"))
         logger.debug("is CARIS user: %s" % is_caris_user)
-
-        if self.noaa_only:
-            if is_caris_user:
-                subs.append(["Sonar_Data", "HDCS_Data", "%s_GSF" % (self.cur_xnnnnn)])
-            else:
-                subs.append(["Sonar_Data", "%s_GSF" %(self.cur_xnnnnn)])
 
         if is_caris_user:
             subs += [
