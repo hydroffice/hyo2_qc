@@ -23,6 +23,8 @@ In order to access this tool, load an S-57 file into the **Data Inputs** tab.
 
   #. Turn the knob to select the applicable location. (This effects the definition of WATLEV per the HSSD.)
 
+  #. When **Select the path to the images folder** is set, the user can navigate to their multimedia or images folder upon exicution of the tool. When this is unchecked, Feature scan will search in the relative path that the feature file is located. 
+  
   #. **MHW** value is required to check proper attribution of WATLEV per the HSSD. Enter MHW value as a positive number. (This value is not used for Great Lakes).
 
   #. When **SORIND** and **SORDAT** are set, the entered values are compared to the attribution of new and updated features.
@@ -30,7 +32,7 @@ In order to access this tool, load an S-57 file into the **Data Inputs** tab.
 .. index::
     single: feature scan
 
-* In **Execution**, click **Feature scan v8** (note that the '2019 test' option is used to experiment with future
+* In **Execution**, click **Feature scan v8** (note that the '2020 test' option is used to experiment with future
   requirements).
 
 .. _fig_feature_scan:
@@ -66,7 +68,7 @@ How Does It Work?
 
 The S-57 features are scanned to ensure proper attribution per the required year of HSSD.
 
-The logic for the 2018 QC Tools feature scan is shown below. For previous years, refer to the HSSD for that year.
+The logic for the 2019 QC Tools feature scan is shown below. For previous years, refer to the HSSD for that year.
 
 * Check to ensure no feature redundancy.
 * All new and updated features except **"$AREAS", "$LINES", "$CSYMB", "$COMPS",** and **"$TEXTS"**.
@@ -102,11 +104,13 @@ The logic for the 2018 QC Tools feature scan is shown below. For previous years,
 * Additionally, if MHW flag is set, all features with **VALSOU** are checked for valid value and proper **WATLEV** attribution. [3]_
 * All features with **"ELEVAT"** are checked for valid value.
 * All **M_COVR** must have **"CATCOV", "INFORM",** and **"NINFOM".**
+* All **"images"** contain the correct naming convention and they have a corresponding image in the multimedia folder. 
 * Specific for the Office Profile:
     * All features must have **"onotes".**
     * All features must have **"hsdrec".**
     * Checks for features that are prohibited by MCD (**"DRGARE", "LOGPON", "PIPARE", "PIPOHD", "PIPSOL", "DMPGRD" "LIGHTS", "BOYLAT", "BOYSAW", "BOYSPP", "DAYMAR", "FOGSIG", "CBLSUB", "CBLARE", "FAIRWY", "RTPBCN", "BOYISD", "BOYINB", "BOYCAR", "CBLOHD", "OBSTRN"** with **"CATOBS"** = 5, **MORFAC** with **CATMOR** = 7.
     * All **M_QUAL** features must have **"CATZOC", "SURSTA", "SUREND",** and **"TECSOU".**
+    * All features must have **"descrp"** and **remrks"**.
 
 .. rubric:: Footnotes
 
@@ -147,7 +151,7 @@ The logic for the 2018 QC Tools feature scan is shown below. For previous years,
 
 **NATSUR**: mud (1), clay (2), silt (3), sand (4), stone (5), gravel (6), pebbles (7), cobbles (8), rock (9), lava (11), coral (14), shells (17), boulder (18)
 
-.. [3] Allowable combinations of **"WATLEV"** per **"VALSOU"** depending on location are shown below as stated in Appendix F in the 2018 Hydrographic Specifications and Deliverables.
+.. [3] Allowable combinations of **"WATLEV"** per **"VALSOU"** depending on location are shown below as stated in Appendix E in the 2019 Hydrographic Specifications and Deliverables.
 
 .. _fig_WATLEV_attribution:
 .. figure:: _static/watlev_table.png
