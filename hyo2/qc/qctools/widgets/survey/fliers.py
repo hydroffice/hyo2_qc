@@ -6,7 +6,7 @@ import logging
 from hyo2.qc.qctools.gui_settings import GuiSettings
 from hyo2.qc.common import lib_info
 from hyo2.abc.lib.helper import Helper
-from hyo2.qc.survey.fliers.find_fliers_v7 import FindFliersV7
+from hyo2.qc.survey.fliers.find_fliers_v8 import FindFliersV8
 
 logger = logging.getLogger(__name__)
 
@@ -22,14 +22,14 @@ class FliersTab(QtWidgets.QMainWindow):
         self.media = self.parent_win.media
 
         self.settings = QtCore.QSettings()
-        self.settings.setValue("survey/ff7_laplacian", self.settings.value("survey/ff7_laplacian", 0))
-        self.settings.setValue("survey/ff7_gaussian", self.settings.value("survey/ff7_gaussian", 1))
-        self.settings.setValue("survey/ff7_adjacent", self.settings.value("survey/ff7_adjacent", 1))
-        self.settings.setValue("survey/ff7_slivers", self.settings.value("survey/ff7_slivers", 1))
-        self.settings.setValue("survey/ff7_orphans", self.settings.value("survey/ff7_orphans", 1))
-        self.settings.setValue("survey/ff7_edges", self.settings.value("survey/ff7_edges", 0))
-        self.settings.setValue("survey/ff7_fff", self.settings.value("survey/ff7_fff", 0))
-        self.settings.setValue("survey/ff7_designated", self.settings.value("survey/ff7_designated", 0))
+        self.settings.setValue("survey/ff8_laplacian", self.settings.value("survey/ff8_laplacian", 0))
+        self.settings.setValue("survey/ff8_gaussian", self.settings.value("survey/ff8_gaussian", 1))
+        self.settings.setValue("survey/ff8_adjacent", self.settings.value("survey/ff8_adjacent", 1))
+        self.settings.setValue("survey/ff8_slivers", self.settings.value("survey/ff8_slivers", 1))
+        self.settings.setValue("survey/ff8_orphans", self.settings.value("survey/ff8_orphans", 1))
+        self.settings.setValue("survey/ff8_edges", self.settings.value("survey/ff8_edges", 0))
+        self.settings.setValue("survey/ff8_fff", self.settings.value("survey/ff8_fff", 0))
+        self.settings.setValue("survey/ff8_designated", self.settings.value("survey/ff8_designated", 0))
 
         # ui
         self.panel = QtWidgets.QFrame()
@@ -37,39 +37,39 @@ class FliersTab(QtWidgets.QMainWindow):
         self.vbox = QtWidgets.QVBoxLayout()
         self.panel.setLayout(self.vbox)
 
-        # - flier finder v7
-        self.flierFinderV7 = QtWidgets.QGroupBox("Flier finder v7")
-        self.vbox.addWidget(self.flierFinderV7)
-        ffv7_hbox = QtWidgets.QHBoxLayout()
-        self.flierFinderV7.setLayout(ffv7_hbox)
+        # - flier finder v8
+        self.flierFinderV8 = QtWidgets.QGroupBox("Flier finder v8")
+        self.vbox.addWidget(self.flierFinderV8)
+        ffv8_hbox = QtWidgets.QHBoxLayout()
+        self.flierFinderV8.setLayout(ffv8_hbox)
         # -- settings
-        self.setSettingsFFv7 = QtWidgets.QGroupBox("Settings")
-        ffv7_hbox.addWidget(self.setSettingsFFv7)
-        self.paramsFFv7 = None
-        self.debugFFv7 = None
-        self.editable_v7 = None
-        self.show_heights_ffv7 = None
-        self.set_height_label_ffv7 = None
-        self.set_height_label2_ffv7 = None
-        self.set_height_ffv7 = None
-        self.set_check_laplacian_ffv7 = None
-        self.set_check_curv_ffv7 = None
-        self.set_check_adjacent_ffv7 = None
-        self.set_check_slivers_ffv7 = None
-        self.set_check_isolated_ffv7 = None
-        self.set_check_edges_ffv7 = None
-        self.set_filter_fff_ffv7 = None
-        self.set_filter_designated_ffv7 = None
-        self.slider_export_proxies_v7 = None
-        self.slider_export_heights_v7 = None
-        self.slider_export_curvatures_v7 = None
-        self._ui_settings_ffv7()
+        self.setSettingsFFv8 = QtWidgets.QGroupBox("Settings")
+        ffv8_hbox.addWidget(self.setSettingsFFv8)
+        self.paramsFFv8 = None
+        self.debugFFv8 = None
+        self.editable_v8 = None
+        self.show_heights_ffv8 = None
+        self.set_height_label_ffv8 = None
+        self.set_height_label2_ffv8 = None
+        self.set_height_ffv8 = None
+        self.set_check_laplacian_ffv8 = None
+        self.set_check_curv_ffv8 = None
+        self.set_check_adjacent_ffv8 = None
+        self.set_check_slivers_ffv8 = None
+        self.set_check_isolated_ffv8 = None
+        self.set_check_edges_ffv8 = None
+        self.set_filter_fff_ffv8 = None
+        self.set_filter_designated_ffv8 = None
+        self.slider_export_proxies_v8 = None
+        self.slider_export_heights_v8 = None
+        self.slider_export_curvatures_v8 = None
+        self._ui_settings_ffv8()
         # -- execution
-        self.executeFFv7 = QtWidgets.QGroupBox("Execution")
-        ffv7_hbox.addWidget(self.executeFFv7)
-        self._ui_execute_ffv7()
+        self.executeFFv8 = QtWidgets.QGroupBox("Execution")
+        ffv8_hbox.addWidget(self.executeFFv8)
+        self._ui_execute_ffv8()
 
-        self.float_height_ffv7 = None
+        self.float_height_ffv8 = None
 
         self.vbox.addStretch()
 
@@ -81,295 +81,295 @@ class FliersTab(QtWidgets.QMainWindow):
             # noinspection PyUnresolvedReferences
             if key == QtCore.Qt.Key_D:
 
-                if self.debugFFv7.isHidden():
-                    self.debugFFv7.show()
+                if self.debugFFv8.isHidden():
+                    self.debugFFv8.show()
                 else:
-                    self.debugFFv7.hide()
+                    self.debugFFv8.hide()
 
                 # return True
         return super(FliersTab, self).keyPressEvent(event)
 
-    # v7
+    # v8
 
-    def _ui_settings_ffv7(self):
-        self.settings_ffv7_vbox = QtWidgets.QVBoxLayout()
-        self.setSettingsFFv7.setLayout(self.settings_ffv7_vbox)
+    def _ui_settings_ffv8(self):
+        self.settings_ffv8_vbox = QtWidgets.QVBoxLayout()
+        self.setSettingsFFv8.setLayout(self.settings_ffv8_vbox)
 
-        self.settings_ffv7_vbox.addStretch()
+        self.settings_ffv8_vbox.addStretch()
 
         min_group_box = 240
 
         vbox = QtWidgets.QVBoxLayout()
         vbox.setContentsMargins(20, 5, 20, 5)
-        self.settings_ffv7_vbox.addLayout(vbox)
+        self.settings_ffv8_vbox.addLayout(vbox)
 
-        self._ui_settings_params_checks_ffv7(vbox=vbox, min_group_box=min_group_box)
-        self._ui_settings_params_filters_ffv7(vbox=vbox, min_group_box=min_group_box)
-        self._ui_settings_params_debug_ffv7(vbox=vbox, min_group_box=min_group_box)
-        self._ui_settings_params_lock_ffv7(vbox=vbox)
+        self._ui_settings_params_checks_ffv8(vbox=vbox, min_group_box=min_group_box)
+        self._ui_settings_params_filters_ffv8(vbox=vbox, min_group_box=min_group_box)
+        self._ui_settings_params_debug_ffv8(vbox=vbox, min_group_box=min_group_box)
+        self._ui_settings_params_lock_ffv8(vbox=vbox)
 
-        self.settings_ffv7_vbox.addStretch()
+        self.settings_ffv8_vbox.addStretch()
 
-    def _ui_settings_params_checks_ffv7(self, vbox: QtWidgets.QVBoxLayout, min_group_box: int) -> None:
+    def _ui_settings_params_checks_ffv8(self, vbox: QtWidgets.QVBoxLayout, min_group_box: int) -> None:
         hbox = QtWidgets.QHBoxLayout()
         vbox.addLayout(hbox)
         hbox.addStretch()
 
-        set_checks_ffv7 = QtWidgets.QGroupBox("Checks")
-        set_checks_ffv7.setMinimumWidth(min_group_box)
-        hbox.addWidget(set_checks_ffv7)
+        set_checks_ffv8 = QtWidgets.QGroupBox("Checks")
+        set_checks_ffv8.setMinimumWidth(min_group_box)
+        hbox.addWidget(set_checks_ffv8)
         chk_vbox = QtWidgets.QVBoxLayout()
-        set_checks_ffv7.setLayout(chk_vbox)
+        set_checks_ffv8.setLayout(chk_vbox)
 
         # set height
         height_hbox = QtWidgets.QHBoxLayout()
         chk_vbox.addLayout(height_hbox)
-        self.set_height_label_ffv7 = QtWidgets.QLabel("Force flier heights to")
-        self.set_height_label_ffv7.setDisabled(True)
-        height_hbox.addWidget(self.set_height_label_ffv7)
-        self.set_height_label_ffv7.setFixedHeight(GuiSettings.single_line_height())
-        self.set_height_ffv7 = QtWidgets.QLineEdit("")
-        height_hbox.addWidget(self.set_height_ffv7)
-        self.set_height_ffv7.setFixedHeight(GuiSettings.single_line_height())
-        # self.set_height_ffv7.setValidator(QtGui.QDoubleValidator(0.00001, 9999, 5, self.set_height_ffv7))
+        self.set_height_label_ffv8 = QtWidgets.QLabel("Force flier heights to")
+        self.set_height_label_ffv8.setDisabled(True)
+        height_hbox.addWidget(self.set_height_label_ffv8)
+        self.set_height_label_ffv8.setFixedHeight(GuiSettings.single_line_height())
+        self.set_height_ffv8 = QtWidgets.QLineEdit("")
+        height_hbox.addWidget(self.set_height_ffv8)
+        self.set_height_ffv8.setFixedHeight(GuiSettings.single_line_height())
+        # self.set_height_ffv8.setValidator(QtGui.QDoubleValidator(0.00001, 9999, 5, self.set_height_ffv8))
         # noinspection PyUnresolvedReferences
-        self.set_height_ffv7.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
-        self.set_height_ffv7.setReadOnly(False)
-        self.set_height_ffv7.setFont(GuiSettings.console_font())
-        self.set_height_ffv7.setFixedWidth(60)
-        self.set_height_ffv7.setDisabled(True)
-        self.set_height_label2_ffv7 = QtWidgets.QLabel("meters")
-        self.set_height_label2_ffv7.setDisabled(True)
-        height_hbox.addWidget(self.set_height_label2_ffv7)
+        self.set_height_ffv8.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
+        self.set_height_ffv8.setReadOnly(False)
+        self.set_height_ffv8.setFont(GuiSettings.console_font())
+        self.set_height_ffv8.setFixedWidth(60)
+        self.set_height_ffv8.setDisabled(True)
+        self.set_height_label2_ffv8 = QtWidgets.QLabel("meters")
+        self.set_height_label2_ffv8.setDisabled(True)
+        height_hbox.addWidget(self.set_height_label2_ffv8)
         height_hbox.addStretch()
 
         chk_vbox.addSpacing(6)
 
-        self.set_check_laplacian_ffv7 = QtWidgets.QCheckBox("#1: Laplacian Operator")
-        self.set_check_laplacian_ffv7.setDisabled(True)
-        self.set_check_laplacian_ffv7.setChecked(self.settings.value("survey/ff7_laplacian", 0) == 1)
-        chk_vbox.addWidget(self.set_check_laplacian_ffv7)
+        self.set_check_laplacian_ffv8 = QtWidgets.QCheckBox("#1: Laplacian Operator")
+        self.set_check_laplacian_ffv8.setDisabled(True)
+        self.set_check_laplacian_ffv8.setChecked(self.settings.value("survey/ff8_laplacian", 0) == 1)
+        chk_vbox.addWidget(self.set_check_laplacian_ffv8)
 
-        self.set_check_curv_ffv7 = QtWidgets.QCheckBox("#2: Gaussian Curvature")
-        self.set_check_curv_ffv7.setDisabled(True)
-        self.set_check_curv_ffv7.setChecked(self.settings.value("survey/ff7_gaussian", 1) == 1)
-        chk_vbox.addWidget(self.set_check_curv_ffv7)
+        self.set_check_curv_ffv8 = QtWidgets.QCheckBox("#2: Gaussian Curvature")
+        self.set_check_curv_ffv8.setDisabled(True)
+        self.set_check_curv_ffv8.setChecked(self.settings.value("survey/ff8_gaussian", 1) == 1)
+        chk_vbox.addWidget(self.set_check_curv_ffv8)
 
-        self.set_check_adjacent_ffv7 = QtWidgets.QCheckBox("#3: Adjacent Cells")
-        self.set_check_adjacent_ffv7.setDisabled(True)
-        self.set_check_adjacent_ffv7.setChecked(self.settings.value("survey/ff7_adjacent", 1) == 1)
-        chk_vbox.addWidget(self.set_check_adjacent_ffv7)
+        self.set_check_adjacent_ffv8 = QtWidgets.QCheckBox("#3: Adjacent Cells")
+        self.set_check_adjacent_ffv8.setDisabled(True)
+        self.set_check_adjacent_ffv8.setChecked(self.settings.value("survey/ff8_adjacent", 1) == 1)
+        chk_vbox.addWidget(self.set_check_adjacent_ffv8)
 
-        self.set_check_slivers_ffv7 = QtWidgets.QCheckBox("#4: Edge Slivers")
-        self.set_check_slivers_ffv7.setDisabled(True)
-        self.set_check_slivers_ffv7.setChecked(self.settings.value("survey/ff7_slivers", 1) == 1)
-        chk_vbox.addWidget(self.set_check_slivers_ffv7)
+        self.set_check_slivers_ffv8 = QtWidgets.QCheckBox("#4: Edge Slivers")
+        self.set_check_slivers_ffv8.setDisabled(True)
+        self.set_check_slivers_ffv8.setChecked(self.settings.value("survey/ff8_slivers", 1) == 1)
+        chk_vbox.addWidget(self.set_check_slivers_ffv8)
 
-        self.set_check_isolated_ffv7 = QtWidgets.QCheckBox("#5: Isolated Nodes")
-        self.set_check_isolated_ffv7.setDisabled(True)
-        self.set_check_isolated_ffv7.setChecked(self.settings.value("survey/ff7_orphans", 0) == 1)
-        chk_vbox.addWidget(self.set_check_isolated_ffv7)
+        self.set_check_isolated_ffv8 = QtWidgets.QCheckBox("#5: Isolated Nodes")
+        self.set_check_isolated_ffv8.setDisabled(True)
+        self.set_check_isolated_ffv8.setChecked(self.settings.value("survey/ff8_orphans", 0) == 1)
+        chk_vbox.addWidget(self.set_check_isolated_ffv8)
 
-        self.set_check_edges_ffv7 = QtWidgets.QCheckBox("#6: Noisy Edges")
-        self.set_check_edges_ffv7.setDisabled(True)
-        self.set_check_edges_ffv7.setChecked(self.settings.value("survey/ff7_edges", 0) == 1)
-        chk_vbox.addWidget(self.set_check_edges_ffv7)
+        self.set_check_edges_ffv8 = QtWidgets.QCheckBox("#6: Noisy Edges")
+        self.set_check_edges_ffv8.setDisabled(True)
+        self.set_check_edges_ffv8.setChecked(self.settings.value("survey/ff8_edges", 0) == 1)
+        chk_vbox.addWidget(self.set_check_edges_ffv8)
 
         hbox.addStretch()
 
-    def _ui_settings_params_filters_ffv7(self, vbox: QtWidgets.QVBoxLayout, min_group_box: int) -> None:
+    def _ui_settings_params_filters_ffv8(self, vbox: QtWidgets.QVBoxLayout, min_group_box: int) -> None:
         hbox = QtWidgets.QHBoxLayout()
         vbox.addLayout(hbox)
         hbox.addStretch()
 
-        set_filters_ffv7 = QtWidgets.QGroupBox("Filters")
-        set_filters_ffv7.setMinimumWidth(min_group_box)
-        hbox.addWidget(set_filters_ffv7)
+        set_filters_ffv8 = QtWidgets.QGroupBox("Filters")
+        set_filters_ffv8.setMinimumWidth(min_group_box)
+        hbox.addWidget(set_filters_ffv8)
         flt_vbox = QtWidgets.QVBoxLayout()
-        set_filters_ffv7.setLayout(flt_vbox)
+        set_filters_ffv8.setLayout(flt_vbox)
 
         # set distance
         distance_hbox = QtWidgets.QHBoxLayout()
         flt_vbox.addLayout(distance_hbox)
-        self.set_distance_label_ffv7 = QtWidgets.QLabel("Distance <=")
-        self.set_distance_label_ffv7.setDisabled(True)
-        distance_hbox.addWidget(self.set_distance_label_ffv7)
-        self.set_distance_label_ffv7.setFixedHeight(GuiSettings.single_line_height())
-        self.set_distance_ffv7 = QtWidgets.QLineEdit("")
-        distance_hbox.addWidget(self.set_distance_ffv7)
-        self.set_distance_ffv7.setFixedHeight(GuiSettings.single_line_height())
-        # self.set_distance_ffv7.setValidator(QtGui.QDoubleValidator(0.00001, 9999, 5, self.set_distance_ffv7))
+        self.set_distance_label_ffv8 = QtWidgets.QLabel("Distance <=")
+        self.set_distance_label_ffv8.setDisabled(True)
+        distance_hbox.addWidget(self.set_distance_label_ffv8)
+        self.set_distance_label_ffv8.setFixedHeight(GuiSettings.single_line_height())
+        self.set_distance_ffv8 = QtWidgets.QLineEdit("")
+        distance_hbox.addWidget(self.set_distance_ffv8)
+        self.set_distance_ffv8.setFixedHeight(GuiSettings.single_line_height())
+        # self.set_distance_ffv8.setValidator(QtGui.QDoubleValidator(0.00001, 9999, 5, self.set_distance_ffv8))
         # noinspection PyUnresolvedReferences
-        self.set_distance_ffv7.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
-        self.set_distance_ffv7.setReadOnly(False)
-        self.set_distance_ffv7.setFont(GuiSettings.console_font())
-        self.set_distance_ffv7.setFixedWidth(60)
-        self.set_distance_ffv7.setText("%.1f" % FindFliersV7.default_filter_distance)
-        self.set_distance_ffv7.setDisabled(True)
-        self.set_distance_label2_ffv7 = QtWidgets.QLabel("nodes")
-        self.set_distance_label2_ffv7.setDisabled(True)
-        distance_hbox.addWidget(self.set_distance_label2_ffv7)
+        self.set_distance_ffv8.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
+        self.set_distance_ffv8.setReadOnly(False)
+        self.set_distance_ffv8.setFont(GuiSettings.console_font())
+        self.set_distance_ffv8.setFixedWidth(60)
+        self.set_distance_ffv8.setText("%.1f" % FindFliersV8.default_filter_distance)
+        self.set_distance_ffv8.setDisabled(True)
+        self.set_distance_label2_ffv8 = QtWidgets.QLabel("nodes")
+        self.set_distance_label2_ffv8.setDisabled(True)
+        distance_hbox.addWidget(self.set_distance_label2_ffv8)
         distance_hbox.addStretch()
 
         # set delta_z
         delta_z_hbox = QtWidgets.QHBoxLayout()
         flt_vbox.addLayout(delta_z_hbox)
-        self.set_delta_z_label_ffv7 = QtWidgets.QLabel("Delta Z <=")
-        self.set_delta_z_label_ffv7.setDisabled(True)
-        delta_z_hbox.addWidget(self.set_delta_z_label_ffv7)
-        self.set_delta_z_label_ffv7.setFixedHeight(GuiSettings.single_line_height())
-        self.set_delta_z_ffv7 = QtWidgets.QLineEdit("")
-        delta_z_hbox.addWidget(self.set_delta_z_ffv7)
-        self.set_delta_z_ffv7.setFixedHeight(GuiSettings.single_line_height())
-        # self.set_delta_z_ffv7.setValidator(QtGui.QDoubleValidator(0.00001, 9999, 5, self.set_delta_z_ffv7))
+        self.set_delta_z_label_ffv8 = QtWidgets.QLabel("Delta Z <=")
+        self.set_delta_z_label_ffv8.setDisabled(True)
+        delta_z_hbox.addWidget(self.set_delta_z_label_ffv8)
+        self.set_delta_z_label_ffv8.setFixedHeight(GuiSettings.single_line_height())
+        self.set_delta_z_ffv8 = QtWidgets.QLineEdit("")
+        delta_z_hbox.addWidget(self.set_delta_z_ffv8)
+        self.set_delta_z_ffv8.setFixedHeight(GuiSettings.single_line_height())
+        # self.set_delta_z_ffv8.setValidator(QtGui.QDoubleValidator(0.00001, 9999, 5, self.set_delta_z_ffv8))
         # noinspection PyUnresolvedReferences
-        self.set_delta_z_ffv7.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
-        self.set_delta_z_ffv7.setReadOnly(False)
-        self.set_delta_z_ffv7.setFont(GuiSettings.console_font())
-        self.set_delta_z_ffv7.setFixedWidth(60)
-        self.set_delta_z_ffv7.setText("%.2f" % FindFliersV7.default_filter_delta_z)
-        self.set_delta_z_ffv7.setDisabled(True)
-        self.set_delta_z_label2_ffv7 = QtWidgets.QLabel("meters")
-        self.set_delta_z_label2_ffv7.setDisabled(True)
-        delta_z_hbox.addWidget(self.set_delta_z_label2_ffv7)
+        self.set_delta_z_ffv8.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
+        self.set_delta_z_ffv8.setReadOnly(False)
+        self.set_delta_z_ffv8.setFont(GuiSettings.console_font())
+        self.set_delta_z_ffv8.setFixedWidth(60)
+        self.set_delta_z_ffv8.setText("%.2f" % FindFliersV8.default_filter_delta_z)
+        self.set_delta_z_ffv8.setDisabled(True)
+        self.set_delta_z_label2_ffv8 = QtWidgets.QLabel("meters")
+        self.set_delta_z_label2_ffv8.setDisabled(True)
+        delta_z_hbox.addWidget(self.set_delta_z_label2_ffv8)
         delta_z_hbox.addStretch()
 
         flt_vbox.addSpacing(6)
 
-        self.set_filter_fff_ffv7 = QtWidgets.QCheckBox("#1: Use Features from S57 File")
-        self.set_filter_fff_ffv7.setDisabled(True)
-        self.set_filter_fff_ffv7.setChecked(self.settings.value("survey/ff7_fff", 0) == 1)
-        flt_vbox.addWidget(self.set_filter_fff_ffv7)
+        self.set_filter_fff_ffv8 = QtWidgets.QCheckBox("#1: Use Features from S57 File")
+        self.set_filter_fff_ffv8.setDisabled(True)
+        self.set_filter_fff_ffv8.setChecked(self.settings.value("survey/ff8_fff", 0) == 1)
+        flt_vbox.addWidget(self.set_filter_fff_ffv8)
 
-        self.set_filter_designated_ffv7 = QtWidgets.QCheckBox("#2: Use Designated (SR BAG only)")
-        self.set_filter_designated_ffv7.setDisabled(True)
-        self.set_filter_designated_ffv7.setChecked(self.settings.value("survey/ff7_designated", 0) == 1)
-        flt_vbox.addWidget(self.set_filter_designated_ffv7)
+        self.set_filter_designated_ffv8 = QtWidgets.QCheckBox("#2: Use Designated (SR BAG only)")
+        self.set_filter_designated_ffv8.setDisabled(True)
+        self.set_filter_designated_ffv8.setChecked(self.settings.value("survey/ff8_designated", 0) == 1)
+        flt_vbox.addWidget(self.set_filter_designated_ffv8)
 
         hbox.addStretch()
 
-    def _ui_settings_params_debug_ffv7(self, vbox: QtWidgets.QVBoxLayout, min_group_box: int) -> None:
+    def _ui_settings_params_debug_ffv8(self, vbox: QtWidgets.QVBoxLayout, min_group_box: int) -> None:
         hbox = QtWidgets.QHBoxLayout()
         vbox.addLayout(hbox)
         hbox.addStretch()
 
-        self.debugFFv7 = QtWidgets.QGroupBox("Debug")
-        self.debugFFv7.hide()
-        self.debugFFv7.setMinimumWidth(min_group_box)
-        hbox.addWidget(self.debugFFv7)
+        self.debugFFv8 = QtWidgets.QGroupBox("Debug")
+        self.debugFFv8.hide()
+        self.debugFFv8.setMinimumWidth(min_group_box)
+        hbox.addWidget(self.debugFFv8)
         dbg_vbox = QtWidgets.QVBoxLayout()
-        self.debugFFv7.setLayout(dbg_vbox)
+        self.debugFFv8.setLayout(dbg_vbox)
 
-        self.check_export_proxies_ffv7 = QtWidgets.QCheckBox("Export threshold proxies")
-        self.check_export_proxies_ffv7.setDisabled(True)
-        self.check_export_proxies_ffv7.setChecked(False)
-        dbg_vbox.addWidget(self.check_export_proxies_ffv7)
+        self.check_export_proxies_ffv8 = QtWidgets.QCheckBox("Export threshold proxies")
+        self.check_export_proxies_ffv8.setDisabled(True)
+        self.check_export_proxies_ffv8.setChecked(False)
+        dbg_vbox.addWidget(self.check_export_proxies_ffv8)
 
-        self.check_export_heights_ffv7 = QtWidgets.QCheckBox("Export height thresholds")
-        self.check_export_heights_ffv7.setDisabled(True)
-        self.check_export_heights_ffv7.setChecked(False)
-        dbg_vbox.addWidget(self.check_export_heights_ffv7)
+        self.check_export_heights_ffv8 = QtWidgets.QCheckBox("Export height thresholds")
+        self.check_export_heights_ffv8.setDisabled(True)
+        self.check_export_heights_ffv8.setChecked(False)
+        dbg_vbox.addWidget(self.check_export_heights_ffv8)
 
-        self.check_export_curvatures_ffv7 = QtWidgets.QCheckBox("Export curvature thresholds")
-        self.check_export_curvatures_ffv7.setDisabled(True)
-        self.check_export_curvatures_ffv7.setChecked(False)
-        dbg_vbox.addWidget(self.check_export_curvatures_ffv7)
+        self.check_export_curvatures_ffv8 = QtWidgets.QCheckBox("Export curvature thresholds")
+        self.check_export_curvatures_ffv8.setDisabled(True)
+        self.check_export_curvatures_ffv8.setChecked(False)
+        dbg_vbox.addWidget(self.check_export_curvatures_ffv8)
 
         hbox.addStretch()
 
-    def _ui_settings_params_lock_ffv7(self, vbox: QtWidgets.QVBoxLayout) -> None:
+    def _ui_settings_params_lock_ffv8(self, vbox: QtWidgets.QVBoxLayout) -> None:
         vbox.addSpacing(6)
 
         lock_hbox = QtWidgets.QHBoxLayout()
         vbox.addLayout(lock_hbox)
         lock_hbox.addStretch()
-        self.editable_v7 = QtWidgets.QPushButton()
-        self.editable_v7.setIconSize(QtCore.QSize(24, 24))
-        self.editable_v7.setFixedHeight(28)
+        self.editable_v8 = QtWidgets.QPushButton()
+        self.editable_v8.setIconSize(QtCore.QSize(24, 24))
+        self.editable_v8.setFixedHeight(28)
         edit_icon = QtGui.QIcon()
         edit_icon.addFile(os.path.join(self.parent_win.media, 'lock.png'), state=QtGui.QIcon.Off)
         edit_icon.addFile(os.path.join(self.parent_win.media, 'unlock.png'), state=QtGui.QIcon.On)
-        self.editable_v7.setIcon(edit_icon)
-        self.editable_v7.setCheckable(True)
+        self.editable_v8.setIcon(edit_icon)
+        self.editable_v8.setCheckable(True)
         # noinspection PyUnresolvedReferences
-        self.editable_v7.clicked.connect(self.on_editable_v7)
-        self.editable_v7.setToolTip("Unlock editing for parameters")
-        lock_hbox.addWidget(self.editable_v7)
+        self.editable_v8.clicked.connect(self.on_editable_v8)
+        self.editable_v8.setToolTip("Unlock editing for parameters")
+        lock_hbox.addWidget(self.editable_v8)
         lock_hbox.addStretch()
 
         vbox.addStretch()
 
-    def on_editable_v7(self):
-        logger.debug("editable_v7: %s" % self.editable_v7.isChecked())
-        if self.editable_v7.isChecked():
+    def on_editable_v8(self):
+        logger.debug("editable_v8: %s" % self.editable_v8.isChecked())
+        if self.editable_v8.isChecked():
             msg = "Do you really want to change the settings?"
             # noinspection PyCallByClass
-            ret = QtWidgets.QMessageBox.warning(self, "Find Fliers v7 settings", msg,
+            ret = QtWidgets.QMessageBox.warning(self, "Find Fliers v8 settings", msg,
                                                 QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.No)
             if ret == QtWidgets.QMessageBox.No:
-                self.editable_v7.setChecked(False)
+                self.editable_v8.setChecked(False)
                 return
 
-            self.set_height_label_ffv7.setEnabled(True)
-            self.set_height_label2_ffv7.setEnabled(True)
-            self.set_height_ffv7.setEnabled(True)
+            self.set_height_label_ffv8.setEnabled(True)
+            self.set_height_label2_ffv8.setEnabled(True)
+            self.set_height_ffv8.setEnabled(True)
 
-            self.set_check_laplacian_ffv7.setEnabled(True)
-            self.set_check_curv_ffv7.setEnabled(True)
-            self.set_check_adjacent_ffv7.setEnabled(True)
-            self.set_check_slivers_ffv7.setEnabled(True)
-            self.set_check_isolated_ffv7.setEnabled(True)
-            self.set_check_edges_ffv7.setEnabled(True)
+            self.set_check_laplacian_ffv8.setEnabled(True)
+            self.set_check_curv_ffv8.setEnabled(True)
+            self.set_check_adjacent_ffv8.setEnabled(True)
+            self.set_check_slivers_ffv8.setEnabled(True)
+            self.set_check_isolated_ffv8.setEnabled(True)
+            self.set_check_edges_ffv8.setEnabled(True)
 
-            self.set_distance_label_ffv7.setEnabled(True)
-            self.set_distance_label2_ffv7.setEnabled(True)
-            self.set_distance_ffv7.setEnabled(True)
+            self.set_distance_label_ffv8.setEnabled(True)
+            self.set_distance_label2_ffv8.setEnabled(True)
+            self.set_distance_ffv8.setEnabled(True)
 
-            self.set_delta_z_label_ffv7.setEnabled(True)
-            self.set_delta_z_label2_ffv7.setEnabled(True)
-            self.set_delta_z_ffv7.setEnabled(True)
+            self.set_delta_z_label_ffv8.setEnabled(True)
+            self.set_delta_z_label2_ffv8.setEnabled(True)
+            self.set_delta_z_ffv8.setEnabled(True)
 
-            self.set_filter_fff_ffv7.setEnabled(True)
-            self.set_filter_designated_ffv7.setEnabled(True)
+            self.set_filter_fff_ffv8.setEnabled(True)
+            self.set_filter_designated_ffv8.setEnabled(True)
 
-            self.check_export_proxies_ffv7.setEnabled(True)
-            self.check_export_heights_ffv7.setEnabled(True)
-            self.check_export_curvatures_ffv7.setEnabled(True)
+            self.check_export_proxies_ffv8.setEnabled(True)
+            self.check_export_heights_ffv8.setEnabled(True)
+            self.check_export_curvatures_ffv8.setEnabled(True)
 
         else:
-            self.set_height_label_ffv7.setDisabled(True)
-            self.set_height_label2_ffv7.setDisabled(True)
-            self.set_height_ffv7.setDisabled(True)
+            self.set_height_label_ffv8.setDisabled(True)
+            self.set_height_label2_ffv8.setDisabled(True)
+            self.set_height_ffv8.setDisabled(True)
 
-            self.set_check_laplacian_ffv7.setDisabled(True)
-            self.set_check_curv_ffv7.setDisabled(True)
-            self.set_check_adjacent_ffv7.setDisabled(True)
-            self.set_check_slivers_ffv7.setDisabled(True)
-            self.set_check_isolated_ffv7.setDisabled(True)
-            self.set_check_edges_ffv7.setDisabled(True)
+            self.set_check_laplacian_ffv8.setDisabled(True)
+            self.set_check_curv_ffv8.setDisabled(True)
+            self.set_check_adjacent_ffv8.setDisabled(True)
+            self.set_check_slivers_ffv8.setDisabled(True)
+            self.set_check_isolated_ffv8.setDisabled(True)
+            self.set_check_edges_ffv8.setDisabled(True)
 
-            self.set_distance_label_ffv7.setDisabled(True)
-            self.set_distance_label2_ffv7.setDisabled(True)
-            self.set_distance_ffv7.setDisabled(True)
+            self.set_distance_label_ffv8.setDisabled(True)
+            self.set_distance_label2_ffv8.setDisabled(True)
+            self.set_distance_ffv8.setDisabled(True)
 
-            self.set_delta_z_label_ffv7.setDisabled(True)
-            self.set_delta_z_label2_ffv7.setDisabled(True)
-            self.set_delta_z_ffv7.setDisabled(True)
+            self.set_delta_z_label_ffv8.setDisabled(True)
+            self.set_delta_z_label2_ffv8.setDisabled(True)
+            self.set_delta_z_ffv8.setDisabled(True)
 
-            self.set_filter_fff_ffv7.setDisabled(True)
-            self.set_filter_designated_ffv7.setDisabled(True)
+            self.set_filter_fff_ffv8.setDisabled(True)
+            self.set_filter_designated_ffv8.setDisabled(True)
 
-            self.check_export_proxies_ffv7.setDisabled(True)
-            self.check_export_heights_ffv7.setDisabled(True)
-            self.check_export_curvatures_ffv7.setDisabled(True)
+            self.check_export_proxies_ffv8.setDisabled(True)
+            self.check_export_heights_ffv8.setDisabled(True)
+            self.check_export_curvatures_ffv8.setDisabled(True)
 
-    def _parse_filter_distance_ffv7(self) -> float:
-        str_distance = self.set_distance_ffv7.text()
+    def _parse_filter_distance_ffv8(self) -> float:
+        str_distance = self.set_distance_ffv8.text()
 
         if str_distance == "":
-            logger.warning("using default filter distance: %s" % FindFliersV7.default_filter_distance)
-            self.set_distance_ffv7.setText("%.1f" % FindFliersV7.default_filter_distance)
-            return FindFliersV7.default_filter_distance
+            logger.warning("using default filter distance: %s" % FindFliersV8.default_filter_distance)
+            self.set_distance_ffv8.setText("%.1f" % FindFliersV8.default_filter_distance)
+            return FindFliersV8.default_filter_distance
 
         try:
 
@@ -378,22 +378,22 @@ class FliersTab(QtWidgets.QMainWindow):
         except ValueError:
 
             msg = "Unable to parse the distance value: %s.\n" \
-                  "Defaulting to %s!" % (str_distance, FindFliersV7.default_filter_distance)
+                  "Defaulting to %s!" % (str_distance, FindFliersV8.default_filter_distance)
             # noinspection PyCallByClass
             QtWidgets.QMessageBox.critical(self, "Error", msg, QtWidgets.QMessageBox.Ok)
-            self.set_distance_ffv7.setText("%.1f" % FindFliersV7.default_filter_distance)
-            return FindFliersV7.default_filter_distance
+            self.set_distance_ffv8.setText("%.1f" % FindFliersV8.default_filter_distance)
+            return FindFliersV8.default_filter_distance
 
         logger.info("filter distance: %s" % (distance,))
         return distance
 
-    def _parse_filter_delta_z_ffv7(self) -> float:
-        str_delta_z = self.set_delta_z_ffv7.text()
+    def _parse_filter_delta_z_ffv8(self) -> float:
+        str_delta_z = self.set_delta_z_ffv8.text()
 
         if str_delta_z == "":
-            logger.warning("using default filter delta_z: %s" % FindFliersV7.default_filter_delta_z)
-            self.set_delta_z_ffv7.setText("%.2f" % FindFliersV7.default_filter_delta_z)
-            return FindFliersV7.default_filter_delta_z
+            logger.warning("using default filter delta_z: %s" % FindFliersV8.default_filter_delta_z)
+            self.set_delta_z_ffv8.setText("%.2f" % FindFliersV8.default_filter_delta_z)
+            return FindFliersV8.default_filter_delta_z
 
         try:
 
@@ -402,18 +402,18 @@ class FliersTab(QtWidgets.QMainWindow):
         except ValueError:
 
             msg = "Unable to parse the delta_z value: %s.\n" \
-                  "Defaulting to %s!" % (str_delta_z, FindFliersV7.default_filter_delta_z)
+                  "Defaulting to %s!" % (str_delta_z, FindFliersV8.default_filter_delta_z)
             # noinspection PyCallByClass
             QtWidgets.QMessageBox.critical(self, "Error", msg, QtWidgets.QMessageBox.Ok)
-            self.set_delta_z_ffv7.setText("%.2f" % FindFliersV7.default_filter_delta_z)
-            return FindFliersV7.default_filter_delta_z
+            self.set_delta_z_ffv8.setText("%.2f" % FindFliersV8.default_filter_delta_z)
+            return FindFliersV8.default_filter_delta_z
 
         logger.info("filter delta_z: %s" % (delta_z,))
         return delta_z
 
-    def _ui_execute_ffv7(self):
+    def _ui_execute_ffv8(self):
         vbox = QtWidgets.QVBoxLayout()
-        self.executeFFv7.setLayout(vbox)
+        self.executeFFv8.setLayout(vbox)
 
         vbox.addStretch()
 
@@ -430,10 +430,10 @@ class FliersTab(QtWidgets.QMainWindow):
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
         button.setFixedWidth(GuiSettings.text_button_width())
-        button.setText("Find fliers v7")
+        button.setText("Find fliers v8")
         button.setToolTip('Find fliers in the loaded surfaces')
         # noinspection PyUnresolvedReferences
-        button.clicked.connect(self.click_find_fliers_v7)
+        button.clicked.connect(self.click_find_fliers_v8)
         # button.setDisabled(True)
 
         button = QtWidgets.QPushButton()
@@ -445,22 +445,22 @@ class FliersTab(QtWidgets.QMainWindow):
         button.setToolTip('Open the manual page')
         button.setStyleSheet(GuiSettings.stylesheet_info_button())
         # noinspection PyUnresolvedReferences
-        button.clicked.connect(self.click_open_manual_v7)
+        button.clicked.connect(self.click_open_manual_v8)
 
         hbox.addStretch()
 
         vbox.addStretch()
 
     @classmethod
-    def click_open_manual_v7(cls):
+    def click_open_manual_v8(cls):
         logger.debug("open manual")
         Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/user_manual_survey_detect_fliers.html")
 
     # ####### find fliers #######
 
-    def click_find_fliers_v7(self):
-        """trigger the find fliers v7"""
-        self._click_find_fliers(7)
+    def click_find_fliers_v8(self):
+        """trigger the find fliers v8"""
+        self._click_find_fliers(8)
 
     def _click_find_fliers(self, version):
         """abstract the find fliers calling mechanism"""
@@ -469,20 +469,21 @@ class FliersTab(QtWidgets.QMainWindow):
         # - version
         if not isinstance(version, int):
             raise RuntimeError("passed invalid type for version: %s" % type(version))
-        if version not in [7, ]:
+        if version not in [8, ]:
             raise RuntimeError("passed invalid Find Fliers version: %s" % version)
         # - list of grids (although the buttons should be never been enabled without grids)
         if len(self.prj.grid_list) == 0:
             raise RuntimeError("the grid list is empty")
 
         height_mode = "auto"
-        if version == 7:
-            if self.set_height_ffv7.text() != "":
-                height_mode = self.set_height_ffv7.text()
+        if version == 8:
+            if self.set_height_ffv8.text() != "":
+                height_mode = self.set_height_ffv8.text()
         else:
             raise RuntimeError("unknown Find Fliers' version: %s" % version)
 
-        self.parent_win.change_info_url(Helper(lib_info=lib_info).web_url(suffix="survey_find_fliers_%d_fh_%s" % (version, height_mode)))
+        self.parent_win.change_info_url(Helper(lib_info=lib_info).web_url(suffix="survey_find_fliers_%d_fh_%s"
+                                                                                 % (version, height_mode)))
 
         self._parse_user_height(version=version)
 
@@ -490,21 +491,21 @@ class FliersTab(QtWidgets.QMainWindow):
 
         # pre checks
 
-        if version == 7:
+        if version == 8:
 
-            if self.set_filter_fff_ffv7.isChecked():
+            if self.set_filter_fff_ffv8.isChecked():
 
                 if len(self.prj.s57_list) == 0:
                     msg = "The 'Use Features from S57 File' option is active, but no S57 files have been selected!\n" \
                           "\n" \
                           "Do you want to continue with the analysis?"
                     # noinspection PyCallByClass
-                    ret = QtWidgets.QMessageBox.warning(self, "Find Fliers v7 filters", msg,
+                    ret = QtWidgets.QMessageBox.warning(self, "Find Fliers v8 filters", msg,
                                                         QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
                     if ret == QtWidgets.QMessageBox.No:
                         return
 
-            if self.set_filter_designated_ffv7.isChecked():
+            if self.set_filter_designated_ffv8.isChecked():
                 at_least_one_bag = False
                 for grid_file in grid_list:
                     if os.path.splitext(grid_file)[-1] == ".bag":
@@ -515,7 +516,7 @@ class FliersTab(QtWidgets.QMainWindow):
                           "but no BAG files have been selected!\n\n" \
                           "Do you want to continue with the analysis?"
                     # noinspection PyCallByClass
-                    ret = QtWidgets.QMessageBox.warning(self, "Find Fliers v7 filters", msg,
+                    ret = QtWidgets.QMessageBox.warning(self, "Find Fliers v8 filters", msg,
                                                         QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
                     if ret == QtWidgets.QMessageBox.No:
                         return
@@ -529,7 +530,7 @@ class FliersTab(QtWidgets.QMainWindow):
             self.prj.clear_survey_label()
 
             # switcher between different versions of find fliers
-            if version in [7, ]:
+            if version in [8, ]:
                 self._find_fliers(grid_file=grid_file, version=version, idx=(i + 1), total=len(grid_list))
 
             else:  # this case should be never reached after the sanity checks
@@ -554,11 +555,11 @@ class FliersTab(QtWidgets.QMainWindow):
     def _parse_user_height(self, version):
 
         # check for user input as flier height
-        if version == 7:
-            str_height = self.set_height_ffv7.text()
+        if version == 8:
+            str_height = self.set_height_ffv8.text()
 
             if str_height == "":
-                self.float_height_ffv7 = None
+                self.float_height_ffv8 = None
 
             else:
 
@@ -570,7 +571,7 @@ class FliersTab(QtWidgets.QMainWindow):
 
                     try:
 
-                        self.float_height_ffv7 = float(str_height)
+                        self.float_height_ffv8 = float(str_height)
 
                     except ValueError:
 
@@ -578,22 +579,22 @@ class FliersTab(QtWidgets.QMainWindow):
                               "Defaulting to internal estimation!" % str_height
                         # noinspection PyCallByClass
                         QtWidgets.QMessageBox.critical(self, "Error", msg, QtWidgets.QMessageBox.Ok)
-                        self.float_height_ffv7 = None
+                        self.float_height_ffv8 = None
 
                 # - case of 1 input for each grid
                 elif len(fh_tokens) == len(self.prj.grid_list):
 
-                    self.set_height_ffv7.clear()
+                    self.set_height_ffv8.clear()
 
                     try:
 
-                        self.float_height_ffv7 = list()
+                        self.float_height_ffv8 = list()
                         for fh_token in fh_tokens:
 
                             value = float(fh_token)
                             if value <= 0:
                                 raise ValueError("invalid float input")
-                            self.float_height_ffv7.append(value)
+                            self.float_height_ffv8.append(value)
 
                     except ValueError:
 
@@ -601,13 +602,13 @@ class FliersTab(QtWidgets.QMainWindow):
                               "Defaulting to internal estimation!" % str_height
                         # noinspection PyCallByClass
                         QtWidgets.QMessageBox.critical(self, "Error", msg, QtWidgets.QMessageBox.Ok)
-                        self.float_height_ffv7 = None
+                        self.float_height_ffv8 = None
 
                 # - case of different number of input than the number of grids (this is an ERROR!)
                 else:
 
-                    self.set_height_ffv7.clear()
-                    self.float_height_ffv7 = None
+                    self.set_height_ffv8.clear()
+                    self.float_height_ffv8 = None
 
                     msg = "Invalid set of flier heights parsing \"%s\":\n" \
                           " - input values: %s\n" \
@@ -619,7 +620,7 @@ class FliersTab(QtWidgets.QMainWindow):
                     logger.debug('find fliers v%d: invalid set of fliers height: %s != %s'
                                  % (version, len(fh_tokens), len(self.prj.grid_list)))
 
-            logger.info("flier height: %s" % (self.float_height_ffv7,))
+            logger.info("flier height: %s" % (self.float_height_ffv8,))
 
         else:  # this case should be never reached after the sanity checks
             raise RuntimeError("unknown Find Fliers' version: %s" % version)
@@ -649,74 +650,74 @@ class FliersTab(QtWidgets.QMainWindow):
 
         settings = QtCore.QSettings()
         try:
-            if version == 7:
+            if version == 8:
 
                 height = None
-                if type(self.float_height_ffv7) is float:
-                    height = self.float_height_ffv7
-                if type(self.float_height_ffv7) is list:
-                    height = self.float_height_ffv7[idx - 1]
+                if type(self.float_height_ffv8) is float:
+                    height = self.float_height_ffv8
+                if type(self.float_height_ffv8) is list:
+                    height = self.float_height_ffv8[idx - 1]
 
-                save_proxies = self.check_export_proxies_ffv7.isChecked()
-                save_heights = self.check_export_heights_ffv7.isChecked()
-                save_curvatures = self.check_export_curvatures_ffv7.isChecked()
+                save_proxies = self.check_export_proxies_ffv8.isChecked()
+                save_heights = self.check_export_heights_ffv8.isChecked()
+                save_curvatures = self.check_export_curvatures_ffv8.isChecked()
 
-                if self.set_check_laplacian_ffv7.isChecked():
-                    settings.setValue("survey/ff7_laplacian", 1)
+                if self.set_check_laplacian_ffv8.isChecked():
+                    settings.setValue("survey/ff8_laplacian", 1)
                 else:
-                    settings.setValue("survey/ff7_laplacian", 0)
-                if self.set_check_curv_ffv7.isChecked():
-                    settings.setValue("survey/ff7_gaussian", 1)
+                    settings.setValue("survey/ff8_laplacian", 0)
+                if self.set_check_curv_ffv8.isChecked():
+                    settings.setValue("survey/ff8_gaussian", 1)
                 else:
-                    settings.setValue("survey/ff7_gaussian", 0)
-                if self.set_check_adjacent_ffv7.isChecked():
-                    settings.setValue("survey/ff7_adjacent", 1)
+                    settings.setValue("survey/ff8_gaussian", 0)
+                if self.set_check_adjacent_ffv8.isChecked():
+                    settings.setValue("survey/ff8_adjacent", 1)
                 else:
-                    settings.setValue("survey/ff7_adjacent", 0)
-                if self.set_check_slivers_ffv7.isChecked():
-                    settings.setValue("survey/ff7_slivers", 1)
+                    settings.setValue("survey/ff8_adjacent", 0)
+                if self.set_check_slivers_ffv8.isChecked():
+                    settings.setValue("survey/ff8_slivers", 1)
                 else:
-                    settings.setValue("survey/ff7_slivers", 0)
-                if self.set_check_isolated_ffv7.isChecked():
-                    settings.setValue("survey/ff7_orphans", 1)
+                    settings.setValue("survey/ff8_slivers", 0)
+                if self.set_check_isolated_ffv8.isChecked():
+                    settings.setValue("survey/ff8_orphans", 1)
                 else:
-                    settings.setValue("survey/ff7_orphans", 0)
-                if self.set_check_edges_ffv7.isChecked():
-                    settings.setValue("survey/ff7_edges", 1)
+                    settings.setValue("survey/ff8_orphans", 0)
+                if self.set_check_edges_ffv8.isChecked():
+                    settings.setValue("survey/ff8_edges", 1)
                 else:
-                    settings.setValue("survey/ff7_edges", 0)
-                if self.set_filter_fff_ffv7.isChecked():
-                    settings.setValue("survey/ff7_fff", 1)
+                    settings.setValue("survey/ff8_edges", 0)
+                if self.set_filter_fff_ffv8.isChecked():
+                    settings.setValue("survey/ff8_fff", 1)
                 else:
-                    settings.setValue("survey/ff7_fff", 0)
-                if self.set_filter_designated_ffv7.isChecked():
-                    settings.setValue("survey/ff7_designated", 1)
+                    settings.setValue("survey/ff8_fff", 0)
+                if self.set_filter_designated_ffv8.isChecked():
+                    settings.setValue("survey/ff8_designated", 1)
                 else:
-                    settings.setValue("survey/ff7_designated", 0)
+                    settings.setValue("survey/ff8_designated", 0)
 
-                self.prj.find_fliers_v7(height=height,
-                                        check_laplacian=self.set_check_laplacian_ffv7.isChecked(),
-                                        check_curv=self.set_check_curv_ffv7.isChecked(),
-                                        check_adjacent=self.set_check_adjacent_ffv7.isChecked(),
-                                        check_slivers=self.set_check_slivers_ffv7.isChecked(),
-                                        check_isolated=self.set_check_isolated_ffv7.isChecked(),
-                                        check_edges=self.set_check_edges_ffv7.isChecked(),
-                                        filter_fff=self.set_filter_fff_ffv7.isChecked(),
-                                        filter_designated=self.set_filter_designated_ffv7.isChecked(),
+                self.prj.find_fliers_v8(height=height,
+                                        check_laplacian=self.set_check_laplacian_ffv8.isChecked(),
+                                        check_curv=self.set_check_curv_ffv8.isChecked(),
+                                        check_adjacent=self.set_check_adjacent_ffv8.isChecked(),
+                                        check_slivers=self.set_check_slivers_ffv8.isChecked(),
+                                        check_isolated=self.set_check_isolated_ffv8.isChecked(),
+                                        check_edges=self.set_check_edges_ffv8.isChecked(),
+                                        filter_fff=self.set_filter_fff_ffv8.isChecked(),
+                                        filter_designated=self.set_filter_designated_ffv8.isChecked(),
                                         export_proxies=save_proxies,
                                         export_heights=save_heights,
                                         export_curvatures=save_curvatures,
                                         progress_bar=self.prj.progress
                                         )
 
-                if self.set_check_edges_ffv7.isChecked() or self.set_filter_designated_ffv7.isChecked():
+                if self.set_check_edges_ffv8.isChecked() or self.set_filter_designated_ffv8.isChecked():
                     self.prj.close_cur_grid()
                     self.prj.set_cur_grid(path=grid_file)
                     self.prj.open_to_read_cur_grid()
 
-                    distance = self._parse_filter_distance_ffv7()
-                    delta_z = self._parse_filter_delta_z_ffv7()
-                    self.prj.find_fliers_v7_apply_filters(distance=distance, delta_z=delta_z)
+                    distance = self._parse_filter_distance_ffv8()
+                    delta_z = self._parse_filter_delta_z_ffv8()
+                    self.prj.find_fliers_v8_apply_filters(distance=distance, delta_z=delta_z)
 
         except MemoryError:
             err_str = "While finding fliers, there was a memory error. Try to close unused applications!"
@@ -741,4 +742,4 @@ class FliersTab(QtWidgets.QMainWindow):
         return saved
 
     def grids_changed(self):
-        self.set_height_ffv7.clear()
+        self.set_height_ffv8.clear()

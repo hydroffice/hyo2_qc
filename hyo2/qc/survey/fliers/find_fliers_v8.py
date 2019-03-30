@@ -9,7 +9,7 @@ import numpy as np
 import os
 import logging
 
-from hyo2.qc.survey.fliers.find_fliers_checks_v7 import \
+from hyo2.qc.survey.fliers.find_fliers_checks_v8 import \
     check_laplacian_operator_float, check_laplacian_operator_double, \
     check_gaussian_curvature_float, check_gaussian_curvature_double, \
     check_adjacent_cells_float, check_adjacent_cells_double, \
@@ -21,7 +21,7 @@ from hyo2.qc.survey.fliers.base_fliers import BaseFliers, fliers_algos
 logger = logging.getLogger(__name__)
 
 
-class FindFliersV7(BaseFliers):
+class FindFliersV8(BaseFliers):
 
     default_filter_distance = 1.0
     default_filter_delta_z = 0.01
@@ -34,7 +34,7 @@ class FindFliersV7(BaseFliers):
                  output_folder=None, progress_bar=None):
 
         super().__init__(grids=grids)
-        self.type = fliers_algos["FIND_FLIERS_v7"]
+        self.type = fliers_algos["FIND_FLIERS_v8"]
 
         self.save_proxies = save_proxies
         self.save_heights = save_heights
@@ -85,7 +85,7 @@ class FindFliersV7(BaseFliers):
 
     @property
     def basename(self) -> str:
-        algo_type = "FFv7"
+        algo_type = "FFv8"
 
         basename = "%s.%s" % (self.grids.current_basename, algo_type)
         if self.flier_height is not None:

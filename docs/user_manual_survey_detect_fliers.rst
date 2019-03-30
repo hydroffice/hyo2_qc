@@ -16,25 +16,25 @@ Scan grids for anomalous grid data "fliers".
 .. index::
     single: fliers; height
 
-* For **Flier finder v7**, first consider **Settings:**
+* For **Flier finder v8**, first consider **Settings:**
 
-    * The **Flier height** will be determined automatically by the program and does not need to be set, but the user may choose to do so in order to run a specific **Flier height**.
-    * The automatic determination of **Flier height** is performed per tile, and is based on the `median`_ depth (characteristic depth), the `MAD`_ (variability in range), and the standard deviation of the `gaussian curvature`_ (roughness).
-    * The selected **Checks** are enabled by default. You can enable or disable them in order to run custom analysis (see the "How Does It Work?" section below).
+  * The **Flier height** will be determined automatically by the program and does not need to be set, but the user may choose to do so in order to run a specific **Flier height**.
+  * The automatic determination of **Flier height** is performed per tile, and is based on the `median`_ depth (characteristic depth), the `MAD`_ (variability in range), and the standard deviation of the `gaussian curvature`_ (roughness).
+  * The selected **Checks** are enabled by default. You can enable or disable them in order to run custom analysis (see the "How Does It Work?" section below).
 
-* To change the **Settings** for **Flier finder v7**:
+* To change the **Settings** for **Flier finder v8**:
 
-    * Click the **Unlock** button, and click **OK** to the dialogue.
-    * If desired, enter a desired Flier search height in meters in the **Force flier heights** box.
+  * Click the **Unlock** button, and click **OK** to the dialogue.
+  * If desired, enter a desired Flier search height in meters in the **Force flier heights** box.
 
-        * A single height may be entered to apply to all loaded grids, or multiple heights may be entered (separated by comma) to apply to each grid loaded.
-        * These values, if entered, will override any **Estimated heights** determined by the program.
+    * A single height may be entered to apply to all loaded grids, or multiple heights may be entered (separated by comma) to apply to each grid loaded.
+    * These values, if entered, will override any **Estimated heights** determined by the program.
 
-    * Enable or disable the specific **Checks** to run.
+  * Enable or disable the specific **Checks** to run.
 
-    * If desired, modify the filtering horizontal and vertical distances from the closest point feature or designated sounding.
+  * If desired, modify the filtering horizontal and vertical distances from the closest point feature or designated sounding.
 
-    * Enable or disable the specific **Filters** to run.
+  * Enable or disable the specific **Filters** to run.
 
 .. _fig_detect_fliers:
 .. figure:: _static/detect_fliers_interface.png
@@ -48,9 +48,9 @@ Scan grids for anomalous grid data "fliers".
 .. index::
     single: find fliers
 
-* In **Execution** for **Flier finder v7**:
+* In **Execution** for **Flier finder v8**:
 
-  * Click **Find fliers v7**. After executing, the output window opens automatically (:numref:`fig_detect_fliers_output`), and the results are shown:
+  * Click **Find fliers v8**. After executing, the output window opens automatically (:numref:`fig_detect_fliers_output`), and the results are shown:
 
 .. _fig_detect_fliers_output:
 .. figure:: _static/detect_fliers_output.png
@@ -59,13 +59,13 @@ Scan grids for anomalous grid data "fliers".
     :alt: output message
     :figclass: align-center
 
-    The output message at the end of **Flier finder v7** execution.
+    The output message at the end of **Flier finder v8** execution.
 
 * An output window will open in File Explorer. From the output window, drag-and-drop the desired output file into the processing software to guide the review. Each candidate flier is labeled using the identifier of the algorithm that detected it (e.g., "2" for Gaussian Curvature).
 
 * The output file names adopt the following convention:
 
-    * [grid filename].FFv7.chk[identifier of each selected algorithm].flt[identifier of each selected filter]
+  * [grid filename].FFv8.chk[identifier of each selected algorithm].flt[identifier of each selected filter]
 
 
 |
@@ -77,7 +77,7 @@ Scan grids for anomalous grid data "fliers".
 How Does It Work?
 ^^^^^^^^^^^^^^^^^
 
-**Flier finder v7:**
+**Flier finder v8:**
 
 **Estimate height:**
 
@@ -99,23 +99,23 @@ First, a base height from the median depth of the grid is assigned:
 
 Then, the base height is incrementally increased by the level of depth variability and roughness of the grid:
 
-    * Depth variability is estimated by proxy using the Normalized Median of Absolute Deviation (NMAD) of the grid, which is derived by dividing the absolute difference of depth mean and depth median by depth standard deviation.
+* Depth variability is estimated by proxy using the Normalized Median of Absolute Deviation (NMAD) of the grid, which is derived by dividing the absolute difference of depth mean and depth median by depth standard deviation.
 
-        * The lower the NMAD, the more depth variability we estimate.
-        * An increase in the Base height of the flier search height estimation is warranted if NMAD is less than 0.20 (1 increase) or less than 0.10 (2 increases).
+  * The lower the NMAD, the more depth variability we estimate.
+  * An increase in the Base height of the flier search height estimation is warranted if NMAD is less than 0.20 (1 increase) or less than 0.10 (2 increases).
 
-    * Roughness is estimated by the standard deviation of the Gaussian curvature (STD_CURV).
+* Roughness is estimated by the standard deviation of the Gaussian curvature (STD_CURV).
 
-        * The Gaussian curvature is a measure of concavity at each node, whether concave up (shoal) or concave down (deep).
-        * The higher the STD_CURV, the rougher the surface.
-        * An increase in the Base height of the flier search height estimation is warrented if STD_CURV is greater than 0.01 (1 increase) or greater than 0.10 (2 increases).
+  * The Gaussian curvature is a measure of concavity at each node, whether concave up (shoal) or concave down (deep).
+  * The higher the STD_CURV, the rougher the surface.
+  * An increase in the Base height of the flier search height estimation is warrented if STD_CURV is greater than 0.01 (1 increase) or greater than 0.10 (2 increases).
 
 Increases are +2.0 meters, unless the Base height is 1.0 meter, then the increase is +1.0 meter. In this manner, Estimated flier heights are always on the interval scale of 1 (minimum), 2, 4, 6, 8, 10, 12, 14, 16 (maximum).
 
 For example:
 
-* if a surface has depth median = 12 m, NMAD = 0.15, and STD_CURV = 0.005, then the Estimated height = 2.0 m.
-* if a surface has depth median = 75 m, NMAD = .04, and STD_CURV = 0.08, then the Estimated height = 10.0 m.
+* If a surface has depth median = 12 m, NMAD = 0.15, and STD_CURV = 0.005, then the Estimated height = 2.0 m.
+* If a surface has depth median = 75 m, NMAD = .04, and STD_CURV = 0.08, then the Estimated height = 10.0 m.
 
 ----------------------------------------------------------------
 
@@ -308,9 +308,9 @@ Finally, an edge node is flagged when the maximum depth difference with its neig
 
 * For standardized operation of this tool, the automatic estimated search height and the following checks are recommended:
 
-    * Gaussian Curvature
-    * Adjacent Cells
-    * Edge Slivers
+  * Gaussian Curvature
+  * Adjacent Cells
+  * Edge Slivers
 
 **For advanced use:**
 

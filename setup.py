@@ -56,8 +56,8 @@ setup(
         "piexif",
     ],
     ext_modules=cythonize([
-        Extension("hyo2.qc.survey.fliers.find_fliers_checks_v7",
-                  sources=["hyo2/qc/survey/fliers/find_fliers_checks_v7.pyx"],
+        Extension("hyo2.qc.survey.fliers.find_fliers_checks_v8",
+                  sources=["hyo2/qc/survey/fliers/find_fliers_checks_v8.pyx"],
                   include_dirs=[np.get_include()],
                   language='c++',
                   # extra_compile_args=["-Zi", "/Od"],

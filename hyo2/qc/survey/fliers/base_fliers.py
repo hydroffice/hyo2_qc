@@ -7,7 +7,6 @@ logger = logging.getLogger(__name__)
 
 fliers_algos = {
     "BASE": 0,
-    "FIND_FLIERS_v7": 7,
     "FIND_FLIERS_v8": 8,
 }
 

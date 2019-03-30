@@ -35,7 +35,7 @@ open_output_folder = True
 # create a Qt application (required to get the dialog to select folders)
 
 app = QtWidgets.QApplication([])
-app.setApplicationName('run_find_fliers_v7')
+app.setApplicationName('run_find_fliers_v8')
 app.setOrganizationName("HydrOffice")
 app.setOrganizationDomain("hydroffice.org")
 
@@ -44,13 +44,13 @@ app.setOrganizationDomain("hydroffice.org")
 if ask_for_input_folder:
     # noinspection PyArgumentList
     input_folder = QtWidgets.QFileDialog.getExistingDirectory(parent=None, caption="Select input folder with BAGs",
-                                                              dir=QtCore.QSettings().value("run_ff7_input_folder"))
+                                                              dir=QtCore.QSettings().value("run_ff8_input_folder", ""))
 
     if input_folder == str():
         logger.error("input folder not selected")
         exit(-1)
 
-    QtCore.QSettings().setValue("run_ff7_input_folder", input_folder)
+    QtCore.QSettings().setValue("run_ff8_input_folder", input_folder)
 
 else:
     input_folder = "U:\\Working\\QCTools\\scripts"
@@ -104,7 +104,6 @@ if nr_fff_todo == 0:
     logger.debug("no fff files accessible in the input folder: %s" % input_folder)
     # exit(-1)
 
-
 logger.debug("FFF listed: %d" % nr_fff_todo)
 
 # manage the output folder by asking to user OR using the hand-written path (required to instantiate a SurveyProject)
@@ -112,13 +111,14 @@ logger.debug("FFF listed: %d" % nr_fff_todo)
 if ask_for_output_folder:
     # noinspection PyArgumentList
     output_folder = QtWidgets.QFileDialog.getExistingDirectory(parent=None, caption="Select output folder",
-                                                               dir=QtCore.QSettings().value("run_ff7_output_folder"))
+                                                               dir=QtCore.QSettings().value("run_ff8_output_folder",
+                                                                                            ""))
 
     if output_folder == str():
         logger.error("output folder not selected")
         exit(-1)
 
-    QtCore.QSettings().setValue("run_ff7_output_folder", output_folder)
+    QtCore.QSettings().setValue("run_ff8_output_folder", output_folder)
 
 else:
     output_folder = "U:\\Working\\QCTools\\scripts"
@@ -171,21 +171,21 @@ for i, bag_path in enumerate(prj.grid_list):
         prj.clear_survey_label()
         prj.open_grid(path=bag_path)
 
-        prj.find_fliers_v7(height=height_value,
+        prj.find_fliers_v8(height=height_value,
                            check_laplacian=check_laplacian,
                            check_curv=check_curv,
                            check_adjacent=check_adjacent,
                            check_slivers=check_slivers,
                            check_isolated=check_isolated,
-                           check_edges= check_edges,
-                           filter_designated= filter_designated,
-                           filter_fff= filter_fff
+                           check_edges=check_edges,
+                           filter_designated=filter_designated,
+                           filter_fff=filter_fff
                            )
 
         prj.close_cur_grid()
 
         prj.open_grid(path=bag_path)
-        prj.find_fliers_v7_apply_filters()
+        prj.find_fliers_v8_apply_filters()
 
         saved = prj.save_fliers()
         if saved:

@@ -14,7 +14,7 @@ from hyo2.qc.common.project import BaseProject
 from hyo2.qc.common.writers.s57_writer import S57Writer
 from hyo2.qc.common.writers.kml_writer import KmlWriter
 from hyo2.qc.common.writers.shp_writer import ShpWriter
-from hyo2.qc.survey.fliers.find_fliers_v7 import FindFliersV7
+from hyo2.qc.survey.fliers.find_fliers_v8 import FindFliersV8
 from hyo2.qc.survey.anomaly.anomaly_detector_v1 import AnomalyDetectorV1
 # noinspection PyProtectedMember
 from hyo2.grids.gappy import _gappy
@@ -175,7 +175,7 @@ class SurveyProject(BaseProject):
 
         return output_folder
 
-    def find_fliers_v7(self, height, check_laplacian=True, check_curv=True, check_adjacent=True,
+    def find_fliers_v8(self, height, check_laplacian=True, check_curv=True, check_adjacent=True,
                        check_slivers=True, check_isolated=True, check_edges=True,
                        filter_fff=False, filter_designated=False,
                        export_proxies=False, export_heights=False, export_curvatures=False,
@@ -188,7 +188,7 @@ class SurveyProject(BaseProject):
         try:
             self._gr.select_layers_in_current = [self._gr.depth_layer_name(), ]
 
-            self._fliers = FindFliersV7(grids=self._gr,
+            self._fliers = FindFliersV8(grids=self._gr,
                                         height=height,  # can be None in case of just gaussian curv or isolated nodes
                                         check_laplacian=check_laplacian,
                                         check_curv=check_curv,
@@ -206,14 +206,14 @@ class SurveyProject(BaseProject):
 
             start_time = time.time()
             self._fliers.run()
-            logger.info("find fliers v7 -> execution time: %.3f s" % (time.time() - start_time))
+            logger.info("find fliers v8 -> execution time: %.3f s" % (time.time() - start_time))
 
         except Exception as e:
             traceback.print_exc()
             self._fliers = None
             raise e
 
-    def find_fliers_v7_apply_filters(self, distance=1.0, delta_z=0.01):
+    def find_fliers_v8_apply_filters(self, distance=1.0, delta_z=0.01):
         """Look for fliers using the passed parameters and the loaded grids"""
         if not self.has_grid():
             logger.warning("first load some grids")
@@ -226,7 +226,7 @@ class SurveyProject(BaseProject):
 
             self._fliers.apply_filters(s57_list=self.s57_list, distance=distance, delta_z=delta_z)
 
-            logger.info("find fliers v7 filters -> execution time: %.3f s" % (time.time() - start_time))
+            logger.info("find fliers v8 filters -> execution time: %.3f s" % (time.time() - start_time))
 
         except Exception as e:
             traceback.print_exc()

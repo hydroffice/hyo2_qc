@@ -42,9 +42,9 @@ logger.debug("test BAG files: %d" % len(bag_files))
 
 # prj.add_to_grid_list(csar_files[0])
 # prj.add_to_grid_list(bag_files[0])
-prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\FFv7_filters\test_finalized.csar")
-prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\FFv7_filters\test_finalized.bag")
-prj.add_to_s57_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\FFv7_filters\FFv7_filters.000")
+prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\v8_filters\test_finalized.csar")
+prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\v8_filters\test_finalized.bag")
+prj.add_to_s57_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\v8_filters\v8_filters.000")
 
 logger.debug("grid list: %s" % (prj.grid_list,))
 
@@ -56,7 +56,7 @@ for i, grid_path in enumerate(prj.grid_list):
     prj.set_cur_grid(path=grid_path)
     prj.open_to_read_cur_grid(chunk_size=four_gb)
 
-    prj.find_fliers_v7(height=height_value,
+    prj.find_fliers_v8(height=height_value,
                        check_laplacian=check_laplacian,
                        check_curv=check_curv,
                        check_adjacent=check_adjacent,
@@ -69,7 +69,7 @@ for i, grid_path in enumerate(prj.grid_list):
 
     prj.set_cur_grid(path=grid_path)
     prj.open_to_read_cur_grid(chunk_size=four_gb)
-    prj.find_fliers_v7_apply_filters()
+    prj.find_fliers_v8_apply_filters()
 
     saved = prj.save_fliers()
     if saved:
