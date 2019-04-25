@@ -608,22 +608,22 @@ class AnomalyDetectorV1(BaseAnomalyDetector):
         grid_res = self.grids.cur_grids.bbox().res_x
         logger.debug("grid resolution: %.3f" % grid_res)
 
-        nr_initially_flagged = len(self.flagged_fliers)
+        nr_initially_flagged = len(self.anomalies)
         logger.debug("initially flagged fliers: %d" % nr_initially_flagged)
 
-        fliers = list()
+        anomalies = list()
         xs = list()
         ys = list()
         zs = list()
         cks = list()
 
         # for each flagged flier
-        for flg_idx, flg in enumerate(self.flagged_fliers):
-            flg = self.flagged_fliers[flg_idx]
-            flg_x = self.flagged_xs[flg_idx]
-            flg_y = self.flagged_ys[flg_idx]
-            flg_z = self.flagged_zs[flg_idx]
-            flg_ck = self.flagged_cks[flg_idx]
+        for flg_idx, flg in enumerate(self.anomalies):
+            flg = self.anomalies[flg_idx]
+            flg_x = self.anomalies_xs[flg_idx]
+            flg_y = self.anomalies_ys[flg_idx]
+            flg_z = self.anomalies_zs[flg_idx]
+            flg_ck = self.anomalies_cks[flg_idx]
             logger.debug("[%d/%d] (%.3f, %.3f, %.3f)" % (flg_idx, nr_initially_flagged, flg_x, flg_y, flg_z))
 
             remove_flagged = False
@@ -647,20 +647,20 @@ class AnomalyDetectorV1(BaseAnomalyDetector):
             if remove_flagged:
                 continue
 
-            fliers.append(flg)
+            anomalies.append(flg)
             xs.append(flg_x)
             ys.append(flg_y)
             zs.append(flg_z)
             cks.append(flg_ck)
 
-        nr_resulting_flagged = len(fliers)
+        nr_resulting_flagged = len(anomalies)
         logger.debug("resulting flagged fliers: %d" % nr_resulting_flagged)
 
-        self.flagged_fliers = fliers
-        self.flagged_xs = xs
-        self.flagged_ys = ys
-        self.flagged_zs = zs
-        self.flagged_cks = cks
+        self.anomalies = anomalies
+        self.anomalies_xs = xs
+        self.anomalies_ys = ys
+        self.anomalies_zs = zs
+        self.anomalies_cks = cks
 
     @classmethod
     def _prepare_fff_list(cls, s57_path: str, s57_idx: int):
@@ -701,7 +701,7 @@ class AnomalyDetectorV1(BaseAnomalyDetector):
         logger.debug("grid resolution: %.3f" % grid_res)
 
         nr_initially_flagged = len(self.anomalies)
-        logger.debug("initially flagged fliers: %d" % nr_initially_flagged)
+        logger.debug("initially flagged anomalies: %d" % nr_initially_flagged)
 
         fliers = list()
         xs = list()
@@ -837,8 +837,8 @@ class AnomalyDetectorV1(BaseAnomalyDetector):
         nr_resulting_flagged = len(fliers)
         logger.debug("resulting flagged fliers: %d" % nr_resulting_flagged)
 
-        self.flagged_fliers = fliers
-        self.flagged_xs = xs
-        self.flagged_ys = ys
-        self.flagged_zs = zs
-        self.flagged_cks = cks
+        self.anomalies = fliers
+        self.anomalies_xs = xs
+        self.anomalies_ys = ys
+        self.anomalies_zs = zs
+        self.anomalies_cks = cks
