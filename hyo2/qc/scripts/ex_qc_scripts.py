@@ -2,6 +2,55 @@ from __future__ import print_function, absolute_import
 import subprocess
 import os
 
+try:
+    from PySide2 import QtCore, QtWidgets
+    from PySide2.QtWidgets import QFileDialog, QApplication
+except ImportError:
+    from PySide import QtCore, QtGui
+    from PySide.QtGui import QFileDialog, QApplication
+
+ask_for_input_file = False
+
+# create a Qt application (required to get the dialog to select folders)
+
+app = QApplication([])
+app.setApplicationName('run_bag_uncertainty_check')
+app.setOrganizationName("HydrOffice")
+app.setOrganizationDomain("hydroffice.org")
+
+# manage the input folder by asking to user OR using the hand-written path
+
+if ask_for_input_file:
+    # noinspection PyArgumentList
+    input_file, _ = QFileDialog.getOpenFileName(parent=None, caption="Select input grid file",
+                                                dir=QtCore.QSettings().value("ex_qc_scripts"),
+                                                filter="BAG (*.bag *.BAG);;CSAR (*.csar *.CSAR);;All files (*.*)")
+
+    if input_file == str():
+        print("input file not selected")
+        exit(-1)
+
+    QtCore.QSettings().setValue("ex_qc_scripts", os.path.dirname(input_file))
+
+else:
+    input_file = r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\QuickTest.bag"
+
+    if not os.path.exists(input_file):
+        print("input file does not exist: %s" % input_file)
+        exit(-1)
+
+    if os.path.isdir(input_file):
+        print("input file is actually a folder: %s" % input_file)
+        exit(-1)
+
+print("input file: %s" % input_file)
+
+flier_finder = "1"
+flier_finder_height = "None"
+holiday_finder = "1"
+holiday_finder_mode = "OBJECT_DETECTION"  # "FULL_COVERAGE"
+grid_qa = "1"
+survey_name = "TEST001"
 
 # helper function to retrieve the path to the NOAA folder in PydroXL
 def retrieve_noaa_folder_path():
@@ -46,35 +95,23 @@ def retrieve_activate_batch():
     print("activate batch file: %s" % file_path)
     return file_path
 
-# retrive the path to the "activate.bat"
+# retrieve the path to the "activate.bat"
 activate_file = retrieve_activate_batch()
-
-# script's input variables
-grid_path = "C:\\Users\\gmasetti\\Desktop\\test_vr\\Test0_H12280_2806_200kHz_DN149_CalderRice.csar"  # VR
-# grid_path = "C:\\Users\\gmasetti\\Desktop\\test_vr\\H12880_MB_1m_MLLW_Final.csar"  # SR
-if not os.path.exists(grid_path):
-    raise RuntimeError("this path does not exist: %s" % grid_path)
-is_vr = "1"
-flier_finder = "1"
-flier_finder_height = "None"
-holiday_finder = "1"
-holiday_finder_mode = "OBJECT_DETECTION"  # "FULL_COVERAGE"
-grid_qa = "1"
-survey_name = "TEST001"
 
 qc_scripts_path = os.path.realpath(os.path.join(os.path.dirname(__file__), "qc_scripts.py"))
 if not os.path.exists(qc_scripts_path):
     raise RuntimeError("this path does not exist: %s" % qc_scripts_path)
 
 args = ["cmd.exe", "/K", "set pythonpath=", "&&",  # run shell (/K: leave open (debugging), /C close the shell)
-        activate_file, "Pydro36", "&&",  # activate the Pydro36 virtual environment
+        activate_file, "Pydro367", "&&",  # activate the Pydro367 virtual environment
         "python", qc_scripts_path,  # call the script with a few arguments
-            grid_path,  # surface path
-            is_vr,  # flag to identify VR vs. SR surfaces
-            flier_finder, flier_finder_height,  # flier finder arguments
-            holiday_finder, holiday_finder_mode,  # holiday finder arguments
-            grid_qa,  # grid QA arguments
-            survey_name  # survey name used for output folder (if not None)
-        ]
+        '"' + input_file.replace("&", "^&") + '"',  # surface path
+        flier_finder, flier_finder_height,  # flier finder arguments
+        holiday_finder, holiday_finder_mode,  # holiday finder arguments
+        grid_qa,  # grid QA arguments
+        survey_name  # survey name used for output folder (if not None)
+       ]
+
+print("args: %s" % (args, ))
 
 subprocess.Popen(args, creationflags=subprocess.CREATE_NEW_CONSOLE)
