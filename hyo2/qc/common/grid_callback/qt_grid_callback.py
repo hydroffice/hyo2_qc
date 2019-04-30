@@ -15,10 +15,14 @@ class QtGridCallback(ProgressCallback):
 
         if self.progress is None:
 
-            quantum = int(tot / 100)
+            if tot <= 10:
+                return
+            if tot <= 100:
+                quantum = int(tot / 10)
+            else:
+                quantum = int(tot / 100)
             if (n % quantum) == 0:
-                print("[CLI] -> %s / %s" % (n, tot))
-                print("[CLI] -> %.2f" % ((n / tot) * 100,))
+                print("[CLI] -> %.2f" % ((n / tot) * 100))
 
         else:
 
@@ -31,8 +35,12 @@ class QtGridCallback(ProgressCallback):
     def step_update(self, text, n, tot):
 
         if self.progress is None:
-
-            quantum = int(tot / 100)
+            if tot <= 10:
+                return
+            if tot <= 100:
+                quantum = int(tot / 10)
+            else:
+                quantum = int(tot / 100)
             if (n % quantum) == 0:
                 print("[CLI] -> %.2f [%s]" % ((n / tot) * 100, text))
 

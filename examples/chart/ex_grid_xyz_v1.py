@@ -1,14 +1,15 @@
 from hyo2.qc.common import default_logging
 import logging
 
+from hyo2.qc.chart.project import ChartProject
+from hyo2.qc.common.grid_callback.cli_grid_callback import CliGridCallback
+from hyo2.qc.common import testing
+
 default_logging.load()
 logger = logging.getLogger()
 
-from hyo2.qc.chart.project import ChartProject
-from hyo2.qc.common import testing
-
-
 prj = ChartProject(output_folder=testing.output_data_folder())
+prj.set_callback(CliGridCallback())
 
 input_bag_file = testing.input_test_files('.bag')[1]
 logger.debug('input: %s' % input_bag_file)

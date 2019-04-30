@@ -209,7 +209,7 @@ class BaseProject:
         if not survey_label:
             survey_label = os.path.basename(file_path).split('.')[0]  # basename of the path without extension
             if len(survey_label) > 6:  # name too long, shorten it
-                survey_label = survey_label.split(b'.')[-1][0:6]
+                survey_label = survey_label.split('.')[-1][0:6]
             elif len(survey_label) < 6:  # name too short, elongate it adding "_"
                 survey_label = "{:_<6}".format(survey_label)
             logger.debug('survey label based on basename: %s' % os.path.basename(file_path))
