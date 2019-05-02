@@ -15,7 +15,7 @@ logger = logging.getLogger()
 ask_for_input_folder = True
 ask_for_output_folder = True
 # If set to False, height_value can be set by user or calculated like when the GUI is left empty.
-calc_min_depth_tvu = True
+calc_min_depth_tvu = False
 # If None, and calc_min_depth_tvu is set to false, then height will be automatically calculated.
 # If set with float (aka number), then the value is used as threshold.
 height_value = None
@@ -213,14 +213,14 @@ if calc_min_depth_tvu is True:
                    (bag_with_fliers, tvu_height_per_bag_dict[bag_with_fliers], nr_fliers_per_bag_dict[bag_with_fliers]))
     report += "- crashes while processing: %d/%d\n" % (len(bag_crash_list), nr_bag_todo)
     for bag_crash in bag_crash_list:
-        logger.info("  . %s\n" % bag_crash)
+        report += ("  . %s\n" % bag_crash)
 else:
     for bag_with_fliers in bag_with_fliers_list:
         report += ("  . %s, %s\n" %
                    (bag_with_fliers, nr_fliers_per_bag_dict[bag_with_fliers]))
     report += "- crashes while processing: %d/%d\n" % (len(bag_crash_list), nr_bag_todo)
     for bag_crash in bag_crash_list:
-        logger.info("  . %s\n" % bag_crash)
+        report += ("  . %s\n" % bag_crash)
 logger.info("\n%s" % report)
 
 # save on disk a final report
