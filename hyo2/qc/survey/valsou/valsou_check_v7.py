@@ -38,6 +38,7 @@ class ValsouCheckV7(BaseValsou):
         self.valsou_geo = None
         self.valsou_utm = None
         self.valsou_closest = None
+        self.valsou_closest_2 = None
         self.valsou_visited = None
         self.out_of_bbox = False
 
@@ -301,9 +302,9 @@ class ValsouCheckV7(BaseValsou):
         # convert feature to array coords
         valsou_array = np.copy(self.valsou_utm)
         valsou_array[:, 0] = (self.valsou_utm[:, 0] - self.grids.cur_grids.bbox().transform[0]) \
-                             / self.grids.cur_grids.bbox().transform[1]  # - 0.5
+                             / self.grids.cur_grids.bbox().transform[1]
         valsou_array[:, 1] = (self.valsou_utm[:, 1] - self.grids.cur_grids.bbox().transform[3]) \
-                             / self.grids.cur_grids.bbox().transform[5]  # - 0.5
+                             / self.grids.cur_grids.bbox().transform[5]
         # logger.debug("array: %s" % self.valsou_array)
 
         # convert to the closest array coordinates
@@ -312,6 +313,23 @@ class ValsouCheckV7(BaseValsou):
         self.valsou_closest[:, 1] = np.rint(valsou_array[:, 1])
         self.valsou_closest[:, 2] = np.around(valsou_array[:, 2], decimals=depth_precision)
         # logger.debug("closest: %s" % self.valsou_closest)
+
+        # FIXME: bug fix for CARIS misalignments
+
+        # convert feature to array coords
+        valsou_array = np.copy(self.valsou_utm)
+        valsou_array[:, 0] = (self.valsou_utm[:, 0] - self.grids.cur_grids.bbox().transform[0]) \
+                             / self.grids.cur_grids.bbox().transform[1] - 0.5
+        valsou_array[:, 1] = (self.valsou_utm[:, 1] - self.grids.cur_grids.bbox().transform[3]) \
+                             / self.grids.cur_grids.bbox().transform[5] - 0.5
+        # logger.debug("array: %s" % self.valsou_array)
+
+        # convert to the closest array coordinates
+        self.valsou_closest_2 = np.empty_like(valsou_array)
+        self.valsou_closest_2[:, 0] = np.rint(valsou_array[:, 0])
+        self.valsou_closest_2[:, 1] = np.rint(valsou_array[:, 1])
+        self.valsou_closest_2[:, 2] = np.around(valsou_array[:, 2], decimals=depth_precision)
+        # logger.debug("closest: %s" % self.valsou_closest_2)
 
         # logger.debug("converting features to array coords ... DONE!")
 
@@ -331,6 +349,22 @@ class ValsouCheckV7(BaseValsou):
             # logger.debug("#%d -> closest (%s, %s)" % (i, closest[1], closest[0]))
 
             if (closest[1] < r_min) or (closest[0] < c_min) or (closest[1] >= r_max) or (closest[0] >= c_max):
+
+                self.flagged_features.append([self.valsou_geo[i][0], self.valsou_geo[i][1], 'out-of-bbox'])
+                logger.warning("Feature at (%s, %s) out of bbox" % (self.valsou_geo[i][0], self.valsou_geo[i][1]))
+
+                self.valsou_visited[i] = True
+                continue
+
+        # FIXME: bug fix for CARIS misalignments
+        for i, closest in enumerate(self.valsou_closest_2):
+
+            # logger.debug("#%d -> closest (%s, %s)" % (i, closest[1], closest[0]))
+
+            if (closest[1] < r_min) or (closest[0] < c_min) or (closest[1] >= r_max) or (closest[0] >= c_max):
+
+                if self.valsou_visited[i]:
+                    continue
 
                 self.flagged_features.append([self.valsou_geo[i][0], self.valsou_geo[i][1], 'out-of-bbox'])
                 logger.warning("Feature at (%s, %s) out of bbox" % (self.valsou_geo[i][0], self.valsou_geo[i][1]))
@@ -372,26 +406,43 @@ class ValsouCheckV7(BaseValsou):
                 logger.debug("skipping")
                 continue
 
+            # FIXME: bug fix for CARIS misalignments
+            # skip if not in the current grid slice (we know the y boundaries of the current slice)
+            if (self.valsou_closest_2[i][0] < 0) or (self.valsou_closest_2[i][0] >= self.bathy_cols) or \
+                    (self.valsou_closest_2[i][1] < 0) or (self.valsou_closest_2[i][1] >= self.bathy_rows):
+                logger.debug("skipping")
+                continue
+
             # retrieve the depth value of the closest grid node
             depth_closest = self.bathy_values[int(closest[1]), int(closest[0])]
+            # FIXME: bug fix for CARIS misalignments
+            depth_closest_2 = self.bathy_values[int(self.valsou_closest_2[i][1]), int(self.valsou_closest_2[i][0])]
 
             # early exit: the closest-node depth matches with the feature depth
-            if abs(round(depth_closest, depth_precision) - round(closest[2], depth_precision)) < eps_depth:
+            # FIXME: bug fix for CARIS misalignments
+            if (abs(round(depth_closest, depth_precision) - round(closest[2], depth_precision)) < eps_depth)\
+                    or (abs(round(depth_closest_2, depth_precision) - round(self.valsou_closest_2[i][2], depth_precision))
+                        < eps_depth):
                 self.valsou_visited[i] = True
                 continue
 
             if self.version in ["2018", ]:
                 self.flagged_features.append([self.valsou_geo[i][0], self.valsou_geo[i][1],
                                               'depth discrepancy'])
-                logger.info("+1  -> depth discrepancy at %s, %s: %s vs. %s"
+                logger.info("+1  -> depth discrepancy at %s, %s: %s vs. %s/%s"
                             % (self.valsou_geo[i][0], self.valsou_geo[i][1],
-                               round(closest[2], depth_precision), round(depth_closest, depth_precision)))
+                               round(closest[2], depth_precision), round(depth_closest, depth_precision),
+                               round(depth_closest_2, depth_precision)))
 
             else:
 
                 logger.debug("#%d" % i)
                 logger.debug("[*] -> ft depth: %f -> node (%d, %d) -> %f"
                              % (closest[2], closest[1], closest[0], depth_closest))
+                # FIXME: bug fix for CARIS misalignments
+                logger.debug("[*] -> ft depth: %f -> node (%d, %d) -> %f"
+                             % (self.valsou_closest_2[i][2], self.valsou_closest_2[i][1], self.valsou_closest_2[i][0],
+                                depth_closest_2))
 
                 # now we identify if the feature belongs to the 2mm or to the 1node group
                 if self.valsou_features[i] in self.valsou_2mm_features:
@@ -576,8 +627,8 @@ class ValsouCheckV7(BaseValsou):
         # logger.debug("geo: %s" % self.valsou_geo)
         # logger.debug("loc: %s" % self.valsou_loc)
         valsou_array = np.copy(self.valsou_utm)
-        valsou_array[:, 0] = (self.valsou_utm[:, 0] - self.bathy_transform[0]) / self.bathy_transform[1]  # - 0.5
-        valsou_array[:, 1] = (self.valsou_utm[:, 1] - self.bathy_transform[3]) / self.bathy_transform[5]  # - 0.5
+        valsou_array[:, 0] = (self.valsou_utm[:, 0] - self.bathy_transform[0]) / self.bathy_transform[1]
+        valsou_array[:, 1] = (self.valsou_utm[:, 1] - self.bathy_transform[3]) / self.bathy_transform[5]
         # logger.debug("array: %s" % valsou_array)
 
         # convert to the closest array coordinates
@@ -586,3 +637,17 @@ class ValsouCheckV7(BaseValsou):
         self.valsou_closest[:, 1] = np.rint(valsou_array[:, 1])
         self.valsou_closest[:, 2] = np.around(valsou_array[:, 2], decimals=depth_precision)
         # logger.debug("closest: %s" % self.valsou_closest)
+
+        # FIXME: bug fix for CARIS misalignments
+
+        valsou_array = np.copy(self.valsou_utm)
+        valsou_array[:, 0] = (self.valsou_utm[:, 0] - self.bathy_transform[0]) / self.bathy_transform[1] - 0.5
+        valsou_array[:, 1] = (self.valsou_utm[:, 1] - self.bathy_transform[3]) / self.bathy_transform[5] - 0.5
+        # logger.debug("array: %s" % valsou_array)
+
+        # convert to the closest array coordinates
+        self.valsou_closest_2 = np.empty_like(valsou_array)
+        self.valsou_closest_2[:, 0] = np.rint(valsou_array[:, 0])
+        self.valsou_closest_2[:, 1] = np.rint(valsou_array[:, 1])
+        self.valsou_closest_2[:, 2] = np.around(valsou_array[:, 2], decimals=depth_precision)
+        # logger.debug("closest: %s" % self.valsou_closest_2)
