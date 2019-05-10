@@ -108,13 +108,13 @@ The logic for the 2019 QC Tools feature scan is shown below. For previous years,
 * Specific for the Office Profile:
     * All features must have **"onotes".**
     * All features must have **"hsdrec".**
-    * Checks for features that are prohibited by MCD (**"DRGARE", "LOGPON", "PIPARE", "PIPOHD", "PIPSOL", "DMPGRD" "LIGHTS", "BOYLAT", "BOYSAW", "BOYSPP", "DAYMAR", "FOGSIG", "CBLSUB", "CBLARE", "FAIRWY", "RTPBCN", "BOYISD", "BOYINB", "BOYCAR", "CBLOHD", "OBSTRN"** with **"CATOBS"** = 5, **MORFAC** with **CATMOR** = 7.
+    * Checks for features that are prohibited by MCD (**"DRGARE", "LOGPON", "PIPARE", "PIPOHD", "PIPSOL", "DMPGRD" "LIGHTS", "BOYLAT", "BOYSAW", "BOYSPP", "DAYMAR", "FOGSIG", "CBLSUB", "CBLARE", "FAIRWY", "RTPBCN", "BOYISD", "BOYINB", "BOYCAR", "CBLOHD", "OBSTRN"** with **"CATOBS"** = 5, "OBSTRN"** with **"CATOBS"** = 5, **MORFAC** with **CATMOR** = 7.
     * All **M_QUAL** features must have **"CATZOC", "SURSTA", "SUREND",** and **"TECSOU".**
     * All features must have **"descrp"** and **remrks"**.
 
 .. rubric:: Footnotes
 
-.. [1] Obstructions of **"CATOBS"** = 6 (foul area) do not require **"images".** Line and area obstructions of **"CATOBS"** = 6 (foul area) should not have **"VALSOU"**.
+.. [1] Obstructions of **"CATOBS"** = 6 (foul area) do not require **"images".** **VALSOU** is optional for line and area obstructions. Line and area obstructions of **"CATOBS"** = 6 (foul area) should not have **"VALSOU"**.
 .. [2] Allowable combinations of **"NATSUR"** and **"NATQUA"** are shown below.
 
 +----------+---+---+---+---+---+---+---+---+---+---+

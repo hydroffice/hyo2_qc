@@ -53,9 +53,11 @@ class FeatureScanV9(BaseScan):
         self.flagged_uwtroc_quasou = list()
         self.flagged_uwtroc_tecsou = list()
         self.flagged_obstrn_images = list()
-        self.flagged_obstrn_valsou = list()
-        self.flagged_obstrn_foul_points_valsou = list()
-        self.flagged_obstrn_watlev = list()
+        self.flagged_obstrn_points_valsou = list()
+        self.flagged_obstrn_points_watlev = list()
+        self.flagged_obstrn_lines_areas_watlev = list()
+        self.flagged_obstrn_watlev_known = list()
+        self.flagged_obstrn_watlev_undefined = list()
         self.flagged_obstrn_quasou = list()
         self.flagged_obstrn_tecsou = list()
         self.flagged_obstrn_foul_valsou = list()
@@ -75,11 +77,12 @@ class FeatureScanV9(BaseScan):
         self.flagged_m_covr_catcov = list()
         self.flagged_m_covr_inform = list()
         self.flagged_m_covr_ninfom = list()
-        self.flagged_onotes = list()
+        self.flagged_without_onotes = list()
         self.flagged_hsdrec_empty = list()
-        self.flagged_prohibited = list()
-        self.flagged_fish_haven = list()
-        self.flagged_mooring_buoy = list()
+        self.flagged_prohibited_kwds = list()
+        self.flagged_fish_haven_kwds = list()
+        self.flagged_mooring_buoy_kwds = list()
+        self.flagged_foul_ground_kwds = list()
         self.flagged_m_qual_catzoc = list()
         self.flagged_m_qual_sursta = list()
         self.flagged_m_qual_surend = list()
@@ -281,7 +284,47 @@ class FeatureScanV9(BaseScan):
 
         return flagged
 
-    # noinspection PyStatementEffect
+    def check_for_missing_keywords(self, objects, attr_acronym, keywords):
+        """Check if the passed features do not have the passed keywords in a specific attribute"""
+        flagged = list()
+
+        kws = list()
+        for keyword in keywords:
+            kws.append(keyword.lower())
+
+        for obj in objects:
+
+            # do the test
+            has_keywords = False
+            for attr in obj.attributes:
+
+                if attr.acronym == attr_acronym:
+                    attr_value = attr.value.lower()
+
+                    for kw in kws:
+                        if kw in attr_value:
+                            has_keywords = True
+                            break
+
+                    break
+
+            # keywords found
+            if has_keywords:
+                continue
+
+            else:
+                # add to the flagged feature list
+                self._append_flagged(obj.centroid.x, obj.centroid.y, "missing %s in %s" % (keywords, attr_acronym))
+                # add to the flagged report
+                self.report += 'found %s at (%s, %s), missing %s' % \
+                               (obj.acronym, obj.centroid.x, obj.centroid.y, keywords)
+                flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
+
+        if len(flagged) == 0:
+            self.report += "OK"
+
+        return flagged
+
     def flag_features_by_type(self, objects, types_to_flag):
         """Flag the passed features if they have the passed values for the passed attribute"""
         flagged = list()
@@ -302,7 +345,6 @@ class FeatureScanV9(BaseScan):
 
         return flagged
 
-    # noinspection PyStatementEffect
     def check_features_without_attribute(self, objects, attribute, possible=False):
         """Check if the passed features have the passed attribute"""
         flagged = list()
@@ -332,7 +374,6 @@ class FeatureScanV9(BaseScan):
 
         return flagged
 
-    # noinspection PyStatementEffect
     def _check_features_for_valid_sorind(self, objects, check_space=True):
         """Check if the passed features have valid SORIND"""
         flagged = list()
@@ -360,7 +401,6 @@ class FeatureScanV9(BaseScan):
 
         return flagged
 
-    # noinspection PyStatementEffect
     def _check_features_for_match_sorind(self, objects):
         """Check if the passed features have valid SORIND"""
         flagged = list()
@@ -972,9 +1012,9 @@ class FeatureScanV9(BaseScan):
         self.report += "New or Updated OBSTRN missing mandatory attribute images [CHECK]"
         self.flagged_obstrn_images = self.check_features_for_attribute(obstrns, 'images')
         self.report += "New or Updated OBSTRN missing mandatory attribute VALSOU [CHECK]"
-        self.flagged_obstrn_valsou = self.check_features_for_attribute(obstrns, 'VALSOU')
+        self.flagged_obstrn_points_valsou = self.check_features_for_attribute(obstrns, 'VALSOU')
         self.report += "New or Updated OBSTRN missing mandatory attribute WATLEV [CHECK]"
-        self.flagged_obstrn_watlev = self.check_features_for_attribute(obstrns, 'WATLEV')
+        self.flagged_obstrn_points_watlev = self.check_features_for_attribute(obstrns, 'WATLEV')
         self.report += "New or Updated OBSTRN missing mandatory attribute QUASOU [CHECK]"
         self.flagged_obstrn_quasou = self.check_features_for_attribute(obstrns, 'QUASOU')
         self.report += "New or Updated OBSTRN missing mandatory attribute TECSOU [CHECK]"
@@ -1021,7 +1061,7 @@ class FeatureScanV9(BaseScan):
         no_soundings = S57Aux.filter_by_object(objects=self.all_features, object_filter=['SOUNDG', ])
         if self.profile == 0:  # office
             self.report += "Non-sounding features missing onotes (just FYI) [CHECK]"
-            self.flagged_onotes = self.check_features_for_attribute(no_soundings, 'onotes')
+            self.flagged_without_onotes = self.check_features_for_attribute(no_soundings, 'onotes')
 
         # finalize the summary
         self.finalize_summary()
@@ -1121,9 +1161,9 @@ class FeatureScanV9(BaseScan):
         self.report += "New or Updated OBSTRN missing mandatory attribute images [CHECK]"
         self.flagged_obstrn_images = self.check_features_for_attribute(obstrns, 'images')
         self.report += "New or Updated OBSTRN missing mandatory attribute VALSOU [CHECK]"
-        self.flagged_obstrn_valsou = self.check_features_for_attribute(obstrns, 'VALSOU')
+        self.flagged_obstrn_points_valsou = self.check_features_for_attribute(obstrns, 'VALSOU')
         self.report += "New or Updated OBSTRN missing mandatory attribute WATLEV [CHECK]"
-        self.flagged_obstrn_watlev = self.check_features_for_attribute(obstrns, 'WATLEV')
+        self.flagged_obstrn_points_watlev = self.check_features_for_attribute(obstrns, 'WATLEV')
         self.report += "New or Updated OBSTRN missing mandatory attribute QUASOU [CHECK]"
         self.flagged_obstrn_quasou = self.check_features_for_attribute(obstrns, 'QUASOU')
         self.report += "New or Updated OBSTRN missing mandatory attribute TECSOU [CHECK]"
@@ -1171,7 +1211,7 @@ class FeatureScanV9(BaseScan):
         no_soundings = S57Aux.filter_by_object(objects=self.all_features, object_filter=['SOUNDG', ])
         if self.profile == 0:  # office
             self.report += "Non-sounding features missing onotes (just FYI) [CHECK]"
-            self.flagged_onotes = self.check_features_for_attribute(no_soundings, 'onotes')
+            self.flagged_without_onotes = self.check_features_for_attribute(no_soundings, 'onotes')
 
         # finalize the summary
         self.finalize_summary()
@@ -1300,10 +1340,10 @@ class FeatureScanV9(BaseScan):
         self.flagged_obstrn_images = self.check_features_for_attribute(obstrns_no_foul, 'images')
         # @ Ensure new or updated obstructions have valsou
         self.report += "New or Updated OBSTRN missing mandatory attribute VALSOU [CHECK]"
-        self.flagged_obstrn_valsou = self.check_features_for_attribute(obstrns, 'VALSOU')
+        self.flagged_obstrn_points_valsou = self.check_features_for_attribute(obstrns, 'VALSOU')
         # @ Ensure new or updated obstructions have watlev
         self.report += "New or Updated OBSTRN missing mandatory attribute WATLEV [CHECK]"
-        self.flagged_obstrn_watlev = self.check_features_for_attribute(obstrns, 'WATLEV')
+        self.flagged_obstrn_points_watlev = self.check_features_for_attribute(obstrns, 'WATLEV')
         # @ Ensure new or updated obstructions have quasou
         self.report += "New or Updated OBSTRN missing mandatory attribute QUASOU [CHECK]"
         self.flagged_obstrn_quasou = self.check_features_for_attribute(obstrns, 'QUASOU')
@@ -1382,7 +1422,7 @@ class FeatureScanV9(BaseScan):
         # @ For the office profile, ensure all features have onotes
         if self.profile == 0:  # office
             self.report += "Non-sounding features missing onotes (just FYI) [CHECK]"
-            self.flagged_onotes = self.check_features_for_attribute(no_soundings, 'onotes')
+            self.flagged_without_onotes = self.check_features_for_attribute(no_soundings, 'onotes')
 
         # finalize the summary
         self.finalize_summary()
@@ -1525,22 +1565,54 @@ class FeatureScanV9(BaseScan):
         obstrns_no_foul = S57Aux.filter_by_attribute_value(objects=obstrns, attribute='CATOBS', value_filter=['6', ])
         # Include only foul obstructions
         obstrns_foul = S57Aux.select_by_attribute_value(objects=obstrns, attribute='CATOBS', value_filter=['6', ])
-        # Include only point feature foul obstructions.
-        obstrns_foul_points = S57Aux.select_only_points(obstrns_foul)
+
         # @ Ensure new or updated obstructions (excluding foul area obstructions) have images
-        self.report += "New or Updated OBSTRN missing mandatory attribute images [CHECK]"
+        self.report += "New or Updated OBSTRN (unless foul) missing mandatory attribute images [CHECK]"
         self.flagged_obstrn_images = self.check_features_for_attribute(obstrns_no_foul, 'images')
+
         # @ Ensure new or updated obstructions have valsou
-        self.report += "New or Updated non-foul OBSTRN missing mandatory attribute VALSOU [CHECK]"
-        self.flagged_obstrn_valsou = self.check_features_for_attribute(obstrns_no_foul, 'VALSOU')
-        self.report += "New or Updated foul area point OBSTRN missing mandatory attribute VALSOU [CHECK]"
-        self.flagged_obstrn_foul_points_valsou = self.check_features_for_attribute(obstrns_foul_points, 'VALSOU')
+        # Isolate point obstructions
+        obstrn_points = S57Aux.select_only_points(obstrns)
+        self.report += "New or Updated OBSTRN point missing mandatory attribute VALSOU [CHECK]"
+        self.flagged_obstrn_points_valsou = self.check_features_for_attribute(obstrn_points, 'VALSOU')
+
         # @ Ensure new or updated obstructions have watlev
-        self.report += "New or Updated OBSTRN with empty/missing mandatory attribute WATLEV [CHECK]"
-        self.flagged_obstrn_watlev = self.flag_features_with_attribute_value(obstrns, attribute='WATLEV',
-                                                                             values_to_flag=['', ],
-                                                                             check_attrib_existence=True)
-        # @ Ensure new or updated obstructions have quasou
+        self.report += "New or Updated OBSTRN point with invalid WATLEV [CHECK]"
+        self.flagged_obstrn_points_watlev = self.flag_features_with_attribute_value(
+            obstrn_points,
+            attribute='WATLEV',
+            values_to_flag=['', ],
+            check_attrib_existence=True)
+
+        # @ Ensure new or updated obstructions have watlev
+        self.report += "New or Updated OBSTRN lines/areas with valid VALSOU and invalid WATLEV [CHECK]"
+        # Isolate line/area obstructions
+        obstrn_line_area = S57Aux.select_lines_and_areas(obstrns)
+        # Include lines and area obstructions with VALSOU
+        obstrn_line_areas_valsou = S57Aux.select_by_attribute(objects=obstrn_line_area, attribute='VALSOU')
+        # Include lines and area obstructions with VALSOU
+        obstrn_line_area_valsou_known = S57Aux.filter_by_attribute_value(objects=obstrn_line_areas_valsou,
+                                                                         attribute='VALSOU', value_filter=['', ], )
+        self.flagged_obstrn_points_watlev = self.flag_features_with_attribute_value(
+            obstrn_line_area_valsou_known,
+            attribute='WATLEV',
+            values_to_flag=['', ],
+            check_attrib_existence=True)
+
+        # Select all lines and area obstructions that have "unknown" and "undefined" VALSOUs and ensure they have an
+        # "unknown" WATLEV. I know that I am doing this wrong because the select by attribute doesn't have the
+        # "check_attrib_existence=True" option. This will need to be updated in 2018 and 2020.
+        obstrn_line_areas_undefined_valsou = S57Aux.filter_by_attribute(objects=obstrn_line_area, attribute='VALSOU')
+        obstrn_line_areas_unknown_valsou = S57Aux.select_by_attribute_value(objects=obstrn_line_area,
+                                                                            attribute='VALSOU', value_filter=['', ])
+        self.report += 'New or Update line or area OBSTRN with empty VALSOU with known WATLEV [CHECK]'
+        self.flagged_obstrn_watlev_known = self.flag_features_with_attribute_value(obstrn_line_areas_undefined_valsou +
+                                                                                   obstrn_line_areas_unknown_valsou,
+                                                                                   attribute='WATLEV',
+                                                                                   values_to_flag=["1", "2", "3",
+                                                                                                   "4", "5", "6",
+                                                                                                   "7", ])
+
         self.report += "New or Updated OBSTRN with empty/missing mandatory attribute QUASOU [CHECK]"
         self.flagged_obstrn_quasou = self.flag_features_with_attribute_value(obstrns, attribute='QUASOU',
                                                                              values_to_flag=['', ],
@@ -1642,13 +1714,13 @@ class FeatureScanV9(BaseScan):
         self.flagged_m_covr_ninfom = self.check_features_for_attribute(mcovr, 'NINFOM')
 
         self.report += "Invalid IMAGES attribute for no-SBDARE features [CHECK]"
-        no_sbdare_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=["SBDARE",])
+        no_sbdare_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=["SBDARE", ])
         self.flagged_images_no_sbdare = self._check_features_for_images(no_sbdare_features)
 
         # For the office profile, ensure all features have onotes
         if self.profile == 0:  # office
             self.report += "Features missing onotes [CHECK]"
-            self.flagged_onotes = self.check_features_for_attribute(self.all_features, 'onotes')
+            self.flagged_without_onotes = self.check_features_for_attribute(self.all_features, 'onotes')
 
             # For the office profile, check for empty hsdrec
             self.report += "Features with empty/unknown attribute hsdrec [CHECK]"
@@ -1657,22 +1729,33 @@ class FeatureScanV9(BaseScan):
                                                                                 check_attrib_existence=True)
 
             # For the office profile, check for prohibited features by feature type
-            self.report += "Prohibited Feature types [CHECK]"
-            self.flagged_prohibited = self.flag_features_by_type(objects=self.all_features, types_to_flag=[
+            self.report += "Features without 'Prohibited feature' keyword [CHECK]"
+            prohibited = S57Aux.select_by_object(objects=self.all_features, object_filter=[
                 'DRGARE', 'LOGPON', 'PIPARE', 'PIPOHD', 'PIPSOL', 'DMPGRD', 'LIGHTS', 'BOYLAT', 'BOYSAW', 'BOYSPP',
                 'DAYMAR', 'FOGSIG', 'CBLSUB', 'CBLARE', 'FAIRWY', 'RTPBCN', 'BOYISD', 'BOYINB', 'BOYCAR', 'CBLOHD'])
+            self.flagged_prohibited_kwds = self.check_for_missing_keywords(prohibited, attr_acronym='onotes',
+                                                                           keywords=['Prohibited feature', ])
 
             # For the office profile, check for prohibited fish haven
             obstrn = S57Aux.select_by_object(objects=self.all_features, object_filter=['OBSTRN', ])
-            self.report += "Features with prohibited attribute fish haven [CHECK]"
-            self.flagged_fish_haven = self.flag_features_with_attribute_value(objects=obstrn, attribute='CATOBS',
-                                                                              values_to_flag=['5', ])
+            fish_haven = S57Aux.select_by_attribute_value(objects=obstrn, attribute='CATOBS', value_filter='5')
+
+            self.report += "Fish havens without 'Prohibited feature' keyword [CHECK]"
+            self.flagged_fish_haven_kwds = self.check_for_missing_keywords(fish_haven, attr_acronym='onotes',
+                                                                           keywords=['Prohibited feature', ])
 
             # For the office profile, check for prohibited mooring buoys
             morfac = S57Aux.select_by_object(objects=self.all_features, object_filter=['MORFAC', ])
-            self.report += "Features with prohibited attribute mooring buoy [CHECK]"
-            self.flagged_mooring_buoy = self.flag_features_with_attribute_value(objects=morfac, attribute='CATMOR',
-                                                                                values_to_flag=['7', ])
+            mooring_buoy = S57Aux.select_by_attribute_value(objects=morfac, attribute='CATMOR', value_filter='7')
+            self.report += "Mooring buoy without 'Prohibited feature' keyword [CHECK]"
+            self.flagged_mooring_buoy_kwds = self.check_for_missing_keywords(mooring_buoy, attr_acronym='onotes',
+                                                                             keywords=['Prohibited feature', ])
+
+            # For the office profile, check for prohibited foul ground features
+            obstrn = S57Aux.select_by_object(objects=self.all_features, object_filter=['OBSTRN', ])
+            foul_ground = S57Aux.select_by_attribute_value(objects=obstrn, attribute='CATOBS', value_filter='7')
+            self.flagged_foul_ground_kwds = self.check_for_missing_keywords(foul_ground, attr_acronym='onotes',
+                                                                             keywords=['Prohibited feature', ])
 
             # For office profile, check for M_QUAL attribution
             mqual = S57Aux.select_by_object(objects=self.all_features, object_filter=['M_QUAL', ])
@@ -1843,22 +1926,54 @@ class FeatureScanV9(BaseScan):
         obstrns_no_foul = S57Aux.filter_by_attribute_value(objects=obstrns, attribute='CATOBS', value_filter=['6', ])
         # Include only foul obstructions
         obstrns_foul = S57Aux.select_by_attribute_value(objects=obstrns, attribute='CATOBS', value_filter=['6', ])
-        # Include only point feature foul obstructions.
-        obstrns_foul_points = S57Aux.select_only_points(obstrns_foul)
+
         # @ Ensure new or updated obstructions (excluding foul area obstructions) have images
-        self.report += "New or Updated OBSTRN missing mandatory attribute images [CHECK]"
+        self.report += "New or Updated OBSTRN (unless foul) missing mandatory attribute images [CHECK]"
         self.flagged_obstrn_images = self.check_features_for_attribute(obstrns_no_foul, 'images')
+
         # @ Ensure new or updated obstructions have valsou
-        self.report += "New or Updated non-foul OBSTRN missing mandatory attribute VALSOU [CHECK]"
-        self.flagged_obstrn_valsou = self.check_features_for_attribute(obstrns_no_foul, 'VALSOU')
-        self.report += "New or Updated foul area point OBSTRN missing mandatory attribute VALSOU [CHECK]"
-        self.flagged_obstrn_foul_points_valsou = self.check_features_for_attribute(obstrns_foul_points, 'VALSOU')
+        # Isolate point obstructions
+        obstrn_points = S57Aux.select_only_points(obstrns)
+        self.report += "New or Updated OBSTRN point missing mandatory attribute VALSOU [CHECK]"
+        self.flagged_obstrn_points_valsou = self.check_features_for_attribute(obstrn_points, 'VALSOU')
+
         # @ Ensure new or updated obstructions have watlev
-        self.report += "New or Updated OBSTRN with empty/missing mandatory attribute WATLEV [CHECK]"
-        self.flagged_obstrn_watlev = self.flag_features_with_attribute_value(obstrns, attribute='WATLEV',
-                                                                             values_to_flag=['', ],
-                                                                             check_attrib_existence=True)
-        # @ Ensure new or updated obstructions have quasou
+        self.report += "New or Updated OBSTRN point with invalid WATLEV [CHECK]"
+        self.flagged_obstrn_points_watlev = self.flag_features_with_attribute_value(
+            obstrn_points,
+            attribute='WATLEV',
+            values_to_flag=['', ],
+            check_attrib_existence=True)
+
+        # @ Ensure new or updated obstructions have watlev
+        self.report += "New or Updated OBSTRN lines/areas with valid VALSOU and invalid WATLEV [CHECK]"
+        # Isolate line/area obstructions
+        obstrn_line_area = S57Aux.select_lines_and_areas(obstrns)
+        # Include lines and area obstructions with VALSOU
+        obstrn_line_areas_valsou = S57Aux.select_by_attribute(objects=obstrn_line_area, attribute='VALSOU')
+        # Include lines and area obstructions with VALSOU
+        obstrn_line_area_valsou_known = S57Aux.filter_by_attribute_value(objects=obstrn_line_areas_valsou,
+                                                                         attribute='VALSOU', value_filter=['', ], )
+        self.flagged_obstrn_points_watlev = self.flag_features_with_attribute_value(
+            obstrn_line_area_valsou_known,
+            attribute='WATLEV',
+            values_to_flag=['', ],
+            check_attrib_existence=True)
+
+        # Select all lines and area obstructions that have "unknown" and "undefined" VALSOUs and ensure they have an
+        # "unknown" WATLEV. I know that I am doing this wrong because the select by attribute doesn't have the
+        # "check_attrib_existence=True" option. This will need to be updated in 2018 and 2020.
+        obstrn_line_areas_undefined_valsou = S57Aux.filter_by_attribute(objects=obstrn_line_area, attribute='VALSOU')
+        obstrn_line_areas_unknown_valsou = S57Aux.select_by_attribute_value(objects=obstrn_line_area,
+                                                                            attribute='VALSOU', value_filter=['', ])
+        self.report += 'New or Update line or area OBSTRN with empty VALSOU with known WATLEV [CHECK]'
+        self.flagged_obstrn_watlev_known = self.flag_features_with_attribute_value(obstrn_line_areas_undefined_valsou +
+                                                                                   obstrn_line_areas_unknown_valsou,
+                                                                                   attribute='WATLEV',
+                                                                                   values_to_flag=["1", "2", "3",
+                                                                                                   "4", "5", "6",
+                                                                                                   "7", ])
+
         self.report += "New or Updated OBSTRN with empty/missing mandatory attribute QUASOU [CHECK]"
         self.flagged_obstrn_quasou = self.flag_features_with_attribute_value(obstrns, attribute='QUASOU',
                                                                              values_to_flag=['', ],
@@ -1960,13 +2075,13 @@ class FeatureScanV9(BaseScan):
         self.flagged_m_covr_ninfom = self.check_features_for_attribute(mcovr, 'NINFOM')
 
         self.report += "Invalid IMAGES attribute for no-SBDARE features [CHECK]"
-        no_sbdare_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=["SBDARE",])
+        no_sbdare_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=["SBDARE", ])
         self.flagged_images_no_sbdare = self._check_features_for_images(no_sbdare_features)
 
         # For the office profile, ensure all features have onotes
         if self.profile == 0:  # office
             self.report += "Features missing onotes [CHECK]"
-            self.flagged_onotes = self.check_features_for_attribute(self.all_features, 'onotes')
+            self.flagged_without_onotes = self.check_features_for_attribute(self.all_features, 'onotes')
 
             # For the office profile, check for empty hsdrec
             self.report += "Features with empty/unknown attribute hsdrec [CHECK]"
@@ -1975,22 +2090,32 @@ class FeatureScanV9(BaseScan):
                                                                                 check_attrib_existence=True)
 
             # For the office profile, check for prohibited features by feature type
-            self.report += "Prohibited Feature types [CHECK]"
-            self.flagged_prohibited = self.flag_features_by_type(objects=self.all_features, types_to_flag=[
+            self.report += "Features without 'Prohibited feature' keyword [CHECK]"
+            prohibited = S57Aux.select_by_object(objects=self.all_features, object_filter=[
                 'DRGARE', 'LOGPON', 'PIPARE', 'PIPOHD', 'PIPSOL', 'DMPGRD', 'LIGHTS', 'BOYLAT', 'BOYSAW', 'BOYSPP',
                 'DAYMAR', 'FOGSIG', 'CBLSUB', 'CBLARE', 'FAIRWY', 'RTPBCN', 'BOYISD', 'BOYINB', 'BOYCAR', 'CBLOHD'])
+            self.flagged_prohibited_kwds = self.check_for_missing_keywords(prohibited, attr_acronym='onotes',
+                                                                           keywords=['Prohibited feature', ])
 
             # For the office profile, check for prohibited fish haven
             obstrn = S57Aux.select_by_object(objects=self.all_features, object_filter=['OBSTRN', ])
-            self.report += "Features with prohibited attribute fish haven [CHECK]"
-            self.flagged_fish_haven = self.flag_features_with_attribute_value(objects=obstrn, attribute='CATOBS',
-                                                                              values_to_flag=['5', ])
+            fish_haven = S57Aux.select_by_attribute_value(objects=obstrn, attribute='CATOBS', value_filter='5')
+            self.report += "Fish havens without 'Prohibited feature' keyword [CHECK]"
+            self.flagged_fish_haven_kwds = self.check_for_missing_keywords(fish_haven, attr_acronym='onotes',
+                                                                           keywords=['Prohibited feature', ])
 
             # For the office profile, check for prohibited mooring buoys
             morfac = S57Aux.select_by_object(objects=self.all_features, object_filter=['MORFAC', ])
-            self.report += "Features with prohibited attribute mooring buoy [CHECK]"
-            self.flagged_mooring_buoy = self.flag_features_with_attribute_value(objects=morfac, attribute='CATMOR',
-                                                                                values_to_flag=['7', ])
+            mooring_buoy = S57Aux.select_by_attribute_value(objects=morfac, attribute='CATMOR', value_filter='7')
+            self.report += "Mooring buoy without 'Prohibited feature' keyword [CHECK]"
+            self.flagged_mooring_buoy_kwds = self.check_for_missing_keywords(mooring_buoy, attr_acronym='onotes',
+                                                                             keywords=['Prohibited feature', ])
+
+            # For the office profile, check for prohibited foul ground features
+            obstrn = S57Aux.select_by_object(objects=self.all_features, object_filter=['OBSTRN', ])
+            foul_ground = S57Aux.select_by_attribute_value(objects=obstrn, attribute='CATOBS', value_filter='7')
+            self.flagged_foul_ground_kwds = self.check_for_missing_keywords(foul_ground, attr_acronym='onotes',
+                                                                             keywords=['Prohibited feature', ])
 
             # For office profile, check for M_QUAL attribution
             mqual = S57Aux.select_by_object(objects=self.all_features, object_filter=['M_QUAL', ])
@@ -2160,22 +2285,54 @@ class FeatureScanV9(BaseScan):
         obstrns_no_foul = S57Aux.filter_by_attribute_value(objects=obstrns, attribute='CATOBS', value_filter=['6', ])
         # Include only foul obstructions
         obstrns_foul = S57Aux.select_by_attribute_value(objects=obstrns, attribute='CATOBS', value_filter=['6', ])
-        # Include only point feature foul obstructions.
-        obstrns_foul_points = S57Aux.select_only_points(obstrns_foul)
+
         # @ Ensure new or updated obstructions (excluding foul area obstructions) have images
-        self.report += "New or Updated OBSTRN missing mandatory attribute images [CHECK]"
+        self.report += "New or Updated OBSTRN (unless foul) missing mandatory attribute images [CHECK]"
         self.flagged_obstrn_images = self.check_features_for_attribute(obstrns_no_foul, 'images')
+
         # @ Ensure new or updated obstructions have valsou
-        self.report += "New or Updated non-foul OBSTRN missing mandatory attribute VALSOU [CHECK]"
-        self.flagged_obstrn_valsou = self.check_features_for_attribute(obstrns_no_foul, 'VALSOU')
-        self.report += "New or Updated foul area point OBSTRN missing mandatory attribute VALSOU [CHECK]"
-        self.flagged_obstrn_foul_points_valsou = self.check_features_for_attribute(obstrns_foul_points, 'VALSOU')
+        # Isolate point obstructions
+        obstrn_points = S57Aux.select_only_points(obstrns)
+        self.report += "New or Updated OBSTRN point missing mandatory attribute VALSOU [CHECK]"
+        self.flagged_obstrn_points_valsou = self.check_features_for_attribute(obstrn_points, 'VALSOU')
+
         # @ Ensure new or updated obstructions have watlev
-        self.report += "New or Updated OBSTRN with empty/missing mandatory attribute WATLEV [CHECK]"
-        self.flagged_obstrn_watlev = self.flag_features_with_attribute_value(obstrns, attribute='WATLEV',
-                                                                             values_to_flag=['', ],
-                                                                             check_attrib_existence=True)
-        # @ Ensure new or updated obstructions have quasou
+        self.report += "New or Updated OBSTRN point with invalid WATLEV [CHECK]"
+        self.flagged_obstrn_points_watlev = self.flag_features_with_attribute_value(
+            obstrn_points,
+            attribute='WATLEV',
+            values_to_flag=['', ],
+            check_attrib_existence=True)
+
+        # @ Ensure new or updated obstructions have watlev
+        self.report += "New or Updated OBSTRN lines/areas with valid VALSOU and invalid WATLEV [CHECK]"
+        # Isolate line/area obstructions
+        obstrn_line_area = S57Aux.select_lines_and_areas(obstrns)
+        # Include lines and area obstructions with VALSOU
+        obstrn_line_areas_valsou = S57Aux.select_by_attribute(objects=obstrn_line_area, attribute='VALSOU')
+        # Include lines and area obstructions with VALSOU
+        obstrn_line_area_valsou_known = S57Aux.filter_by_attribute_value(objects=obstrn_line_areas_valsou,
+                                                                         attribute='VALSOU', value_filter=['', ], )
+        self.flagged_obstrn_points_watlev = self.flag_features_with_attribute_value(
+            obstrn_line_area_valsou_known,
+            attribute='WATLEV',
+            values_to_flag=['', ],
+            check_attrib_existence=True)
+
+        # Select all lines and area obstructions that have "unknown" and "undefined" VALSOUs and ensure they have an
+        # "unknown" WATLEV. I know that I am doing this wrong because the select by attribute doesn't have the
+        # "check_attrib_existence=True" option. This will need to be updated in 2018 and 2020.
+        obstrn_line_areas_undefined_valsou = S57Aux.filter_by_attribute(objects=obstrn_line_area, attribute='VALSOU')
+        obstrn_line_areas_unknown_valsou = S57Aux.select_by_attribute_value(objects=obstrn_line_area,
+                                                                            attribute='VALSOU', value_filter=['', ])
+        self.report += 'New or Update line or area OBSTRN with empty VALSOU with known WATLEV [CHECK]'
+        self.flagged_obstrn_watlev_known = self.flag_features_with_attribute_value(obstrn_line_areas_undefined_valsou +
+                                                                                   obstrn_line_areas_unknown_valsou,
+                                                                                   attribute='WATLEV',
+                                                                                   values_to_flag=["1", "2", "3",
+                                                                                                   "4", "5", "6",
+                                                                                                   "7", ])
+
         self.report += "New or Updated OBSTRN with empty/missing mandatory attribute QUASOU [CHECK]"
         self.flagged_obstrn_quasou = self.flag_features_with_attribute_value(obstrns, attribute='QUASOU',
                                                                              values_to_flag=['', ],
@@ -2277,13 +2434,13 @@ class FeatureScanV9(BaseScan):
         self.flagged_m_covr_ninfom = self.check_features_for_attribute(mcovr, 'NINFOM')
 
         self.report += "Invalid IMAGES attribute for no-SBDARE features [CHECK]"
-        no_sbdare_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=["SBDARE",])
+        no_sbdare_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=["SBDARE", ])
         self.flagged_images_no_sbdare = self._check_features_for_images(no_sbdare_features)
 
         # For the office profile, ensure all features have onotes
         if self.profile == 0:  # office
             self.report += "Features missing onotes [CHECK]"
-            self.flagged_onotes = self.check_features_for_attribute(self.all_features, 'onotes')
+            self.flagged_without_onotes = self.check_features_for_attribute(self.all_features, 'onotes')
 
             # For the office profile, check for empty hsdrec
             self.report += "Features with empty/unknown attribute hsdrec [CHECK]"
@@ -2292,22 +2449,32 @@ class FeatureScanV9(BaseScan):
                                                                                 check_attrib_existence=True)
 
             # For the office profile, check for prohibited features by feature type
-            self.report += "Prohibited Feature types [CHECK]"
-            self.flagged_prohibited = self.flag_features_by_type(objects=self.all_features, types_to_flag=[
+            self.report += "Features without 'Prohibited feature' keyword [CHECK]"
+            prohibited = S57Aux.select_by_object(objects=self.all_features, object_filter=[
                 'DRGARE', 'LOGPON', 'PIPARE', 'PIPOHD', 'PIPSOL', 'DMPGRD', 'LIGHTS', 'BOYLAT', 'BOYSAW', 'BOYSPP',
                 'DAYMAR', 'FOGSIG', 'CBLSUB', 'CBLARE', 'FAIRWY', 'RTPBCN', 'BOYISD', 'BOYINB', 'BOYCAR', 'CBLOHD'])
+            self.flagged_prohibited_kwds = self.check_for_missing_keywords(prohibited, attr_acronym='onotes',
+                                                                           keywords=['Prohibited feature', ])
 
             # For the office profile, check for prohibited fish haven
             obstrn = S57Aux.select_by_object(objects=self.all_features, object_filter=['OBSTRN', ])
-            self.report += "Features with prohibited attribute fish haven [CHECK]"
-            self.flagged_fish_haven = self.flag_features_with_attribute_value(objects=obstrn, attribute='CATOBS',
-                                                                              values_to_flag=['5', ])
+            fish_haven = S57Aux.select_by_attribute_value(objects=obstrn, attribute='CATOBS', value_filter='5')
+            self.report += "Fish havens without 'Prohibited feature' keyword [CHECK]"
+            self.flagged_fish_haven_kwds = self.check_for_missing_keywords(fish_haven, attr_acronym='onotes',
+                                                                           keywords=['Prohibited feature', ])
 
             # For the office profile, check for prohibited mooring buoys
             morfac = S57Aux.select_by_object(objects=self.all_features, object_filter=['MORFAC', ])
-            self.report += "Features with prohibited attribute mooring buoy [CHECK]"
-            self.flagged_mooring_buoy = self.flag_features_with_attribute_value(objects=morfac, attribute='CATMOR',
-                                                                                values_to_flag=['7', ])
+            mooring_buoy = S57Aux.select_by_attribute_value(objects=morfac, attribute='CATMOR', value_filter='7')
+            self.report += "Mooring buoy without 'Prohibited feature' keyword [CHECK]"
+            self.flagged_mooring_buoy_kwds = self.check_for_missing_keywords(mooring_buoy, attr_acronym='onotes',
+                                                                             keywords=['Prohibited feature', ])
+
+            # For the office profile, check for prohibited foul ground features
+            obstrn = S57Aux.select_by_object(objects=self.all_features, object_filter=['OBSTRN', ])
+            foul_ground = S57Aux.select_by_attribute_value(objects=obstrn, attribute='CATOBS', value_filter='7')
+            self.flagged_foul_ground_kwds = self.check_for_missing_keywords(foul_ground, attr_acronym='onotes',
+                                                                             keywords=['Prohibited feature', ])
 
             # For office profile, check for M_QUAL attribution
             mqual = S57Aux.select_by_object(objects=self.all_features, object_filter=['M_QUAL', ])
@@ -2417,6 +2584,7 @@ class FeatureScanV9(BaseScan):
         count += 1
         self.report += 'Check %d - New or Updated UWTROC with empty/missing mandatory attribute WATLEV: %s' \
                        % (count, len(self.flagged_uwtroc_watlev))
+
         count += 1
         self.report += 'Check %d - New or Updated UWTROC with empty/missing mandatory attribute QUASOU: %s' \
                        % (count, len(self.flagged_uwtroc_quasou))
@@ -2429,25 +2597,22 @@ class FeatureScanV9(BaseScan):
                        % (count, len(self.flagged_obstrn_images))
         count += 1
 
-        if self.version in ["2018", "2019", "2020"]:
-
-            self.report += 'Check %d - New or Updated non-foul OBSTRN missing mandatory attribute VALSOU: %s' \
-                           % (count, len(self.flagged_obstrn_valsou))
-            count += 1
-
-            self.report += 'Check %d - New or Updated foul area point OBSTRN missing mandatory attribute VALSOU: %s' \
-                           % (count, len(self.flagged_obstrn_foul_points_valsou))
-            count += 1
-
-        else:
-
-            self.report += 'Check %d - New or Updated OBSTRN missing mandatory attribute VALSOU: %s' \
-                           % (count, len(self.flagged_obstrn_valsou))
-            count += 1
-
-        self.report += 'Check %d - New or Updated OBSTRN with empty/missing mandatory attribute WATLEV: %s' \
-                       % (count, len(self.flagged_obstrn_watlev))
+        self.report += 'Check %d - New or Updated OBSTRN point missing mandatory attribute VALSOU: %s' \
+                       % (count, len(self.flagged_obstrn_points_valsou))
         count += 1
+
+        self.report += 'Check %d - New or Updated OBSTRN points with invalid WATLEV: %s' \
+                       % (count, len(self.flagged_obstrn_points_watlev))
+        count += 1
+
+        self.report += 'Check %d - New or Updated OBSTRN lines/areas with valid VALSOU and invalid WATLEV: %s' \
+                       % (count, len(self.flagged_obstrn_lines_areas_watlev))
+        count += 1
+
+        if self.version in ["2018", "2019", "2020"]:
+            self.report += 'Check %d - New or Update line or area OBSTRN with empty VALSOU with known WATLEV: %s' \
+                           % (count, len(self.flagged_obstrn_watlev_known))
+            count += 1
 
         self.report += 'Check %d - New or Updated OBSTRN with empty/missing mandatory attribute QUASOU: %s' \
                        % (count, len(self.flagged_obstrn_quasou))
@@ -2524,7 +2689,6 @@ class FeatureScanV9(BaseScan):
         count += 1
 
         if self.version in ["2018", "2019", "2020"]:
-
             self.report += 'Check %d - Invalid IMAGES attribute for no-SBDARE features: %s' \
                            % (count, len(self.flagged_images_no_sbdare))
             count += 1
@@ -2532,21 +2696,24 @@ class FeatureScanV9(BaseScan):
         if self.profile == 0:  # not used in 'field' profile
 
             self.report += 'Check %d - Features with empty/missing onotes: %s' \
-                           % (count, len(self.flagged_onotes))
+                           % (count, len(self.flagged_without_onotes))
             count += 1
 
             if self.version in ["2018", "2019", "2020"]:
                 self.report += 'Check %d - Features with empty/unknown attribute hsdrec: %s' \
                                % (count, len(self.flagged_hsdrec_empty))
                 count += 1
-                self.report += 'Check %d - Features are prohibited by MCD: %s' \
-                               % (count, len(self.flagged_prohibited))
+                self.report += "Check %d - Features without 'Prohibited feature' keyword: %s" \
+                               % (count, len(self.flagged_prohibited_kwds))
                 count += 1
-                self.report += 'Check %d - Fish havens are prohibited by MCD: %s' \
-                               % (count, len(self.flagged_fish_haven))
+                self.report += "Check %d - Fish havens without 'Prohibited feature' keyword: %s" \
+                               % (count, len(self.flagged_fish_haven_kwds))
                 count += 1
-                self.report += 'Check %d - Mooring buoys are prohibited by MCD: %s' \
-                               % (count, len(self.flagged_mooring_buoy))
+                self.report += "Check %d - Mooring buoys without 'Prohibited feature' keyword: %s" \
+                               % (count, len(self.flagged_mooring_buoy_kwds))
+                count += 1
+                self.report += "Check %d - Foul ground without 'Prohibited feature' keyword: %s" \
+                               % (count, len(self.flagged_foul_ground_kwds))
                 count += 1
                 self.report += 'Check %d - M_QUAL features with empty/missing mandatory attribute CATZOC: %s' \
                                % (count, len(self.flagged_m_qual_catzoc))
