@@ -82,7 +82,6 @@ class FeatureScanV9(BaseScan):
         self.flagged_prohibited_kwds = list()
         self.flagged_fish_haven_kwds = list()
         self.flagged_mooring_buoy_kwds = list()
-        self.flagged_foul_ground_kwds = list()
         self.flagged_m_qual_catzoc = list()
         self.flagged_m_qual_sursta = list()
         self.flagged_m_qual_surend = list()
@@ -1751,12 +1750,6 @@ class FeatureScanV9(BaseScan):
             self.flagged_mooring_buoy_kwds = self.check_for_missing_keywords(mooring_buoy, attr_acronym='onotes',
                                                                              keywords=['Prohibited feature', ])
 
-            # For the office profile, check for prohibited foul ground features
-            obstrn = S57Aux.select_by_object(objects=self.all_features, object_filter=['OBSTRN', ])
-            foul_ground = S57Aux.select_by_attribute_value(objects=obstrn, attribute='CATOBS', value_filter='7')
-            self.flagged_foul_ground_kwds = self.check_for_missing_keywords(foul_ground, attr_acronym='onotes',
-                                                                             keywords=['Prohibited feature', ])
-
             # For office profile, check for M_QUAL attribution
             mqual = S57Aux.select_by_object(objects=self.all_features, object_filter=['M_QUAL', ])
             # Ensure M_QUAL has CATZOC
@@ -2109,12 +2102,6 @@ class FeatureScanV9(BaseScan):
             mooring_buoy = S57Aux.select_by_attribute_value(objects=morfac, attribute='CATMOR', value_filter='7')
             self.report += "Mooring buoy without 'Prohibited feature' keyword [CHECK]"
             self.flagged_mooring_buoy_kwds = self.check_for_missing_keywords(mooring_buoy, attr_acronym='onotes',
-                                                                             keywords=['Prohibited feature', ])
-
-            # For the office profile, check for prohibited foul ground features
-            obstrn = S57Aux.select_by_object(objects=self.all_features, object_filter=['OBSTRN', ])
-            foul_ground = S57Aux.select_by_attribute_value(objects=obstrn, attribute='CATOBS', value_filter='7')
-            self.flagged_foul_ground_kwds = self.check_for_missing_keywords(foul_ground, attr_acronym='onotes',
                                                                              keywords=['Prohibited feature', ])
 
             # For office profile, check for M_QUAL attribution
@@ -2470,12 +2457,6 @@ class FeatureScanV9(BaseScan):
             self.flagged_mooring_buoy_kwds = self.check_for_missing_keywords(mooring_buoy, attr_acronym='onotes',
                                                                              keywords=['Prohibited feature', ])
 
-            # For the office profile, check for prohibited foul ground features
-            obstrn = S57Aux.select_by_object(objects=self.all_features, object_filter=['OBSTRN', ])
-            foul_ground = S57Aux.select_by_attribute_value(objects=obstrn, attribute='CATOBS', value_filter='7')
-            self.flagged_foul_ground_kwds = self.check_for_missing_keywords(foul_ground, attr_acronym='onotes',
-                                                                             keywords=['Prohibited feature', ])
-
             # For office profile, check for M_QUAL attribution
             mqual = S57Aux.select_by_object(objects=self.all_features, object_filter=['M_QUAL', ])
             # Ensure M_QUAL has CATZOC
@@ -2711,9 +2692,6 @@ class FeatureScanV9(BaseScan):
                 count += 1
                 self.report += "Check %d - Mooring buoys without 'Prohibited feature' keyword: %s" \
                                % (count, len(self.flagged_mooring_buoy_kwds))
-                count += 1
-                self.report += "Check %d - Foul ground without 'Prohibited feature' keyword: %s" \
-                               % (count, len(self.flagged_foul_ground_kwds))
                 count += 1
                 self.report += 'Check %d - M_QUAL features with empty/missing mandatory attribute CATZOC: %s' \
                                % (count, len(self.flagged_m_qual_catzoc))

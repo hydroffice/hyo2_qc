@@ -108,7 +108,7 @@ The logic for the 2019 QC Tools feature scan is shown below. For previous years,
 * Specific for the Office Profile:
     * All features must have **"onotes".**
     * All features must have **"hsdrec".**
-    * Checks for features that are prohibited by MCD (**"DRGARE", "LOGPON", "PIPARE", "PIPOHD", "PIPSOL", "DMPGRD" "LIGHTS", "BOYLAT", "BOYSAW", "BOYSPP", "DAYMAR", "FOGSIG", "CBLSUB", "CBLARE", "FAIRWY", "RTPBCN", "BOYISD", "BOYINB", "BOYCAR", "CBLOHD", "OBSTRN"** with **"CATOBS"** = 5, "OBSTRN"** with **"CATOBS"** = 5, **MORFAC** with **CATMOR** = 7.
+    * Checks for features that are prohibited by MCD (**"DRGARE", "LOGPON", "PIPARE", "PIPOHD", "PIPSOL", "DMPGRD" "LIGHTS", "BOYLAT", "BOYSAW", "BOYSPP", "DAYMAR", "FOGSIG", "CBLSUB", "CBLARE", "FAIRWY", "RTPBCN", "BOYISD", "BOYINB", "BOYCAR", "CBLOHD", "OBSTRN"** with **"CATOBS"** = 5, **MORFAC** with **CATMOR** = 7.
     * All **M_QUAL** features must have **"CATZOC", "SURSTA", "SUREND",** and **"TECSOU".**
     * All features must have **"descrp"** and **remrks"**.
 
