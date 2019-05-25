@@ -70,6 +70,7 @@ class ScanTab(QtWidgets.QMainWindow):
         self.text_lakes_v9 = None
         self.toggle_area_v9 = None
         self.ask_multimedia_folder_v9 = None
+        self.amf_text_v9 = None
         self.use_mhw_v9 = None
         self.mhw_text_v9 = None
         self.mhw_value_v9 = None
@@ -560,6 +561,7 @@ class ScanTab(QtWidgets.QMainWindow):
         self.text_lakes_v9 = QtWidgets.QLabel("Great Lakes")
         self.text_lakes_v9.setAlignment(QtCore.Qt.AlignCenter)
         self.text_lakes_v9.setFixedWidth(120)
+        self.text_lakes_v9.setDisabled(True)
         label_hbox.addWidget(self.text_lakes_v9)
         # stretch
         label_hbox.addStretch()
@@ -576,6 +578,7 @@ class ScanTab(QtWidgets.QMainWindow):
         self.toggle_area_v9.setValue(0)
         self.toggle_area_v9.setFixedSize(QtCore.QSize(50, 50))
         self.toggle_area_v9.setInvertedAppearance(False)
+        self.toggle_area_v9.setDisabled(True)
         # noinspection PyUnresolvedReferences
         # self.toggle_area.valueChanged.connect(self.on_settings_changed)
         toggle_hbox.addWidget(self.toggle_area_v9)
@@ -590,10 +593,12 @@ class ScanTab(QtWidgets.QMainWindow):
         self.text_pacific_v9 = QtWidgets.QLabel("Pacific Coast")
         self.text_pacific_v9.setAlignment(QtCore.Qt.AlignCenter)
         self.text_pacific_v9.setFixedWidth(80)
+        self.text_pacific_v9.setDisabled(True)
         label2_hbox.addWidget(self.text_pacific_v9)
         self.text_atlantic_v9 = QtWidgets.QLabel("Atlantic Coast")
         self.text_atlantic_v9.setAlignment(QtCore.Qt.AlignCenter)
         self.text_atlantic_v9.setFixedWidth(80)
+        self.text_atlantic_v9.setDisabled(True)
         label2_hbox.addWidget(self.text_atlantic_v9)
         # stretch
         label2_hbox.addStretch()
@@ -611,29 +616,42 @@ class ScanTab(QtWidgets.QMainWindow):
         # stretch
         label_hbox.addStretch()
 
-        self.ask_multimedia_folder_v9 = QtWidgets.QCheckBox("Select the path to the images folder")
-        self.ask_multimedia_folder_v9.setChecked(True)
-        vbox.addWidget(self.ask_multimedia_folder_v9)
+        left_spacing = 20
+        text_spacing = 180
+        editor_spacing = 120
 
         toggle_hbox = QtWidgets.QHBoxLayout()
         vbox.addLayout(toggle_hbox)
         # stretch
+        toggle_hbox.addSpacing(left_spacing)
+        self.ask_multimedia_folder_v9 = QtWidgets.QCheckBox("")
+        self.ask_multimedia_folder_v9.setChecked(True)
+        toggle_hbox.addWidget(self.ask_multimedia_folder_v9)
+        self.amf_text_v9 = QtWidgets.QLabel("Select the path to the images folder")
+        self.amf_text_v9.setFixedWidth(text_spacing)
+        toggle_hbox.addWidget(self.amf_text_v9)
+        # stretch
         toggle_hbox.addStretch()
+
+        toggle_hbox = QtWidgets.QHBoxLayout()
+        vbox.addLayout(toggle_hbox)
+        # stretch
+        toggle_hbox.addSpacing(left_spacing)
         self.use_mhw_v9 = QtWidgets.QCheckBox("")
-        self.use_mhw_v9.setChecked(False)
+        self.use_mhw_v9.setChecked(True)
         # noinspection PyUnresolvedReferences
         self.use_mhw_v9.stateChanged.connect(self.change_use_mhw_v9)
         toggle_hbox.addWidget(self.use_mhw_v9)
-        self.mhw_text_v9 = QtWidgets.QLabel("MHW [m]: ")
-        self.mhw_text_v9.setFixedWidth(100)
-        self.mhw_text_v9.setDisabled(True)
+        self.mhw_text_v9 = QtWidgets.QLabel("MHW [m] for WATLEV check: ")
+        self.mhw_text_v9.setFixedWidth(text_spacing)
+        self.mhw_text_v9.setDisabled(False)
         toggle_hbox.addWidget(self.mhw_text_v9)
         self.mhw_value_v9 = QtWidgets.QLineEdit()
-        self.mhw_value_v9.setFixedWidth(150)
+        self.mhw_value_v9.setFixedWidth(editor_spacing)
         self.mhw_value_v9.setValidator(QtGui.QDoubleValidator(-9999, 9999, 5, self.mhw_value_v9))
         self.mhw_value_v9.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
-        self.mhw_value_v9.setText("5.0")
-        self.mhw_value_v9.setDisabled(True)
+        self.mhw_value_v9.setText("")
+        self.mhw_value_v9.setDisabled(False)
         toggle_hbox.addWidget(self.mhw_value_v9)
         # stretch
         toggle_hbox.addStretch()
@@ -641,18 +659,18 @@ class ScanTab(QtWidgets.QMainWindow):
         toggle_hbox = QtWidgets.QHBoxLayout()
         vbox.addLayout(toggle_hbox)
         # stretch
-        toggle_hbox.addStretch()
+        toggle_hbox.addSpacing(left_spacing)
         self.check_sorind_v9 = QtWidgets.QCheckBox("")
         self.check_sorind_v9.setChecked(False)
         # noinspection PyUnresolvedReferences
         self.check_sorind_v9.stateChanged.connect(self.change_check_sorind_v9)
         toggle_hbox.addWidget(self.check_sorind_v9)
-        self.sorind_text_v9 = QtWidgets.QLabel("SORIND: ")
+        self.sorind_text_v9 = QtWidgets.QLabel("SORIND (US,US,graph,HXXXXX): ")
         self.sorind_text_v9.setDisabled(True)
-        self.sorind_text_v9.setFixedWidth(100)
+        self.sorind_text_v9.setFixedWidth(text_spacing)
         toggle_hbox.addWidget(self.sorind_text_v9)
         self.sorind_value_v9 = QtWidgets.QLineEdit()
-        self.sorind_value_v9.setFixedWidth(150)
+        self.sorind_value_v9.setFixedWidth(editor_spacing)
         # self.sorind_value_v9.setValidator(QtGui.QDoubleValidator(-9999, 9999, 5, self.mhw_value_v9))
         self.sorind_value_v9.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
         self.sorind_value_v9.setText("")
@@ -664,18 +682,18 @@ class ScanTab(QtWidgets.QMainWindow):
         toggle_hbox = QtWidgets.QHBoxLayout()
         vbox.addLayout(toggle_hbox)
         # stretch
-        toggle_hbox.addStretch()
+        toggle_hbox.addSpacing(left_spacing)
         self.check_sordat_v9 = QtWidgets.QCheckBox("")
         self.check_sordat_v9.setChecked(False)
         # noinspection PyUnresolvedReferences
         self.check_sordat_v9.stateChanged.connect(self.change_check_sordat_v9)
         toggle_hbox.addWidget(self.check_sordat_v9)
-        self.sordat_text_v9 = QtWidgets.QLabel("SORDAT: ")
+        self.sordat_text_v9 = QtWidgets.QLabel("SORDAT (YYYYMMDD): ")
         self.sordat_text_v9.setDisabled(True)
-        self.sordat_text_v9.setFixedWidth(100)
+        self.sordat_text_v9.setFixedWidth(text_spacing)
         toggle_hbox.addWidget(self.sordat_text_v9)
         self.sordat_value_v9 = QtWidgets.QLineEdit()
-        self.sordat_value_v9.setFixedWidth(150)
+        self.sordat_value_v9.setFixedWidth(editor_spacing)
         # self.sordat_value_v9.setValidator(QtGui.QDoubleValidator(-9999, 9999, 5, self.mhw_value_v9))
         self.sordat_value_v9.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
         self.sordat_value_v9.setText("")
@@ -760,12 +778,15 @@ class ScanTab(QtWidgets.QMainWindow):
         """ Change the specs in use """
         logger.info('selected specs %d' % value)
 
-        enable = value in [2018, 2019, 2020]
+        enable = value in [2018, ]
         self.text_lakes_v9.setEnabled(enable)
         self.text_atlantic_v9.setEnabled(enable)
         self.text_pacific_v9.setEnabled(enable)
         self.toggle_area_v9.setEnabled(enable)
+
+        enable = value in [2018, 2019, 2020]
         self.ask_multimedia_folder_v9.setEnabled(enable)
+        self.amf_text_v9.setEnabled(enable)
 
         self.use_mhw_v9.setEnabled(enable)
         enable2 = enable and self.use_mhw_v9.isChecked()
@@ -831,7 +852,8 @@ class ScanTab(QtWidgets.QMainWindow):
                     raise RuntimeError("unknown survey area: %s" % survey_area)
 
                 use_mhw = self.use_mhw_v8.isChecked()
-                mhw_value = float(self.mhw_value_v8.text())
+                mhw_str = self.mhw_value_v8.text()
+                mhw_value = float(mhw_str)
 
                 if self.check_sorind_v8.isChecked():
                     sorind = self.sorind_value_v8.text()
@@ -894,7 +916,17 @@ class ScanTab(QtWidgets.QMainWindow):
                         QtCore.QSettings().setValue("feature_scan_images_folder", images_folder)
 
                 use_mhw = self.use_mhw_v9.isChecked()
-                mhw_value = float(self.mhw_value_v9.text())
+                mhw_value = 0.0
+                if use_mhw:
+                    mhw_str = self.mhw_value_v9.text()
+                    if mhw_str == "":
+                        msg = "The MHW field is empty! Enter a valid value or disable the WATLEV check."
+                        # noinspection PyArgumentList
+                        QtWidgets.QMessageBox.critical(self, "Feature scan v%d[%s]" % (version, specs_version),
+                                                       msg, QtWidgets.QMessageBox.Ok)
+                        return
+                    else:
+                        mhw_value = float(mhw_str)
 
                 if self.check_sorind_v9.isChecked():
                     sorind = self.sorind_value_v9.text()
