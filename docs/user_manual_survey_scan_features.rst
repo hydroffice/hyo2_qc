@@ -21,11 +21,11 @@ In order to access this tool, load an S-57 file into the **Data Inputs** tab.
 
   #. Turn the knob to select the applicable year as pertaining to required HSSD.
 
-  #. Turn the knob to select the applicable location. (This effects the definition of WATLEV per the HSSD.)
+  #. Turn the knob to select the applicable location. (This effects the definition of WATLEV per the 2018 HSSD.)
 
-  #. When **Select the path to the images folder** is set, the user can navigate to their multimedia or images folder upon exicution of the tool. When this is unchecked, Feature scan will search in the relative path that the feature file is located. 
+  #. When **Select the path to the images folder** is set, the user can navigate to their multimedia or images folder upon execution of the tool. When this is unchecked, Feature scan will search in the relative path that the feature file is located. 
   
-  #. **MHW** value is required to check proper attribution of WATLEV per the HSSD. Enter MHW value as a positive number. (This value is not used for Great Lakes).
+  #. **MHW** value is required to check proper attribution of WATLEV per the HSSD. Enter MHW value as a positive number.
 
   #. When **SORIND** and **SORDAT** are set, the entered values are compared to the attribution of new and updated features.
 
