@@ -61,12 +61,17 @@ class HolesTab(QtWidgets.QMainWindow):
     def keyPressEvent(self, event):
         key = event.key()
         if event.modifiers() == QtCore.Qt.ControlModifier:
+            # logger.debug("pressed CTRL + %s" % key)
             if key == QtCore.Qt.Key_D:
 
                 if self.debugHFv4.isHidden():
                     self.debugHFv4.show()
+                    self.slider_pct_min_res_v4.show()
+                    self.slider_pct_min_res_label_v4.show()
                 else:
                     self.debugHFv4.hide()
+                    self.slider_pct_min_res_v4.hide()
+                    self.slider_pct_min_res_label_v4.hide()
 
                 return True
         return super(HolesTab, self).keyPressEvent(event)

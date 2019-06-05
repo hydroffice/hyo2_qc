@@ -175,8 +175,9 @@ class SurveyProject(BaseProject):
 
         return output_folder
 
-    def find_fliers_v8(self, height, check_laplacian=True, check_curv=True, check_adjacent=True,
-                       check_slivers=True, check_isolated=True, check_edges=True,
+    def find_fliers_v8(self, height,
+                       check_laplacian=False, check_curv=True, check_adjacent=True,
+                       check_slivers=True, check_isolated=True, check_edges=False,
                        filter_fff=False, filter_designated=False,
                        export_proxies=False, export_heights=False, export_curvatures=False,
                        progress_bar=None):
@@ -516,8 +517,8 @@ class SurveyProject(BaseProject):
             return 0
         return len(self._holes.possible_xs)
 
-    def find_holes_v4(self, path, mode="FULL_COVERAGE", sizer="TWO_TIMES_PLUS_ONE_NODE", max_size=50, pct_min_res=0.5,
-                      local_perimeter=True, visual_debug=False, export_ascii=False, brute_force=False, cb=None):
+    def find_holes_v4(self, path, mode="FULL_COVERAGE", sizer="THREE_TIMES", max_size=0, pct_min_res=1.0,
+                      local_perimeter=True, visual_debug=False, export_ascii=False, brute_force=True, cb=None):
         """Look for fliers using the passed parameters and the loaded grids"""
 
         try:
@@ -724,7 +725,7 @@ class SurveyProject(BaseProject):
     def grid_qa_v5(self, force_tvu_qc=True,
                    calc_object_detection=True, calc_full_coverage=True,
                    hist_depth=True, hist_density=True, hist_tvu_qc=True, hist_pct_res=True,
-                   depth_vs_density=True, depth_vs_tvu_qc=True,
+                   depth_vs_density=False, depth_vs_tvu_qc=False,
                    progress_bar=None):
         """Calculate grid QA using the passed parameters and the loaded grids"""
         if not self.has_grid():
