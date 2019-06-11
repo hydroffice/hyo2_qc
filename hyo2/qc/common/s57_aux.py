@@ -69,14 +69,17 @@ class S57Aux:
         return new_list
 
     @classmethod
-    def select_by_attribute_value(cls, objects, attribute, value_filter):
+    def select_by_attribute_value(cls, objects: list, attribute: str, value_filter: list):
         """Return a new feature list with only feature that have the passed attribute values"""
         new_list = list()
         # logger.info("select by attribute \"%s\" if %s" % (attribute, value_filter))
         for obj in objects:
             for attr in obj.attributes:
-                # logger.info("%s: %s" % (attr.acronym, attr.value))
                 if (attr.acronym == attribute) and (attr.value in value_filter):
+                    # logger.info("request: %s [%s] -> %s [%s]"
+                    #             % (attribute, type(attribute), value_filter, type(value_filter)))
+                    # logger.info("actual: %s [%s] -> %s [%s]"
+                    #             % (attr.acronym, type(attr.acronym), attr.value, type(attr.value)))
                     new_list.append(obj)
                     continue
         return new_list

@@ -11,6 +11,8 @@ logger = logging.getLogger(__name__)
 
 
 def qt_custom_handler(error_type: QtCore.QtMsgType, error_context: QtCore.QMessageLogContext, message: str):
+    if "Cannot read property 'id' of null" in message:
+        return
     logger.info("Qt error: %s [%s] -> %s"
                 % (error_type, error_context, message))
 

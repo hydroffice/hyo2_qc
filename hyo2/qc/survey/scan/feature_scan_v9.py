@@ -1737,7 +1737,7 @@ class FeatureScanV9(BaseScan):
 
             # For the office profile, check for prohibited fish haven
             obstrn = S57Aux.select_by_object(objects=self.all_features, object_filter=['OBSTRN', ])
-            fish_haven = S57Aux.select_by_attribute_value(objects=obstrn, attribute='CATOBS', value_filter='5')
+            fish_haven = S57Aux.select_by_attribute_value(objects=obstrn, attribute='CATOBS', value_filter=['5', ])
 
             self.report += "Fish havens without 'Prohibited feature' keyword [CHECK]"
             self.flagged_fish_haven_kwds = self.check_for_missing_keywords(fish_haven, attr_acronym='onotes',
@@ -1745,7 +1745,7 @@ class FeatureScanV9(BaseScan):
 
             # For the office profile, check for prohibited mooring buoys
             morfac = S57Aux.select_by_object(objects=self.all_features, object_filter=['MORFAC', ])
-            mooring_buoy = S57Aux.select_by_attribute_value(objects=morfac, attribute='CATMOR', value_filter='7')
+            mooring_buoy = S57Aux.select_by_attribute_value(objects=morfac, attribute='CATMOR', value_filter=['7', ])
             self.report += "Mooring buoy without 'Prohibited feature' keyword [CHECK]"
             self.flagged_mooring_buoy_kwds = self.check_for_missing_keywords(mooring_buoy, attr_acronym='onotes',
                                                                              keywords=['Prohibited feature', ])
@@ -2092,14 +2092,14 @@ class FeatureScanV9(BaseScan):
 
             # For the office profile, check for prohibited fish haven
             obstrn = S57Aux.select_by_object(objects=self.all_features, object_filter=['OBSTRN', ])
-            fish_haven = S57Aux.select_by_attribute_value(objects=obstrn, attribute='CATOBS', value_filter='5')
+            fish_haven = S57Aux.select_by_attribute_value(objects=obstrn, attribute='CATOBS', value_filter=['5', ])
             self.report += "Fish havens without 'Prohibited feature' keyword [CHECK]"
             self.flagged_fish_haven_kwds = self.check_for_missing_keywords(fish_haven, attr_acronym='onotes',
                                                                            keywords=['Prohibited feature', ])
 
             # For the office profile, check for prohibited mooring buoys
             morfac = S57Aux.select_by_object(objects=self.all_features, object_filter=['MORFAC', ])
-            mooring_buoy = S57Aux.select_by_attribute_value(objects=morfac, attribute='CATMOR', value_filter='7')
+            mooring_buoy = S57Aux.select_by_attribute_value(objects=morfac, attribute='CATMOR', value_filter=['7', ])
             self.report += "Mooring buoy without 'Prohibited feature' keyword [CHECK]"
             self.flagged_mooring_buoy_kwds = self.check_for_missing_keywords(mooring_buoy, attr_acronym='onotes',
                                                                              keywords=['Prohibited feature', ])
@@ -2445,14 +2445,14 @@ class FeatureScanV9(BaseScan):
 
             # For the office profile, check for prohibited fish haven
             obstrn = S57Aux.select_by_object(objects=self.all_features, object_filter=['OBSTRN', ])
-            fish_haven = S57Aux.select_by_attribute_value(objects=obstrn, attribute='CATOBS', value_filter='5')
+            fish_haven = S57Aux.select_by_attribute_value(objects=obstrn, attribute='CATOBS', value_filter=['5', ])
             self.report += "Fish havens without 'Prohibited feature' keyword [CHECK]"
             self.flagged_fish_haven_kwds = self.check_for_missing_keywords(fish_haven, attr_acronym='onotes',
                                                                            keywords=['Prohibited feature', ])
 
             # For the office profile, check for prohibited mooring buoys
             morfac = S57Aux.select_by_object(objects=self.all_features, object_filter=['MORFAC', ])
-            mooring_buoy = S57Aux.select_by_attribute_value(objects=morfac, attribute='CATMOR', value_filter='7')
+            mooring_buoy = S57Aux.select_by_attribute_value(objects=morfac, attribute='CATMOR', value_filter=['7', ])
             self.report += "Mooring buoy without 'Prohibited feature' keyword [CHECK]"
             self.flagged_mooring_buoy_kwds = self.check_for_missing_keywords(mooring_buoy, attr_acronym='onotes',
                                                                              keywords=['Prohibited feature', ])
