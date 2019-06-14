@@ -838,10 +838,10 @@ class MainWin(QtWidgets.QMainWindow):
                     self.always_dry_min_value.setText("")
                     self.always_dry_max_value.setText("< -0.1 MHW")
                     self.covers_and_uncovers_min_value.setText(">= -0.1 MHW")
-                    self.covers_and_uncovers_max_value.setText("< -0.1 MLLW")
-                    self.awash_min_value.setText(">= -0.1 MLLW")
-                    self.awash_max_value.setText("< +0.1 MLLW")
-                    self.always_underwater_min_value.setText(">= +0.1 MLLW")
+                    self.covers_and_uncovers_max_value.setText("<= -0.1 MLLW")
+                    self.awash_min_value.setText("> -0.1 MLLW")
+                    self.awash_max_value.setText("<= +0.1 MLLW")
+                    self.always_underwater_min_value.setText("> +0.1 MLLW")
                     self.always_underwater_max_value.setText("")
 
                     self.mhw_text.setText("MHW [m]: ")
@@ -852,10 +852,10 @@ class MainWin(QtWidgets.QMainWindow):
                     self.always_dry_min_value.setText("")
                     self.always_dry_max_value.setText("< -0.1 LWD")
                     self.covers_and_uncovers_min_value.setText(">= -0.1 LWD")
-                    self.covers_and_uncovers_max_value.setText("< -0.1 LWD")
-                    self.awash_min_value.setText(">= -0.1 LWD")
-                    self.awash_max_value.setText("< +0.1 LWD")
-                    self.always_underwater_min_value.setText(">= +0.1 LWD")
+                    self.covers_and_uncovers_max_value.setText("<= -0.1 LWD")
+                    self.awash_min_value.setText("> -0.1 LWD")
+                    self.awash_max_value.setText("<= +0.1 LWD")
+                    self.always_underwater_min_value.setText("> +0.1 LWD")
                     self.always_underwater_max_value.setText("")
 
                     self.mhw_text.setText("LWD [m]: ")
@@ -873,10 +873,10 @@ class MainWin(QtWidgets.QMainWindow):
                     self.always_dry_min_value.setText("")
                     self.always_dry_max_value.setText("> +0.1 MHW")
                     self.covers_and_uncovers_min_value.setText("<= +0.1 MHW")
-                    self.covers_and_uncovers_max_value.setText("> +0.1 MLLW")
-                    self.awash_min_value.setText("<= +0.1 MLLW")
-                    self.awash_max_value.setText("> -0.1 MLLW")
-                    self.always_underwater_min_value.setText("<= -0.1 MLLW")
+                    self.covers_and_uncovers_max_value.setText(">= +0.1 MLLW")
+                    self.awash_min_value.setText("< +0.1 MLLW")
+                    self.awash_max_value.setText(">= -0.1 MLLW")
+                    self.always_underwater_min_value.setText("< -0.1 MLLW")
                     self.always_underwater_max_value.setText("")
 
                     self.mhw_text.setText("MHW [m]: ")
@@ -887,10 +887,10 @@ class MainWin(QtWidgets.QMainWindow):
                     self.always_dry_min_value.setText("")
                     self.always_dry_max_value.setText("> +0.1 LWD")
                     self.covers_and_uncovers_min_value.setText("<= +0.1 LWD")
-                    self.covers_and_uncovers_max_value.setText("> +0.1 LWD")
-                    self.awash_min_value.setText("<= +0.1 LWD")
-                    self.awash_max_value.setText("> -0.1 LWD")
-                    self.always_underwater_min_value.setText("<= -0.1 LWD")
+                    self.covers_and_uncovers_max_value.setText(">= +0.1 LWD")
+                    self.awash_min_value.setText("< +0.1 LWD")
+                    self.awash_max_value.setText(">= -0.1 LWD")
+                    self.always_underwater_min_value.setText("< -0.1 LWD")
                     self.always_underwater_max_value.setText("")
 
                     self.mhw_text.setText("LWD [m]: ")
@@ -977,9 +977,9 @@ class MainWin(QtWidgets.QMainWindow):
                     elevation = -depth
                 else:
                     logger.debug("Rock")
-                    if depth < -0.1:
+                    if depth <= -0.1:
                         watlev = "Covers & Uncovers"
-                    elif depth < 0.1:
+                    elif depth <= 0.1:
                         watlev = "Awash"
                     else:
                         watlev = "Always Underwater"
@@ -993,9 +993,9 @@ class MainWin(QtWidgets.QMainWindow):
                         elevation = -mhw - depth
                     else:
                         logger.debug("Rock")
-                        if depth < -0.1:
+                        if depth <= -0.1:
                             watlev = "Covers & Uncovers"
-                        elif depth < 0.1:
+                        elif depth <= 0.1:
                             watlev = "Awash"
                         else:
                             watlev = "Always Underwater"

@@ -525,12 +525,11 @@ class FeatureScanV9(BaseScan):
                     if valsou < - 0.1:
                         is_valid = False
                         is_invalid_for_valsou = True
-                    # else:
-                    #     if valsou < -0.1:
-                    #         if watlev != 4:  # Covers & Uncovers
-                    #             is_valid = False
                     else:
-                        if valsou < 0.1:
+                        if valsou <= -0.1:
+                            if watlev != 4:  # Covers & Uncovers
+                                is_valid = False
+                        elif valsou <= 0.1:
                             if watlev != 5:  # Awash
                                 is_valid = False
                         else:
@@ -543,10 +542,10 @@ class FeatureScanV9(BaseScan):
                         is_valid = False
                         is_invalid_for_valsou = True
                     else:
-                        if valsou < -0.1:
+                        if valsou <= -0.1:
                             if watlev != 4:  # Covers & Uncovers
                                 is_valid = False
-                        elif valsou < 0.1:
+                        elif valsou <= 0.1:
                             if watlev != 5:  # Awash
                                 is_valid = False
                         else:
