@@ -32,7 +32,7 @@ In order to access this tool, load an S-57 file into the **Data Inputs** tab.
 .. index::
     single: feature scan
 
-* In **Execution**, click **Feature scan v8** (note that the '2020 test' option is used to experiment with future
+* In **Execution**, click **Feature scan v9** (note that the '2020 test' option is used to experiment with future
   requirements).
 
 .. _fig_feature_scan:
