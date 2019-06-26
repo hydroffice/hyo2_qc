@@ -2,41 +2,25 @@ import os
 import numpy as np
 import logging
 
+from hyo2.abc.lib.logging import set_logging
 from hyo2.qc.survey.anomaly.anomaly_detector_v1_thresholds import ThresholdsV1
 
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(os.path.basename(__file__))
+logger = logging.getLogger(__name__)
+set_logging(ns_list=["hyo2.ca", ])
 
 np.random.seed(0)
 
 arr_sz = 1000
-# array = np.arange(100, dtype=np.float).reshape(10, 10)
 array = np.random.rand(arr_sz, arr_sz) * 100.0
-array[5, 5] = np.nan
-array[5, 6] = np.nan
-array[5, 7] = np.nan
-array[6, 5] = np.nan
-array[6, 6] = np.nan
-array[6, 7] = np.nan
-array[7, 5] = np.nan
-array[7, 6] = np.nan
-array[7, 7] = np.nan
-array[int(array.shape[0]*.1), int(array.shape[1]*.1)] = np.nan
-array[int(array.shape[0]*.2), int(array.shape[1]*.1)] = np.nan
-array[int(array.shape[0]*.3), int(array.shape[1]*.1)] = np.nan
-array[int(array.shape[0]*.1), int(array.shape[1]*.7)] = np.nan
+array[5:8, 5:7] = np.nan
+array[15:18, 25:27] = np.nan
+# array[int(array.shape[0]*.2), int(array.shape[1]*.1)] = np.nan
+# array[int(array.shape[0]*.3), int(array.shape[1]*.1)] = np.nan
+# array[int(array.shape[0]*.1), int(array.shape[1]*.7)] = np.nan
 
-# ma_array = np.ma.masked_invalid(array)
-
+array = ThresholdsV1.nan_gaussian_filter(array)
 
 ths = ThresholdsV1()
 ths.calculate(array)
 
-# logger.debug("nmad:\n%s" % out_mad)
-
-# plt.figure("input")
-# m = plt.imshow(ma_array, interpolation='none')
-# plt.colorbar(m)
-# plt.show()
-
-# ths.plot()
+ths.plot()

@@ -37,19 +37,23 @@ wid = QtWidgets.QWidget()
 # create the project
 prj = SurveyProject(output_folder=testing.output_data_folder(), progress=QtProgress(parent=wid))
 
-csar_files = testing.input_test_files(".csar")
-logger.debug("test CSAR files: %d" % len(csar_files))
-bag_files = testing.input_test_files(".bag")
-logger.debug("test BAG files: %d" % len(bag_files))
+# csar_files = testing.input_test_files(".csar")
+# logger.debug("test CSAR files: %d" % len(csar_files))
+# bag_files = testing.input_test_files(".bag")
+# logger.debug("test BAG files: %d" % len(bag_files))
 
 # prj.add_to_grid_list(csar_files[0])
 # prj.add_to_grid_list(bag_files[1])
-# prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\FFv7_filters\test_finalized.csar")
-# prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\FFv7_filters\test_finalized.bag")
-# prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\test_data_vr_do.not.use\Test0_H12280_2806_200kHz_DN149_CalderRice.bag")
-# prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\test_data_vr_do.not.use\Test0_H12280_2806_200kHz_DN149_CalderRice.csar")
-prj.add_to_grid_list(
-    r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\VR_Test\H13015_MB_VR_MLLW_Final_Extracted_8_tiles.csar")
+# prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\FFv7_filters\
+# test_finalized.csar")
+# prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\FFv7_filters\
+# test_finalized.bag")
+# prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\test_data_vr_do.not.use\
+# Test0_H12280_2806_200kHz_DN149_CalderRice.bag")
+# prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\test_data_vr_do.not.use\
+# Test0_H12280_2806_200kHz_DN149_CalderRice.csar")
+prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\VR_Test\
+H13015_MB_VR_MLLW_Final_Extracted_8_tiles.csar")
 # prj.add_to_s57_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\FFv7_filters\FFv7_filters.000")
 
 logger.debug("grid list: %s" % (prj.grid_list,))

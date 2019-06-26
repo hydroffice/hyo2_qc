@@ -74,20 +74,22 @@ class SurveyWidget(AbstractWidget):
 
         # - inputs
         self.tab_inputs = InputsTab(parent_win=self, prj=self.prj)
+        # noinspection PyArgumentList
         self.idx_inputs = self.tabs.insertTab(0, self.tab_inputs,
                                               QtGui.QIcon(os.path.join(self.media, 'inputs.png')), "")
         self.tabs.setTabToolTip(self.idx_inputs, "Data inputs")
 
         # - flier finder
         self.tab_fliers = FliersTab(parent_win=self, prj=self.prj)
+        # noinspection PyArgumentList
         self.idx_fliers = self.tabs.insertTab(1, self.tab_fliers,
                                               QtGui.QIcon(os.path.join(self.media, 'fliers.png')), "")
         self.tabs.setTabToolTip(self.idx_fliers, "Detect fliers")
         self.tabs.setTabEnabled(self.idx_fliers, False)
 
         # - anomaly detector
-        self.test_anomaly = False
         self.tab_anomaly = AnomalyTab(parent_win=self, prj=self.prj)
+        # noinspection PyArgumentList
         self.idx_anomaly = self.tabs.insertTab(2, self.tab_anomaly,
                                                QtGui.QIcon(os.path.join(self.media, 'anomaly.png')), "")
         self.tabs.setTabToolTip(self.idx_anomaly, "Anomaly detector")
@@ -95,6 +97,7 @@ class SurveyWidget(AbstractWidget):
 
         # - holiday finder
         self.tab_holes = HolesTab(parent_win=self, prj=self.prj)
+        # noinspection PyArgumentList
         self.idx_holes = self.tabs.insertTab(3, self.tab_holes,
                                              QtGui.QIcon(os.path.join(self.media, 'holes.png')), "")
         self.tabs.setTabToolTip(self.idx_holes, "Detect holidays")
@@ -102,6 +105,7 @@ class SurveyWidget(AbstractWidget):
 
         # - grid qa
         self.tab_gridqa = GridQATab(parent_win=self, prj=self.prj)
+        # noinspection PyArgumentList
         self.idx_gridqa = self.tabs.insertTab(4, self.tab_gridqa,
                                               QtGui.QIcon(os.path.join(self.media, 'gridqa.png')), "")
         self.tabs.setTabToolTip(self.idx_gridqa, "Grid QA")
@@ -109,6 +113,7 @@ class SurveyWidget(AbstractWidget):
 
         # - designated
         self.tab_designated = DesignatedTab(parent_win=self, prj=self.prj)
+        # noinspection PyArgumentList
         self.idx_designated = self.tabs.insertTab(5, self.tab_designated,
                                                   QtGui.QIcon(os.path.join(self.media, 'designated.png')), "")
         self.tabs.setTabToolTip(self.idx_designated, "Scan designated (BAG only)")
@@ -116,6 +121,7 @@ class SurveyWidget(AbstractWidget):
 
         # - scan features
         self.tab_scan = ScanTab(parent_win=self, prj=self.prj)
+        # noinspection PyArgumentList
         self.idx_scan = self.tabs.insertTab(6, self.tab_scan,
                                             QtGui.QIcon(os.path.join(self.media, 'scan_features.png')), "")
         self.tabs.setTabToolTip(self.idx_scan, "Scan features")
@@ -123,6 +129,7 @@ class SurveyWidget(AbstractWidget):
 
         # - VALSOU checks
         self.tab_valsou = ValsouTab(parent_win=self, prj=self.prj)
+        # noinspection PyArgumentList
         self.idx_valsou = self.tabs.insertTab(7, self.tab_valsou,
                                               QtGui.QIcon(os.path.join(self.media, 'valsou.png')), "")
         self.tabs.setTabToolTip(self.idx_valsou, "VALSOU check")
@@ -130,6 +137,7 @@ class SurveyWidget(AbstractWidget):
 
         # - SBDARE checks
         self.tab_sbdare = SbdareTab(parent_win=self, prj=self.prj)
+        # noinspection PyArgumentList
         self.idx_sbdare = self.tabs.insertTab(8, self.tab_sbdare,
                                               QtGui.QIcon(os.path.join(self.media, 'sbdare.png')), "")
         self.tabs.setTabToolTip(self.idx_sbdare, "SBDARE export")
@@ -137,6 +145,7 @@ class SurveyWidget(AbstractWidget):
 
         # - Submission tests
         self.tab_submission = SubmissionTab(parent_win=self, prj=self.prj)
+        # noinspection PyArgumentList
         self.idx_submission = self.tabs.insertTab(9, self.tab_submission,
                                                   QtGui.QIcon(os.path.join(self.media, 'submission.png')), "")
         self.tabs.setTabToolTip(self.idx_submission, "Submission checks")
@@ -150,22 +159,13 @@ class SurveyWidget(AbstractWidget):
         self.has_s57 = False
 
     def keyPressEvent(self, event):
-        key = event.key()
-        # noinspection PyUnresolvedReferences
-        if event.modifiers() == QtCore.Qt.ControlModifier:
+        # key = event.key()
+        # # noinspection PyUnresolvedReferences
+        # if event.modifiers() == QtCore.Qt.ControlModifier:
+        #     # noinspection PyUnresolvedReferences
+        #     if key in [QtCore.Qt.Key_A, ]:
+        #         pass
 
-            # noinspection PyUnresolvedReferences
-            if key in [QtCore.Qt.Key_A, ]:
-
-                if self.test_anomaly:
-                    self.test_anomaly = False
-                    self.tabs.setTabEnabled(self.idx_anomaly, False)
-                else:
-                    self.test_anomaly = True
-                    if self.has_grid:
-                        self.tabs.setTabEnabled(self.idx_anomaly, True)
-                logger.debug("anomaly detector: %s" % self.test_anomaly)
-                # return True
         return super(SurveyWidget, self).keyPressEvent(event)
 
     def do(self):
@@ -174,8 +174,7 @@ class SurveyWidget(AbstractWidget):
 
     def grids_loaded(self):
         self.tabs.setTabEnabled(self.idx_fliers, True)
-        if self.test_anomaly:
-            self.tabs.setTabEnabled(self.idx_anomaly, True)
+        self.tabs.setTabEnabled(self.idx_anomaly, True)
         self.tabs.setTabEnabled(self.idx_holes, True)
         self.tabs.setTabEnabled(self.idx_gridqa, True)
         if self.prj.has_bag_grid() and self.has_s57:
