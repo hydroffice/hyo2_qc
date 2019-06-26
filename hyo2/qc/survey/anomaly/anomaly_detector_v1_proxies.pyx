@@ -63,9 +63,9 @@ cpdef calc_proxies_float(float[:, ::1] bathy,
     cdef vector[float] std_sorted
     cdef vector[float] std_gauss
 
-    for r in range(bathy_rows):
+    for r in range(0, bathy_rows, filter_size):
 
-        for c in range(bathy_cols):
+        for c in range(0, bathy_cols, filter_size):
 
             if npy_isnan(bathy[r, c]):
                 median[r, c] = NAN
@@ -158,6 +158,9 @@ cpdef calc_proxies_float(float[:, ::1] bathy,
                 median[r, c] = (std_sorted[sorted_sz/2] + std_sorted[sorted_sz/2 - 1]) / 2.0
             else:
                 median[r, c] = std_sorted[sorted_sz/2]
+            for w_r in range(r_beg, r_end):
+                for w_c in range(c_beg, c_end):
+                    median[w_r, w_c] = median[r, c]
 
             mean = bathy_sum / sorted_sz
 
@@ -167,6 +170,9 @@ cpdef calc_proxies_float(float[:, ::1] bathy,
             std = sqrt(v / sorted_sz)
 
             nmad[r, c] = fabs(median[r, c] - mean) / std
+            for w_r in range(r_beg, r_end):
+                for w_c in range(c_beg, c_end):
+                    nmad[w_r, w_c] = nmad[r, c]
 
             # if (r == 3) and (c == 3):
             #     logger.debug("arr:\n%s" % np.asarray(bathy[r_beg:r_end, c_beg:c_end]))
@@ -284,6 +290,10 @@ cpdef calc_proxies_float(float[:, ::1] bathy,
                     w += (std_gauss[si] - gc_mean) ** 2
                 std_gauss_curv[r, c] = sqrt(w / std_gauss.size())
 
+                for w_r in range(r_beg, r_end):
+                    for w_c in range(c_beg, c_end):
+                        std_gauss_curv[w_r, w_c] = std_gauss_curv[r, c]
+
             # ### THRESHOLDS ###
             # logger.info("thresholds calculation ...")
 
@@ -323,6 +333,10 @@ cpdef calc_proxies_float(float[:, ::1] bathy,
                 if th_height[r, c] < 0.5:
                     th_height[r, c] = 0.5
 
+            for w_r in range(r_beg, r_end):
+                for w_c in range(c_beg, c_end):
+                    th_height[w_r, w_c] = th_height[r, c]
+
             # noinspection PyStringFormat
             # logger.debug("proxies -> median: %f, nmad: %f, std curv: %f -> %.1f%% -> %.3f"
             #              % (median, nmad, std_gauss_curv, pct_height, th_height[r, c]))
@@ -341,5 +355,9 @@ cpdef calc_proxies_float(float[:, ::1] bathy,
 
             # logger.info("estimated gaussian threshold: %.1f" % th_curv)
             th_gauss_curv[r, c] = th_curv
+
+            for w_r in range(r_beg, r_end):
+                for w_c in range(c_beg, c_end):
+                    th_gauss_curv[w_r, w_c] = th_gauss_curv[r, c]
 
             # logger.info("thresholds calculation: OK")

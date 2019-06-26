@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 class ThresholdsV1:
 
     @classmethod
-    def nan_gaussian_filter(cls, arr, sigma=3.0, mode="nearest", cval=0):
+    def nan_gaussian_filter(cls, arr, sigma=5.0, mode="nearest", cval=0):
         v = arr.copy()
         v[np.isnan(arr)] = 0
         vv = gaussian_filter(v, sigma=sigma, mode=mode, cval=cval)
@@ -26,8 +26,7 @@ class ThresholdsV1:
     def __init__(self):
 
         self._array = None
-        self.filter_size = 5
-        self.filter_radius = 2
+        self.filter_radius = 3
         # self.mask = None
         self.median = None
         self.nmad = None
@@ -213,7 +212,7 @@ class ThresholdsV1:
     def __repr__(self):
         msg = "<%s>\n" % self.__class__.__name__
 
-        msg += "  <filter size: %s>\n" % self.filter_size
+        msg += "  <filter radius: %s>\n" % self.filter_radius
         msg += "  <median: %s>\n" % (self.median is not None)
         msg += "  <nmad: %s>\n" % (self.nmad is not None)
         msg += "  <std gauss curv: %s>\n" % (self.std_gauss_curv is not None)
