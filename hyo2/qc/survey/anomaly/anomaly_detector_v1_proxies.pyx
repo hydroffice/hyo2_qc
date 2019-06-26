@@ -297,7 +297,7 @@ cpdef calc_proxies_float(float[:, ::1] bathy,
             # ### THRESHOLDS ###
             # logger.info("thresholds calculation ...")
 
-            pct_height = 4.0  # per cent
+            pct_height = 5.0  # per cent
 
             # correction for variability in range
             nmad_value = nmad[r, c]

@@ -11,7 +11,7 @@ set_logging(ns_list=["hyo2.ca", ])
 np.random.seed(0)
 
 arr_sz = 1000
-array = np.random.rand(arr_sz, arr_sz) * 100.0
+array = np.random.rand(arr_sz, arr_sz) * 150.0
 array[5:8, 5:7] = np.nan
 array[15:18, 25:27] = np.nan
 # array[int(array.shape[0]*.2), int(array.shape[1]*.1)] = np.nan
