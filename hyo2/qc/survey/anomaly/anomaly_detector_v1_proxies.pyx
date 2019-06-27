@@ -299,31 +299,31 @@ cpdef calc_proxies_float(float[:, ::1] bathy,
 
             pct_height = 5.0  # per cent
 
-            # correction for variability in range
-            nmad_value = nmad[r, c]
-            if (nmad_value < 0.1) or np.isnan(nmad_value):
-                pass
-            elif nmad_value < 0.2:
-                pct_height += 0.5
-            elif nmad_value < 0.3:
-                pct_height += 1.0
-            elif nmad_value < 0.4:
-                pct_height += 1.5
-            else:
-                pct_height += 2.0
-
+            # # correction for variability in range
+            # nmad_value = nmad[r, c]
+            # if (nmad_value < 0.1) or np.isnan(nmad_value):
+            #     pass
+            # elif nmad_value < 0.2:
+            #     pct_height += 0.5
+            # elif nmad_value < 0.3:
+            #     pct_height += 1.0
+            # elif nmad_value < 0.4:
+            #     pct_height += 1.5
+            # else:
+            #     pct_height += 2.0
+            #
             # correction for global roughness
             std_gauss_curv_value = std_gauss_curv[r, c]
-            if (std_gauss_curv_value < 0.01) or (np.isnan(std_gauss_curv_value)):
-                pass
-            if std_gauss_curv_value < 0.03:
-                pct_height += 0.5
-            elif std_gauss_curv_value < 0.06:
-                pct_height += 1.0
-            elif std_gauss_curv_value < 0.1:
-                pct_height += 1.5
-            else:
-                pct_height += 2.0
+            # if (std_gauss_curv_value < 0.01) or (np.isnan(std_gauss_curv_value)):
+            #     pass
+            # if std_gauss_curv_value < 0.03:
+            #     pct_height += 0.5
+            # elif std_gauss_curv_value < 0.06:
+            #     pct_height += 1.0
+            # elif std_gauss_curv_value < 0.1:
+            #     pct_height += 1.5
+            # else:
+            #     pct_height += 2.0
 
             median_value = median[r, c]
             if np.isnan(median_value):
@@ -346,12 +346,12 @@ cpdef calc_proxies_float(float[:, ::1] bathy,
                 th_curv = np.nan
             else:
                 th_curv = 6.0
-                if std_gauss_curv_value > 0.01:
-                    th_curv *= 2.0
-                if std_gauss_curv_value > 0.03:
-                    th_curv *= 2.0
-                if std_gauss_curv_value > 0.1:
-                    th_curv *= 2.0
+                # if std_gauss_curv_value > 0.01:
+                #     th_curv *= 2.0
+                # if std_gauss_curv_value > 0.03:
+                #     th_curv *= 2.0
+                # if std_gauss_curv_value > 0.1:
+                #     th_curv *= 2.0
 
             # logger.info("estimated gaussian threshold: %.1f" % th_curv)
             th_gauss_curv[r, c] = th_curv
