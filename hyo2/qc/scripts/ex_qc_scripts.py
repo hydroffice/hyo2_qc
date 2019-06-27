@@ -114,4 +114,13 @@ args = ["cmd.exe", "/K", "set pythonpath=", "&&",  # run shell (/K: leave open (
 
 print("args: %s" % (args, ))
 
-subprocess.Popen(args, creationflags=subprocess.CREATE_NEW_CONSOLE)
+qc_env = os.environ.copy()
+valid_paths = list()
+# print(qc_env['PATH'])
+for token in qc_env['PATH'].split(";"):
+    if "Pydro27" not in token:
+        valid_paths.append(token)
+qc_env['PATH'] = ";".join(valid_paths)
+print(qc_env['PATH'])
+
+subprocess.Popen(args, creationflags=subprocess.CREATE_NEW_CONSOLE, env=qc_env)
