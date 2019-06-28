@@ -4,7 +4,7 @@ from scipy.ndimage import gaussian_filter
 from matplotlib import pyplot as plt
 import logging
 
-from hyo2.qc.survey.anomaly.anomaly_detector_v1_proxies import calc_proxies_float
+from hyo2.qc.survey.anomaly.anomaly_detector_v1_proxies import calc_proxies
 
 logger = logging.getLogger(__name__)
 
@@ -37,8 +37,9 @@ class ThresholdsV1:
     def calculate(self, array: np.ndarray):
         logger.info("calculation ...")
 
-        if array.dtype is not np.float32:
-            self._array = array.astype(np.float32)
+        if array.dtype == np.float32:
+            logger.debug("converting to double")
+            self._array = array.astype(np.float64)
         else:
             self._array = array
 
@@ -96,12 +97,12 @@ class ThresholdsV1:
         self.std_gauss_curv = np.empty_like(self._array)
         self.th_height = np.empty_like(self._array)
         self.th_gauss_curv = np.empty_like(self._array)
-        # logger.debug("dtype: %s" % array.dtype)
-        calc_proxies_float(self._array,
-                           self.median, self.nmad, self.std_gauss_curv,
-                           self.th_height, self.th_gauss_curv,
-                           self.filter_radius)
-        logger.info("calculation: OK (time: %.3f s)" % (time.time() - start_time, ))
+        # logger.debug("input proxies dtypes: %s" % self._array.dtype)
+        calc_proxies(self._array,
+                     self.median, self.nmad, self.std_gauss_curv,
+                     self.th_height, self.th_gauss_curv,
+                     self.filter_radius)
+        logger.info("calculation: OK (time: %.3f s)" % (time.time() - start_time,))
 
         self.th_height = self.nan_gaussian_filter(self.th_height)
         self.th_gauss_curv = self.nan_gaussian_filter(self.th_gauss_curv)

@@ -10,7 +10,7 @@ import cython
 from libcpp.vector cimport vector
 
 cdef extern from "numpy/npy_math.h":
-    bint npy_isnan(float x) nogil
+    bint npy_isnan(double x) nogil
 
 
 # noinspection PyUnresolvedReferences
@@ -19,7 +19,7 @@ cdef extern from "numpy/npy_math.h":
 @cython.wraparound(False)
 @cython.nonecheck(False)
 #@cython.profile(True)
-cpdef check_laplacian_operator_float(float[:, :] lap, int[:, :] flag_grid, float[:, :] th):
+cpdef check_laplacian_operator(double[:, :] lap, int[:, :] flag_grid, double[:, :] th):
 
     cdef unsigned int lap_rows, r
     cdef unsigned int lap_cols, c
@@ -41,7 +41,7 @@ cpdef check_laplacian_operator_float(float[:, :] lap, int[:, :] flag_grid, float
 @cython.wraparound(False)
 @cython.nonecheck(False)
 #@cython.profile(True)
-cpdef check_gaussian_curvature_float(float[:, :] gauss_curv, int[:, :] flag_grid, float[:, :] th):
+cpdef check_gaussian_curvature(double[:, :] gauss_curv, int[:, :] flag_grid, double[:, :] th):
 
     cdef unsigned int lap_rows, r
     cdef unsigned int lap_cols, c
@@ -63,15 +63,15 @@ cpdef check_gaussian_curvature_float(float[:, :] gauss_curv, int[:, :] flag_grid
 @cython.wraparound(False)
 @cython.nonecheck(False)
 #@cython.profile(True)
-cpdef check_adjacent_cells_float(float[:, :] bathy, int[:, :] flag_grid, float[:, :] th, float pct1, float pct2):
+cpdef check_adjacent_cells(double[:, :] bathy, int[:, :] flag_grid, double[:, :] th, double pct1, double pct2):
 
-    # logging.debug("[check adjacent] float bathy, using flier height: %.2f" % th)
+    # logging.debug("[check adjacent] double bathy, using flier height: %.2f" % th)
 
     cdef np.npy_intp rows = bathy.shape[0]  # number of rows
     cdef np.npy_intp cols = bathy.shape[1]  # number of columns
     cdef np.npy_intp r, c
-    cdef float dep_node, dep_ngb
-    cdef float pos_ratio, neg_ratio, thr
+    cdef double dep_node, dep_ngb
+    cdef double pos_ratio, neg_ratio, thr
     cdef int dif_pos_cnt, dif_neg_cnt, ngb_cnt
 
     # the grid is traversed row by row
@@ -334,17 +334,17 @@ cpdef check_adjacent_cells_float(float[:, :] bathy, int[:, :] flag_grid, float[:
 @cython.wraparound(False)
 @cython.nonecheck(False)
 #@cython.profile(True)
-cpdef check_noisy_edges_float(float[:, :] bathy, int[:, :] flag_grid):
+cpdef check_noisy_edges(double[:, :] bathy, int[:, :] flag_grid):
 
-    logging.debug("[noisy edges] float bathy")
+    logging.debug("[noisy edges] double bathy")
 
     cdef np.npy_intp rows = bathy.shape[0]  # number of rows
     cdef np.npy_intp cols = bathy.shape[1]  # number of columns
     cdef np.npy_intp r, c
-    cdef float dep_node, dep_ngb
-    cdef float pos_ratio, neg_ratio, thr
+    cdef double dep_node, dep_ngb
+    cdef double pos_ratio, neg_ratio, thr
     cdef int ngb_cnt
-    cdef float min_dep, max_diff, ngb_diff
+    cdef double min_dep, max_diff, ngb_diff
 
     # the grid is traversed row by row
 
@@ -591,8 +591,8 @@ cpdef check_noisy_edges_float(float[:, :] bathy, int[:, :] flag_grid):
 @cython.wraparound(False)
 @cython.nonecheck(False)
 #@cython.profile(True)
-cpdef check_small_groups_float(np.ndarray[np.uint8_t, ndim=2, cast=True] grid_bin, float[:, :] bathy,
-                                          int[:, :] flag_grid, float[:, :] th, double area_limit,
+cpdef check_small_groups(np.ndarray[np.uint8_t, ndim=2, cast=True] grid_bin, double[:, :] bathy,
+                                          int[:, :] flag_grid, double[:, :] th, double area_limit,
                                           bint check_slivers, bint check_isolated):
 
     cdef np.npy_intp last_r, last_c, r, c

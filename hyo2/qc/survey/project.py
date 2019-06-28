@@ -16,6 +16,7 @@ from hyo2.qc.common.writers.kml_writer import KmlWriter
 from hyo2.qc.common.writers.shp_writer import ShpWriter
 from hyo2.qc.survey.fliers.find_fliers_v8 import FindFliersV8
 from hyo2.qc.survey.anomaly.anomaly_detector_v1 import AnomalyDetectorV1
+from hyo2.qc.survey.anomaly.ad_params import AnomalyDetectionParams
 # noinspection PyProtectedMember
 from hyo2.grids.gappy import _gappy
 from hyo2.qc.survey.gridqa.grid_qa_v4 import GridQAV4
@@ -341,7 +342,9 @@ class SurveyProject(BaseProject):
         try:
             self._gr.select_layers_in_current = [self._gr.depth_layer_name(), ]
 
-            self._anomaly = AnomalyDetectorV1(grids=self._gr,
+            params = AnomalyDetectionParams()
+
+            self._anomaly = AnomalyDetectorV1(grid=self._gr,
                                               height=height,
                                               # can be None in case of just gaussian curv or isolated nodes
                                               check_laplacian=check_laplacian,

@@ -1,6 +1,5 @@
 import numpy as np
 cimport numpy as np
-from scipy import ndimage
 import warnings
 warnings.simplefilter(action="ignore", category=RuntimeWarning)
 import logging
@@ -13,10 +12,10 @@ from libc.math cimport fabs
 from libcpp.algorithm cimport sort as std_sort
 
 cdef extern from "numpy/npy_math.h":
-    bint npy_isnan(float x) nogil
+    bint npy_isnan(double x) nogil
 
 cdef extern from 'math.h' nogil:
-    float NAN
+    double NAN
     double sqrt(double m)
 
 # noinspection PyUnresolvedReferences
@@ -24,44 +23,44 @@ cdef extern from 'math.h' nogil:
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
-#@cython.profile(True)
-cpdef calc_proxies_float(float[:, ::1] bathy,
-                          float[:, ::1] median,
-                          float[:, ::1] nmad,
-                          float[:, ::1] std_gauss_curv,
-                          float[:, ::1] th_height,
-                          float[:, ::1] th_gauss_curv,
-                          int filter_size):
+# @cython.profile(True)
+cpdef calc_proxies(double[:, ::1] bathy,
+                    double[:, ::1] median,
+                    double[:, ::1] nmad,
+                    double[:, ::1] std_gauss_curv,
+                    double[:, ::1] th_height,
+                    double[:, ::1] th_gauss_curv,
+                    int filter_size):
 
     cdef int bathy_rows, r, r_beg, r_end, w_r
     cdef int bathy_cols, c, c_beg, c_end, w_c
     cdef int sorted_sz
-    cdef float bathy_sum, bathy_value, v
-    cdef float gauss_sum, gauss_value, w
+    cdef double bathy_sum, bathy_value, v
+    cdef double gauss_sum, gauss_value, w
 
-    np_gy = np.zeros((2*filter_size+1, 2*filter_size+1), dtype=np.float32)
-    cdef float[:, ::1] gy = np_gy
-    np_gx = np.zeros((2*filter_size+1, 2*filter_size+1), dtype=np.float32)
-    cdef float[:, ::1] gx = np_gx
+    np_gy = np.zeros((2*filter_size+1, 2*filter_size+1), dtype=np.float64)
+    cdef double[:, ::1] gy = np_gy
+    np_gx = np.zeros((2*filter_size+1, 2*filter_size+1), dtype=np.float64)
+    cdef double[:, ::1] gx = np_gx
 
-    np_gxy = np.zeros((2*filter_size+1, 2*filter_size+1), dtype=np.float32)
-    cdef float[:, ::1] gxy = np_gxy
-    np_gxx = np.zeros((2*filter_size+1, 2*filter_size+1), dtype=np.float32)
-    cdef float[:, ::1] gxx = np_gxx
+    np_gxy = np.zeros((2*filter_size+1, 2*filter_size+1), dtype=np.float64)
+    cdef double[:, ::1] gxy = np_gxy
+    np_gxx = np.zeros((2*filter_size+1, 2*filter_size+1), dtype=np.float64)
+    cdef double[:, ::1] gxx = np_gxx
 
-    np_gyy = np.zeros((2*filter_size+1, 2*filter_size+1), dtype=np.float32)
-    cdef float[:, ::1] gyy = np_gyy
-    np_gyx = np.zeros((2*filter_size+1, 2*filter_size+1), dtype=np.float32)
-    cdef float[:, ::1] gyx = np_gyx
+    np_gyy = np.zeros((2*filter_size+1, 2*filter_size+1), dtype=np.float64)
+    cdef double[:, ::1] gyy = np_gyy
+    np_gyx = np.zeros((2*filter_size+1, 2*filter_size+1), dtype=np.float64)
+    cdef double[:, ::1] gyx = np_gyx
 
-    np_gc = np.zeros((2*filter_size+1, 2*filter_size+1), dtype=np.float32)
-    cdef float[:, ::1] gc = np_gc
+    np_gc = np.zeros((2*filter_size+1, 2*filter_size+1), dtype=np.float64)
+    cdef double[:, ::1] gc = np_gc
 
     bathy_rows = bathy.shape[0]
     bathy_cols = bathy.shape[1]
 
-    cdef vector[float] std_sorted
-    cdef vector[float] std_gauss
+    cdef vector[double] std_sorted
+    cdef vector[double] std_gauss
 
     for r in range(0, bathy_rows, filter_size):
 

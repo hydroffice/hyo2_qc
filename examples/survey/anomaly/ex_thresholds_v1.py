@@ -18,9 +18,24 @@ array[15:18, 25:27] = np.nan
 # array[int(array.shape[0]*.3), int(array.shape[1]*.1)] = np.nan
 # array[int(array.shape[0]*.1), int(array.shape[1]*.7)] = np.nan
 
-array = ThresholdsV1.nan_gaussian_filter(array)
+prev = None
 
-ths = ThresholdsV1()
-ths.calculate(array)
+for j in range(2):
 
-ths.plot()
+    # array = ThresholdsV1.nan_gaussian_filter(array)
+
+    ths = ThresholdsV1()
+    ths.calculate(array)
+
+    # ths.plot()
+
+    if prev is not None:
+        diff = prev - ths.median
+        from matplotlib import pyplot as plt
+
+        plt.figure("diff")
+        m = plt.imshow(diff, interpolation='none')
+        plt.colorbar(m)
+        plt.show()
+
+    prev = np.copy(ths.median)
