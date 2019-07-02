@@ -1,5 +1,8 @@
 {
+  "$id": "https://www.hydroffice.org/qa/v0.1.1/qa.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Quality Assurance Checks for Ocean Mapping",
+  "description": "A schema describing QA checks for ocean mapping surveys",
   "definitions": {
     "qa": {
       "type": "object",
@@ -28,30 +31,48 @@
     "check": {
       "type": "object",
       "properties": {
-        "name": { "type": "string" },
-        "description": { "type": "string" },
-        "version": { "type": "string" },
+        "info": { "$ref": "#/definitions/info" },
         "inputs": { "$ref": "#/definitions/inputs" },
         "outputs": { "$ref": "#/definitions/outputs" },
         "params": { "$ref": "#/definitions/params" }
       },
       "required": [
-        "name"
+        "info"
+      ]
+    },
+    "info": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "version": { "type": "string" }
+      },
+      "required": [
+        "id"
       ]
     },
     "inputs": {
       "type": "object",
       "properties": {
-        "path": { "type": "string" }
+        "files": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/file" },
+          "default": []
+        }
       },
       "required": [
-        "path"
+        "files"
       ]
     },
     "outputs": {
       "type": "object",
       "properties": {
-        "path": { "type": "string" },
+        "files": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/file" },
+          "default": []
+        },
         "count": { "type": "number" },
         "grade": { "type": "number" }
       },
@@ -65,6 +86,16 @@
         "threshold": { "type": "number" }
       },
       "required": [
+      ]
+    },
+    "file": {
+      "type": "object",
+      "properties": {
+        "path": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "required": [
+        "path"
       ]
     }
   },

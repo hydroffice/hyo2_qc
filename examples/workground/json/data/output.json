@@ -1,6 +1,6 @@
 {
   "qa": {
-    "version": "0.1.0",
+    "version": "0.1.1",
     "raw_data": {
       "checks": [
       ]
@@ -8,14 +8,27 @@
     "survey_products": {
       "checks": [
         {
-          "name": "Holiday Finder",
-          "description": "The algorithm identifies data holidays in gridded data.",
-          "version": "7",
+          "info": {
+            "id": "dad4bab8-edaf-4714-b75a-54caf7b3d4fb",
+            "name": "Holiday Finder",
+            "description": "The algorithm identifies data holidays in gridded data.",
+            "version": "7"
+          },
           "inputs": {
-            "path": "c:/data/test/123.bag"
+            "files": [
+              {
+                "path": "c:/data/test/123.bag",
+                "description": "grid input"
+              }
+            ]
           },
           "outputs": {
-            "path": "output/123.HF7.000",
+            "files": [
+              {
+                "path": "output/123.HF7.000",
+                "description": "potential holidays"
+              }
+            ],
             "count": 12,
             "grade": 99.6
           },
@@ -24,14 +37,27 @@
           }
         },
         {
-          "name": "Holiday Finder",
-          "description": "The algorithm identifies data holidays in gridded data.",
-          "version": "7",
+          "info": {
+            "id": "774ccc80-5114-41e9-a6c3-1dbe2cd87f36",
+            "name": "Holiday Finder",
+            "description": "The algorithm identifies data holidays in gridded data.",
+            "version": "7"
+          },
           "inputs": {
-            "path": "c:/data/test/456.bag"
+            "files": [
+              {
+                "path": "c:/data/test/456.bag",
+                "description": "grid input"
+              }
+            ]
           },
           "outputs": {
-            "path": "output/456.HF7.000",
+            "files": [
+              {
+                "path": "output/456.HF7.000",
+                "description": "potential holidays"
+              }
+            ],
             "count": 0,
             "grade": 100.0
           },
@@ -40,14 +66,27 @@
           }
         },
         {
-          "name": "Flier Finder",
-          "description": "The algorithm identifies data anomalies in gridded data.",
-          "version": "5",
+          "info": {
+            "id": "ad3fabe5-b206-4ea8-927f-d5cd2329e966",
+            "name": "Flier Finder",
+            "description": "The algorithm identifies data anomalies in gridded data.",
+            "version": "5"
+          },
           "inputs": {
-            "path": "c:/data/test/456.bag"
+            "files": [
+              {
+                "path": "c:/data/test/456.bag",
+                "description": "grid input"
+              }
+            ]
           },
           "outputs": {
-            "path": "output/456.FF5.000",
+            "files": [
+              {
+                "path": "output/456.FF5.000",
+                "description": "potential fliers"
+              }
+            ],
             "count": 130,
             "grade": 89.0
           },
@@ -56,14 +95,27 @@
           }
         },
         {
-          "name": "Grid Data Density",
-          "description": "The algorithm evaluates the grid data density.",
-          "version": "3",
+          "info": {
+            "id": "05b319e1-ec5e-4739-8fc3-174d31f90f4e",
+            "name": "Grid Data Density",
+            "description": "The algorithm evaluates the grid data density.",
+            "version": "3"
+          },
           "inputs": {
-            "path": "c:/data/test/456.bag"
+            "files": [
+              {
+                "path": "c:/data/test/456.bag",
+                "description": "grid input"
+              }
+            ]
           },
           "outputs": {
-            "path": "output/456.QA3.density.png",
+            "files": [
+              {
+                "path": "output/456.QA3.density.png",
+                "description": "density plot"
+              }
+            ],
             "grade": 99.4
           },
           "params": {
