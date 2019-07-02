@@ -31,246 +31,301 @@ class MainTab(QtWidgets.QMainWindow):
         self.vbox = QtWidgets.QVBoxLayout()
         self.panel.setLayout(self.vbox)
 
-    #     self.loadData = QtWidgets.QGroupBox("Data inputs  [drap-and-drop to add, right click to drop files]")
-    #     self.loadData.setStyleSheet("QGroupBox::title { color: rgb(155, 155, 155); }")
-    #     self.vbox.addWidget(self.loadData)
-    #
-    #     vbox = QtWidgets.QVBoxLayout()
-    #     self.loadData.setLayout(vbox)
-    #
-    #     vbox.addStretch()
-    # #
-    #     # add main window
-    #     hbox = QtWidgets.QHBoxLayout()
-    #     vbox.addLayout(hbox)
-        # text_add_ss = QtWidgets.QLabel("Survey Soundings:")
-        # hbox.addWidget(text_add_ss)
-        # text_add_ss.setFixedHeight(GuiSettings.single_line_height())
-        # text_add_ss.setMinimumWidth(90)
-        # self.input_ss = QtWidgets.QListWidget()
-        # hbox.addWidget(self.input_ss)
-        # self.input_ss.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
-        # self.input_ss.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
-        # # noinspection PyUnresolvedReferences
-        # self.input_ss.customContextMenuRequested.connect(self.make_ss_context_menu)
-        # self.input_ss.setAlternatingRowColors(True)
-        # self.input_ss.setMaximumHeight(100)
-        # # Enable dropping onto the input ss list
-        # self.input_ss.setAcceptDrops(True)
-        # self.input_ss.installEventFilter(self)
-        # button_add_ss = QtWidgets.QPushButton()
-        # hbox.addWidget(button_add_ss)
-        # button_add_ss.setFixedHeight(GuiSettings.single_line_height())
-        # button_add_ss.setFixedWidth(GuiSettings.single_line_height())
-        # button_add_ss.setText(" + ")
-        # button_add_ss.setToolTip('Add (or drag-and-drop) the survey soundings as S57 file (.000)')
-        # # noinspection PyUnresolvedReferences
-        # button_add_ss.clicked.connect(self.click_add_ss)
+        left_space = 100
+        vertical_space = 1
+        label_size = 160
 
-    #     # add dtm
-    #     hbox = QtWidgets.QHBoxLayout()
-    #     vbox.addLayout(hbox)
-    #     text_add_dtm = QtWidgets.QLabel("Survey DTMs:")
-    #     hbox.addWidget(text_add_dtm)
-    #     text_add_dtm.setFixedHeight(GuiSettings.single_line_height())
-    #     text_add_dtm.setMinimumWidth(90)
-    #     self.input_dtm = QtWidgets.QListWidget()
-    #     hbox.addWidget(self.input_dtm)
-    #     self.input_dtm.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
-    #     self.input_dtm.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
-    #     # noinspection PyUnresolvedReferences
-    #     self.input_dtm.customContextMenuRequested.connect(self.make_dtm_context_menu)
-    #     self.input_dtm.setAlternatingRowColors(True)
-    #     self.input_dtm.setMaximumHeight(100)
-    #     # Enable dropping onto the input ss list
-    #     self.input_dtm.setAcceptDrops(True)
-    #     self.input_dtm.installEventFilter(self)
-    #     button_add_dtm = QtWidgets.QPushButton()
-    #     hbox.addWidget(button_add_dtm)
-    #     button_add_dtm.setFixedHeight(GuiSettings.single_line_height())
-    #     button_add_dtm.setFixedWidth(GuiSettings.single_line_height())
-    #     button_add_dtm.setText(" + ")
-    #     button_add_dtm.setToolTip('Add (or drag-and-drop) the survey DTMs as geotiff or BAG files')
-    #     # noinspection PyUnresolvedReferences
-    #     button_add_dtm.clicked.connect(self.click_add_dtm)
-    #
-    #     vbox.addSpacing(10)
-    #
-    #     # add ENC
-    #     hbox = QtWidgets.QHBoxLayout()
-    #     vbox.addLayout(hbox)
-    #     text_add_enc = QtWidgets.QLabel("Current ENCs:")
-    #     hbox.addWidget(text_add_enc)
-    #     text_add_enc.setFixedHeight(GuiSettings.single_line_height())
-    #     text_add_enc.setMinimumWidth(90)
-    #     self.input_enc = QtWidgets.QListWidget()
-    #     hbox.addWidget(self.input_enc)
-    #     self.input_enc.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
-    #     self.input_enc.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
-    #     # noinspection PyUnresolvedReferences
-    #     self.input_enc.customContextMenuRequested.connect(self.make_enc_context_menu)
-    #     self.input_enc.setAlternatingRowColors(True)
-    #     self.input_enc.setMaximumHeight(100)
-    #     # Enable dropping onto the input s57 list
-    #     self.input_enc.setAcceptDrops(True)
-    #     self.input_enc.installEventFilter(self)
-    #     button_add_enc = QtWidgets.QPushButton()
-    #     hbox.addWidget(button_add_enc)
-    #     button_add_enc.setFixedHeight(GuiSettings.single_line_height())
-    #     button_add_enc.setFixedWidth(GuiSettings.single_line_height())
-    #     button_add_enc.setText(" + ")
-    #     button_add_enc.setToolTip('Add (or drag-and-drop) the current ENC as S57 file (.000)')
-    #     # noinspection PyUnresolvedReferences
-    #     button_add_enc.clicked.connect(self.click_add_enc)
-    #
-    #     vbox.addStretch()
-    #
-    #     # clear data
-    #     hbox = QtWidgets.QHBoxLayout()
-    #     vbox.addLayout(hbox)
-    #     hbox.addStretch()
-    #     button_clear_data = QtWidgets.QPushButton()
-    #     hbox.addWidget(button_clear_data)
-    #     button_clear_data.setFixedHeight(GuiSettings.single_line_height())
-    #     # button_clear_data.setFixedWidth(GuiSettings.single_line_height())
-    #     button_clear_data.setText("Clear data")
-    #     button_clear_data.setToolTip('Clear all data loaded')
-    #     # noinspection PyUnresolvedReferences
-    #     button_clear_data.clicked.connect(self.click_clear_data)
-    #     # info
-    #     button = QtWidgets.QPushButton()
-    #     hbox.addWidget(button)
-    #     button.setFixedHeight(GuiSettings.single_line_height())
-    #     button.setFixedWidth(GuiSettings.single_line_height())
-    #     icon_info = QtCore.QFileInfo(os.path.join(self.media, 'small_info.png'))
-    #     button.setIcon(QtGui.QIcon(icon_info.absoluteFilePath()))
-    #     button.setToolTip('Open the manual page')
-    #     button.setStyleSheet("QPushButton { background-color: rgba(255, 255, 255, 0); }\n"
-    #                          "QPushButton:hover { background-color: rgba(230, 230, 230, 100); }\n")
-    #     # noinspection PyUnresolvedReferences
-    #     button.clicked.connect(self.click_open_manual)
-    #     hbox.addStretch()
-    #
-    #     self.vbox.addStretch()
-    #     self.vbox.addStretch()
-    #
-    #     # data outputs
-    #     self.savedData = QtWidgets.QGroupBox("Data outputs [drap-and-drop the desired output folder]")
-    #     self.savedData.setStyleSheet("QGroupBox::title { color: rgb(155, 155, 155); }")
-    #     self.savedData.setMaximumHeight(GuiSettings.single_line_height() * 8)
-    #     self.vbox.addWidget(self.savedData)
-    #
-    #     vbox = QtWidgets.QVBoxLayout()
-    #     self.savedData.setLayout(vbox)
-    #
-    #     # set optional formats
-    #     hbox = QtWidgets.QHBoxLayout()
-    #     vbox.addLayout(hbox)
-    #     text_set_formats = QtWidgets.QLabel("Formats:")
-    #     hbox.addWidget(text_set_formats)
-    #     text_set_formats.setFixedHeight(GuiSettings.single_line_height())
-    #     text_set_formats.setMinimumWidth(64)
-    #     self.output_pdf = QtWidgets.QCheckBox("PDF")
-    #     self.output_pdf.setChecked(True)
-    #     self.output_pdf.setDisabled(True)
-    #     hbox.addWidget(self.output_pdf)
-    #     self.output_s57 = QtWidgets.QCheckBox("S57")
-    #     self.output_s57.setChecked(True)
-    #     self.output_s57.setDisabled(True)
-    #     hbox.addWidget(self.output_s57)
-    #     self.output_shp = QtWidgets.QCheckBox("Shapefile")
-    #     self.output_shp.setToolTip('Activate/deactivate the creation of Shapefiles in output')
-    #     self.output_shp.setChecked(self.prj.output_shp)
-    #     # noinspection PyUnresolvedReferences
-    #     self.output_shp.clicked.connect(self.click_output_shp)
-    #     hbox.addWidget(self.output_shp)
-    #     self.output_kml = QtWidgets.QCheckBox("KML")
-    #     self.output_kml.setToolTip('Activate/deactivate the creation of KML files in output')
-    #     self.output_kml.setChecked(self.prj.output_kml)
-    #     # noinspection PyUnresolvedReferences
-    #     self.output_kml.clicked.connect(self.click_output_kml)
-    #     hbox.addWidget(self.output_kml)
-    #
-    #     hbox.addSpacing(36)
-    #
-    #     text_set_prj_folder = QtWidgets.QLabel("Create project folder: ")
-    #     hbox.addWidget(text_set_prj_folder)
-    #     text_set_prj_folder.setFixedHeight(GuiSettings.single_line_height())
-    #     self.output_prj_folder = QtWidgets.QCheckBox("")
-    #     self.output_prj_folder.setToolTip('Create a sub-folder with project name')
-    #     self.output_prj_folder.setChecked(self.prj.output_project_folder)
-    #     # noinspection PyUnresolvedReferences
-    #     self.output_prj_folder.clicked.connect(self.click_output_project_folder)
-    #     hbox.addWidget(self.output_prj_folder)
-    #
-    #     text_set_subfolders = QtWidgets.QLabel("Per-tool sub-folders: ")
-    #     hbox.addWidget(text_set_subfolders)
-    #     text_set_subfolders.setFixedHeight(GuiSettings.single_line_height())
-    #     self.output_subfolders = QtWidgets.QCheckBox("")
-    #     self.output_subfolders.setToolTip('Create a sub-folder for each tool')
-    #     self.output_subfolders.setChecked(self.prj.output_subfolders)
-    #     # noinspection PyUnresolvedReferences
-    #     self.output_subfolders.clicked.connect(self.click_output_subfolders)
-    #     hbox.addWidget(self.output_subfolders)
-    #
-    #     hbox.addStretch()
-    #
-    #     # add folder
-    #     hbox = QtWidgets.QHBoxLayout()
-    #     vbox.addLayout(hbox)
-    #     text_add_folder = QtWidgets.QLabel("Folder:")
-    #     hbox.addWidget(text_add_folder)
-    #     text_add_folder.setMinimumWidth(64)
-    #     self.output_folder = QtWidgets.QListWidget()
-    #     hbox.addWidget(self.output_folder)
-    #     self.output_folder.setMinimumHeight(GuiSettings.single_line_height())
-    #     self.output_folder.setMaximumHeight(GuiSettings.single_line_height() * 2)
-    #     self.output_folder.clear()
-    #     new_item = QtWidgets.QListWidgetItem()
-    #     new_item.setIcon(QtGui.QIcon(os.path.join(self.parent_win.media, 'folder.png')))
-    #     new_item.setText("%s" % self.prj.output_folder)
-    #     new_item.setFont(GuiSettings.console_font())
-    #     new_item.setForeground(GuiSettings.console_fg_color())
-    #     self.output_folder.addItem(new_item)
-    #     # Enable dropping onto the input ss list
-    #     self.output_folder.setAcceptDrops(True)
-    #     self.output_folder.installEventFilter(self)
-    #     button_add_folder = QtWidgets.QPushButton()
-    #     hbox.addWidget(button_add_folder)
-    #     button_add_folder.setFixedHeight(GuiSettings.single_line_height())
-    #     button_add_folder.setFixedWidth(GuiSettings.single_line_height())
-    #     button_add_folder.setText(" .. ")
-    #     button_add_folder.setToolTip('Add (or drag-and-drop) output folder')
-    #     # noinspection PyUnresolvedReferences
-    #     button_add_folder.clicked.connect(self.click_add_folder)
-    #
-    #     # open folder
-    #     hbox = QtWidgets.QHBoxLayout()
-    #     vbox.addLayout(hbox)
-    #     hbox.addStretch()
-    #
-    #     button_default_output = QtWidgets.QPushButton()
-    #     hbox.addWidget(button_default_output)
-    #     button_default_output.setFixedHeight(GuiSettings.single_line_height())
-    #     # button_open_output.setFixedWidth(GuiSettings.single_line_height())
-    #     button_default_output.setText("Use default")
-    #     button_default_output.setToolTip('Use the default output folder')
-    #     # noinspection PyUnresolvedReferences
-    #     button_default_output.clicked.connect(self.click_default_output)
-    #
-    #     button_open_output = QtWidgets.QPushButton()
-    #     hbox.addWidget(button_open_output)
-    #     button_open_output.setFixedHeight(GuiSettings.single_line_height())
-    #     # button_open_output.setFixedWidth(GuiSettings.single_line_height())
-    #     button_open_output.setText("Open folder")
-    #     button_open_output.setToolTip('Open the output folder')
-    #     # noinspection PyUnresolvedReferences
-    #     button_open_output.clicked.connect(self.click_open_output)
-    #
-    #     hbox.addStretch()
-    #
+        self.settings = QtWidgets.QGroupBox("Profile Settings")
+        self.settings.setStyleSheet("QGroupBox::title { color: rgb(155, 155, 155); }")
+        self.vbox.addWidget(self.settings)
+
+        vbox = QtWidgets.QVBoxLayout()
+        self.settings.setLayout(vbox)
+
+        hbox = QtWidgets.QHBoxLayout()
+        vbox.addLayout(hbox)
+        hbox.addStretch()
+        self.text_profiles = QtWidgets.QLabel("Profile:")
+        hbox.addWidget(self.text_profiles)
+        profiles_list = ["NOAA", "AusSeabed", "Custom"]
+        self.set_profiles = QtWidgets.QComboBox()
+        self.set_profiles.addItems(profiles_list)
+        self.set_profiles.setCurrentText(profiles_list[0])
+        # noinspection PyUnresolvedReferences
+        self.set_profiles.currentTextChanged.connect(self.on_set_profiles)
+        hbox.addWidget(self.set_profiles)
+        hbox.addStretch()
+
+        vbox.addSpacing(vertical_space)
+
+        hbox = QtWidgets.QHBoxLayout()
+        vbox.addLayout(hbox)
+        hbox.addStretch()
+        self.set_flier_finder = QtWidgets.QCheckBox("Flier Finder")
+        self.set_flier_finder.setFixedWidth(label_size)
+        hbox.addWidget(self.set_flier_finder)
+        hbox.addSpacing(left_space)
+        self.set_holiday_finder = QtWidgets.QCheckBox("Holiday Finder")
+        self.set_holiday_finder.setFixedWidth(label_size)
+        hbox.addWidget(self.set_holiday_finder)
+        hbox.addSpacing(left_space)
+        self.set_grid_qa = QtWidgets.QCheckBox("Grid QA")
+        self.set_grid_qa.setFixedWidth(label_size)
+        hbox.addWidget(self.set_grid_qa)
+        hbox.addStretch()
+
+        vbox.addSpacing(vertical_space)
+
+        hbox = QtWidgets.QHBoxLayout()
+        vbox.addLayout(hbox)
+        hbox.addStretch()
+        self.set_designated_scan = QtWidgets.QCheckBox("Designated Scan")
+        self.set_designated_scan.setFixedWidth(label_size)
+        hbox.addWidget(self.set_designated_scan)
+        hbox.addSpacing(left_space)
+        self.set_feature_scan = QtWidgets.QCheckBox("Feature Scan")
+        self.set_feature_scan.setFixedWidth(label_size)
+        hbox.addWidget(self.set_feature_scan)
+        hbox.addSpacing(left_space)
+        self.set_valsou_check = QtWidgets.QCheckBox("VALSOU Check")
+        self.set_valsou_check.setFixedWidth(label_size)
+        hbox.addWidget(self.set_valsou_check)
+        hbox.addStretch()
+
+        vbox.addSpacing(vertical_space)
+
+        self.survey = QtWidgets.QGroupBox("Survey Products")
+        self.survey.setStyleSheet("QGroupBox::title { color: rgb(155, 155, 155); }")
+        self.vbox.addWidget(self.survey)
+
+        vbox = QtWidgets.QVBoxLayout()
+        self.survey.setLayout(vbox)
+
+        # add dtm
+        hbox = QtWidgets.QHBoxLayout()
+        vbox.addLayout(hbox)
+        text_add_dtm = QtWidgets.QLabel("Survey DTMs:")
+        hbox.addWidget(text_add_dtm)
+        text_add_dtm.setMinimumWidth(90)
+        self.input_dtm = QtWidgets.QListWidget()
+        hbox.addWidget(self.input_dtm)
+        self.input_dtm.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+        self.input_dtm.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        # noinspection PyUnresolvedReferences
+        self.input_dtm.customContextMenuRequested.connect(self.make_dtm_context_menu)
+        self.input_dtm.setAlternatingRowColors(True)
+        self.input_dtm.setMaximumHeight(100)
+        # Enable dropping onto the input ss list
+        self.input_dtm.setAcceptDrops(True)
+        self.input_dtm.installEventFilter(self)
+        button_add_dtm = QtWidgets.QPushButton()
+        hbox.addWidget(button_add_dtm)
+        button_add_dtm.setFixedHeight(GuiSettings.single_line_height())
+        button_add_dtm.setFixedWidth(GuiSettings.single_line_height())
+        button_add_dtm.setText(" + ")
+        button_add_dtm.setToolTip('Add (or drag-and-drop) the survey DTMs as CSAR or BAG files')
+        # noinspection PyUnresolvedReferences
+        button_add_dtm.clicked.connect(self.click_add_dtm)
+
+        vbox.addSpacing(10)
+
+        # add ENC
+        hbox = QtWidgets.QHBoxLayout()
+        vbox.addLayout(hbox)
+        text_add_ff = QtWidgets.QLabel("Feature Files:")
+        hbox.addWidget(text_add_ff)
+        text_add_ff.setFixedHeight(GuiSettings.single_line_height())
+        text_add_ff.setMinimumWidth(90)
+        self.input_ff = QtWidgets.QListWidget()
+        hbox.addWidget(self.input_ff)
+        self.input_ff.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+        self.input_ff.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        # noinspection PyUnresolvedReferences
+        self.input_ff.customContextMenuRequested.connect(self.make_ff_context_menu)
+        self.input_ff.setAlternatingRowColors(True)
+        self.input_ff.setMaximumHeight(100)
+        # Enable dropping onto the input s57 list
+        self.input_ff.setAcceptDrops(True)
+        self.input_ff.installEventFilter(self)
+        button_add_ff = QtWidgets.QPushButton()
+        hbox.addWidget(button_add_ff)
+        button_add_ff.setFixedHeight(GuiSettings.single_line_height())
+        button_add_ff.setFixedWidth(GuiSettings.single_line_height())
+        button_add_ff.setText(" + ")
+        button_add_ff.setToolTip('Add (or drag-and-drop) the feature files as S57 file (.000)')
+        # noinspection PyUnresolvedReferences
+        button_add_ff.clicked.connect(self.click_add_ff)
+
+        vbox.addStretch()
+
+        # clear data
+        hbox = QtWidgets.QHBoxLayout()
+        vbox.addLayout(hbox)
+        hbox.addStretch()
+        button_clear_data = QtWidgets.QPushButton()
+        hbox.addWidget(button_clear_data)
+        button_clear_data.setFixedHeight(GuiSettings.single_line_height())
+        # button_clear_data.setFixedWidth(GuiSettings.single_line_height())
+        button_clear_data.setText("Clear data")
+        button_clear_data.setToolTip('Clear all data loaded')
+        # noinspection PyUnresolvedReferences
+        button_clear_data.clicked.connect(self.click_clear_data)
+        # info
+        button = QtWidgets.QPushButton()
+        hbox.addWidget(button)
+        button.setFixedHeight(GuiSettings.single_line_height())
+        button.setFixedWidth(GuiSettings.single_line_height())
+        icon_info = QtCore.QFileInfo(os.path.join(self.media, 'small_info.png'))
+        button.setIcon(QtGui.QIcon(icon_info.absoluteFilePath()))
+        button.setToolTip('Open the manual page')
+        button.setStyleSheet("QPushButton { background-color: rgba(255, 255, 255, 0); }\n"
+                             "QPushButton:hover { background-color: rgba(230, 230, 230, 100); }\n")
+        # noinspection PyUnresolvedReferences
+        button.clicked.connect(self.click_open_manual)
+        hbox.addStretch()
+
+        # data outputs
+        self.savedData = QtWidgets.QGroupBox("Data outputs [drap-and-drop the desired output folder]")
+        self.savedData.setStyleSheet("QGroupBox::title { color: rgb(155, 155, 155); }")
+        self.savedData.setMaximumHeight(GuiSettings.single_line_height() * 8)
+        self.vbox.addWidget(self.savedData)
+
+        vbox = QtWidgets.QVBoxLayout()
+        self.savedData.setLayout(vbox)
+
+        # set optional formats
+        hbox = QtWidgets.QHBoxLayout()
+        vbox.addLayout(hbox)
+        text_set_formats = QtWidgets.QLabel("Formats:")
+        hbox.addWidget(text_set_formats)
+        text_set_formats.setFixedHeight(GuiSettings.single_line_height())
+        text_set_formats.setMinimumWidth(64)
+        self.output_pdf = QtWidgets.QCheckBox("PDF")
+        self.output_pdf.setChecked(True)
+        self.output_pdf.setDisabled(True)
+        hbox.addWidget(self.output_pdf)
+        self.output_s57 = QtWidgets.QCheckBox("S57")
+        self.output_s57.setChecked(True)
+        self.output_s57.setDisabled(True)
+        hbox.addWidget(self.output_s57)
+        self.output_shp = QtWidgets.QCheckBox("Shapefile")
+        self.output_shp.setToolTip('Activate/deactivate the creation of Shapefiles in output')
+        # self.output_shp.setChecked(self.prj.output_shp)
+        # noinspection PyUnresolvedReferences
+        self.output_shp.clicked.connect(self.click_output_shp)
+        hbox.addWidget(self.output_shp)
+        self.output_kml = QtWidgets.QCheckBox("KML")
+        self.output_kml.setToolTip('Activate/deactivate the creation of KML files in output')
+        # self.output_kml.setChecked(self.prj.output_kml)
+        # noinspection PyUnresolvedReferences
+        self.output_kml.clicked.connect(self.click_output_kml)
+        hbox.addWidget(self.output_kml)
+
+        hbox.addSpacing(36)
+
+        text_set_prj_folder = QtWidgets.QLabel("Create project folder: ")
+        hbox.addWidget(text_set_prj_folder)
+        text_set_prj_folder.setFixedHeight(GuiSettings.single_line_height())
+        self.output_prj_folder = QtWidgets.QCheckBox("")
+        self.output_prj_folder.setToolTip('Create a sub-folder with project name')
+        # self.output_prj_folder.setChecked(self.prj.output_project_folder)
+        # noinspection PyUnresolvedReferences
+        self.output_prj_folder.clicked.connect(self.click_output_project_folder)
+        hbox.addWidget(self.output_prj_folder)
+
+        text_set_subfolders = QtWidgets.QLabel("Per-tool sub-folders: ")
+        hbox.addWidget(text_set_subfolders)
+        text_set_subfolders.setFixedHeight(GuiSettings.single_line_height())
+        self.output_subfolders = QtWidgets.QCheckBox("")
+        self.output_subfolders.setToolTip('Create a sub-folder for each tool')
+        # self.output_subfolders.setChecked(self.prj.output_subfolders)
+        # noinspection PyUnresolvedReferences
+        self.output_subfolders.clicked.connect(self.click_output_subfolders)
+        hbox.addWidget(self.output_subfolders)
+
+        hbox.addStretch()
+
+        # add folder
+        hbox = QtWidgets.QHBoxLayout()
+        vbox.addLayout(hbox)
+        text_add_folder = QtWidgets.QLabel("Folder:")
+        hbox.addWidget(text_add_folder)
+        text_add_folder.setMinimumWidth(64)
+        self.output_folder = QtWidgets.QListWidget()
+        hbox.addWidget(self.output_folder)
+        self.output_folder.setMinimumHeight(GuiSettings.single_line_height())
+        self.output_folder.setMaximumHeight(GuiSettings.single_line_height() * 2)
+        self.output_folder.clear()
+        new_item = QtWidgets.QListWidgetItem()
+        new_item.setIcon(QtGui.QIcon(os.path.join(self.parent_win.media, 'folder.png')))
+        # new_item.setText("%s" % self.prj.output_folder)
+        new_item.setFont(GuiSettings.console_font())
+        new_item.setForeground(GuiSettings.console_fg_color())
+        self.output_folder.addItem(new_item)
+        # Enable dropping onto the input ss list
+        self.output_folder.setAcceptDrops(True)
+        self.output_folder.installEventFilter(self)
+        button_add_folder = QtWidgets.QPushButton()
+        hbox.addWidget(button_add_folder)
+        button_add_folder.setFixedHeight(GuiSettings.single_line_height())
+        button_add_folder.setFixedWidth(GuiSettings.single_line_height())
+        button_add_folder.setText(" .. ")
+        button_add_folder.setToolTip('Add (or drag-and-drop) output folder')
+        # noinspection PyUnresolvedReferences
+        button_add_folder.clicked.connect(self.click_add_folder)
+
+        # open folder
+        hbox = QtWidgets.QHBoxLayout()
+        vbox.addLayout(hbox)
+        hbox.addStretch()
+
+        button_default_output = QtWidgets.QPushButton()
+        hbox.addWidget(button_default_output)
+        button_default_output.setFixedHeight(GuiSettings.single_line_height())
+        # button_open_output.setFixedWidth(GuiSettings.single_line_height())
+        button_default_output.setText("Use default")
+        button_default_output.setToolTip('Use the default output folder')
+        # noinspection PyUnresolvedReferences
+        button_default_output.clicked.connect(self.click_default_output)
+
+        button_open_output = QtWidgets.QPushButton()
+        hbox.addWidget(button_open_output)
+        button_open_output.setFixedHeight(GuiSettings.single_line_height())
+        # button_open_output.setFixedWidth(GuiSettings.single_line_height())
+        button_open_output.setText("Open folder")
+        button_open_output.setToolTip('Open the output folder')
+        # noinspection PyUnresolvedReferences
+        button_open_output.clicked.connect(self.click_open_output)
+
+        hbox.addStretch()
+
+        self.vbox.addSpacing(10)
+        
+        hbox = QtWidgets.QHBoxLayout()
+        self.vbox.addLayout(hbox)
+        hbox.addStretch()
+        button_load_checks = QtWidgets.QPushButton()
+        hbox.addWidget(button_load_checks)
+        button_load_checks.setFixedHeight(GuiSettings.single_line_height())
+        # button_load_checks.setFixedWidth(GuiSettings.single_line_height())
+        button_load_checks.setText("Load Checks")
+        button_load_checks.setToolTip('Load the checks')
+        # noinspection PyUnresolvedReferences
+        button_load_checks.clicked.connect(self.click_load_checks)
+        button_generate_checks = QtWidgets.QPushButton()
+        hbox.addWidget(button_generate_checks)
+        button_generate_checks.setFixedHeight(GuiSettings.single_line_height())
+        # button_generate_checks.setFixedWidth(GuiSettings.single_line_height())
+        button_generate_checks.setText("Generate Checks")
+        button_generate_checks.setToolTip('Generate the checks based on the selected profile')
+        # noinspection PyUnresolvedReferences
+        button_generate_checks.clicked.connect(self.click_generate_checks)
+        hbox.addStretch()
+
         # self.installEventFilter(self)
-    #
+
+        self.on_set_profiles()
+
     # def eventFilter(self, obj, e):
     #
     #     # drag events
@@ -445,13 +500,74 @@ class MainTab(QtWidgets.QMainWindow):
     #         return True
     #
     #     return QtWidgets.QMainWindow.eventFilter(self, obj, e)
-    #
-    # # DTM METHODS
-    #
-    # def click_add_dtm(self):
-    #     """ Read the DTM files provided by the user"""
-    #     logger.debug('adding DTM ...')
-    #
+
+    def on_set_profiles(self):
+        profile_text = self.set_profiles.currentText()
+        logger.debug("current profile: %s" % profile_text)
+
+        if profile_text == "NOAA":
+            self.set_flier_finder.setChecked(True)
+            self.set_flier_finder.setEnabled(False)
+
+            self.set_holiday_finder.setChecked(True)
+            self.set_holiday_finder.setEnabled(False)
+
+            self.set_grid_qa.setChecked(True)
+            self.set_grid_qa.setEnabled(False)
+
+            self.set_designated_scan.setChecked(True)
+            self.set_designated_scan.setEnabled(False)
+
+            self.set_feature_scan.setChecked(True)
+            self.set_feature_scan.setEnabled(False)
+
+            self.set_valsou_check.setChecked(True)
+            self.set_valsou_check.setEnabled(False)
+
+        elif profile_text == "AusSeabed":
+            self.set_flier_finder.setChecked(True)
+            self.set_flier_finder.setEnabled(False)
+
+            self.set_holiday_finder.setChecked(True)
+            self.set_holiday_finder.setEnabled(False)
+
+            self.set_grid_qa.setChecked(True)
+            self.set_grid_qa.setEnabled(False)
+
+            self.set_designated_scan.setChecked(False)
+            self.set_designated_scan.setEnabled(False)
+
+            self.set_feature_scan.setChecked(False)
+            self.set_feature_scan.setEnabled(False)
+
+            self.set_valsou_check.setChecked(False)
+            self.set_valsou_check.setEnabled(False)
+
+        else:
+            self.set_flier_finder.setChecked(False)
+            self.set_flier_finder.setEnabled(True)
+
+            self.set_holiday_finder.setChecked(False)
+            self.set_holiday_finder.setEnabled(True)
+
+            self.set_grid_qa.setChecked(False)
+            self.set_grid_qa.setEnabled(True)
+
+            self.set_designated_scan.setChecked(False)
+            self.set_designated_scan.setEnabled(True)
+
+            self.set_feature_scan.setChecked(False)
+            self.set_feature_scan.setEnabled(True)
+
+            self.set_valsou_check.setChecked(False)
+            self.set_valsou_check.setEnabled(True)
+
+    # DTM METHODS
+
+    def click_add_dtm(self):
+        """ Read the DTM files provided by the user"""
+        logger.debug('adding DTM ...')
+
     #     # ask the file path to the user
     #     # noinspection PyCallByClass
     #     selections, _ = QtWidgets.QFileDialog.getOpenFileNames(self, "Add DTM file",
@@ -499,10 +615,10 @@ class MainTab(QtWidgets.QMainWindow):
     #         new_item.setFont(GuiSettings.console_font())
     #         new_item.setForeground(GuiSettings.console_fg_color())
     #         self.input_dtm.addItem(new_item)
-    #
-    # def make_dtm_context_menu(self, pos):
-    #     logger.debug('context menu')
-    #
+
+    def make_dtm_context_menu(self, pos):
+        logger.debug('context menu')
+
     #     # # check if any selection
     #     # sel = self.input_ss.selectedItems()
     #     # # noinspection PyArgumentList
@@ -526,90 +642,13 @@ class MainTab(QtWidgets.QMainWindow):
     #     self.prj.clear_input_dtm_paths()
     #     self._update_input_dtm_list()
     #     self.parent_win.dtm_unloaded()
-    #
-    # # SS METHODS
-    #
-    # def click_add_ss(self):
-    #     """ Read the SS files provided by the user"""
-    #     logger.debug('adding SS features from file ...')
-    #
-    #     # ask the file path to the user
-    #     # noinspection PyCallByClass
-    #     selections, _ = QtWidgets.QFileDialog.getOpenFileNames(self, "Add SS file",
-    #                                                            QtCore.QSettings().value("ss_import_folder"),
-    #                                                            "S57 file (*.000);;All files (*.*)")
-    #     if len(selections) == 0:
-    #         logger.debug('adding ss: aborted')
-    #         return
-    #     last_open_folder = os.path.dirname(selections[0])
-    #     if os.path.exists(last_open_folder):
-    #         QtCore.QSettings().setValue("ss_import_folder", last_open_folder)
-    #
-    #     for selection in selections:
-    #         selection = os.path.abspath(selection).replace("\\", "/")
-    #         self._add_ss(selection=selection)
-    #
-    # def _add_ss(self, selection):
-    #
-    #     # attempt to read the data
-    #     try:
-    #         self.prj.add_input_ss_path(selection)
-    #
-    #     except Exception as e:  # more general case that catches all the exceptions
-    #         msg = '<b>Error setting \"%s\".</b>' % selection
-    #         msg += '<br><br><font color=\"red\">%s</font>' % e
-    #         # noinspection PyCallByClass,PyArgumentList
-    #         QtWidgets.QMessageBox.critical(self, "Data Setting Error", msg, QtWidgets.QMessageBox.Ok)
-    #         logger.error('S57 file NOT added: %s' % selection)
-    #         return
-    #
-    #     self._update_input_ss_list()
-    #     self.parent_win.ss_loaded()
-    #
-    # def _update_input_ss_list(self):
-    #     self.input_ss.clear()
-    #     for input_ss_path in self.prj.input_ss_paths:
-    #         new_item = QtWidgets.QListWidgetItem()
-    #         if os.path.splitext(input_ss_path)[-1] == ".000":
-    #             new_item.setIcon(QtGui.QIcon(os.path.join(self.parent_win.media, 's57.png')))
-    #         new_item.setText(input_ss_path)
-    #         new_item.setFont(GuiSettings.console_font())
-    #         new_item.setForeground(GuiSettings.console_fg_color())
-    #         self.input_ss.addItem(new_item)
-    #
-    # def make_ss_context_menu(self, pos):
-    #     logger.debug('context menu')
-    #
-    #     # # check if any selection
-    #     # sel = self.input_ss.selectedItems()
-    #     # # noinspection PyArgumentList
-    #     # if len(sel) == 0:
-    #     #     # noinspection PyCallByClass,PyArgumentList
-    #     #     QtWidgets.QMessageBox.information(self, "SS list", "You need to first add and select one or more files!")
-    #     #     return
-    #
-    #     remove_act = QtWidgets.QAction("Remove files", self, statusTip="Remove SS files",
-    #                                    triggered=self.remove_ss_files)
-    #
-    #     menu = QtWidgets.QMenu(parent=self)
-    #     # noinspection PyArgumentList
-    #     menu.addAction(remove_act)
-    #     # noinspection PyArgumentList
-    #     menu.exec_(self.input_ss.mapToGlobal(pos))
-    #
-    # def remove_ss_files(self):
-    #     logger.debug("user want to remove SS files")
-    #
-    #     self.prj.clear_input_ss_paths()
-    #     self._update_input_ss_list()
-    #     self.parent_win.ss_unloaded()
-    #
-    # # ENC methods
-    #
-    # def click_add_enc(self):
-    #     """ Read the S57 files provided by the user"""
-    #     logger.debug('adding ENC features from file ...')
-    #
+
+    # Feature File methods
+
+    def click_add_ff(self):
+        """ Read the feature files provided by the user"""
+        logger.debug('adding feature files ...')
+
     #     # ask the file path to the user
     #     # noinspection PyCallByClass
     #     selections, _ = QtWidgets.QFileDialog.getOpenFileNames(self, "Add ENC features",
@@ -654,10 +693,10 @@ class MainTab(QtWidgets.QMainWindow):
     #         new_item.setFont(GuiSettings.console_font())
     #         new_item.setForeground(GuiSettings.console_fg_color())
     #         self.input_enc.addItem(new_item)
-    #
-    # def make_enc_context_menu(self, pos):
-    #     logger.debug('ENC context menu')
-    #
+
+    def make_ff_context_menu(self, pos):
+        logger.debug('FF context menu')
+
     #     # # check if any selection
     #     # sel = self.input_enc.selectedItems()
     #     # if len(sel) == 0:
@@ -680,12 +719,12 @@ class MainTab(QtWidgets.QMainWindow):
     #     self.prj.clear_input_enc_paths()
     #     self.parent_win.enc_unloaded()
     #     self._update_input_enc_list()
-    #
-    # # AUX METHODS
-    #
-    # def click_clear_data(self):
-    #     """ Clear all the read data"""
-    #     logger.debug('clear data')
+
+    # AUX METHODS
+
+    def click_clear_data(self):
+        """ Clear all the read data"""
+        logger.debug('clear data')
     #     self.parent_win.prj.clear_data()
     #
     #     self.input_enc.clear()
@@ -696,31 +735,35 @@ class MainTab(QtWidgets.QMainWindow):
     #
     #     self.input_ss.clear()
     #     self.parent_win.ss_unloaded()
-    #
-    # def click_output_kml(self):
-    #     """ Set the KML output"""
+
+    def click_output_kml(self):
+        """ Set the KML output"""
+        pass
     #     self.prj.output_kml = self.output_kml.isChecked()
     #     QtCore.QSettings().setValue("enc_export_kml", self.prj.output_kml)
-    #
-    # def click_output_shp(self):
-    #     """ Set the Shapefile output"""
+
+    def click_output_shp(self):
+        """ Set the Shapefile output"""
+        pass
     #     self.prj.output_shp = self.output_shp.isChecked()
     #     QtCore.QSettings().setValue("enc_export_shp", self.prj.output_shp)
     #
-    # def click_output_project_folder(self):
-    #     """ Set the output project folder"""
+    def click_output_project_folder(self):
+        """ Set the output project folder"""
+        pass
     #     self.prj.output_project_folder = self.output_prj_folder.isChecked()
     #     QtCore.QSettings().setValue("enc_export_project_folder", self.prj.output_project_folder)
     #
-    # def click_output_subfolders(self):
-    #     """ Set the output in sub-folders"""
+    def click_output_subfolders(self):
+        """ Set the output in sub-folders"""
+        pass
     #     self.prj.output_subfolders = self.output_subfolders.isChecked()
     #     QtCore.QSettings().setValue("enc_export_subfolders", self.prj.output_subfolders)
-    #
-    # def click_add_folder(self):
-    #     """ Read the grids provided by the user"""
-    #     logger.debug('set output folder ...')
-    #
+
+    def click_add_folder(self):
+        """ Read the grids provided by the user"""
+        logger.debug('set output folder ...')
+
     #     # ask the output folder
     #     # noinspection PyCallByClass
     #     selection = QtWidgets.QFileDialog.getExistingDirectory(self, "Set output folder",
@@ -773,18 +816,28 @@ class MainTab(QtWidgets.QMainWindow):
     #     QtCore.QSettings().setValue("enc_export_folder", self.prj.output_folder)
     #
     #     logger.debug("new output folder: %s" % self.prj.output_folder)
-    #
-    # def click_default_output(self):
-    #     """ Set default output data folder """
+
+    def click_default_output(self):
+        """ Set default output data folder """
+        pass
     #     self._add_folder(selection=self.prj.default_output_folder())
-    #
-    # def click_open_output(self):
-    #     """ Open output data folder """
+    
+    def click_open_output(self):
+        """ Open output data folder """
+        pass
     #     logger.debug('open output folder: %s' % self.prj.output_folder)
     #     self.prj.open_output_folder()
-    #
-    # # common
-    # @classmethod
-    # def click_open_manual(cls):
-    #     logger.debug("open manual")
-    #     Helper.explore_folder("https://www.hydroffice.org/manuals/catools/user_manual_enc_data_inputs.html")
+
+    def click_load_checks(self):
+        """ Generate the checks """
+        logger.debug("Load checks")
+
+    def click_generate_checks(self):
+        """ Generate the checks """
+        logger.debug("Generate checks")
+
+    # common
+    @classmethod
+    def click_open_manual(cls):
+        logger.debug("open manual")
+        Helper.explore_folder("https://www.hydroffice.org/manuals/catools/user_manual_enc_data_inputs.html")

@@ -7,7 +7,7 @@ from PySide2 import QtGui, QtCore, QtWidgets
 from hyo2.abc.app.qt_progress import QtProgress
 
 from hyo2.qax.app.widgets.widget import AbstractWidget
-# from hyo2.ca.enc.project import ENCProject
+from hyo2.qax.lib.project import QAXProject
 from hyo2.qax.app.widgets.qax.main_tab import MainTab
 # from hyo2.ca.catools.widgets.enc.ss_vs_chart_tab import SSvsChartTab
 # from hyo2.ca.catools.widgets.enc.sounding_selection_tab import SoundingSelectionTab
@@ -21,12 +21,12 @@ class QAXWidget(AbstractWidget):
 
     def __init__(self, main_win):
         AbstractWidget.__init__(self, main_win=main_win)
-        # self.prj = ENCProject(progress=QtProgress(parent=self))
+        self.prj = QAXProject(progress=QtProgress(parent=self))
 
-        # # init default settings
-        # settings = QtCore.QSettings()
+        # init default settings
+        settings = QtCore.QSettings()
         # # - output folder
-        # export_folder = settings.value("enc_export_folder")
+        # export_folder = settings.value("qax_export_folder")
         # if (export_folder is None) or (not os.path.exists(export_folder)):
         #     settings.setValue("enc_export_folder", str(self.prj.output_folder))
         # else:  # folder exists
@@ -70,11 +70,12 @@ class QAXWidget(AbstractWidget):
         self.tabs.setIconSize(QtCore.QSize(36, 36))
         self.tabs.setTabPosition(QtWidgets.QTabWidget.South)
         # main tab
-        # self.tab_inputs = MainTab(parent_win=self, prj=self.prj)
+        self.tab_inputs = MainTab(parent_win=self, prj=self.prj)
 
-        # self.idx_inputs = self.tabs.insertTab(0, self.tab_inputs,
-        #                                       QtGui.QIcon(os.path.join(self.media, 'placeholder.png')), "")
-        # self.tabs.setTabToolTip(self.idx_inputs, "QA QC")
+        # noinspection PyArgumentList
+        self.idx_inputs = self.tabs.insertTab(0, self.tab_inputs,
+                                              QtGui.QIcon(os.path.join(self.media, 'app_icon.png')), "")
+        self.tabs.setTabToolTip(self.idx_inputs, "QAX")
     #     # - sounding selection
     #     self.tab_ss = SoundingSelectionTab(parent_win=self, prj=self.prj)
     #     # noinspection PyArgumentList

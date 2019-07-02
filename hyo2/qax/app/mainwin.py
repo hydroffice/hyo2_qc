@@ -72,9 +72,10 @@ class MainWin(QtWidgets.QMainWindow):
                                 with_hydroffice_link=True,
                                 with_ccom_link=True,
                                 with_noaa_link=True,
-                                with_unh_link=True,
+                                with_unh_link=False,
                                 with_license=True,
                                 with_noaa_57=True,
+                                with_ausseabed_link=True,
                                 main_win=self
                                 )
         # noinspection PyArgumentList

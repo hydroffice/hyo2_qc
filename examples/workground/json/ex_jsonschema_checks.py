@@ -36,5 +36,9 @@ try:
     validate(instance=qa, schema=schema)
 except ValidationError as e:
     logger.warning("%s" % e)
+    exit(1)
 except SchemaError as e:
     logger.warning("%s" % e)
+    exit(1)
+
+logger.debug("valid!")
