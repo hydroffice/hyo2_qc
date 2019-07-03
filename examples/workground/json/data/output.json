@@ -12,7 +12,11 @@
             "id": "dad4bab8-edaf-4714-b75a-54caf7b3d4fb",
             "name": "Holiday Finder",
             "description": "The algorithm identifies data holidays in gridded data.",
-            "version": "7"
+            "version": "7",
+            "group": {
+              "id": "123",
+              "name": "123"
+            }
           },
           "inputs": {
             "files": [
@@ -23,6 +27,11 @@
             ]
           },
           "outputs": {
+            "execution": {
+              "start": "2019-07-03T20:20:39+00:00",
+              "end": "2019-07-03T20:21:32+00:00",
+              "status": "completed"
+            },
             "files": [
               {
                 "path": "output/123.HF7.000",
@@ -41,7 +50,11 @@
             "id": "774ccc80-5114-41e9-a6c3-1dbe2cd87f36",
             "name": "Holiday Finder",
             "description": "The algorithm identifies data holidays in gridded data.",
-            "version": "7"
+            "version": "7",
+            "group": {
+              "id": "456",
+              "name": "456"
+            }
           },
           "inputs": {
             "files": [
@@ -52,6 +65,11 @@
             ]
           },
           "outputs": {
+            "execution": {
+              "start": "2019-07-03T21:21:33+00:00",
+              "end": "2019-07-03T21:22:37+00:00",
+              "status": "completed"
+            },
             "files": [
               {
                 "path": "output/456.HF7.000",
@@ -70,7 +88,11 @@
             "id": "ad3fabe5-b206-4ea8-927f-d5cd2329e966",
             "name": "Flier Finder",
             "description": "The algorithm identifies data anomalies in gridded data.",
-            "version": "5"
+            "version": "5",
+            "group": {
+              "id": "456",
+              "name": "456"
+            }
           },
           "inputs": {
             "files": [
@@ -81,6 +103,11 @@
             ]
           },
           "outputs": {
+            "execution": {
+              "start": "2019-07-03T20:25:36+00:00",
+              "end": "2019-07-03T20:26:22+00:00",
+              "status": "completed"
+            },
             "files": [
               {
                 "path": "output/456.FF5.000",
@@ -99,7 +126,11 @@
             "id": "05b319e1-ec5e-4739-8fc3-174d31f90f4e",
             "name": "Grid Data Density",
             "description": "The algorithm evaluates the grid data density.",
-            "version": "3"
+            "version": "3",
+            "group": {
+              "id": "456",
+              "name": "456"
+            }
           },
           "inputs": {
             "files": [
@@ -110,6 +141,11 @@
             ]
           },
           "outputs": {
+            "execution": {
+              "start": "2019-07-03T21:2:31+00:00",
+              "end": "2019-07-03T21:22:37+00:00",
+              "status": "completed"
+            },
             "files": [
               {
                 "path": "output/456.QA3.density.png",

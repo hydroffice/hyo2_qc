@@ -542,14 +542,14 @@ class GridQAV5(BaseGridQA):
 
         if self.objection_detection:
             self.pct_od_info = GridInfoV5()
-            self.pct_od_info.title = "Object Detection"
+            self.pct_od_info.title = "Resolution Requirements - Object Detection"
             self.pct_od_info.histo_x_label = "Node resolution as a fraction of allowable"
             self.pct_od_info.histo_y_label = "Percentage of nodes in each resolution group"
             self.pct_od_info.basename = self.grids.current_basename
 
         if self.full_coverage:
             self.pct_cc_info = GridInfoV5()
-            self.pct_cc_info.title = "Full Coverage"
+            self.pct_cc_info.title = "Resolution Requirements - Full Coverage"
             self.pct_cc_info.histo_x_label = "Node resolution as a fraction of allowable"
             self.pct_cc_info.histo_y_label = "Percentage of nodes in each resolution group"
             self.pct_cc_info.basename = self.grids.current_basename
