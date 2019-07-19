@@ -10,7 +10,7 @@ logger = logging.getLogger()
 
 
 def run_qc_tools_v3(grid_path, flier_finder, holiday_finder, holiday_finder_mode, grid_qa,
-                    survey_name):
+                    survey_name, output_shp=False):
     from hyo2.qc.survey.project import SurveyProject
     from hyo2.qc import __version__
     print("\n-->> running QC Tools (v.%s)" % __version__)
@@ -46,6 +46,7 @@ def run_qc_tools_v3(grid_path, flier_finder, holiday_finder, holiday_finder_mode
         print('running holiday finder on: %s' % grid_path)
 
         prj.find_holes_v4(path=grid_path, mode=holiday_finder_mode)
+        prj.output_shp = output_shp
         saved = prj.save_holes()
         if saved:
             print('- found holidays: certain %d, possible %d'
@@ -84,8 +85,8 @@ def main():
     for i, arg in enumerate(sys.argv):
         print(" - #%d: %s" % (i, arg))
 
-    exp_nr_argv = 7
-    if len(sys.argv) != exp_nr_argv:
+    exp_nr_argv = (7, 8)
+    if len(sys.argv) not in exp_nr_argv:
         print("ERROR: invalid nunber of arguments: %d (it should be: %d)" % (len(sys.argv), exp_nr_argv))
         return 1
 
@@ -102,6 +103,8 @@ def main():
     survey_name = None
     if sys.argv[6] != "None":
         survey_name = sys.argv[6]
+    output_shapefile = "--SHP" in sys.argv
+
 
     # print the interpreted arguments (for DEBUGGING)
     print("\ninterpreted arguments:")
@@ -110,12 +113,14 @@ def main():
     print(" - holiday finder: %r (mode: %s)" % (holiday_finder, holiday_finder_mode))
     print(" - grid qa: %r" % grid_qa)
     print(" - survey name: %r" % survey_name)
+    print(" - output shape files: %s" % str(output_shapefile))
 
     run_qc_tools_v3(grid_path=grid_path,
                     flier_finder=flier_finder,
                     holiday_finder=holiday_finder, holiday_finder_mode=holiday_finder_mode,
                     grid_qa=grid_qa,
-                    survey_name=survey_name)
+                    survey_name=survey_name,
+                    output_shp=output_shapefile)
 
 
 if __name__ == '__main__':
