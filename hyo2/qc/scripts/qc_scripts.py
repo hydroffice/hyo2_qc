@@ -117,11 +117,6 @@ def main():
     for i, arg in enumerate(sys.argv):
         print(" - #%d: %s" % (i, arg))
 
-    exp_nr_argv = (7, 8)
-    if len(sys.argv) not in exp_nr_argv:
-        print("ERROR: invalid nunber of arguments: %d (it should be: %d)" % (len(sys.argv), exp_nr_argv))
-        return 1
-
     # interpreting/checking the passed arguments
     grid_path = win32api.GetLongPathName(args.grid_path)
     if not os.path.exists(grid_path):
