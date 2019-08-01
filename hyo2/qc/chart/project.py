@@ -2,6 +2,7 @@ import time
 import os
 import traceback
 import logging
+from typing import Optional
 
 from hyo2.abc.lib.progress.cli_progress import CliProgress
 from hyo2.abc.lib.helper import Helper
@@ -98,13 +99,15 @@ class ChartProject(BaseProject):
 
         return True
 
-    def grid_xyz(self, version=1, geographic=True, elevation=False, truncate=False, decimal_places=0):
+    def grid_xyz(self, version: int = 2, geographic: bool = True, elevation: bool = False,
+                 truncate: bool = False, decimal_places: int = 0,
+                 epsg_code: Optional[int] = None, order: str = 'yxz'):
 
         if not self.has_bag_grid():
             logger.warning('No BAG files for truncation')
             return False
 
-        if version not in [1, ] or not isinstance(version, int):
+        if version not in [2, ] or not isinstance(version, int):
             logger.warning('Invalid version: %s' % version)
             return False
 
@@ -136,7 +139,9 @@ class ChartProject(BaseProject):
                 output_name += ".trunc" + str(decimal_places)
             if geographic:
                 output_name += ".wgs84"
-            output_name += ".xyz"
+            if epsg_code is not None:
+                output_name += ".%d" % epsg_code
+            output_name += ".%s" % order
             if self.output_project_folder:
                 output_folder = os.path.join(self.output_folder, survey_label)
             else:
@@ -152,7 +157,8 @@ class ChartProject(BaseProject):
 
             success = self._gr.xyz(input_file=grid_file, output_file=output_path,
                                    geographic=geographic, elevation=elevation,
-                                   truncate=truncate, decimal_places=decimal_places)
+                                   truncate=truncate, decimal_places=decimal_places,
+                                   epsg_code=epsg_code, order=order)
             self.progress.end()
             if (output_folder not in opened_folders) and success:
                 Helper.explore_folder(output_folder)

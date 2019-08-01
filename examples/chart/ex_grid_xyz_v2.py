@@ -15,6 +15,15 @@ input_bag_file = testing.input_test_files('.bag')[1]
 logger.debug('input: %s' % input_bag_file)
 prj.add_to_grid_list(input_bag_file)
 
-prj.grid_xyz(version=1, geographic=True)
+geographic = False
+elevation = False
+truncate = False
+decimal_places = 0
+epsg_code = 4326
+order = 'xyz'
+
+prj.grid_xyz(version=2, geographic=geographic, elevation=elevation,
+             truncate=truncate, decimal_places=decimal_places,
+             epsg_code=epsg_code, order=order)
 
 logger.debug(prj)
