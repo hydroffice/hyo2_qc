@@ -88,12 +88,14 @@ class SurveyWidget(AbstractWidget):
         self.tabs.setTabEnabled(self.idx_fliers, False)
 
         # - anomaly detector
+        self.test_anomaly = False
         self.tab_anomaly = AnomalyTab(parent_win=self, prj=self.prj)
         # noinspection PyArgumentList
         self.idx_anomaly = self.tabs.insertTab(2, self.tab_anomaly,
                                                QtGui.QIcon(os.path.join(self.media, 'anomaly.png')), "")
         self.tabs.setTabToolTip(self.idx_anomaly, "Anomaly detector")
         self.tabs.setTabEnabled(self.idx_anomaly, False)
+        self.tab_anomaly.setHidden(True)
 
         # - holiday finder
         self.tab_holes = HolesTab(parent_win=self, prj=self.prj)
@@ -159,12 +161,19 @@ class SurveyWidget(AbstractWidget):
         self.has_s57 = False
 
     def keyPressEvent(self, event):
-        # key = event.key()
-        # # noinspection PyUnresolvedReferences
-        # if event.modifiers() == QtCore.Qt.ControlModifier:
-        #     # noinspection PyUnresolvedReferences
-        #     if key in [QtCore.Qt.Key_A, ]:
-        #         pass
+        key = event.key()
+        # noinspection PyUnresolvedReferences
+        # noinspection PyUnresolvedReferences
+        if key in [QtCore.Qt.Key_A, ]:
+
+            if self.test_anomaly:
+                self.test_anomaly = False
+                self.tabs.setTabEnabled(self.idx_anomaly, False)
+            else:
+                self.test_anomaly = True
+                if self.has_grid:
+                    self.tabs.setTabEnabled(self.idx_anomaly, True)
+            logger.debug("anomaly detector: %s" % self.test_anomaly)
 
         return super(SurveyWidget, self).keyPressEvent(event)
 
@@ -174,7 +183,8 @@ class SurveyWidget(AbstractWidget):
 
     def grids_loaded(self):
         self.tabs.setTabEnabled(self.idx_fliers, True)
-        self.tabs.setTabEnabled(self.idx_anomaly, True)
+        if self.test_anomaly:
+            self.tabs.setTabEnabled(self.idx_anomaly, True)
         self.tabs.setTabEnabled(self.idx_holes, True)
         self.tabs.setTabEnabled(self.idx_gridqa, True)
         if self.prj.has_bag_grid() and self.has_s57:
