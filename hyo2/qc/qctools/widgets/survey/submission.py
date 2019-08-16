@@ -192,19 +192,24 @@ class SubmissionTab(QtWidgets.QMainWindow):
         valid, err = self.parent_win.prj.is_valid_project_folder(selection, version=specs_version, opr=is_opr)
         if valid:
             valid_folder = True
+        else:
+            logger.debug("not a valid project folder: %s" % err)
 
         if not valid_folder:
             valid, err = self.parent_win.prj.is_valid_survey_folder(selection, version=specs_version, opr=is_opr)
             if valid:
                 valid_folder = True
+            else:
+                logger.debug("not a valid survey folder: %s" % err)
 
         if not valid_folder:
             valid, err = self.parent_win.prj.is_valid_report_folder(selection, version=specs_version, opr=is_opr)
             if valid:
                 valid_folder = True
+            else:
+                logger.debug("not a valid report folder: %s" % err)
 
         if not valid_folder:
-            logger.warning(err)
             msg = 'The root folder is not in one of the supported prescribed formats: \n\n' \
                   '- project folder: "OPR-X###-XX-##"\n' \
                   '- survey folder: "X#####"\n' \
