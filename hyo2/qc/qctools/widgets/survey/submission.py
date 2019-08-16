@@ -210,10 +210,16 @@ class SubmissionTab(QtWidgets.QMainWindow):
                 logger.debug("not a valid report folder: %s" % err)
 
         if not valid_folder:
-            msg = 'The root folder is not in one of the supported prescribed formats: \n\n' \
-                  '- project folder: "OPR-X###-XX-##"\n' \
-                  '- survey folder: "X#####"\n' \
-                  '- report folder: "Project_Reports"\n'
+            if is_opr:
+                msg = 'The root folder (or its parent folder) is not in one of the supported prescribed formats: \n\n' \
+                      '- project folder: "OPR-X###-XX-##"\n' \
+                      '- survey folder: "X#####"\n' \
+                      '- report folder: "Project_Reports"\n'
+            else:
+                msg = 'The root folder (or its parent folder) is not in one of the supported prescribed formats: \n\n' \
+                      '- project folder: "X[..]-X###-XX-##"\n' \
+                      '- survey folder: "X#####"\n' \
+                      '- report folder: "Project_Reports"\n'
             # noinspection PyCallByClass
             QtWidgets.QMessageBox.critical(self, "Root Folder Error", msg, QtWidgets.QMessageBox.Ok)
             return
