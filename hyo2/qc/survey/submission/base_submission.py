@@ -100,6 +100,8 @@ class BaseSubmission:
 
         # part 2: -X###-
         p = 1
+        if len(tokens[p]) < 4:
+            return False, "invalid number of characters in X###: %s" % tokens[p]
 
         c = 0
         if not tokens[p][c].isalpha():
@@ -119,6 +121,8 @@ class BaseSubmission:
 
         # part 3: -XX-
         p = 2
+        if len(tokens[p]) < 2:
+            return False, "invalid number of characters in XX: %s" % tokens[p]
 
         c = 0
         if not tokens[p][c].isalpha():
