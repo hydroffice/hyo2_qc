@@ -84,6 +84,7 @@ class ValsouCheckV7(BaseValsou):
                 self.out_of_bbox = True
                 return
 
+        count = 0
         while self.grids.read_next_tile(layers=[self.grids.depth_layer_name(), ]):
 
             if self.progress is not None:
@@ -96,7 +97,8 @@ class ValsouCheckV7(BaseValsou):
                 elif self.progress.value <= 99:
                     self.progress.add(quantum=0.0001)
 
-            # logger.debug("new tile")
+            logger.info("--->>> new tile: %03d" % count)
+            count += 1
             self._run_slice(depth_precision=depth_precision, max_dist=max_dist)
             self.grids.clear_tiles()
 
@@ -403,14 +405,27 @@ class ValsouCheckV7(BaseValsou):
             # skip if not in the current grid slice (we know the y boundaries of the current slice)
             if (closest[0] < 0) or (closest[0] >= self.bathy_cols) or \
                     (closest[1] < 0) or (closest[1] >= self.bathy_rows):
-                logger.debug("skipping")
-                continue
+                if (closest[0] == self.bathy_cols) or (closest[1] == self.bathy_rows):
+                    if closest[0] == self.bathy_cols:
+                        closest[0] -= 1
+                        logger.info("on-right-edge fix: 0 < (%d, %d) >= (%d, %d)"
+                                    % (closest[0], closest[1], self.bathy_cols, self.bathy_rows))
+                    if closest[1] == self.bathy_rows:
+                        closest[1] -= 1
+                        logger.info("on-top-edge fix: 0 < (%d, %d) >= (%d, %d)"
+                                    % (closest[0], closest[1], self.bathy_cols, self.bathy_rows))
+                else:
+                    logger.debug("skip: 0 < (%d, %d) >= (%d, %d)"
+                                 % (closest[0], closest[1], self.bathy_cols, self.bathy_rows))
+                    continue
 
             # FIXME: bug fix for CARIS misalignments
             # skip if not in the current grid slice (we know the y boundaries of the current slice)
             if (self.valsou_closest_2[i][0] < 0) or (self.valsou_closest_2[i][0] >= self.bathy_cols) or \
                     (self.valsou_closest_2[i][1] < 0) or (self.valsou_closest_2[i][1] >= self.bathy_rows):
-                logger.debug("skipping")
+                logger.debug("skip (fix): 0 < (%d, %d) >= (%d, %d)"
+                             % (self.valsou_closest_2[i][0], self.valsou_closest_2[i][1],
+                                self.bathy_cols, self.bathy_rows))
                 continue
 
             # retrieve the depth value of the closest grid node
