@@ -29,6 +29,7 @@ class FindFliersV8(BaseFliers):
     def __init__(self, grids, height=None,
                  check_laplacian=True, check_curv=True, check_adjacent=True, check_slivers=True,
                  check_isolated=True, check_edges=True,
+                 edges_distance=3, edges_pct_tvu=0.9,
                  filter_fff=False, filter_designated=False,
                  save_proxies=False, save_heights=False, save_curvatures=False,
                  output_folder=None, progress_bar=None):
@@ -54,6 +55,8 @@ class FindFliersV8(BaseFliers):
         self.check_slivers = check_slivers  # 4
         self.check_isolated = check_isolated  # 5
         self.check_edges = check_edges  # 6
+        self.edges_distance = edges_distance
+        self.edges_pct_tvu = edges_pct_tvu
         self.filter_fff = filter_fff
         self.filter_designated = filter_designated
         self.progress = progress_bar
@@ -354,6 +357,7 @@ class FindFliersV8(BaseFliers):
         logger.info("active checks: laplacian: %s, curv: %s, adjacent: %s, slivers: %s, isolated: %s, edges: %s"
                     % (self.check_laplacian, self.check_curv, self.check_adjacent, self.check_slivers,
                        self.check_isolated, self.check_edges))
+        logger.debug("noisy edges -> distance: %d, pct tvu: %.1f" % (self.edges_distance, self.edges_pct_tvu * 100))
         logger.info("active filters: FFF: %s, Designated: %s" % (self.filter_fff, self.filter_designated))
 
         self.bathy_tile = 0
@@ -469,9 +473,9 @@ class FindFliersV8(BaseFliers):
         logging.debug("*** CHECK #6: START ***")
 
         if self.bathy_is_double:
-            check_noisy_edges_double(self.bathy_values, self.flag_grid)
+            check_noisy_edges_double(self.bathy_values, self.flag_grid, self.edges_distance, self.edges_pct_tvu)
         else:
-            check_noisy_edges_float(self.bathy_values, self.flag_grid)
+            check_noisy_edges_float(self.bathy_values, self.flag_grid, self.edges_distance, self.edges_pct_tvu)
 
         logging.debug("*** CHECK #6: END ***")
 

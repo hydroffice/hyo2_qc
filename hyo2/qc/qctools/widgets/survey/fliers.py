@@ -58,11 +58,19 @@ class FliersTab(QtWidgets.QMainWindow):
         self.set_check_slivers_ffv8 = None
         self.set_check_isolated_ffv8 = None
         self.set_check_edges_ffv8 = None
+        self.text_distance = None
+        self.text_distance_2 = None
+        self.text_distance_3 = None
+        self.slider_edges_distance_v8 = None
+        self.text_pct = None
+        self.text_pct_90 = None
+        self.text_pct_100 = None
+        self.text_pct_125 = None
+        self.text_pct_150 = None
+        self.text_pct_200 = None
+        self.slider_edges_pct_tvu_v8 = None
         self.set_filter_fff_ffv8 = None
         self.set_filter_designated_ffv8 = None
-        self.slider_export_proxies_v8 = None
-        self.slider_export_heights_v8 = None
-        self.slider_export_curvatures_v8 = None
         self._ui_settings_ffv8()
         # -- execution
         self.executeFFv8 = QtWidgets.QGroupBox("Execution")
@@ -79,12 +87,34 @@ class FliersTab(QtWidgets.QMainWindow):
         if event.modifiers() == QtCore.Qt.ControlModifier:
 
             # noinspection PyUnresolvedReferences
-            if key == QtCore.Qt.Key_D:
+            if key == QtCore.Qt.Key_6:
 
-                if self.debugFFv8.isHidden():
-                    self.debugFFv8.show()
+                if self.slider_edges_distance_v8.isHidden():
+                    self.slider_edges_distance_v8.show()
+                    self.text_distance.show()
+                    self.text_distance_2.show()
+                    self.text_distance_3.show()
+
+                    self.slider_edges_pct_tvu_v8.show()
+                    self.text_pct.show()
+                    self.text_pct_90.show()
+                    self.text_pct_100.show()
+                    self.text_pct_125.show()
+                    self.text_pct_150.show()
+                    self.text_pct_200.show()
                 else:
-                    self.debugFFv8.hide()
+                    self.slider_edges_distance_v8.hide()
+                    self.text_distance.hide()
+                    self.text_distance_2.hide()
+                    self.text_distance_3.hide()
+
+                    self.slider_edges_pct_tvu_v8.hide()
+                    self.text_pct.hide()
+                    self.text_pct_90.hide()
+                    self.text_pct_100.hide()
+                    self.text_pct_125.hide()
+                    self.text_pct_150.hide()
+                    self.text_pct_200.hide()
 
                 # return True
         return super(FliersTab, self).keyPressEvent(event)
@@ -174,6 +204,103 @@ class FliersTab(QtWidgets.QMainWindow):
         self.set_check_edges_ffv8.setDisabled(True)
         self.set_check_edges_ffv8.setChecked(self.settings.value("survey/ff8_edges", 0) == 1)
         chk_vbox.addWidget(self.set_check_edges_ffv8)
+
+        slider_distance_gbox = QtWidgets.QGridLayout()
+        chk_vbox.addLayout(slider_distance_gbox)
+
+        # labels
+        text_sz = 36
+        text_label = QtWidgets.QLabel("")
+        slider_distance_gbox.addWidget(text_label, 0, 0, 1, 1)
+
+        self.text_distance_2 = QtWidgets.QLabel("2")
+        self.text_distance_2.setFixedWidth(text_sz)
+        self.text_distance_2.setAlignment(QtCore.Qt.AlignLeft)
+        self.text_distance_2.setStyleSheet(GuiSettings.stylesheet_slider_labels())
+        self.text_distance_2.setDisabled(True)
+        self.text_distance_2.setHidden(True)
+        slider_distance_gbox.addWidget(self.text_distance_2, 0, 1, 1, 4)
+        self.text_distance_3 = QtWidgets.QLabel("3")
+        self.text_distance_3.setFixedWidth(text_sz)
+        self.text_distance_3.setAlignment(QtCore.Qt.AlignRight)
+        self.text_distance_3.setStyleSheet(GuiSettings.stylesheet_slider_labels())
+        self.text_distance_3.setDisabled(True)
+        self.text_distance_3.setHidden(True)
+        slider_distance_gbox.addWidget(self.text_distance_3, 0, 5, 1, 1)
+
+        self.text_distance = QtWidgets.QLabel("Distance")
+        self.text_distance.setHidden(True)
+        self.text_distance.setDisabled(True)
+        slider_distance_gbox.addWidget(self.text_distance, 1, 0, 1, 1)
+
+        self.slider_edges_distance_v8 = QtWidgets.QSlider(QtCore.Qt.Horizontal)
+        self.slider_edges_distance_v8.setRange(2, 3)
+        self.slider_edges_distance_v8.setSingleStep(1)
+        self.slider_edges_distance_v8.setValue(3)
+        self.slider_edges_distance_v8.setTickInterval(1)
+        self.slider_edges_distance_v8.setTickPosition(QtWidgets.QSlider.TicksBelow)
+        self.slider_edges_distance_v8.setDisabled(True)
+        self.slider_edges_distance_v8.setHidden(True)
+        slider_distance_gbox.addWidget(self.slider_edges_distance_v8, 1, 1, 1, 5)
+
+        slider_pct_gbox = QtWidgets.QGridLayout()
+        chk_vbox.addLayout(slider_pct_gbox)
+
+        # labels
+        text_sz = 36
+        text_label = QtWidgets.QLabel("")
+        slider_pct_gbox.addWidget(text_label, 0, 0, 1, 1)
+
+        self.text_pct_90 = QtWidgets.QLabel("90")
+        self.text_pct_90.setFixedWidth(text_sz)
+        self.text_pct_90.setAlignment(QtCore.Qt.AlignLeft)
+        self.text_pct_90.setStyleSheet(GuiSettings.stylesheet_slider_labels())
+        self.text_pct_90.setDisabled(True)
+        self.text_pct_90.setHidden(True)
+        slider_pct_gbox.addWidget(self.text_pct_90, 0, 1, 1, 1)
+        self.text_pct_100 = QtWidgets.QLabel("100")
+        self.text_pct_100.setFixedWidth(text_sz)
+        self.text_pct_100.setAlignment(QtCore.Qt.AlignLeft)
+        self.text_pct_100.setStyleSheet(GuiSettings.stylesheet_slider_labels())
+        self.text_pct_100.setDisabled(True)
+        self.text_pct_100.setHidden(True)
+        slider_pct_gbox.addWidget(self.text_pct_100, 0, 2, 1, 1)
+        self.text_pct_125 = QtWidgets.QLabel("125")
+        self.text_pct_125.setFixedWidth(text_sz)
+        self.text_pct_125.setAlignment(QtCore.Qt.AlignCenter)
+        self.text_pct_125.setStyleSheet(GuiSettings.stylesheet_slider_labels())
+        self.text_pct_125.setDisabled(True)
+        self.text_pct_125.setHidden(True)
+        slider_pct_gbox.addWidget(self.text_pct_125, 0, 3, 1, 1)
+        self.text_pct_150 = QtWidgets.QLabel("150")
+        self.text_pct_150.setFixedWidth(text_sz)
+        self.text_pct_150.setAlignment(QtCore.Qt.AlignRight)
+        self.text_pct_150.setStyleSheet(GuiSettings.stylesheet_slider_labels())
+        self.text_pct_150.setDisabled(True)
+        self.text_pct_150.setHidden(True)
+        slider_pct_gbox.addWidget(self.text_pct_150, 0, 4, 1, 1)
+        self.text_pct_200 = QtWidgets.QLabel("200")
+        self.text_pct_200.setFixedWidth(text_sz)
+        self.text_pct_200.setAlignment(QtCore.Qt.AlignRight)
+        self.text_pct_200.setStyleSheet(GuiSettings.stylesheet_slider_labels())
+        self.text_pct_200.setDisabled(True)
+        self.text_pct_200.setHidden(True)
+        slider_pct_gbox.addWidget(self.text_pct_200, 0, 5, 1, 1)
+
+        self.text_pct = QtWidgets.QLabel("Pct. TVU")
+        self.text_pct.setHidden(True)
+        self.text_pct.setDisabled(True)
+        slider_pct_gbox.addWidget(self.text_pct, 1, 0, 1, 1)
+
+        self.slider_edges_pct_tvu_v8 = QtWidgets.QSlider(QtCore.Qt.Horizontal)
+        self.slider_edges_pct_tvu_v8.setRange(1, 5)
+        self.slider_edges_pct_tvu_v8.setSingleStep(1)
+        self.slider_edges_pct_tvu_v8.setValue(1)
+        self.slider_edges_pct_tvu_v8.setTickInterval(1)
+        self.slider_edges_pct_tvu_v8.setTickPosition(QtWidgets.QSlider.TicksBelow)
+        self.slider_edges_pct_tvu_v8.setDisabled(True)
+        self.slider_edges_pct_tvu_v8.setHidden(True)
+        slider_pct_gbox.addWidget(self.slider_edges_pct_tvu_v8, 1, 1, 1, 5)
 
         hbox.addStretch()
 
@@ -320,6 +447,17 @@ class FliersTab(QtWidgets.QMainWindow):
             self.set_check_slivers_ffv8.setEnabled(True)
             self.set_check_isolated_ffv8.setEnabled(True)
             self.set_check_edges_ffv8.setEnabled(True)
+            self.text_distance.setEnabled(True)
+            self.text_distance_2.setEnabled(True)
+            self.text_distance_3.setEnabled(True)
+            self.slider_edges_distance_v8.setEnabled(True)
+            self.text_pct.setEnabled(True)
+            self.text_pct_90.setEnabled(True)
+            self.text_pct_100.setEnabled(True)
+            self.text_pct_125.setEnabled(True)
+            self.text_pct_150.setEnabled(True)
+            self.text_pct_200.setEnabled(True)
+            self.slider_edges_pct_tvu_v8.setEnabled(True)
 
             self.set_distance_label_ffv8.setEnabled(True)
             self.set_distance_label2_ffv8.setEnabled(True)
@@ -347,6 +485,17 @@ class FliersTab(QtWidgets.QMainWindow):
             self.set_check_slivers_ffv8.setDisabled(True)
             self.set_check_isolated_ffv8.setDisabled(True)
             self.set_check_edges_ffv8.setDisabled(True)
+            self.text_distance.setDisabled(True)
+            self.text_distance_2.setDisabled(True)
+            self.text_distance_3.setDisabled(True)
+            self.slider_edges_distance_v8.setDisabled(True)
+            self.text_pct.setDisabled(True)
+            self.text_pct_90.setDisabled(True)
+            self.text_pct_100.setDisabled(True)
+            self.text_pct_125.setDisabled(True)
+            self.text_pct_150.setDisabled(True)
+            self.text_pct_200.setDisabled(True)
+            self.slider_edges_pct_tvu_v8.setDisabled(True)
 
             self.set_distance_label_ffv8.setDisabled(True)
             self.set_distance_label2_ffv8.setDisabled(True)
@@ -482,8 +631,27 @@ class FliersTab(QtWidgets.QMainWindow):
         else:
             raise RuntimeError("unknown Find Fliers' version: %s" % version)
 
-        self.parent_win.change_info_url(Helper(lib_info=lib_info).web_url(suffix="survey_find_fliers_%d_fh_%s"
-                                                                                 % (version, height_mode)))
+        ck = "c"
+        if self.set_check_laplacian_ffv8.isChecked():
+            ck += "1"
+        if self.set_check_curv_ffv8.isChecked():
+            ck += "2"
+        if self.set_check_adjacent_ffv8.isChecked():
+            ck += "3"
+        if self.set_check_slivers_ffv8.isChecked():
+            ck += "4"
+        if self.set_check_isolated_ffv8.isChecked():
+            ck += "5"
+        if self.set_check_edges_ffv8.isChecked():
+            ck += "6"
+        ck += "f"
+        if self.set_filter_fff_ffv8.isChecked():
+            ck += "1"
+        if self.set_filter_designated_ffv8.isChecked():
+            ck += "2"
+
+        self.parent_win.change_info_url(Helper(lib_info=lib_info).web_url(suffix="survey_find_fliers_%d_fh_%s_%s"
+                                                                                 % (version, height_mode, ck)))
 
         self._parse_user_height(version=version)
 
@@ -695,6 +863,18 @@ class FliersTab(QtWidgets.QMainWindow):
                 else:
                     settings.setValue("survey/ff8_designated", 0)
 
+                edges_distance = self.slider_edges_distance_v8.value()
+                edges_pct_int = self.slider_edges_pct_tvu_v8.value()
+                edges_pct = 0.9
+                if edges_pct_int == 2:
+                    edges_pct = 1.0
+                elif edges_pct_int == 3:
+                    edges_pct = 1.25
+                elif edges_pct_int == 4:
+                    edges_pct = 1.5
+                elif edges_pct_int == 5:
+                    edges_pct = 2.0
+
                 self.prj.find_fliers_v8(height=height,
                                         check_laplacian=self.set_check_laplacian_ffv8.isChecked(),
                                         check_curv=self.set_check_curv_ffv8.isChecked(),
@@ -702,6 +882,7 @@ class FliersTab(QtWidgets.QMainWindow):
                                         check_slivers=self.set_check_slivers_ffv8.isChecked(),
                                         check_isolated=self.set_check_isolated_ffv8.isChecked(),
                                         check_edges=self.set_check_edges_ffv8.isChecked(),
+                                        edges_distance=edges_distance, edges_pct_tvu=edges_pct,
                                         filter_fff=self.set_filter_fff_ffv8.isChecked(),
                                         filter_designated=self.set_filter_designated_ffv8.isChecked(),
                                         export_proxies=save_proxies,

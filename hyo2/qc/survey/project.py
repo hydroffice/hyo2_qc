@@ -179,6 +179,7 @@ class SurveyProject(BaseProject):
     def find_fliers_v8(self, height,
                        check_laplacian=False, check_curv=True, check_adjacent=True,
                        check_slivers=True, check_isolated=True, check_edges=False,
+                       edges_distance=3, edges_pct_tvu=0.9,
                        filter_fff=False, filter_designated=False,
                        export_proxies=False, export_heights=False, export_curvatures=False,
                        progress_bar=None):
@@ -198,6 +199,8 @@ class SurveyProject(BaseProject):
                                         check_slivers=check_slivers,
                                         check_isolated=check_isolated,
                                         check_edges=check_edges,
+                                        edges_distance=edges_distance,
+                                        edges_pct_tvu=edges_pct_tvu,
                                         filter_fff=filter_fff,
                                         filter_designated=filter_designated,
                                         save_proxies=export_proxies,

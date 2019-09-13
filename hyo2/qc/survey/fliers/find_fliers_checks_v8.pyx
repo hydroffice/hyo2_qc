@@ -637,9 +637,9 @@ cpdef check_adjacent_cells_float(float[:, :] bathy, int[:, :] flag_grid, float t
 @cython.wraparound(False)
 @cython.nonecheck(False)
 #@cython.profile(True)
-cpdef check_noisy_edges_double(double[:, :] bathy, int[:, :] flag_grid):
+cpdef check_noisy_edges_double(double[:, :] bathy, int[:, :] flag_grid, int dist, float cf):
 
-    logging.debug("[noisy edges] double bathy")
+    logging.debug("[noisy edges] double bathy (dist: %d, cf: %.2f)" % (dist, cf))
 
     cdef np.npy_intp rows = bathy.shape[0]  # number of rows
     cdef np.npy_intp cols = bathy.shape[1]  # number of columns
@@ -686,7 +686,7 @@ cpdef check_noisy_edges_double(double[:, :] bathy, int[:, :] flag_grid):
                 if flag_grid[r, c - 2] != 0:
                     continue
                 dep_ngb = bathy[r, c - 2]
-            if npy_isnan(dep_ngb) and c > 2:
+            if npy_isnan(dep_ngb) and c > 2 and dist > 2:
                 if flag_grid[r, c - 3] != 0:
                     continue
                 dep_ngb = bathy[r, c - 3]
@@ -710,7 +710,7 @@ cpdef check_noisy_edges_double(double[:, :] bathy, int[:, :] flag_grid):
                 if flag_grid[r, c + 2] != 0:
                     continue
                 dep_ngb = bathy[r, c + 2]
-            if npy_isnan(dep_ngb) and (c < cols - 3):
+            if npy_isnan(dep_ngb) and (c < cols - 3) and dist > 2:
                 if flag_grid[r, c + 3] != 0:
                     continue
                 dep_ngb = bathy[r, c + 3]
@@ -734,7 +734,7 @@ cpdef check_noisy_edges_double(double[:, :] bathy, int[:, :] flag_grid):
                 if flag_grid[r - 2, c] != 0:
                     continue
                 dep_ngb = bathy[r - 2, c]
-            if npy_isnan(dep_ngb) and r > 2:
+            if npy_isnan(dep_ngb) and r > 2  and dist > 2:
                 if flag_grid[r - 3, c] != 0:
                     continue
                 dep_ngb = bathy[r - 3, c]
@@ -758,7 +758,7 @@ cpdef check_noisy_edges_double(double[:, :] bathy, int[:, :] flag_grid):
                 if flag_grid[r + 2, c] != 0:
                     continue
                 dep_ngb = bathy[r + 2, c]
-            if npy_isnan(dep_ngb) and (r < rows - 3):
+            if npy_isnan(dep_ngb) and (r < rows - 3)  and dist > 2:
                 if flag_grid[r + 3, c] != 0:
                     continue
                 dep_ngb = bathy[r + 3, c]
@@ -778,7 +778,7 @@ cpdef check_noisy_edges_double(double[:, :] bathy, int[:, :] flag_grid):
             if flag_grid[r - 1, c - 1] != 0:
                 continue
             dep_ngb = bathy[r - 1, c - 1]
-            if npy_isnan(dep_ngb) and r > 1 and c > 1:
+            if npy_isnan(dep_ngb) and r > 1 and c > 1  and dist > 2:
                 if flag_grid[r - 2, c - 2] != 0:
                     continue
                 dep_ngb = bathy[r - 2, c - 2]
@@ -802,7 +802,7 @@ cpdef check_noisy_edges_double(double[:, :] bathy, int[:, :] flag_grid):
             if flag_grid[r + 1, c + 1] != 0:
                 continue
             dep_ngb = bathy[r + 1, c + 1]
-            if npy_isnan(dep_ngb) and (r < rows - 2) and (c < cols - 2):
+            if npy_isnan(dep_ngb) and (r < rows - 2) and (c < cols - 2) and dist > 2:
                 if flag_grid[r + 2, c + 2] != 0:
                     continue
                 dep_ngb = bathy[r + 2, c + 2]
@@ -826,7 +826,7 @@ cpdef check_noisy_edges_double(double[:, :] bathy, int[:, :] flag_grid):
             if flag_grid[r - 1, c + 1] != 0:
                 continue
             dep_ngb = bathy[r - 1, c + 1]
-            if npy_isnan(dep_ngb) and r > 1 and (c < cols - 2):
+            if npy_isnan(dep_ngb) and r > 1 and (c < cols - 2) and dist > 2:
                 if flag_grid[r - 2, c + 2] != 0:
                     continue
                 dep_ngb = bathy[r - 2, c + 2]
@@ -850,7 +850,7 @@ cpdef check_noisy_edges_double(double[:, :] bathy, int[:, :] flag_grid):
             if flag_grid[r + 1, c - 1] != 0:
                 continue
             dep_ngb = bathy[r + 1, c - 1]
-            if npy_isnan(dep_ngb) and (r < rows - 2) and c > 1:
+            if npy_isnan(dep_ngb) and (r < rows - 2) and c > 1  and dist > 2:
                 if flag_grid[r + 2, c - 2] != 0:
                     continue
                 dep_ngb = bathy[r + 2, c - 2]
@@ -880,7 +880,7 @@ cpdef check_noisy_edges_double(double[:, :] bathy, int[:, :] flag_grid):
             else:
                 th = (1. + (0.023 * -min_dep) ** 2) ** 0.5
 
-            if max_diff > 0.9 * th:
+            if max_diff > cf * th:
                 flag_grid[r, c] = 6  # check #6
                 logger.debug("(%s, %s) count: %s, max diff: %.2f, min z: %.2f -> th: %.2f"
                              % (r, c, ngb_cnt, max_diff, min_dep, th))
@@ -891,9 +891,9 @@ cpdef check_noisy_edges_double(double[:, :] bathy, int[:, :] flag_grid):
 @cython.wraparound(False)
 @cython.nonecheck(False)
 #@cython.profile(True)
-cpdef check_noisy_edges_float(float[:, :] bathy, int[:, :] flag_grid):
+cpdef check_noisy_edges_float(float[:, :] bathy, int[:, :] flag_grid, int dist, float cf):
 
-    logging.debug("[noisy edges] float bathy")
+    logging.debug("[noisy edges] float bathy (dist: %d, cf: %.2f)" % (dist, cf))
 
     cdef np.npy_intp rows = bathy.shape[0]  # number of rows
     cdef np.npy_intp cols = bathy.shape[1]  # number of columns
@@ -940,7 +940,7 @@ cpdef check_noisy_edges_float(float[:, :] bathy, int[:, :] flag_grid):
                 if flag_grid[r, c - 2] != 0:
                     continue
                 dep_ngb = bathy[r, c - 2]
-            if npy_isnan(dep_ngb) and c > 2:
+            if npy_isnan(dep_ngb) and c > 2  and dist > 2:
                 if flag_grid[r, c - 3] != 0:
                     continue
                 dep_ngb = bathy[r, c - 3]
@@ -964,7 +964,7 @@ cpdef check_noisy_edges_float(float[:, :] bathy, int[:, :] flag_grid):
                 if flag_grid[r, c + 2] != 0:
                     continue
                 dep_ngb = bathy[r, c + 2]
-            if npy_isnan(dep_ngb) and (c < cols - 3):
+            if npy_isnan(dep_ngb) and (c < cols - 3) and dist > 2:
                 if flag_grid[r, c + 3] != 0:
                     continue
                 dep_ngb = bathy[r, c + 3]
@@ -988,7 +988,7 @@ cpdef check_noisy_edges_float(float[:, :] bathy, int[:, :] flag_grid):
                 if flag_grid[r - 2, c] != 0:
                     continue
                 dep_ngb = bathy[r - 2, c]
-            if npy_isnan(dep_ngb) and r > 2:
+            if npy_isnan(dep_ngb) and r > 2 and dist > 2:
                 if flag_grid[r - 3, c] != 0:
                     continue
                 dep_ngb = bathy[r - 3, c]
@@ -1012,7 +1012,7 @@ cpdef check_noisy_edges_float(float[:, :] bathy, int[:, :] flag_grid):
                 if flag_grid[r + 2, c] != 0:
                     continue
                 dep_ngb = bathy[r + 2, c]
-            if npy_isnan(dep_ngb) and (r < rows - 3):
+            if npy_isnan(dep_ngb) and (r < rows - 3) and dist > 2:
                 if flag_grid[r + 3, c] != 0:
                     continue
                 dep_ngb = bathy[r + 3, c]
@@ -1032,7 +1032,7 @@ cpdef check_noisy_edges_float(float[:, :] bathy, int[:, :] flag_grid):
             if flag_grid[r - 1, c - 1] != 0:
                 continue
             dep_ngb = bathy[r - 1, c - 1]
-            if npy_isnan(dep_ngb) and r > 1 and c > 1:
+            if npy_isnan(dep_ngb) and r > 1 and c > 1 and dist > 2:
                 if flag_grid[r - 2, c - 2] != 0:
                     continue
                 dep_ngb = bathy[r - 2, c - 2]
@@ -1056,7 +1056,7 @@ cpdef check_noisy_edges_float(float[:, :] bathy, int[:, :] flag_grid):
             if flag_grid[r + 1, c + 1] != 0:
                 continue
             dep_ngb = bathy[r + 1, c + 1]
-            if npy_isnan(dep_ngb) and (r < rows - 2) and (c < cols - 2):
+            if npy_isnan(dep_ngb) and (r < rows - 2) and (c < cols - 2) and dist > 2:
                 if flag_grid[r + 2, c + 2] != 0:
                     continue
                 dep_ngb = bathy[r + 2, c + 2]
@@ -1080,7 +1080,7 @@ cpdef check_noisy_edges_float(float[:, :] bathy, int[:, :] flag_grid):
             if flag_grid[r - 1, c + 1] != 0:
                 continue
             dep_ngb = bathy[r - 1, c + 1]
-            if npy_isnan(dep_ngb) and r > 1 and (c < cols - 2):
+            if npy_isnan(dep_ngb) and r > 1 and (c < cols - 2) and dist > 2:
                 if flag_grid[r - 2, c + 2] != 0:
                     continue
                 dep_ngb = bathy[r - 2, c + 2]
@@ -1104,7 +1104,7 @@ cpdef check_noisy_edges_float(float[:, :] bathy, int[:, :] flag_grid):
             if flag_grid[r + 1, c - 1] != 0:
                 continue
             dep_ngb = bathy[r + 1, c - 1]
-            if npy_isnan(dep_ngb) and (r < rows - 2) and c > 1:
+            if npy_isnan(dep_ngb) and (r < rows - 2) and c > 1 and dist > 2:
                 if flag_grid[r + 2, c - 2] != 0:
                     continue
                 dep_ngb = bathy[r + 2, c - 2]
@@ -1136,7 +1136,7 @@ cpdef check_noisy_edges_float(float[:, :] bathy, int[:, :] flag_grid):
             else:
                 th = (1. + (0.023 * -min_dep) ** 2) ** 0.5
 
-            if max_diff > 0.9 * th:
+            if max_diff > cf * th:
                 flag_grid[r, c] = 6  # check #6
                 logger.debug("(%s, %s) count: %s, max diff: %.2f, min z: %.2f -> th: %.2f"
                              % (r, c, ngb_cnt, max_diff, min_dep, th))
