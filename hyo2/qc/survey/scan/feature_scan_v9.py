@@ -1635,9 +1635,13 @@ class FeatureScanV9(BaseScan):
 
         # @ Isolate new or updated seabed areas
         sbdare = S57Aux.select_by_object(objects=new_update_features, object_filter=['SBDARE', ])
+
+        # Isolate sbdare lines and areas
+        sbdare_lines_areas = S57Aux.select_lines_and_areas(sbdare)
+
         # @ Ensure new or updated seabed areas have natsur
-        self.report += "New or Updated SBDARE with empty/missing mandatory attribute NATSUR [CHECK]"
-        self.flagged_sbdare_natsur = self.flag_features_with_attribute_value(sbdare, attribute='NATSUR',
+        self.report += "New or Updated SBDARE lines and areas with empty/missing mandatory attribute NATSUR [CHECK]"
+        self.flagged_sbdare_natsur = self.flag_features_with_attribute_value(sbdare_lines_areas, attribute='NATSUR',
                                                                              values_to_flag=['', ],
                                                                              check_attrib_existence=True)
         # @ Isolate new or updated point seabed areas
@@ -1652,8 +1656,6 @@ class FeatureScanV9(BaseScan):
         self.report += "No unallowable combinations of NATSUR and NATQUA [CHECK]"
         self.flagged_sbdare_pt_allowable_combo = self.allowable_sbdare(sbdare_points)
 
-        # @ Isolate line and area seabed areas
-        sbdare_lines_areas = S57Aux.select_lines_and_areas(sbdare)
         # @ Ensure line and area seabed areas have watlev
         self.report += "New or Updated SBDARE lines or areas missing mandatory attribute WATLEV [CHECK]"
         self.flagged_sbdare_watlev = self.check_features_for_attribute(sbdare_lines_areas, 'WATLEV', possible=True)
@@ -1990,9 +1992,13 @@ class FeatureScanV9(BaseScan):
 
         # @ Isolate new or updated seabed areas
         sbdare = S57Aux.select_by_object(objects=new_update_features, object_filter=['SBDARE', ])
+
+        # Isolate sbdare lines and areas
+        sbdare_lines_areas = S57Aux.select_lines_and_areas(sbdare)
+
         # @ Ensure new or updated seabed areas have natsur
-        self.report += "New or Updated SBDARE with empty/missing mandatory attribute NATSUR [CHECK]"
-        self.flagged_sbdare_natsur = self.flag_features_with_attribute_value(sbdare, attribute='NATSUR',
+        self.report += "New or Updated SBDARE lines and areas with empty/missing mandatory attribute NATSUR [CHECK]"
+        self.flagged_sbdare_natsur = self.flag_features_with_attribute_value(sbdare_lines_areas, attribute='NATSUR',
                                                                              values_to_flag=['', ],
                                                                              check_attrib_existence=True)
         # @ Isolate new or updated point seabed areas
@@ -2007,8 +2013,6 @@ class FeatureScanV9(BaseScan):
         self.report += "No unallowable combinations of NATSUR and NATQUA [CHECK]"
         self.flagged_sbdare_pt_allowable_combo = self.allowable_sbdare(sbdare_points)
 
-        # @ Isolate line and area seabed areas
-        sbdare_lines_areas = S57Aux.select_lines_and_areas(sbdare)
         # @ Ensure line and area seabed areas have watlev
         self.report += "New or Updated SBDARE lines or areas missing mandatory attribute WATLEV [CHECK]"
         self.flagged_sbdare_watlev = self.check_features_for_attribute(sbdare_lines_areas, 'WATLEV', possible=True)
@@ -2343,11 +2347,16 @@ class FeatureScanV9(BaseScan):
 
         # @ Isolate new or updated seabed areas
         sbdare = S57Aux.select_by_object(objects=new_update_features, object_filter=['SBDARE', ])
+
+        # Isolate sbdare lines and areas
+        sbdare_lines_areas = S57Aux.select_lines_and_areas(sbdare)
+
         # @ Ensure new or updated seabed areas have natsur
-        self.report += "New or Updated SBDARE with empty/missing mandatory attribute NATSUR [CHECK]"
-        self.flagged_sbdare_natsur = self.flag_features_with_attribute_value(sbdare, attribute='NATSUR',
+        self.report += "New or Updated SBDARE lines and areas with empty/missing mandatory attribute NATSUR [CHECK]"
+        self.flagged_sbdare_natsur = self.flag_features_with_attribute_value(sbdare_lines_areas, attribute='NATSUR',
                                                                              values_to_flag=['', ],
                                                                              check_attrib_existence=True)
+
         # @ Isolate new or updated point seabed areas
         sbdare_points = S57Aux.select_only_points(sbdare)
         # @ Ensure not more natqua than natsur
@@ -2360,8 +2369,6 @@ class FeatureScanV9(BaseScan):
         self.report += "No unallowable combinations of NATSUR and NATQUA [CHECK]"
         self.flagged_sbdare_pt_allowable_combo = self.allowable_sbdare(sbdare_points)
 
-        # @ Isolate line and area seabed areas
-        sbdare_lines_areas = S57Aux.select_lines_and_areas(sbdare)
         # @ Ensure line and area seabed areas have watlev
         self.report += "New or Updated SBDARE lines or areas missing mandatory attribute WATLEV [CHECK]"
         self.flagged_sbdare_watlev = self.check_features_for_attribute(sbdare_lines_areas, 'WATLEV', possible=True)

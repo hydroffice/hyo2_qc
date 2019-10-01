@@ -502,6 +502,7 @@ class ScanTab(QtWidgets.QMainWindow):
         self.toggle_profile_v9.setRange(0, 1)
         self.toggle_profile_v9.setFixedSize(QtCore.QSize(50, 50))
         self.toggle_profile_v9.setInvertedAppearance(False)
+        self.toggle_profile_v9.setSliderPosition(1)
         toggle_hbox.addWidget(self.toggle_profile_v9)
         # noinspection PyUnresolvedReferences
         self.toggle_profile_v9.valueChanged.connect(self.click_set_profile_v9)
