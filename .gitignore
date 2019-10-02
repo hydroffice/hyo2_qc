@@ -59,6 +59,7 @@ docs/_build/*
 *.pyxbldc
 
 # notebooks checkpoint
+examples/notebooks/.ipynb_checkpoints/
 examples/.ipynb_checkpoints/
 
 # Downloaded/Created data

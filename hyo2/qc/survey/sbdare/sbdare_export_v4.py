@@ -164,6 +164,7 @@ class SbdareExportV4(BaseSbdare):
 
         # finalize ASCII file
         ascii_fod.close()
+        ds = None
 
         return self._finalize_generate_output(root_folder=output_folder, base_folder=output_name, remove_folder=False)
 
