@@ -42,6 +42,8 @@ How to Use?
 
     SBDARE exports output message.
 
+* The output positions are in **WGS84 coordinates**.
+
 * The output is in the proper format for archival.
 
 |
@@ -57,7 +59,7 @@ For both settings, SBDARE export selects only SBDARE point features in the featu
 
 When the toggle is set to the **HTD 2013-3**, SBDARE features are exported into a semicolon delimited ASCII with the following information: Latitude, Longitude, Observed time, Colour, Nature of surface - qualifying terms, Nature of surface; Remarks, Source date, and Source indication. 
 
-When the toggle is set to the **HTD 2014-4**, SBDARE features are exported into two different files: a semicolon delimited ASCII and a shape file. 
+When the toggle is set to the **HTD 2018-4**, SBDARE features are exported into two different files: a semicolon delimited ASCII and a shape file.
 
 Both the semicolon delimited ASCII file and the shape file contain the following information: Latitude, Longitude, Observed time, Colour, Nature of surface - qualifying terms, Nature of surface, Remarks, Source date, Source indication, Images, CMECS Co-occurring Element 1 Name, and CMECS Co-occurring Element 1 Code, CMECS Co-occurring Element 2 Name, and CMECS Co-occurring Element 2 Code.
 
@@ -67,4 +69,4 @@ If **"Set EXIF GPS in JPEG images to S57 position"** is selected, all associated
 
 SBDARE export translates the **NATSUR** and **NATQUA** to the appropriate Coastal and Marine Ecological Classification Standard June 2012 (**CMECS**) standard. A crosswalk table used for this classification can be found in Appendix E of HTD 2018-4 Bottom Sample Drop Camera Imagery. 
 
-A zip file is created containing the shape file and "Images" folder with the images. If no images are available, a text file is created indication that the image folder is intentionally left empty. 
+A zip file is created containing the shape file and "Images" folder with the images. If no images are available, a text file is created indication that the image folder is intentionally left empty.
