@@ -22,6 +22,10 @@ class ScanTab(QtWidgets.QMainWindow):
         self.parent_win = parent_win
         self.media = self.parent_win.media
 
+        self.settings = QtCore.QSettings()
+        self.settings.setValue("survey/scan_v8", self.settings.value("survey/scan_v8", 0))
+        self.prj.active_profile = self.settings.value("survey/scan_v8", 0)
+
         # ui
         self.panel = QtWidgets.QFrame()
         self.setCentralWidget(self.panel)
@@ -502,7 +506,7 @@ class ScanTab(QtWidgets.QMainWindow):
         self.toggle_profile_v9.setRange(0, 1)
         self.toggle_profile_v9.setFixedSize(QtCore.QSize(50, 50))
         self.toggle_profile_v9.setInvertedAppearance(False)
-        self.toggle_profile_v9.setSliderPosition(1)
+        self.toggle_profile_v9.setSliderPosition(self.settings.value("survey/scan_v8", 0))
         toggle_hbox.addWidget(self.toggle_profile_v9)
         # noinspection PyUnresolvedReferences
         self.toggle_profile_v9.valueChanged.connect(self.click_set_profile_v9)
@@ -755,6 +759,7 @@ class ScanTab(QtWidgets.QMainWindow):
         """ Change the profile in use """
         self.prj.active_profile = value
         self.toggle_profile_v9.setValue(value)
+        self.settings.setValue("survey/scan_v8", value)
         logger.info('activated profile #%s' % value)
 
     def change_use_mhw_v9(self):
