@@ -363,16 +363,6 @@ class FindFliersV8(BaseFliers):
         self.bathy_tile = 0
         while self.grids.read_next_tile(layers=[self.grids.depth_layer_name(), ]):
 
-            if self.progress is not None:
-                if self.progress.value < 50:
-                    self.progress.add(quantum=10)
-                elif self.progress.value < 75:
-                    self.progress.add(quantum=1)
-                elif self.progress.value < 90:
-                    self.progress.add(quantum=0.1)
-                elif self.progress.value <= 99:
-                    self.progress.add(quantum=0.0001)
-
             self._run_slice()
             self.grids.clear_tiles()
             self.bathy_tile += 1
