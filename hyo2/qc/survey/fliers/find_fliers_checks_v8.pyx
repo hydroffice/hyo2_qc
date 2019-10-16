@@ -115,8 +115,9 @@ cpdef check_adjacent_cells_double(double[:, :] bathy, int[:, :] flag_grid, float
 
     for r in range(rows):  # we get the row
 
-        if (r == 0) or (r == rows - 1):
-            continue
+        # Historically, we were skipping the first and the last row
+        # if (r == 0) or (r == rows - 1):
+        #     continue
 
         for c in range(cols):  # we get the column
 
@@ -384,8 +385,9 @@ cpdef check_adjacent_cells_float(float[:, :] bathy, int[:, :] flag_grid, float t
 
     for r in range(rows):  # we get the row
 
-        if (r == 0) or (r == rows - 1):
-            continue
+        # Historically, we were skipping the first and the last row
+        # if (r == 0) or (r == rows - 1):
+        #     continue
 
         for c in range(cols):  # we get the column
 
