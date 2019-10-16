@@ -67,7 +67,6 @@ cpdef check_gaussian_curvature_double(double[:, :] gauss_curv, int[:, :] flag_gr
     lap_rows = gauss_curv.shape[0]
     lap_cols = gauss_curv.shape[1]
     for r in range(lap_rows):
-        find = False
         for c in range(lap_cols):
             if gauss_curv[r,c] > th:
                 flag_grid[r, c] = 2 # check #2
@@ -87,7 +86,6 @@ cpdef check_gaussian_curvature_float(float[:, :] gauss_curv, int[:, :] flag_grid
     lap_rows = gauss_curv.shape[0]
     lap_cols = gauss_curv.shape[1]
     for r in range(lap_rows):
-        find = False
         for c in range(lap_cols):
             if gauss_curv[r,c] > th:
                 flag_grid[r, c] = 2 # check #2

@@ -160,6 +160,18 @@ class FindFliersV8(BaseFliers):
         self.gauss_curv = (gxx * gyy - (gxy ** 2)) / (1 + (self.gx ** 2) + (self.gy ** 2)) ** 2
         self.std_gauss_curv = np.std(self.gauss_curv)
 
+        # comment out for visual debugging
+        # from matplotlib import pyplot as plt
+        # plt.ion()
+        # plt.figure()
+        # plt.subplot(211)
+        # plt.imshow(self.dtm_mask, origin="lower")
+        # plt.colorbar()
+        # plt.subplot(212)
+        # plt.imshow(self.gauss_curv, origin="lower")
+        # plt.colorbar()
+        # plt.show()
+
         # logger.info("non masked values: %d" % self.dtm_mask.count())
         # logger.info("gx: %s" % self.gx)
         # logger.info("gy: %s" % self.gy)
@@ -411,6 +423,20 @@ class FindFliersV8(BaseFliers):
         th = -4. * self.cur_height
 
         lap = ndimage.filters.laplace(self.bathy_values)
+
+        # comment out for visual debugging
+        # from matplotlib import pyplot as plt
+        # plt.ion()
+        # plt.figure()
+        # plt.subplot(211)
+        # plt.imshow(self.dtm_mask, origin="lower")
+        # plt.colorbar()
+        # plt.title("Elevation")
+        # plt.subplot(212)
+        # plt.imshow(lap, origin="lower")
+        # plt.colorbar()
+        # plt.title("Laplacian - th: %s" % th)
+        # plt.show()
 
         if self.bathy_is_double:
             check_laplacian_operator_double(lap, self.flag_grid, th)
