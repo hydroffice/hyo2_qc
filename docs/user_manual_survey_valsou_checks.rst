@@ -11,7 +11,14 @@ How To Use?
 
 Ensure surveyed features are properly accounted for in the gridded bathymetry.
 
-In order to access this tool, load a grid and an S-57 file into the **Data Inputs** tab. 
+In order to access this tool, load a grid and an S-57 file into the **Data Inputs** tab.
+
+.. note::
+	**VR CSAR**: this tool may provide false positives due to current limitations in accessing designated soundings through the CARIS SDK.
+
+.. note::
+	**VR BAG**: this tool may provide false positives because grids created with CARIS apps do not currently contain the location of designated soundings.
+
 
 * Select the **VALSOU check** tab (:numref:`fig_valsou_check`) on the bottom of the QC Tools interface.
 
