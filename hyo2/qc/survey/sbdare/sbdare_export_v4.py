@@ -246,7 +246,8 @@ class SbdareExportV4(BaseSbdare):
                     info.natsur_list = info.natsur_list[:3]
 
             elif attribute.acronym == 'remrks':
-                info.remrks = self._commaed_str(attribute.value)
+                info.remrks = self._commaed_str(attribute.value.replace(";", "--")).replace(",","-")
+                info.remrks = info.remrks.replace(",", " ")
 
             elif attribute.acronym == 'SORDAT':
                 info.sordat = attribute.value.strip()
