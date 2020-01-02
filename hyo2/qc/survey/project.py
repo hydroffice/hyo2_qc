@@ -955,7 +955,7 @@ class SurveyProject(BaseProject):
     def feature_scan(self, version: int, specs_version: str,
                      survey_area: int = survey_areas["Pacific Coast"], use_mhw: bool = False, mhw_value: float = 0.0,
                      sorind: Optional[str] = None, sordat: Optional[str] = None,
-                     multimedia_folder: Optional[str] = None):
+                     multimedia_folder: Optional[str] = None, use_htd: bool = False):
 
         # sanity checks
         # - version
@@ -985,7 +985,7 @@ class SurveyProject(BaseProject):
             if version in [8, 9]:
                 self._feature_scan(feature_file=s57_file, version=version, specs_version=specs_version,
                                    survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
-                                   sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder,
+                                   sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder, use_htd=use_htd,
                                    idx=(i + 1), total=len(self.s57_list))
 
             else:  # this case should be never reached after the sanity checks
@@ -1003,7 +1003,7 @@ class SurveyProject(BaseProject):
                     opened_folders.append(self._scan_output_folder)
 
     def _feature_scan(self, feature_file, version, specs_version,
-                      survey_area, use_mhw, mhw_value, sorind, sordat, multimedia_folder,
+                      survey_area, use_mhw, mhw_value, sorind, sordat, multimedia_folder, use_htd,
                       idx, total):
         """ feature scan in the loaded s57 features """
         logger.debug('feature scan v%d ...' % version)
@@ -1031,7 +1031,8 @@ class SurveyProject(BaseProject):
             if version == 9:
                 self._scan_features_v9(specs_version=specs_version,
                                        survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
-                                       sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder)
+                                       sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder,
+                                       use_htd=use_htd)
 
             else:
                 RuntimeError("unknown Feature Scan version: %s" % version)
@@ -1065,7 +1066,7 @@ class SurveyProject(BaseProject):
             raise e
 
     def _scan_features_v9(self, specs_version: str, survey_area: int, use_mhw: bool, mhw_value: float,
-                          sorind: Optional[str], sordat: Optional[str], multimedia_folder: Optional[str]):
+                          sorind: Optional[str], sordat: Optional[str], multimedia_folder: Optional[str], use_htd: bool):
         """Look for fliers using the passed parameters and the loaded grids"""
         if not self.has_s57():
             return
@@ -1074,7 +1075,8 @@ class SurveyProject(BaseProject):
 
             self._scan = FeatureScanV9(s57=self.cur_s57, profile=self.active_profile, version=specs_version,
                                        survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
-                                       sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder)
+                                       sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder,
+                                       use_htd=use_htd)
 
             start_time = time.time()
             self._scan.run()

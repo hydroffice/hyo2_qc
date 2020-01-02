@@ -13,7 +13,8 @@ logger = logging.getLogger(__name__)
 class FeatureScanV9(BaseScan):
     def __init__(self, s57, profile: int = 0, version: str = "2019",
                  survey_area: int = survey_areas["Pacific Coast"], use_mhw: bool = False, mhw_value: float = 0.0,
-                 sorind: Optional[str] = None, sordat: Optional[str] = None, multimedia_folder: Optional[str] = None):
+                 sorind: Optional[str] = None, sordat: Optional[str] = None, multimedia_folder: Optional[str] = None,
+                 use_htd: bool = False):
         super().__init__(s57=s57)
 
         self.type = scan_algos["FEATURE_SCAN_v9"]
@@ -26,6 +27,7 @@ class FeatureScanV9(BaseScan):
         self.sorind = sorind
         self.sordat = sordat
         self.multimedia_folder = multimedia_folder
+        self.use_htd = use_htd
 
         # summary info
         self.redundancy = list()
@@ -89,7 +91,10 @@ class FeatureScanV9(BaseScan):
         self.flagged_m_qual_tecsou = list()
         self.flagged_mcd_description = list()
         self.flagged_mcd_remarks = list()
-        self.flagged_images_no_sbdare = list()
+        self.flagged_images_hssd = list()
+        self.flagged_images_non_sbdare = list()
+        self.flagged_images_sbdare = list()
+
 
     @classmethod
     def check_sorind(cls, value, check_space=True):
@@ -695,7 +700,7 @@ class FeatureScanV9(BaseScan):
         return flagged
 
     def _check_features_for_images(self, objects):
-        """Check if the passed features have valid ELEVAT"""
+        # Checked if passed images have correct separator per HSSD and are found in the multimedia folder
         logger.debug("checking for invalid IMAGES ...")
 
         flagged = list()
@@ -720,6 +725,56 @@ class FeatureScanV9(BaseScan):
                                    (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
+
+                if self.multimedia_folder is None:
+                    # add to the flagged feature list and to the flagged report
+                    self._append_flagged(obj.centroid.x, obj.centroid.y, "missing images folder")
+                    self.report += 'found %s at (%s, %s) with missing images folder: %s' % \
+                                   (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
+                    flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
+                    continue
+
+                if images_list.count(image_filename) > 1:
+                    # add to the flagged feature list and to the flagged report
+                    self._append_flagged(obj.centroid.x, obj.centroid.y, "image names not unique")
+                    self.report += 'found %s at (%s, %s) with images without unique name: %s' % \
+                                   (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
+                    flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
+                    continue
+
+                img_path = os.path.join(self.multimedia_folder, image_filename.strip())
+                if not os.path.exists(img_path):
+                    self._append_flagged(obj.centroid.x, obj.centroid.y, "invalid path")
+                    self.report += 'found %s at (%s, %s) with invalid path to image: %s' % \
+                                   (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
+                    flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
+                    continue
+
+        if len(flagged) == 0:
+            self.report += "OK"
+
+        logger.debug("checking for invalid images -> flagged: %d" % len(flagged))
+
+        return flagged
+
+    def _check_nonsbdare_images_per_htd(self, objects):
+        """"Check if the passed features have valid image name per HTD 2018-5"""
+        logger.debug("checking for invalid IMAGE NAMES per HTD 2018-5...")
+
+        flagged = list()
+
+        for obj in objects:
+            images = None
+            for attr in obj.attributes:
+                if attr.acronym == "images":
+                    images = attr.value
+
+            if images is None:
+                continue
+
+            images_list = images.split(";")
+
+            for image_filename in images_list:
 
                 tokens = image_filename.split("_")
                 if len(tokens) not in [2, 3]:
@@ -746,18 +801,63 @@ class FeatureScanV9(BaseScan):
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
-                if self.multimedia_folder is None:
+        if len(flagged) == 0:
+            self.report += "OK"
+
+        logger.debug("checking for invalid image names per HTD 2018-5 -> flagged %d" % len(flagged))
+
+        return flagged
+
+    def _check_sbdare_images_per_htd(self, objects):
+        """"Check if the passed features have valid image name per HTD 2018-4"""
+        logger.debug("checking for invalid IMAGE NAMES per HTD 2018-4...")
+
+        flagged = list()
+
+        for obj in objects:
+            images = None
+            for attr in obj.attributes:
+                if attr.acronym == "images":
+                    images = attr.value
+
+            if images is None:
+                continue
+
+            images_list = images.split(";")
+
+            for image_filename in images_list:
+
+                image_filename=os.path.splitext(image_filename)[0]
+                tokens = image_filename.split("_")
+
+                if len(tokens) != 3:
                     # add to the flagged feature list and to the flagged report
-                    self._append_flagged(obj.centroid.x, obj.centroid.y, "missing images folder")
-                    self.report += 'found %s at (%s, %s) with missing images folder: %s' % \
+                    self._append_flagged(obj.centroid.x, obj.centroid.y, "invalid filenaming")
+                    self.report += 'found %s at (%s, %s) with image having invalid filenaming (nr. of "_"): %s ' % \
                                    (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
-                img_path = os.path.join(self.multimedia_folder, image_filename.strip())
-                if not os.path.exists(img_path):
-                    self._append_flagged(obj.centroid.x, obj.centroid.y, "invalid path")
-                    self.report += 'found %s at (%s, %s) with invalid path to image: %s' % \
+                if len(tokens[0]) != 6:
+                    # add to the flagged feature list and to the flagged report
+                    self._append_flagged(obj.centroid.x, obj.centroid.y, "invalid survey in filename")
+                    self.report += 'found %s at (%s, %s) with image having invalid survey in filename: %s ' % \
+                                   (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
+                    flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
+                    continue
+
+                if tokens[1] != "SBDARE":
+                    # add to the flagged feature list and to the flagged report
+                    self._append_flagged(obj.centroid.x, obj.centroid.y, "'SBDARE' not stated in filename")
+                    self.report += 'found %s at (%s, %s) with "SBDARE" not stated in filename: %s ' % \
+                                   (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
+                    flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
+                    continue
+
+                if len(tokens[2]) != 15:
+                    # add to the flagged feature list and to the flagged report
+                    self._append_flagged(obj.centroid.x, obj.centroid.y, "invalid timestamp in filename")
+                    self.report += 'found %s at (%s, %s) with image having invalid timestamp in filename: %s ' % \
                                    (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
@@ -765,7 +865,7 @@ class FeatureScanV9(BaseScan):
         if len(flagged) == 0:
             self.report += "OK"
 
-        logger.debug("checking for invalid images -> flagged: %d" % len(flagged))
+        logger.debug("checking for invalid image names per HTD 2018-4 -> flagged: %d" % len(flagged))
 
         return flagged
 
@@ -883,15 +983,10 @@ class FeatureScanV9(BaseScan):
             msg += "- use MHW: %s [%s]\n" % (self.use_mhw, self.mhw_value)
             msg += "- check SORIND: %s\n" % (self.sorind,)
             msg += "- check SORDAT: %s\n" % (self.sordat,)
+            msg += "_ use HTD: %s \n" % (self.use_htd)
         logger.info(msg)
 
-        if self.version == "2015":
-            self.run_2015()
-
-        elif self.version == "2016":
-            self.run_2016()
-
-        elif self.version == "2017":
+        if self.version == "2017":
             self.run_2017()
 
         elif self.version == "2018":
@@ -905,314 +1000,6 @@ class FeatureScanV9(BaseScan):
 
         else:
             raise RuntimeError("unsupported specs version: %s" % self.version)
-
-    # noinspection PyStatementEffect
-    def run_2015(self):
-        """HSSD 2015 checks"""
-
-        self.report += "Redundant features [CHECK]"
-        self.all_features = self.check_feature_redundancy_and_geometry()
-
-        carto_filter = ['$AREAS', '$LINES', '$CSYMB', '$COMPS', '$TEXTS']
-        no_carto_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=carto_filter)
-        new_update_features = S57Aux.select_by_attribute_value(objects=no_carto_features, attribute='descrp',
-                                                               value_filter=['1', '2', ])
-
-        self.report += "New or Updated features (excluding carto notes) missing mandatory attribute SORIND [CHECK]"
-        self.flagged_sorind = self.check_features_for_attribute(new_update_features, 'SORIND')
-
-        self.report += "New or Updated features (excluding carto notes) with invalid SORIND [CHECK]"
-        self.flagged_sorind_invalid = self._check_features_for_valid_sorind(new_update_features, check_space=False)
-
-        self.report += "New or Updated features (excluding carto notes) missing mandatory attribute SORDAT [CHECK]"
-        self.flagged_sordat = self.check_features_for_attribute(new_update_features, 'SORDAT')
-
-        self.report += "New or Updated features (excluding carto notes) with invalid SORDAT [CHECK]"
-        self.flagged_sordat_invalid = self._check_features_for_valid_sordat(new_update_features)
-
-        assigned_features = S57Aux.select_by_attribute_value(objects=self.all_features, attribute='asgnmt',
-                                                             value_filter=['2', ])
-
-        self.report += "Assigned features missing mandatory attribute description [CHECK]"
-        self.flagged_description = self.check_features_for_attribute(objects=assigned_features, attribute='descrp')
-
-        self.report += "Assigned features missing mandatory attribute remarks [CHECK]"
-        self.flagged_remarks = self.check_features_for_attribute(objects=assigned_features, attribute='remrks')
-
-        extended_attribute_features = S57Aux.select_by_attribute_value(objects=self.all_features, attribute='descrp',
-                                                                       value_filter=['1', ])
-
-        self.report += "New features missing mandatory attribute remarks [CHECK]"
-        self.flagged_remarks_features = self.check_features_for_attribute(
-            objects=extended_attribute_features,
-            attribute='remrks')
-
-        recommend_features = S57Aux.select_by_attribute_value(objects=self.all_features, attribute='descrp',
-                                                              value_filter=['1', '3'])
-        # noinspection PyStatementEffect
-        self.report += "New or deleted features missing mandatory attribute recommendation [CHECK]"
-        self.flagged_recommend_features = self.check_features_for_attribute(objects=recommend_features,
-                                                                            attribute='recomd')
-
-        awois_features = S57Aux.select_by_attribute_value(objects=self.all_features, attribute='sftype',
-                                                          value_filter=['2', ])
-        self.report += "AWOIS features missing mandatory attribute dbkyid (2015 only) [CHECK]"
-        self.flagged_awois_features_1 = self.check_features_for_attribute(objects=awois_features,
-                                                                          attribute='dbkyid')
-        self.report += "AWOIS features missing mandatory attribute images (2015 only) [CHECK]"
-        self.flagged_awois_features_2 = self.check_features_for_attribute(objects=awois_features,
-                                                                          attribute='images')
-
-        sounding_features = S57Aux.select_by_object(objects=self.all_features, object_filter=['SOUNDG', ])
-        self.report += "SOUNDG missing mandatory attribute TECSOU [CHECK]"
-        self.flagged_soundings_tecsou = self.check_features_for_attribute(sounding_features, 'TECSOU')
-        self.report += "SOUNDG missing mandatory attribute QUASOU [CHECK]"
-        self.flagged_soundings_quasou = self.check_features_for_attribute(sounding_features, 'QUASOU')
-
-        new_features = S57Aux.select_by_attribute_value(objects=no_carto_features, attribute='descrp',
-                                                        value_filter=['1', '2'])
-        dtons = S57Aux.select_by_attribute_value(objects=new_features, attribute='sftype', value_filter=['3', ])
-        # @added 6/15/2015 to prevent SOUNDG DtoN objects from getting the image flag
-        dtons = S57Aux.filter_by_object(objects=dtons, object_filter=['SOUNDG', ])
-        # removing wrecks dtons to prevent double-flagging
-        dtons = S57Aux.filter_by_object(objects=dtons, object_filter=['WRECKS', ])
-        # removing obstrn dtons to prevent double-flagging
-        dtons = S57Aux.filter_by_object(objects=dtons, object_filter=['OBSTRN', ])
-        wrecks = S57Aux.select_by_object(objects=new_features, object_filter=['WRECKS', ])
-        # noinspection PyStatementEffect
-        self.report += "Special feature types (DTONS) missing images [CHECK]"
-        self.flagged_dtons = self.check_features_for_attribute(dtons, 'images')
-
-        self.report += "New or Updated WRECKS) missing images [CHECK]"
-        self.flagged_wrecks_images = self.check_features_for_attribute(wrecks, 'images')
-        self.report += "New or Updated WRECKS missing mandatory attribute CATWRK [CHECK]"
-        self.flagged_wrecks_catwrk = self.check_features_for_attribute(wrecks, 'CATWRK')
-        self.report += "New or Updated WRECKS missing mandatory attribute WATLEV [CHECK]"
-        self.flagged_wrecks_watlev = self.check_features_for_attribute(wrecks, 'WATLEV')
-        self.report += "New or Updated WRECKS missing mandatory attribute VALSOU [CHECK]"
-        self.flagged_wrecks_valsou = self.check_features_for_attribute(wrecks, 'VALSOU')
-        self.report += "New or Updated WRECKS missing mandatory attribute TECSOU [CHECK]"
-        self.flagged_wrecks_tecsou = self.check_features_for_attribute(wrecks, 'TECSOU')
-        self.report += "New or Updated WRECKS missing mandatory attribute QUASOU [CHECK]"
-        self.flagged_wrecks_quasou = self.check_features_for_attribute(wrecks, 'QUASOU')
-
-        rocks = S57Aux.select_by_object(objects=new_features, object_filter=['UWTROC', ])
-        self.report += "New or Updated UWTROC missing mandatory attribute VALSOU [CHECK]"
-        self.flagged_uwtroc_valsou = self.check_features_for_attribute(rocks, 'VALSOU')
-        self.report += "New or Updated UWTROC missing mandatory attribute WATLEV [CHECK]"
-        self.flagged_uwtroc_watlev = self.check_features_for_attribute(rocks, 'WATLEV')
-        self.report += "New or Updated UWTROC missing mandatory attribute QUASOU [CHECK]"
-        self.flagged_uwtroc_quasou = self.check_features_for_attribute(rocks, 'QUASOU')
-        self.report += "New or Updated UWTROC missing mandatory attribute TECSOU [CHECK]"
-        self.flagged_uwtroc_tecsou = self.check_features_for_attribute(rocks, 'TECSOU')
-
-        obstrns = S57Aux.select_by_object(objects=new_features, object_filter=['OBSTRN', ])
-        self.report += "New or Updated OBSTRN missing mandatory attribute images [CHECK]"
-        self.flagged_obstrn_images = self.check_features_for_attribute(obstrns, 'images')
-        self.report += "New or Updated OBSTRN missing mandatory attribute VALSOU [CHECK]"
-        self.flagged_obstrn_points_valsou = self.check_features_for_attribute(obstrns, 'VALSOU')
-        self.report += "New or Updated OBSTRN missing mandatory attribute WATLEV [CHECK]"
-        self.flagged_obstrn_points_watlev = self.check_features_for_attribute(obstrns, 'WATLEV')
-        self.report += "New or Updated OBSTRN missing mandatory attribute QUASOU [CHECK]"
-        self.flagged_obstrn_quasou = self.check_features_for_attribute(obstrns, 'QUASOU')
-        self.report += "New or Updated OBSTRN missing mandatory attribute TECSOU [CHECK]"
-        self.flagged_obstrn_tecsou = self.check_features_for_attribute(obstrns, 'TECSOU')
-
-        self.report += "New or Updated OFSPLF missing mandatory attribute images (2016 only) [SKIP_CHK]"
-        self.flagged_ofsplf = -1
-
-        morfac = S57Aux.select_by_object(objects=self.all_features, object_filter=['MORFAC', ])
-        self.report += "MORFAC missing mandatory attribute CATMOR [CHECK]"
-        self.flagged_morfac = self.check_features_for_attribute(morfac, 'CATMOR')
-
-        sbdare = S57Aux.select_by_object(objects=self.all_features, object_filter=['SBDARE', ])
-        sbdare_points = S57Aux.select_only_points(sbdare)
-        self.report += "SBDARE missing mandatory attribute NATSUR [CHECK]"
-        self.flagged_sbdare_natsur = self.check_features_for_attribute(sbdare, 'NATSUR')
-        self.report += "SBDARE missing mandatory attribute COLOUR (2015 only) [CHECK]"
-        self.flagged_sbdare_2 = self.check_features_for_attribute(sbdare_points, 'COLOUR')
-
-        sbdare_lines_areas = S57Aux.select_lines_and_areas(sbdare)
-        self.report += "SBDARE lines or areas possibly missing mandatory attribute WATLEV [CHECK]"
-        self.flagged_sbdare_watlev = self.check_features_for_attribute(sbdare_lines_areas, 'WATLEV', possible=True)
-
-        coalne = S57Aux.select_by_object(objects=self.all_features, object_filter=['COALNE', ])
-        self.report += "COALNE missing mandatory attribute CATCOA [CHECK]"
-        self.flagged_coalne = self.check_features_for_attribute(coalne, 'CATCOA')
-
-        slcons = S57Aux.select_by_object(objects=self.all_features, object_filter=['SLCONS', ])
-        self.report += "SLCONS missing mandatory attribute CATSLC [CHECK]"
-        self.flagged_slcons = self.check_features_for_attribute(slcons, 'CATSLC')
-
-        lndelv = S57Aux.select_by_object(objects=self.all_features, object_filter=['LNDELV', ])
-        self.report += "LNDELV missing mandatory attribute ELEVAT [CHECK]"
-        self.flagged_lndelv = self.check_features_for_attribute(lndelv, 'ELEVAT')
-
-        mcovr = S57Aux.select_by_object(objects=self.all_features, object_filter=['M_COVR', ])
-        self.report += "M_COVR missing mandatory attribute CATCOV [CHECK]"
-        self.flagged_m_covr_catcov = self.check_features_for_attribute(mcovr, 'CATCOV')
-        self.report += "M_COVR missing mandatory attribute INFORM [CHECK]"
-        self.flagged_m_covr_inform = self.check_features_for_attribute(mcovr, 'INFORM')
-        self.report += "M_COVR missing mandatory attribute NINFOM [CHECK]"
-        self.flagged_m_covr_ninfom = self.check_features_for_attribute(mcovr, 'NINFOM')
-
-        no_soundings = S57Aux.filter_by_object(objects=self.all_features, object_filter=['SOUNDG', ])
-        if self.profile == 0:  # office
-            self.report += "Non-sounding features missing onotes (just FYI) [CHECK]"
-            self.flagged_without_onotes = self.check_features_for_attribute(no_soundings, 'onotes')
-
-        # finalize the summary
-        self.finalize_summary()
-
-    # noinspection PyStatementEffect
-    def run_2016(self):
-        """HSSD 2016 checks"""
-
-        self.report += "Redundant features [CHECK]"
-        self.all_features = self.check_feature_redundancy_and_geometry()
-
-        carto_filter = ['$AREAS', '$LINES', '$CSYMB', '$COMPS', '$TEXTS']
-        no_carto_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=carto_filter)
-        new_update_features = S57Aux.select_by_attribute_value(objects=no_carto_features, attribute='descrp',
-                                                               value_filter=['1', '2', ])
-
-        self.report += "New or Updated features (excluding carto notes) missing mandatory attribute SORIND [CHECK]"
-        self.flagged_sorind = self.check_features_for_attribute(new_update_features, 'SORIND')
-
-        self.report += "New or Updated features (excluding carto notes) with invalid SORIND [CHECK]"
-        self.flagged_sorind_invalid = self._check_features_for_valid_sorind(new_update_features, check_space=False)
-
-        self.report += "New or Updated features (excluding carto notes) missing mandatory attribute SORDAT [CHECK]"
-        self.flagged_sordat = self.check_features_for_attribute(new_update_features, 'SORDAT')
-
-        self.report += "New or Updated features (excluding carto notes) with invalid SORDAT [CHECK]"
-        self.flagged_sordat_invalid = self._check_features_for_valid_sordat(new_update_features)
-
-        assigned_features = S57Aux.select_by_attribute_value(objects=self.all_features, attribute='asgnmt',
-                                                             value_filter=['2', ])
-        self.report += "Assigned features missing mandatory attribute description [CHECK]"
-        self.flagged_description = self.check_features_for_attribute(objects=assigned_features, attribute='descrp')
-        self.report += "Assigned features missing mandatory attribute remarks [CHECK]"
-        self.flagged_remarks = self.check_features_for_attribute(objects=assigned_features, attribute='remrks')
-
-        extended_attrib_features = S57Aux.select_by_attribute_value(objects=self.all_features, attribute='descrp',
-                                                                    value_filter=['1', '3'])
-        self.report += "New or deleted features missing mandatory attribute remarks [CHECK]"
-        self.flagged_remarks_features = self.check_features_for_attribute(objects=extended_attrib_features,
-                                                                          attribute='remrks')
-
-        recommend_features = S57Aux.select_by_attribute_value(objects=self.all_features, attribute='descrp',
-                                                              value_filter=['1', '3'])
-        self.report += "New or deleted features missing mandatory attribute recommendation [CHECK]"
-        self.flagged_recommend_features = self.check_features_for_attribute(objects=recommend_features,
-                                                                            attribute='recomd')
-
-        self.report += "AWOIS features missing mandatory attribute dbkyid (2015 only) [SKIP_CHK]"
-        self.flagged_awois_features_1 = -1
-
-        self.report += "AWOIS features missing mandatory attribute images (2015 only) [SKIP_CHK]"
-        self.flagged_awois_features_2 = -1
-
-        sounding_features = S57Aux.select_by_object(objects=self.all_features, object_filter=['SOUNDG', ])
-        self.report += "SOUNDG missing mandatory attribute TECSOU [CHECK]"
-        self.flagged_soundings_tecsou = self.check_features_for_attribute(sounding_features, 'TECSOU')
-        self.report += "SOUNDG missing mandatory attribute QUASOU [CHECK]"
-        self.flagged_soundings_quasou = self.check_features_for_attribute(sounding_features, 'QUASOU')
-
-        new_features = S57Aux.select_by_attribute_value(objects=no_carto_features, attribute='descrp',
-                                                        value_filter=['1', '2'])
-        dtons = S57Aux.select_by_attribute_value(objects=new_features, attribute='sftype', value_filter=['3', ])
-        # @added 6/15/2015 to prevent SOUNDG DtoN objects from getting the image flag
-        dtons = S57Aux.filter_by_object(objects=dtons, object_filter=['SOUNDG', ])
-        # removing wrecks dtons to prevent double-flagging
-        dtons = S57Aux.filter_by_object(objects=dtons, object_filter=['WRECKS', ])
-        # removing obstrn dtons to prevent double-flagging
-        dtons = S57Aux.filter_by_object(objects=dtons, object_filter=['OBSTRN', ])
-        wrecks = S57Aux.select_by_object(objects=new_features, object_filter=['WRECKS', ])
-        self.report += "Special feature types (DTONS) missing images [CHECK]"
-        self.flagged_dtons = self.check_features_for_attribute(dtons, 'images')
-
-        self.report += "New or Updated WRECKS missing images [CHECK]"
-        self.flagged_wrecks_images = self.check_features_for_attribute(wrecks, 'images')
-        self.report += "New or Updated WRECKS missing mandatory attribute CATWRK [CHECK]"
-        self.flagged_wrecks_catwrk = self.check_features_for_attribute(wrecks, 'CATWRK')
-        self.report += "New or Updated WRECKS missing mandatory attribute WATLEV [CHECK]"
-        self.flagged_wrecks_watlev = self.check_features_for_attribute(wrecks, 'WATLEV')
-        self.report += "New or Updated WRECKS missing mandatory attribute VALSOU [CHECK]"
-        self.flagged_wrecks_valsou = self.check_features_for_attribute(wrecks, 'VALSOU')
-        self.report += "New or Updated WRECKS missing mandatory attribute TECSOU [CHECK]"
-        self.flagged_wrecks_tecsou = self.check_features_for_attribute(wrecks, 'TECSOU')
-        self.report += "New or Updated WRECKS missing mandatory attribute QUASOU [CHECK]"
-        self.flagged_wrecks_quasou = self.check_features_for_attribute(wrecks, 'QUASOU')
-
-        rocks = S57Aux.select_by_object(objects=new_features, object_filter=['UWTROC', ])
-        self.report += "New or Updated UWTROC missing mandatory attribute VALSOU [CHECK]"
-        self.flagged_uwtroc_valsou = self.check_features_for_attribute(rocks, 'VALSOU')
-        self.report += "New or Updated UWTROC missing mandatory attribute WATLEV [CHECK]"
-        self.flagged_uwtroc_watlev = self.check_features_for_attribute(rocks, 'WATLEV')
-        self.report += "New or Updated UWTROC missing mandatory attribute QUASOU [CHECK]"
-        self.flagged_uwtroc_quasou = self.check_features_for_attribute(rocks, 'QUASOU')
-        self.report += "New or Updated UWTROC missing mandatory attribute TECSOU [CHECK]"
-        self.flagged_uwtroc_tecsou = self.check_features_for_attribute(rocks, 'TECSOU')
-
-        obstrns = S57Aux.select_by_object(objects=new_features, object_filter=['OBSTRN', ])
-        self.report += "New or Updated OBSTRN missing mandatory attribute images [CHECK]"
-        self.flagged_obstrn_images = self.check_features_for_attribute(obstrns, 'images')
-        self.report += "New or Updated OBSTRN missing mandatory attribute VALSOU [CHECK]"
-        self.flagged_obstrn_points_valsou = self.check_features_for_attribute(obstrns, 'VALSOU')
-        self.report += "New or Updated OBSTRN missing mandatory attribute WATLEV [CHECK]"
-        self.flagged_obstrn_points_watlev = self.check_features_for_attribute(obstrns, 'WATLEV')
-        self.report += "New or Updated OBSTRN missing mandatory attribute QUASOU [CHECK]"
-        self.flagged_obstrn_quasou = self.check_features_for_attribute(obstrns, 'QUASOU')
-        self.report += "New or Updated OBSTRN missing mandatory attribute TECSOU [CHECK]"
-        self.flagged_obstrn_tecsou = self.check_features_for_attribute(obstrns, 'TECSOU')
-
-        ofsplf = S57Aux.select_by_object(objects=new_features, object_filter=['OFSPLF', ])
-        self.report += "New or Updated OFSPLF missing images (2016 only) [CHECK]"
-        self.flagged_ofsplf = self.check_features_for_attribute(ofsplf, 'images')
-
-        morfac = S57Aux.select_by_object(objects=self.all_features, object_filter=['MORFAC', ])
-        self.report += "MORFAC missing mandatory attribute CATMOR [CHECK]"
-        self.flagged_morfac = self.check_features_for_attribute(morfac, 'CATMOR')
-
-        sbdare = S57Aux.select_by_object(objects=self.all_features, object_filter=['SBDARE', ])
-        self.report += "SBDARE missing mandatory attribute NATSUR [CHECK]"
-        self.flagged_sbdare_natsur = self.check_features_for_attribute(sbdare, 'NATSUR')
-
-        self.report += "SBDARE missing mandatory attribute COLOUR (2015 only) [SKIP_CHK]"
-        self.flagged_sbdare_2 = -1
-
-        sbdare_lines_areas = S57Aux.select_lines_and_areas(sbdare)
-        self.report += "SBDARE lines or areas possibly missing mandatory attribute WATLEV [CHECK]"
-        self.flagged_sbdare_watlev = self.check_features_for_attribute(sbdare_lines_areas, 'WATLEV', possible=True)
-
-        coalne = S57Aux.select_by_object(objects=self.all_features, object_filter=['COALNE', ])
-        self.report += "COALNE missing mandatory attribute CATCOA [CHECK]"
-        self.flagged_coalne = self.check_features_for_attribute(coalne, 'CATCOA')
-
-        slcons = S57Aux.select_by_object(objects=self.all_features, object_filter=['SLCONS', ])
-        self.report += "SLCONS missing mandatory attribute CATSLC [CHECK]"
-        self.flagged_slcons = self.check_features_for_attribute(slcons, 'CATSLC')
-
-        lndelv = S57Aux.select_by_object(objects=self.all_features, object_filter=['LNDELV', ])
-        self.report += "LNDELV missing mandatory attribute ELEVAT [CHECK]"
-        self.flagged_lndelv = self.check_features_for_attribute(lndelv, 'ELEVAT')
-
-        mcovr = S57Aux.select_by_object(objects=self.all_features, object_filter=['M_COVR', ])
-        self.report += "M_COVR missing mandatory attribute CATCOV [CHECK]"
-        self.flagged_m_covr_catcov = self.check_features_for_attribute(mcovr, 'CATCOV')
-        self.report += "M_COVR missing mandatory attribute INFORM [CHECK]"
-        self.flagged_m_covr_inform = self.check_features_for_attribute(mcovr, 'INFORM')
-        self.report += "M_COVR missing mandatory attribute NINFOM [CHECK]"
-        self.flagged_m_covr_ninfom = self.check_features_for_attribute(mcovr, 'NINFOM')
-
-        no_soundings = S57Aux.filter_by_object(objects=self.all_features, object_filter=['SOUNDG', ])
-        if self.profile == 0:  # office
-            self.report += "Non-sounding features missing onotes (just FYI) [CHECK]"
-            self.flagged_without_onotes = self.check_features_for_attribute(no_soundings, 'onotes')
-
-        # finalize the summary
-        self.finalize_summary()
 
     # noinspection PyStatementEffect
     def run_2017(self):
@@ -1713,12 +1500,23 @@ class FeatureScanV9(BaseScan):
         self.report += "M_COVR missing mandatory attribute NINFOM [CHECK]"
         self.flagged_m_covr_ninfom = self.check_features_for_attribute(mcovr, 'NINFOM')
 
-        self.report += "Invalid IMAGES attribute for no-SBDARE features [CHECK]"
-        no_sbdare_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=["SBDARE", ])
-        self.flagged_images_no_sbdare = self._check_features_for_images(no_sbdare_features)
+        # Ensure all features with images comply with HSSD requirements.
+        self.report += "Invalid IMAGES attribute, feature missing image or name check failed per HSSD [CHECK]"
+        self.flagged_images_hssd = self._check_features_for_images(self.all_features)
 
-        # For the office profile, ensure all features have onotes
+        # For field profile, checks all images for HSSD compliance, and, if selected, checks against HTDs.
+        # If office profile, checks all images for HSSD complaince always.
+        if (self.profile ==1 and self.use_htd) or (self.profile == 0):
+            self.report += "Invalid IMAGE name per HTD 2018-4 [CHECK]"
+            sbdare_features = S57Aux.select_by_object(objects=self.all_features, object_filter=['SBDARE', ])
+            self.flagged_images_sbdare = self._check_sbdare_images_per_htd(sbdare_features)
+
+            self.report += "Invalid IMAGE name per HTD 2018-5 [CHECK]"
+            non_sbdare_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=['SBDARE', ])
+            self.flagged_images_non_sbdare = self._check_nonsbdare_images_per_htd(non_sbdare_features)
+
         if self.profile == 0:  # office
+            # For the office profile, ensure all features have onotes
             self.report += "Features missing onotes [CHECK]"
             self.flagged_without_onotes = self.check_features_for_attribute(self.all_features, 'onotes')
 
@@ -2070,12 +1868,23 @@ class FeatureScanV9(BaseScan):
         self.report += "M_COVR missing mandatory attribute NINFOM [CHECK]"
         self.flagged_m_covr_ninfom = self.check_features_for_attribute(mcovr, 'NINFOM')
 
-        self.report += "Invalid IMAGES attribute for no-SBDARE features [CHECK]"
-        no_sbdare_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=["SBDARE", ])
-        self.flagged_images_no_sbdare = self._check_features_for_images(no_sbdare_features)
+        # Ensure all features with images comply with HSSD requirements.
+        self.report += "Invalid IMAGES attribute, feature missing image or name check failed per HSSD [CHECK]"
+        self.flagged_images_hssd = self._check_features_for_images(self.all_features)
 
-        # For the office profile, ensure all features have onotes
+        # For field profile, checks all images for HSSD compliance, and, if selected, checks against HTDs.
+        # If office profile, checks all images for HSSD complaince always.
+        if (self.profile == 1 and self.use_htd) or (self.profile == 0):
+            self.report += "Invalid IMAGE name per HTD 2018-4 [CHECK]"
+            sbdare_features = S57Aux.select_by_object(objects=self.all_features, object_filter=['SBDARE', ])
+            self.flagged_images_sbdare = self._check_sbdare_images_per_htd(sbdare_features)
+
+            self.report += "Invalid IMAGE name per HTD 2018-5 [CHECK]"
+            non_sbdare_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=['SBDARE', ])
+            self.flagged_images_non_sbdare = self._check_nonsbdare_images_per_htd(non_sbdare_features)
+
         if self.profile == 0:  # office
+            # For the office profile, ensure all features have onotes
             self.report += "Features missing onotes [CHECK]"
             self.flagged_without_onotes = self.check_features_for_attribute(self.all_features, 'onotes')
 
@@ -2426,12 +2235,23 @@ class FeatureScanV9(BaseScan):
         self.report += "M_COVR missing mandatory attribute NINFOM [CHECK]"
         self.flagged_m_covr_ninfom = self.check_features_for_attribute(mcovr, 'NINFOM')
 
-        self.report += "Invalid IMAGES attribute for no-SBDARE features [CHECK]"
-        no_sbdare_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=["SBDARE", ])
-        self.flagged_images_no_sbdare = self._check_features_for_images(no_sbdare_features)
+        # Ensure all features with images comply with HSSD requirements.
+        self.report += "Invalid IMAGES attribute, feature missing image or name check failed per HSSD [CHECK]"
+        self.flagged_images_hssd = self._check_features_for_images(self.all_features)
 
-        # For the office profile, ensure all features have onotes
+        # For field profile, checks all images for HSSD compliance, and, if selected, checks against HTDs.
+        # If office profile, checks all images for HSSD complaince always.
+        if (self.profile == 1 and self.use_htd) or (self.profile == 0):
+            self.report += "Invalid IMAGE name per HTD 2018-4 [CHECK]"
+            sbdare_features = S57Aux.select_by_object(objects=self.all_features, object_filter=['SBDARE', ])
+            self.flagged_images_sbdare = self._check_sbdare_images_per_htd(sbdare_features)
+
+            self.report += "Invalid IMAGE name per HTD 2018-5 [CHECK]"
+            non_sbdare_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=['SBDARE', ])
+            self.flagged_images_non_sbdare = self._check_nonsbdare_images_per_htd(non_sbdare_features)
+
         if self.profile == 0:  # office
+            # For the office profile, ensure all features have onotes
             self.report += "Features missing onotes [CHECK]"
             self.flagged_without_onotes = self.check_features_for_attribute(self.all_features, 'onotes')
 
@@ -2440,7 +2260,6 @@ class FeatureScanV9(BaseScan):
             self.flagged_hsdrec_empty = self.flag_features_with_attribute_value(self.all_features, attribute='hsdrec',
                                                                                 values_to_flag=['', ],
                                                                                 check_attrib_existence=True)
-
             # For the office profile, check for prohibited features by feature type
             self.report += "Features without 'Prohibited feature' keyword [CHECK]"
             prohibited = S57Aux.select_by_object(objects=self.all_features, object_filter=[
@@ -2668,25 +2487,45 @@ class FeatureScanV9(BaseScan):
         self.report += 'Check %d - M_COVR with empty/missing mandatory attribute CATCOV: %s' \
                        % (count, len(self.flagged_m_covr_catcov))
         count += 1
+
         self.report += 'Check %d - M_COVR missing mandatory attribute INFORM: %s' \
                        % (count, len(self.flagged_m_covr_inform))
         count += 1
+
         self.report += 'Check %d - M_COVR missing mandatory attribute NINFOM: %s' \
                        % (count, len(self.flagged_m_covr_ninfom))
         count += 1
 
-        if self.version in ["2018", "2019", "2020"]:
-            self.report += 'Check %d - Invalid IMAGES attribute for no-SBDARE features: %s' \
-                           % (count, len(self.flagged_images_no_sbdare))
-            count += 1
+        self.report += 'Check %d - Invalid IMAGES attribute, feature missing image or name check failed per HSSD: %s' \
+                       % (count, len(self.flagged_images_hssd))
+        count += 1
 
-        if self.profile == 0:  # not used in 'field' profile
+        if self.profile == 1: # field profile
+            if self.version in ["2018", "2019", "2020"]:
+                if self.use_htd:
+                    self.report += 'Check %d - Invalid SBDARE IMAGE name per HTD 2018-4: %s' \
+                                % (count, len(self.flagged_images_sbdare))
+                    count += 1
 
-            self.report += 'Check %d - Features with empty/missing onotes: %s' \
-                           % (count, len(self.flagged_without_onotes))
-            count += 1
+                    self.report += 'Check %d - Invalid non-SBDARE feature IMAGE name per HTD 2018-5: %s' \
+                                % (count, len(self.flagged_images_non_sbdare))
+                    count += 1
+
+        if self.profile == 0:  # office profile
 
             if self.version in ["2018", "2019", "2020"]:
+                self.report += 'Check %d - Invalid SBDARE IMAGE name per HTD 2018-4: %s' \
+                               % (count, len(self.flagged_images_sbdare))
+                count += 1
+
+                self.report += 'Check %d - Invalid non-SBDARE feature IMAGE name per HTD 2018-5: %s' \
+                               % (count, len(self.flagged_images_non_sbdare))
+                count += 1
+
+                self.report += 'Check %d - Features with empty/missing onotes: %s' \
+                               % (count, len(self.flagged_without_onotes))
+                count += 1
+
                 self.report += 'Check %d - Features with empty/unknown attribute hsdrec: %s' \
                                % (count, len(self.flagged_hsdrec_empty))
                 count += 1
@@ -2717,5 +2556,7 @@ class FeatureScanV9(BaseScan):
                 count += 1
 
                 self.report += 'Check %d - Features with empty/missing attribute remrks: %s' \
-                               % (count, len(self.flagged_mcd_description))
+                               % (count, len(self.flagged_mcd_remarks))
                 count += 1
+
+
