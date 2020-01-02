@@ -25,6 +25,8 @@ In order to access this tool, load an S-57 file into the **Data Inputs** tab.
 
   #. When **Select the path to the images folder** is set, the user can navigate to their multimedia or images folder upon execution of the tool. When this is unchecked, Feature scan will search in the relative path that the feature file is located. 
   
+  #. When **Check Image Names per HTDs** is set, the tool will check image names for compliance with the HSSD and with HTD 2018-4 (SBDARE features) and HTD 2018-5 (non-SBDARE features). This check is available in Field mode. In Office mode, the HTD checks automatically run. 
+
   #. **MHW** value is required to check proper attribution of WATLEV per the HSSD. Enter MHW value as a positive number.
 
   #. When **SORIND** and **SORDAT** are set, the entered values are compared to the attribution of new and updated features.
@@ -101,6 +103,7 @@ The logic for the 2019 QC Tools feature scan is shown below. For previous years,
     * All **COALNE** must have **"CATCOA".**
     * All **SLCONS** must have **"CATSLC".**
     * All **LNDELV** must have **"ELEVAT".**
+* Addtionally, if HTD flag is enabled, all feature images will be checked for proper naming convention per HTDs 2018-4 and 2018-5. 
 * Additionally, if MHW flag is set, all features with **VALSOU** are checked for valid value and proper **WATLEV** attribution. [3]_
 * All features with **"ELEVAT"** are checked for valid value.
 * All **M_COVR** must have **"CATCOV", "INFORM",** and **"NINFOM".**
