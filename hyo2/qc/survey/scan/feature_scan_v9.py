@@ -93,8 +93,8 @@ class FeatureScanV9(BaseScan):
         self.flagged_mcd_remarks = list()
         self.flagged_images_hssd = list()
         self.flagged_images_non_sbdare = list()
-        self.flagged_images_sbdare = list()
-
+        self.flagged_images_sbdare_points = list()
+        self.flagged_images_sbdare_lines_areas = list()
 
     @classmethod
     def check_sorind(cls, value, check_space=True):
@@ -1507,13 +1507,23 @@ class FeatureScanV9(BaseScan):
         # For field profile, checks all images for HSSD compliance, and, if selected, checks against HTDs.
         # If office profile, checks all images for HSSD complaince always.
         if (self.profile ==1 and self.use_htd) or (self.profile == 0):
+            # Isolate new or updated seabed areas
+            sbdare = S57Aux.select_by_object(objects=new_update_features, object_filter=['SBDARE', ])
+
+            # Isolate new or updated point seabed areas
+            sbdare_points = S57Aux.select_only_points(sbdare)
+
             self.report += "Invalid IMAGE name per HTD 2018-4 [CHECK]"
-            sbdare_features = S57Aux.select_by_object(objects=self.all_features, object_filter=['SBDARE', ])
-            self.flagged_images_sbdare = self._check_sbdare_images_per_htd(sbdare_features)
+            self.flagged_images_sbdare_points = self._check_sbdare_images_per_htd(sbdare_points)
 
             self.report += "Invalid IMAGE name per HTD 2018-5 [CHECK]"
             non_sbdare_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=['SBDARE', ])
             self.flagged_images_non_sbdare = self._check_nonsbdare_images_per_htd(non_sbdare_features)
+
+            # Isolate new or update line and area seabed areas
+            self.report += "SBDARE IMAGE name per HTD 2018-5 [CHECK]"
+            sbdare_lines_areas = S57Aux.select_lines_and_areas(sbdare)
+            self.flagged_images_sbdare_lines_areas = self._check_nonsbdare_images_per_htd(sbdare_lines_areas)
 
         if self.profile == 0:  # office
             # For the office profile, ensure all features have onotes
@@ -1875,13 +1885,23 @@ class FeatureScanV9(BaseScan):
         # For field profile, checks all images for HSSD compliance, and, if selected, checks against HTDs.
         # If office profile, checks all images for HSSD complaince always.
         if (self.profile == 1 and self.use_htd) or (self.profile == 0):
+            # Isolate new or updated seabed areas
+            sbdare = S57Aux.select_by_object(objects=new_update_features, object_filter=['SBDARE', ])
+
+            # Isolate new or updated point seabed areas
+            sbdare_points = S57Aux.select_only_points(sbdare)
+
             self.report += "Invalid IMAGE name per HTD 2018-4 [CHECK]"
-            sbdare_features = S57Aux.select_by_object(objects=self.all_features, object_filter=['SBDARE', ])
-            self.flagged_images_sbdare = self._check_sbdare_images_per_htd(sbdare_features)
+            self.flagged_images_sbdare_points = self._check_sbdare_images_per_htd(sbdare_points)
 
             self.report += "Invalid IMAGE name per HTD 2018-5 [CHECK]"
             non_sbdare_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=['SBDARE', ])
             self.flagged_images_non_sbdare = self._check_nonsbdare_images_per_htd(non_sbdare_features)
+
+            # Isolate new or update line and area seabed areas
+            self.report += "SBDARE IMAGE name per HTD 2018-5 [CHECK]"
+            sbdare_lines_areas = S57Aux.select_lines_and_areas(sbdare)
+            self.flagged_images_sbdare_lines_areas = self._check_nonsbdare_images_per_htd(sbdare_lines_areas)
 
         if self.profile == 0:  # office
             # For the office profile, ensure all features have onotes
@@ -2242,13 +2262,23 @@ class FeatureScanV9(BaseScan):
         # For field profile, checks all images for HSSD compliance, and, if selected, checks against HTDs.
         # If office profile, checks all images for HSSD complaince always.
         if (self.profile == 1 and self.use_htd) or (self.profile == 0):
+            # Isolate new or updated seabed areas
+            sbdare = S57Aux.select_by_object(objects=new_update_features, object_filter=['SBDARE', ])
+
+            # Isolate new or updated point seabed areas
+            sbdare_points = S57Aux.select_only_points(sbdare)
+
             self.report += "Invalid IMAGE name per HTD 2018-4 [CHECK]"
-            sbdare_features = S57Aux.select_by_object(objects=self.all_features, object_filter=['SBDARE', ])
-            self.flagged_images_sbdare = self._check_sbdare_images_per_htd(sbdare_features)
+            self.flagged_images_sbdare_points = self._check_sbdare_images_per_htd(sbdare_points)
 
             self.report += "Invalid IMAGE name per HTD 2018-5 [CHECK]"
             non_sbdare_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=['SBDARE', ])
             self.flagged_images_non_sbdare = self._check_nonsbdare_images_per_htd(non_sbdare_features)
+
+            # Isolate new or update line and area seabed areas
+            self.report += "SBDARE IMAGE name per HTD 2018-5 [CHECK]"
+            sbdare_lines_areas = S57Aux.select_lines_and_areas(sbdare)
+            self.flagged_images_sbdare_lines_areas = self._check_nonsbdare_images_per_htd(sbdare_lines_areas)
 
         if self.profile == 0:  # office
             # For the office profile, ensure all features have onotes
@@ -2504,21 +2534,29 @@ class FeatureScanV9(BaseScan):
             if self.version in ["2018", "2019", "2020"]:
                 if self.use_htd:
                     self.report += 'Check %d - Invalid SBDARE IMAGE name per HTD 2018-4: %s' \
-                                % (count, len(self.flagged_images_sbdare))
+                                % (count, len(self.flagged_images_sbdare_points))
                     count += 1
 
                     self.report += 'Check %d - Invalid non-SBDARE feature IMAGE name per HTD 2018-5: %s' \
                                 % (count, len(self.flagged_images_non_sbdare))
                     count += 1
 
+                    self.report += 'Check %d - Invalid line or area SBDARE feature IMAGE name per HTD 2018-5: %s' \
+                                   % (count, len(self.flagged_images_non_sbdare))
+                    count += 1
+
         if self.profile == 0:  # office profile
 
             if self.version in ["2018", "2019", "2020"]:
                 self.report += 'Check %d - Invalid SBDARE IMAGE name per HTD 2018-4: %s' \
-                               % (count, len(self.flagged_images_sbdare))
+                               % (count, len(self.flagged_images_sbdare_points))
                 count += 1
 
                 self.report += 'Check %d - Invalid non-SBDARE feature IMAGE name per HTD 2018-5: %s' \
+                               % (count, len(self.flagged_images_non_sbdare))
+                count += 1
+
+                self.report += 'Check %d - Invalid line or area SBDARE feature IMAGE name per HTD 2018-5: %s' \
                                % (count, len(self.flagged_images_non_sbdare))
                 count += 1
 

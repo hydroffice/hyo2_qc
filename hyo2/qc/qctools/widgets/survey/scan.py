@@ -458,24 +458,24 @@ class ScanTab(QtWidgets.QMainWindow):
         self.ask_multimedia_folder_v9.setEnabled(enable)
         self.amf_text_v9.setEnabled(enable)
 
-        enable = value in [2018, 2019, 2020] and self.prj.active_profile in [1, ]
-        self.use_htd_v9.setEnabled(enable)
-        self.htd_text_v9.setEnabled(enable)
+        enable2 = value in [2018, 2019, 2020] and self.prj.active_profile in [1, ]
+        self.use_htd_v9.setEnabled(enable2)
+        self.htd_text_v9.setEnabled(enable2)
 
         self.use_mhw_v9.setEnabled(enable)
-        enable2 = enable and self.use_mhw_v9.isChecked()
-        self.mhw_text_v9.setEnabled(enable2)
-        self.mhw_value_v9.setEnabled(enable2)
+        enable3 = enable and self.use_mhw_v9.isChecked()
+        self.mhw_text_v9.setEnabled(enable3)
+        self.mhw_value_v9.setEnabled(enable3)
 
         self.check_sorind_v9.setEnabled(enable)
-        enable2 = enable and self.check_sorind_v9.isChecked()
-        self.sorind_text_v9.setEnabled(enable2)
-        self.sorind_value_v9.setEnabled(enable2)
+        enable3 = enable and self.check_sorind_v9.isChecked()
+        self.sorind_text_v9.setEnabled(enable3)
+        self.sorind_value_v9.setEnabled(enable3)
 
         self.check_sordat_v9.setEnabled(enable)
-        enable2 = enable and self.check_sordat_v9.isChecked()
-        self.sordat_text_v9.setEnabled(enable2)
-        self.sordat_value_v9.setEnabled(enable2)
+        enable3 = enable and self.check_sordat_v9.isChecked()
+        self.sordat_text_v9.setEnabled(enable3)
+        self.sordat_value_v9.setEnabled(enable3)
 
     # ------------- COMMON PART --------------- #
 
