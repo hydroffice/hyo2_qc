@@ -7,17 +7,22 @@ from hyo2.grids._grids import FLOAT as GRIDS_FLOAT, DOUBLE as GRIDS_DOUBLE, \
     UINT32 as GRIDS_UINT32, UINT64 as GRIDS_UINT64, INT32 as GRIDS_INT32, INT64 as GRIDS_INT64
 
 import matplotlib
+
 matplotlib.use('Qt5Agg')
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FormatStrFormatter, ScalarFormatter
 
 import warnings
+
 warnings.simplefilter(action="ignore", category=RuntimeWarning)
 
 import logging
 
 from hyo2.qc.survey.gridqa.base_qa import BaseGridQA, qa_algos
-from hyo2.qc.survey.gridqa.grid_qa_calc_v4 import calc_tvu_qc_dd, calc_tvu_qc_df, calc_tvu_qc_fd, calc_tvu_qc_ff
+from hyo2.qc.survey.gridqa.grid_qa_calc_v4 import calc_tvu_qc_dd, calc_tvu_qc_df, calc_tvu_qc_fd, calc_tvu_qc_ff, \
+    calc_tvu_qc_a1_dd, calc_tvu_qc_a1_df, calc_tvu_qc_a1_fd, calc_tvu_qc_a1_ff, \
+    calc_tvu_qc_a2b_dd, calc_tvu_qc_a2b_df, calc_tvu_qc_a2b_fd, calc_tvu_qc_a2b_ff, \
+    calc_tvu_qc_c_dd, calc_tvu_qc_c_df, calc_tvu_qc_c_fd, calc_tvu_qc_c_ff
 from hyo2.abc.lib.helper import Helper
 
 logger = logging.getLogger(__name__)
@@ -82,18 +87,23 @@ class GridInfoV5:
 
 
 class GridQAV5(BaseGridQA):
-
     RGB_PuBu1 = (.92, .90, .95)
     RGB_PuBu2 = (.65, .74, .86)
     RGB_PuBu3 = (.17, .55, .75)
 
-    def __init__(self, grids, force_tvu_qc, has_depth, has_product_uncertainty, has_density, has_tvu_qc, output_folder,
+    RGB_Catzoc1 = (.40, .80, .0)
+    RGB_Catzoc2 = (.30, .70, .0)
+    RGB_Catzoc3 = (.20, .60, .0)
+
+    def __init__(self, grids, force_tvu_qc, check_catzoc,
+                 has_depth, has_product_uncertainty, has_density, has_tvu_qc, output_folder,
                  object_detection=True, full_coverage=True,
                  hist_depth=True, hist_density=True, hist_tvu_qc=True, hist_pct_res=True,
                  depth_vs_density=True, depth_vs_tvu_qc=True, progress=None):
         super().__init__(grids=grids)
         self.type = qa_algos["GRID_QA_v5"]
         self.force_tvu_qc = force_tvu_qc
+        self.check_catzoc = check_catzoc
         self.objection_detection = object_detection
         self.full_coverage = full_coverage
         self.progress = progress
@@ -120,49 +130,71 @@ class GridQAV5(BaseGridQA):
         self.bathy_first = True
         self.density_first = True
         self.tvu_qc_first = True
+        self.catzoc_a1_first = True
+        self.catzoc_a2b_first = True
+        self.catzoc_c_first = True
         self.pct_od_first = True
         self.pct_cc_first = True
 
         self.bathy_values = None
         self.density_values = None
         self.tvu_qc_values = None
+        self.catzoc_a1_values = None
+        self.catzoc_a2b_values = None
+        self.catzoc_c_values = None
         self.pct_od_values = None
         self.pct_cc_values = None
 
         self.bathy_mul = 1
         self.density_mul = 1
         self.tvu_qc_mul = 100
+        self.catzoc_a1_mul = 100
+        self.catzoc_a2b_mul = 100
+        self.catzoc_c_mul = 100
         self.pct_od_mul = 100
         self.pct_cc_mul = 100
 
         self.bathy_dict = None
         self.density_dict = None
         self.tvu_qc_dict = None
+        self.catzoc_a1_dict = None
+        self.catzoc_a2b_dict = None
+        self.catzoc_c_dict = None
         self.pct_od_dict = None
         self.pct_cc_dict = None
 
         self.bathy_info = None
         self.density_info = None
         self.tvu_qc_info = None
+        self.catzoc_a1_info = None
+        self.catzoc_a2b_info = None
+        self.catzoc_c_info = None
         self.pct_od_info = None
         self.pct_cc_info = None
 
         self.tvu_qc_recalculated = False
+        # catzoc here too?
 
         self.density_fig = None
         self.density_ax = None
         self.tvu_qc_fig = None
         self.tvu_qc_ax = None
+        self.catzoc_a1_fig = None
+        self.catzoc_a1_ax = None
+        self.catzoc_a2b_fig = None
+        self.catzoc_a2b_ax = None
+        self.catzoc_c_fig = None
+        self.catzoc_c_ax = None
         self.pct_od_fig = None
         self.pct_od_ax = None
         self.pct_cc_fig = None
         self.pct_cc_ax = None
 
     def run(self):
-        logger.info("parameters for Grid QA: force-tvu-qc=%s, has_depth=%s, has_product_uncertainty=%s, "
-                    "has_density=%s, has_tvu_qc=%s"
-                    % (self.force_tvu_qc, self.has_depth, self.has_product_uncertainty, self.has_density,
-                       self.has_tvu_qc))
+        logger.info("parameters for Grid QA: force-tvu-qc=%s, check-catzoc=%s, has_depth=%s, "
+                    "has_product_uncertainty=%s, ""has_density=%s, has_tvu_qc=%s"
+                    % (self.force_tvu_qc, self.check_catzoc, self.has_depth, self.has_product_uncertainty,
+                       self.has_density, self.has_tvu_qc))
 
         logger.debug("modes -> objection detection: %s, full_coverage: %s"
                      % (self.objection_detection, self.full_coverage))
@@ -176,6 +208,10 @@ class GridQAV5(BaseGridQA):
         self.bathy_dict = defaultdict(int)
         self.density_dict = defaultdict(int)
         self.tvu_qc_dict = defaultdict(int)
+        if self.check_catzoc:
+            self.catzoc_a1_dict = defaultdict(int)
+            self.catzoc_a2b_dict = defaultdict(int)
+            self.catzoc_c_dict = defaultdict(int)
         self.pct_od_dict = defaultdict(int)
         self.pct_cc_dict = defaultdict(int)
 
@@ -194,7 +230,7 @@ class GridQAV5(BaseGridQA):
             layers.append(self.grids.density_layer_name())
         if self.has_tvu_qc:
             layers.append(self.grids.tvu_qc_layer_name())
-        logger.debug("selected layers: %s" % (layers, ))
+        logger.debug("selected layers: %s" % (layers,))
 
         while self.grids.read_next_tile(layers=layers):
 
@@ -238,8 +274,8 @@ class GridQAV5(BaseGridQA):
             bathy_png_file = "%s.QAv5.depth.png" % os.path.splitext(self.grids.current_basename)[0]
             bathy_png_path = os.path.join(self.output_folder, bathy_png_file)
             bathy_png_path = Helper.truncate_too_long(bathy_png_path, left_truncation=True)
-            GridQAV5.plot_hysto(layer_name="Depth", bins=bathy_bins, density=bathy_density, bin_width=(1/self.bathy_mul),
-                                grid_info=self.bathy_info, png_path=bathy_png_path)
+            GridQAV5.plot_hysto(layer_name="Depth", bins=bathy_bins, density=bathy_density,
+                                bin_width=(1 / self.bathy_mul), grid_info=self.bathy_info, png_path=bathy_png_path)
 
         # density
         if self.has_density:
@@ -281,7 +317,8 @@ class GridQAV5(BaseGridQA):
                     density_png_path = os.path.join(self.output_folder, density_png_file)
                     density_png_path = Helper.truncate_too_long(density_png_path, left_truncation=True)
                     GridQAV5.plot_hysto(layer_name="Density", bins=density_bins, density=density_density,
-                                        bin_width=(1/self.density_mul), grid_info=self.density_info, png_path=density_png_path)
+                                        bin_width=(1 / self.density_mul), grid_info=self.density_info,
+                                        png_path=density_png_path)
                 # save the depth vs. density plot as png
                 if self._depth_vs_density:
                     self._finish_plot_depth_vs_density()
@@ -309,7 +346,8 @@ class GridQAV5(BaseGridQA):
                 self.tvu_qc_info.q3 = tvu_qc_bins[np.searchsorted(tvu_qc_cumsum, 0.75)]
                 # noinspection PyTypeChecker
                 self.tvu_qc_info.p97_5 = tvu_qc_bins[np.searchsorted(tvu_qc_cumsum, 0.975)]
-                self.tvu_qc_info.pct_of_passed_nodes = self.tvu_qc_info.nr_of_passed_nodes / float(self.tvu_qc_info.nr_of_nodes)
+                self.tvu_qc_info.pct_of_passed_nodes = self.tvu_qc_info.nr_of_passed_nodes / float(
+                    self.tvu_qc_info.nr_of_nodes)
                 if self.tvu_qc_info.pct_of_passed_nodes >= 0.95:
                     logger.debug("%.2f%% of grid nodes meets the maximum allowable TVU"
                                  % (self.tvu_qc_info.pct_of_passed_nodes * 100.0))
@@ -326,7 +364,7 @@ class GridQAV5(BaseGridQA):
                     tvu_qc_png_path = os.path.join(self.output_folder, tvu_qc_png_file)
                     tvu_qc_png_path = Helper.truncate_too_long(tvu_qc_png_path, left_truncation=True)
                     GridQAV5.plot_hysto(layer_name="TVU QC", bins=tvu_qc_bins, density=tvu_qc_density,
-                                        bin_width=(1/self.tvu_qc_mul), grid_info=self.tvu_qc_info,
+                                        bin_width=(1 / self.tvu_qc_mul), grid_info=self.tvu_qc_info,
                                         png_path=tvu_qc_png_path)
                 # save the depth vs. tvu qc plot as png
                 if self._depth_vs_tvu_qc:
@@ -334,6 +372,138 @@ class GridQAV5(BaseGridQA):
                 # delete the array
                 self.tvu_qc_values = None
                 # del self.grids.tvu_qc
+
+        # catzoc a1
+        if ((self.has_tvu_qc and not self.force_tvu_qc) or self.has_product_uncertainty) and self.check_catzoc:
+
+            if len(self.catzoc_a1_dict.values()) > 0:
+
+                self.catzoc_a1_dict = OrderedDict(sorted(self.catzoc_a1_dict.items(), key=lambda t: t[0]))
+                catzoc_a1_counts = np.array(list(self.catzoc_a1_dict.values()))
+                catzoc_a1_density = catzoc_a1_counts / catzoc_a1_counts.sum()
+                catzoc_a1_cumsum = np.cumsum(catzoc_a1_density)
+                catzoc_a1_bins = np.array(list(self.catzoc_a1_dict.keys())) / self.catzoc_a1_mul
+                self.catzoc_a1_info.mode = catzoc_a1_bins[catzoc_a1_counts.argmax()]
+                # noinspection PyTypeChecker
+                self.catzoc_a1_info.p2_5 = catzoc_a1_bins[np.searchsorted(catzoc_a1_cumsum, 0.025)]
+                # noinspection PyTypeChecker
+                self.catzoc_a1_info.q1 = catzoc_a1_bins[np.searchsorted(catzoc_a1_cumsum, 0.25)]
+                # noinspection PyTypeChecker
+                self.catzoc_a1_info.median = catzoc_a1_bins[np.searchsorted(catzoc_a1_cumsum, 0.5)]
+                # noinspection PyTypeChecker
+                self.catzoc_a1_info.q3 = catzoc_a1_bins[np.searchsorted(catzoc_a1_cumsum, 0.75)]
+                # noinspection PyTypeChecker
+                self.catzoc_a1_info.p97_5 = catzoc_a1_bins[np.searchsorted(catzoc_a1_cumsum, 0.975)]
+                self.catzoc_a1_info.pct_of_passed_nodes = self.catzoc_a1_info.nr_of_passed_nodes / float(
+                    self.catzoc_a1_info.nr_of_nodes)
+                if self.catzoc_a1_info.pct_of_passed_nodes >= 0.95:
+                    logger.debug("%.2f%% of grid nodes meets the maximum allowable TVU per CATZOC A1"
+                                 % (self.catzoc_a1_info.pct_of_passed_nodes * 100.0))
+                else:
+                    logger.warning("%.2f%% of grid nodes meets the maximum allowable TVU per CATZOC A1"
+                                   "(it should be >= 95%%)"
+                                   % (self.catzoc_a1_info.pct_of_passed_nodes * 100.0))
+                    success = False
+                self.catzoc_a1_info.fail_right = 1
+                # print("catzoc a1: %s" % self.catzoc_a1_dict)
+                # print("catzoc a1: %s" % self.catzoc_a1_info)
+                # save the histogram as png
+                if self._hist_tvu_qc:
+                    catzoc_a1_png_file = "%s.QAv5.catzoc_a1.png" % os.path.splitext(self.grids.current_basename)[0]
+                    catzoc_a1_png_path = os.path.join(self.output_folder, catzoc_a1_png_file)
+                    catzoc_a1_png_path = Helper.truncate_too_long(catzoc_a1_png_path, left_truncation=True)
+                    GridQAV5.plot_hysto(layer_name="TVU CATZOC A1", bins=catzoc_a1_bins, density=catzoc_a1_density,
+                                        bin_width=(1 / self.catzoc_a1_mul), grid_info=self.catzoc_a1_info,
+                                        png_path=catzoc_a1_png_path, make_green=True)
+                self.catzoc_a1_values = None
+
+            # catzoc a2 / b (a2b)
+            if ((self.has_tvu_qc and not self.force_tvu_qc) or self.has_product_uncertainty) and self.check_catzoc:
+
+                if len(self.catzoc_a2b_dict.values()) > 0:
+
+                    self.catzoc_a2b_dict = OrderedDict(sorted(self.catzoc_a2b_dict.items(), key=lambda t: t[0]))
+                    catzoc_a2b_counts = np.array(list(self.catzoc_a2b_dict.values()))
+                    catzoc_a2b_density = catzoc_a2b_counts / catzoc_a2b_counts.sum()
+                    catzoc_a2b_cumsum = np.cumsum(catzoc_a2b_density)
+                    catzoc_a2b_bins = np.array(list(self.catzoc_a2b_dict.keys())) / self.catzoc_a2b_mul
+                    self.catzoc_a2b_info.mode = catzoc_a2b_bins[catzoc_a2b_counts.argmax()]
+                    # noinspection PyTypeChecker
+                    self.catzoc_a2b_info.p2_5 = catzoc_a2b_bins[np.searchsorted(catzoc_a2b_cumsum, 0.025)]
+                    # noinspection PyTypeChecker
+                    self.catzoc_a2b_info.q1 = catzoc_a2b_bins[np.searchsorted(catzoc_a2b_cumsum, 0.25)]
+                    # noinspection PyTypeChecker
+                    self.catzoc_a2b_info.median = catzoc_a2b_bins[np.searchsorted(catzoc_a2b_cumsum, 0.5)]
+                    # noinspection PyTypeChecker
+                    self.catzoc_a2b_info.q3 = catzoc_a2b_bins[np.searchsorted(catzoc_a2b_cumsum, 0.75)]
+                    # noinspection PyTypeChecker
+                    self.catzoc_a2b_info.p97_5 = catzoc_a2b_bins[np.searchsorted(catzoc_a2b_cumsum, 0.975)]
+                    self.catzoc_a2b_info.pct_of_passed_nodes = self.catzoc_a2b_info.nr_of_passed_nodes / float(
+                        self.catzoc_a2b_info.nr_of_nodes)
+                    if self.catzoc_a2b_info.pct_of_passed_nodes >= 0.95:
+                        logger.debug("%.2f%% of grid nodes meets the maximum allowable TVU per CATZOC A2 / B"
+                                     % (self.catzoc_a2b_info.pct_of_passed_nodes * 100.0))
+                    else:
+                        logger.warning("%.2f%% of grid nodes meets the maximum allowable TVU per CATZOC A2 /B"
+                                       "(it should be >= 95%%)"
+                                       % (self.catzoc_a2b_info.pct_of_passed_nodes * 100.0))
+                        success = False
+                    self.catzoc_a2b_info.fail_right = 1
+                    # print("catzoc a2b: %s" % self.catzoc_a2b_dict)
+                    # print("catzoc a2b: %s" % self.catzoc_a2b_info)
+                    # save the histogram as png
+                    if self._hist_tvu_qc:
+                        catzoc_a2b_png_file = "%s.QAv5.catzoc_a2b.png" % os.path.splitext(self.grids.current_basename)[0]
+                        catzoc_a2b_png_path = os.path.join(self.output_folder, catzoc_a2b_png_file)
+                        catzoc_a2b_png_path = Helper.truncate_too_long(catzoc_a2b_png_path, left_truncation=True)
+                        GridQAV5.plot_hysto(layer_name="TVU CATZOC A2/B", bins=catzoc_a2b_bins, density=catzoc_a2b_density,
+                                            bin_width=(1 / self.catzoc_a2b_mul), grid_info=self.catzoc_a2b_info,
+                                            png_path=catzoc_a2b_png_path, make_green=True)
+                    self.catzoc_a2b_values = None
+
+            # catzoc c
+            if ((self.has_tvu_qc and not self.force_tvu_qc) or self.has_product_uncertainty) and self.check_catzoc:
+
+                if len(self.catzoc_c_dict.values()) > 0:
+
+                    self.catzoc_c_dict = OrderedDict(sorted(self.catzoc_c_dict.items(), key=lambda t: t[0]))
+                    catzoc_c_counts = np.array(list(self.catzoc_c_dict.values()))
+                    catzoc_c_density = catzoc_c_counts / catzoc_c_counts.sum()
+                    catzoc_c_cumsum = np.cumsum(catzoc_c_density)
+                    catzoc_c_bins = np.array(list(self.catzoc_c_dict.keys())) / self.catzoc_c_mul
+                    self.catzoc_c_info.mode = catzoc_c_bins[catzoc_c_counts.argmax()]
+                    # noinspection PyTypeChecker
+                    self.catzoc_c_info.p2_5 = catzoc_c_bins[np.searchsorted(catzoc_c_cumsum, 0.025)]
+                    # noinspection PyTypeChecker
+                    self.catzoc_c_info.q1 = catzoc_c_bins[np.searchsorted(catzoc_c_cumsum, 0.25)]
+                    # noinspection PyTypeChecker
+                    self.catzoc_c_info.median = catzoc_c_bins[np.searchsorted(catzoc_c_cumsum, 0.5)]
+                    # noinspection PyTypeChecker
+                    self.catzoc_c_info.q3 = catzoc_c_bins[np.searchsorted(catzoc_c_cumsum, 0.75)]
+                    # noinspection PyTypeChecker
+                    self.catzoc_c_info.p97_5 = catzoc_c_bins[np.searchsorted(catzoc_c_cumsum, 0.975)]
+                    self.catzoc_c_info.pct_of_passed_nodes = self.catzoc_c_info.nr_of_passed_nodes / float(
+                        self.catzoc_c_info.nr_of_nodes)
+                    if self.catzoc_c_info.pct_of_passed_nodes >= 0.95:
+                        logger.debug("%.2f%% of grid nodes meets the maximum allowable TVU per CATZOC C"
+                                     % (self.catzoc_c_info.pct_of_passed_nodes * 100.0))
+                    else:
+                        logger.warning("%.2f%% of grid nodes meets the maximum allowable TVU per CATZOC C"
+                                       "(it should be >= 95%%)"
+                                       % (self.catzoc_c_info.pct_of_passed_nodes * 100.0))
+                        success = False
+                    self.catzoc_c_info.fail_right = 1
+                    # print("catzoc c: %s" % self.catzoc_c_dict)
+                    # print("catzoc c: %s" % self.catzoc_c_info)
+                    # save the histogram as png
+                    if self._hist_tvu_qc:
+                        catzoc_c_png_file = "%s.QAv5.catzoc_c.png" % os.path.splitext(self.grids.current_basename)[0]
+                        catzoc_c_png_path = os.path.join(self.output_folder, catzoc_c_png_file)
+                        catzoc_c_png_path = Helper.truncate_too_long(catzoc_c_png_path, left_truncation=True)
+                        GridQAV5.plot_hysto(layer_name="TVU CATZOC C", bins=catzoc_c_bins, density=catzoc_c_density,
+                                            bin_width=(1 / self.catzoc_c_mul), grid_info=self.catzoc_c_info,
+                                            png_path=catzoc_c_png_path, make_green=True)
+                    self.catzoc_c_values = None
 
         # res pct
         if self.grids.is_vr():
@@ -357,7 +527,8 @@ class GridQAV5(BaseGridQA):
                 self.pct_od_info.q3 = pct_od_bins[np.searchsorted(pct_od_cumsum, 0.75)]
                 # noinspection PyTypeChecker
                 self.pct_od_info.p97_5 = pct_od_bins[np.searchsorted(pct_od_cumsum, 0.975)]
-                self.pct_od_info.pct_of_passed_nodes = self.pct_od_info.nr_of_passed_nodes / float(self.pct_od_info.nr_of_nodes)
+                self.pct_od_info.pct_of_passed_nodes = self.pct_od_info.nr_of_passed_nodes / float(
+                    self.pct_od_info.nr_of_nodes)
                 if self.pct_od_info.pct_of_passed_nodes >= 0.95:
                     logger.debug("%.2f%% of grid nodes meets the coarsest allowable resolution"
                                  % (self.pct_od_info.pct_of_passed_nodes * 100.0))
@@ -398,7 +569,8 @@ class GridQAV5(BaseGridQA):
                 self.pct_cc_info.q3 = pct_cc_bins[np.searchsorted(pct_cc_cumsum, 0.75)]
                 # noinspection PyTypeChecker
                 self.pct_cc_info.p97_5 = pct_cc_bins[np.searchsorted(pct_cc_cumsum, 0.975)]
-                self.pct_cc_info.pct_of_passed_nodes = self.pct_cc_info.nr_of_passed_nodes / float(self.pct_cc_info.nr_of_nodes)
+                self.pct_cc_info.pct_of_passed_nodes = self.pct_cc_info.nr_of_passed_nodes / float(
+                    self.pct_cc_info.nr_of_nodes)
                 if self.pct_cc_info.pct_of_passed_nodes >= 0.95:
                     logger.debug("%.2f%% of grid nodes meets the coarsest allowable resolution"
                                  % (self.pct_cc_info.pct_of_passed_nodes * 100.0))
@@ -456,7 +628,6 @@ class GridQAV5(BaseGridQA):
                     self.density_info.max = np.max(self.density_values)
 
                 for density in self.density_values:
-
                     density_key = density
                     self.density_dict[density_key] += 1
 
@@ -474,12 +645,53 @@ class GridQAV5(BaseGridQA):
                     self.tvu_qc_info.max = np.max(self.tvu_qc_values)
 
                 for tvu_qc in self.tvu_qc_values:
-
-                    tvu_qc_key = int(round(tvu_qc*self.tvu_qc_mul))
+                    tvu_qc_key = int(round(tvu_qc * self.tvu_qc_mul))
                     self.tvu_qc_dict[tvu_qc_key] += 1
 
                 if self._depth_vs_tvu_qc:
                     self._update_plot_depth_vs_tvu_qc()
+
+        # catzoc a1
+        if self.check_catzoc and ((self.has_tvu_qc and not self.force_tvu_qc) or self.has_product_uncertainty):
+            if len(self.catzoc_a1_values) > 0:
+                self.catzoc_a1_info.nr_of_nodes += len(self.catzoc_a1_values)
+                self.catzoc_a1_info.nr_of_passed_nodes += np.less_equal(self.catzoc_a1_values, 1).sum()
+                if np.min(self.catzoc_a1_values) < self.catzoc_a1_info.min:
+                    self.catzoc_a1_info.min = np.min(self.catzoc_a1_values)
+                if np.max(self.catzoc_a1_values) > self.catzoc_a1_info.max:
+                    self.catzoc_a1_info.max = np.max(self.catzoc_a1_values)
+
+                for catzoc_a1 in self.catzoc_a1_values:
+                    catzoc_a1_key = int(round(catzoc_a1 * self.catzoc_a1_mul))
+                    self.catzoc_a1_dict[catzoc_a1_key] += 1
+
+        # catzoc a2 / catzoc b (a2b)
+        if self.check_catzoc and ((self.has_tvu_qc and not self.force_tvu_qc) or self.has_product_uncertainty):
+            if len(self.catzoc_a2b_values) > 0:
+                self.catzoc_a2b_info.nr_of_nodes += len(self.catzoc_a2b_values)
+                self.catzoc_a2b_info.nr_of_passed_nodes += np.less_equal(self.catzoc_a2b_values, 1).sum()
+                if np.min(self.catzoc_a2b_values) < self.catzoc_a2b_info.min:
+                    self.catzoc_a2b_info.min = np.min(self.catzoc_a2b_values)
+                if np.max(self.catzoc_a2b_values) > self.catzoc_a2b_info.max:
+                    self.catzoc_a2b_info.max = np.max(self.catzoc_a2b_values)
+
+                for catzoc_a2b in self.catzoc_a2b_values:
+                    catzoc_a2b_key = int(round(catzoc_a2b * self.catzoc_a2b_mul))
+                    self.catzoc_a2b_dict[catzoc_a2b_key] += 1
+
+        # catzoc c
+        if self.check_catzoc and ((self.has_tvu_qc and not self.force_tvu_qc) or self.has_product_uncertainty):
+            if len(self.catzoc_c_values) > 0:
+                self.catzoc_c_info.nr_of_nodes += len(self.catzoc_c_values)
+                self.catzoc_c_info.nr_of_passed_nodes += np.less_equal(self.catzoc_c_values, 1).sum()
+                if np.min(self.catzoc_c_values) < self.catzoc_c_info.min:
+                    self.catzoc_c_info.min = np.min(self.catzoc_c_values)
+                if np.max(self.catzoc_c_values) > self.catzoc_c_info.max:
+                    self.catzoc_c_info.max = np.max(self.catzoc_c_values)
+
+                for catzoc_c in self.catzoc_c_values:
+                    catzoc_c_key = int(round(catzoc_c * self.catzoc_c_mul))
+                    self.catzoc_c_dict[catzoc_c_key] += 1
 
         # res pct
         if self.grids.is_vr():
@@ -498,7 +710,7 @@ class GridQAV5(BaseGridQA):
 
                     for pct_od in self.pct_od_values:
                         # logger.debug("- value: %s" % pct_od)
-                        pct_od_key = round(pct_od*self.pct_od_mul)
+                        pct_od_key = round(pct_od * self.pct_od_mul)
                         if np.isfinite(pct_od_key):
                             self.pct_od_dict[int(pct_od_key)] += 1
 
@@ -540,6 +752,25 @@ class GridQAV5(BaseGridQA):
         self.tvu_qc_info.histo_y_label = "Percentage of nodes in each uncertainty group"
         self.tvu_qc_info.basename = self.grids.current_basename
 
+        if self.check_catzoc:
+            self.catzoc_a1_info = GridInfoV5()
+            self.catzoc_a1_info.title = "Uncertainty Standards - CATZOC A1"
+            self.catzoc_a1_info.histo_x_label = "Node uncertainty as a fraction of allowable TVU, CATZOC A1"
+            self.catzoc_a1_info.histo_y_label = "Percentage of nodes in each uncertainty group"
+            self.catzoc_a1_info.basename = self.grids.current_basename
+
+            self.catzoc_a2b_info = GridInfoV5()
+            self.catzoc_a2b_info.title = "Uncertainty Standards - CATZOC A2/B"
+            self.catzoc_a2b_info.histo_x_label = "Node uncertainty as a fraction of allowable TVU, CATZOC A2/B"
+            self.catzoc_a2b_info.histo_y_label = "Percentage of nodes in each uncertainty group"
+            self.catzoc_a2b_info.basename = self.grids.current_basename
+
+            self.catzoc_c_info = GridInfoV5()
+            self.catzoc_c_info.title = "Uncertainty Standards - CATZOC C"
+            self.catzoc_c_info.histo_x_label = "Node uncertainty as a fraction of allowable TVU, CATZOC C"
+            self.catzoc_c_info.histo_y_label = "Percentage of nodes in each uncertainty group"
+            self.catzoc_c_info.basename = self.grids.current_basename
+
         if self.objection_detection:
             self.pct_od_info = GridInfoV5()
             self.pct_od_info.title = "Resolution Requirements - Object Detection"
@@ -564,7 +795,7 @@ class GridQAV5(BaseGridQA):
 
         depth_type = tile.type(self.grids.depth_layer_name())
         depth_idx = tile.band_index(self.grids.depth_layer_name())
-        # logger.debug("depth layer: %s [idx: %s]" % (self.grids.grid_data_type(depth_type), depth_idx))
+        logger.debug("depth layer: %s [idx: %s]" % (self.grids.grid_data_type(depth_type), depth_idx))
 
         if depth_type == GRIDS_DOUBLE:
             self.bathy_values = -tile.doubles[depth_idx][tile.doubles[depth_idx] != tile.doubles_nodata[depth_idx]]
@@ -607,6 +838,7 @@ class GridQAV5(BaseGridQA):
                 raise RuntimeError("Unsupported data type for density: %s" % density_type)
             # logger.debug('density values: %s' % len(self.density_values))
 
+        # tvu qc
         if (self.has_tvu_qc and not self.force_tvu_qc) or self.has_product_uncertainty:
 
             # calculate the TVU QC layer
@@ -644,6 +876,22 @@ class GridQAV5(BaseGridQA):
                                        tile.doubles[uncertainty_idx],
                                        tile.doubles_nodata[uncertainty_idx],
                                        self.grids.tvu_qc)
+                        if self.check_catzoc:
+                            self.grids.tvu_qc_a1 = np.empty_like(tile.doubles[depth_idx])
+                            calc_tvu_qc_a1_dd(-tile.doubles[depth_idx],
+                                              tile.doubles[uncertainty_idx],
+                                              tile.doubles_nodata[uncertainty_idx],
+                                              self.grids.tvu_qc_a1)
+                            self.grids.tvu_qc_a2b = np.empty_like(tile.doubles[depth_idx])
+                            calc_tvu_qc_a2b_dd(-tile.doubles[depth_idx],
+                                               tile.doubles[uncertainty_idx],
+                                               tile.doubles_nodata[uncertainty_idx],
+                                               self.grids.tvu_qc_a2b)
+                            self.grids.tvu_qc_c = np.empty_like(tile.doubles[depth_idx])
+                            calc_tvu_qc_c_dd(-tile.doubles[depth_idx],
+                                             tile.doubles[uncertainty_idx],
+                                             tile.doubles_nodata[uncertainty_idx],
+                                             self.grids.tvu_qc_c)
 
                     else:  # float
                         self.grids.tvu_qc = np.empty_like(tile.floats[depth_idx])
@@ -651,6 +899,22 @@ class GridQAV5(BaseGridQA):
                                        tile.doubles[uncertainty_idx],
                                        tile.doubles_nodata[uncertainty_idx],
                                        self.grids.tvu_qc)
+                        if self.check_catzoc:
+                            self.grids.tvu_qc_a1 = np.empty_like(tile.floats[depth_idx])
+                            calc_tvu_qc_a1_fd(-tile.floats[depth_idx],
+                                              tile.doubles[uncertainty_idx],
+                                              tile.doubles_nodata[uncertainty_idx],
+                                              self.grids.tvu_qc_a1)
+                            self.grids.tvu_qc_a2b = np.empty_like(tile.floats[depth_idx])
+                            calc_tvu_qc_a2b_fd(-tile.floats[depth_idx],
+                                               tile.doubles[uncertainty_idx],
+                                               tile.doubles_nodata[uncertainty_idx],
+                                               self.grids.tvu_qc_a2b)
+                            self.grids.tvu_qc_c = np.empty_like(tile.floats[depth_idx])
+                            calc_tvu_qc_c_fd(-tile.floats[depth_idx],
+                                             tile.doubles[uncertainty_idx],
+                                             tile.doubles_nodata[uncertainty_idx],
+                                             self.grids.tvu_qc_c)
 
                 elif uncertainty_type == GRIDS_FLOAT:
                     if depth_type == GRIDS_DOUBLE:
@@ -659,6 +923,22 @@ class GridQAV5(BaseGridQA):
                                        tile.floats[uncertainty_idx],
                                        tile.floats_nodata[uncertainty_idx],
                                        self.grids.tvu_qc)
+                        if self.check_catzoc:
+                            self.grids.tvu_qc_a1 = np.empty_like(tile.doubles[depth_idx])
+                            calc_tvu_qc_a1_df(-tile.doubles[depth_idx],
+                                              tile.floats[uncertainty_idx],
+                                              tile.floats_nodata[uncertainty_idx],
+                                              self.grids.tvu_qc_a1)
+                            self.grids.tvu_qc_a2b = np.empty_like(tile.doubles[depth_idx])
+                            calc_tvu_qc_a2b_df(-tile.doubles[depth_idx],
+                                               tile.floats[uncertainty_idx],
+                                               tile.floats_nodata[uncertainty_idx],
+                                               self.grids.tvu_qc_a2b)
+                            self.grids.tvu_qc_c = np.empty_like(tile.doubles[depth_idx])
+                            calc_tvu_qc_c_df(-tile.doubles[depth_idx],
+                                             tile.floats[uncertainty_idx],
+                                             tile.floats_nodata[uncertainty_idx],
+                                             self.grids.tvu_qc_c)
 
                     else:  # float
                         self.grids.tvu_qc = np.empty_like(tile.floats[depth_idx])
@@ -666,13 +946,37 @@ class GridQAV5(BaseGridQA):
                                        tile.floats[uncertainty_idx],
                                        tile.floats_nodata[uncertainty_idx],
                                        self.grids.tvu_qc)
+                        if self.check_catzoc:
+                            self.grids.tvu_qc_a1 = np.empty_like(tile.floats[depth_idx])
+                            calc_tvu_qc_a1_ff(-tile.floats[depth_idx],
+                                              tile.floats[uncertainty_idx],
+                                              tile.floats_nodata[uncertainty_idx],
+                                              self.grids.tvu_qc_a1)
+                            self.grids.tvu_qc_a2b = np.empty_like(tile.floats[depth_idx])
+                            calc_tvu_qc_a2b_ff(-tile.floats[depth_idx],
+                                               tile.floats[uncertainty_idx],
+                                               tile.floats_nodata[uncertainty_idx],
+                                               self.grids.tvu_qc_a2b)
+                            self.grids.tvu_qc_c = np.empty_like(tile.floats[depth_idx])
+                            calc_tvu_qc_c_ff(-tile.floats[depth_idx],
+                                             tile.floats[uncertainty_idx],
+                                             tile.floats_nodata[uncertainty_idx],
+                                             self.grids.tvu_qc_c)
 
                 else:
                     raise RuntimeError("Unsupported data type for uncertainty")
                 # logger.debug(self.grids.tvu_qc)
 
                 self.tvu_qc_values = np.fabs(self.grids.tvu_qc[~np.isnan(self.grids.tvu_qc)])
+                if self.check_catzoc:
+                    self.catzoc_a1_values = np.fabs(self.grids.tvu_qc_a1[~np.isnan(self.grids.tvu_qc_a1)])
+                    self.catzoc_a2b_values = np.fabs(self.grids.tvu_qc_a2b[~np.isnan(self.grids.tvu_qc_a2b)])
+                    self.catzoc_c_values = np.fabs(self.grids.tvu_qc_c[~np.isnan(self.grids.tvu_qc_c)])
                 self.grids.tvu_qc = None
+                if self.check_catzoc:
+                    self.grids.tvu_qc_a1 = None
+                    self.grids.tvu_qc_a2b = None
+                    self.grids.tvu_qc_c = None
                 # logger.debug("%s" % (self.tvu_qc_values.shape, ))
                 self.tvu_qc_recalculated = True
                 self.tvu_qc_info.histo_x_label = "Node uncertainty as a fraction of allowable IHO TVU (computed)"
@@ -704,7 +1008,7 @@ class GridQAV5(BaseGridQA):
             else:
                 raise RuntimeError("Unsupported data type for density")
             # logger.debug('pct od values: %s' % len(self.pct_od_values))
-        
+
         # - complete coverage
         if self.full_coverage:
 
@@ -724,7 +1028,7 @@ class GridQAV5(BaseGridQA):
     # plotting
 
     @classmethod
-    def plot_hysto(cls, layer_name, bins, density, bin_width, grid_info, png_path):
+    def plot_hysto(cls, layer_name, bins, density, bin_width, grid_info, png_path, make_green=False):
         logger.debug("saving %s histogram as %s" % (layer_name, png_path))
 
         # prepare sub-title 1
@@ -763,14 +1067,23 @@ class GridQAV5(BaseGridQA):
         fig = plt.figure()
         ax = fig.add_axes([0.1, 0.1, 0.81, 0.68])  # leaving room for title & subtitle
 
-        shaded_colors = [cls.RGB_PuBu1 for i in bins]
+        if make_green:
+            shaded_colors = [cls.RGB_Catzoc1 for i in bins]
+        else:
+            shaded_colors = [cls.RGB_PuBu1 for i in bins]
         # noinspection PyUnresolvedReferences
         for i in ((grid_info.p2_5 <= bins) & (bins <= grid_info.p97_5)).nonzero()[0]:
-            shaded_colors[i] = GridQAV5.RGB_PuBu2
+            if make_green:
+                shaded_colors[i] = GridQAV5.RGB_Catzoc2
+            else:
+                shaded_colors[i] = GridQAV5.RGB_PuBu2
 
         # noinspection PyUnresolvedReferences
         for i in ((grid_info.q1 <= bins) & (bins <= grid_info.q3)).nonzero()[0]:
-            shaded_colors[i] = GridQAV5.RGB_PuBu3
+            if make_green:
+                shaded_colors[i] = GridQAV5.RGB_Catzoc3
+            else:
+                shaded_colors[i] = GridQAV5.RGB_PuBu3
 
         p1 = ax.bar(x=bins, height=100 * density, width=bin_width, align='center', linewidth=0, color=shaded_colors)
         p2, = ax.plot(bins - bin_width / 2., 100 * density, drawstyle="steps-post", fillstyle="bottom")
@@ -863,13 +1176,13 @@ class GridQAV5(BaseGridQA):
             p1, = self.tvu_qc_ax.plot(self.tvu_qc_values[other_indices][pass_slice],
                                       self.bathy_values[other_indices][pass_slice], 'b+', alpha=0.5)
         except IndexError as e:
-            logger.error("index issue while plotting pass slide, %s" % (e, ))
+            logger.error("index issue while plotting pass slide, %s" % (e,))
 
         try:
             p2, = self.tvu_qc_ax.plot(self.tvu_qc_values[other_indices][fail_slice],
                                       self.bathy_values[other_indices][fail_slice], 'r+', alpha=0.5)
         except IndexError as e:
-            logger.error("index issue while plotting fail slice, %s" % (e, ))
+            logger.error("index issue while plotting fail slice, %s" % (e,))
 
     def _finish_plot_depth_vs_tvu_qc(self):
 

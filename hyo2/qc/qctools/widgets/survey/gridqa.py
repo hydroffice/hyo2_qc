@@ -35,6 +35,7 @@ class GridQATab(QtWidgets.QMainWindow):
         self.setSettingsGQv5 = QtWidgets.QGroupBox("Settings")
         gqv5_hbox.addWidget(self.setSettingsGQv5)
         self.set_force_tvu_qc_gqv5 = None
+        self.set_check_catzoc = None
         self.set_toggle_mode_gqv5 = None
         self.hist_depth_v5 = None
         self.hist_density_v5 = None
@@ -50,6 +51,7 @@ class GridQATab(QtWidgets.QMainWindow):
         # -- variables
         self.toggle_mode_gqv5 = None
         self.force_tvu_qc_gqv5 = False
+        self.check_catzoc = False
 
         self.vbox.addStretch()
 
@@ -63,9 +65,6 @@ class GridQATab(QtWidgets.QMainWindow):
 
         hbox = QtWidgets.QHBoxLayout()
         vbox.addLayout(hbox)
-
-        hbox = QtWidgets.QHBoxLayout()
-        vbox.addLayout(hbox)
         hbox.addStretch()
         text_set_tvu_qc = QtWidgets.QLabel("Force TVU QC calculation")
         hbox.addWidget(text_set_tvu_qc)
@@ -74,6 +73,22 @@ class GridQATab(QtWidgets.QMainWindow):
         self.set_force_tvu_qc_gqv5 = QtWidgets.QCheckBox(self)
         hbox.addWidget(self.set_force_tvu_qc_gqv5)
         self.set_force_tvu_qc_gqv5.setChecked(True)
+
+        hbox.addStretch()
+
+        hbox = QtWidgets.QHBoxLayout()
+        vbox.addLayout(hbox)
+        hbox.addStretch()
+        text_set_catzoc = QtWidgets.QLabel("Plot TVU/CATZOC histograms <span style=\"color:red;\">(office only)</span>")
+        hbox.addWidget(text_set_catzoc)
+        text_set_catzoc.setFixedHeight(GuiSettings.single_line_height())
+        text_set_catzoc.setMinimumWidth(80)
+        self.set_check_catzoc = QtWidgets.QCheckBox(self)
+        # noinspection PyUnresolvedReferences
+        self.set_check_catzoc.stateChanged.connect(self.on_changed_check_catzoc)
+        hbox.addWidget(self.set_check_catzoc)
+        self.set_check_catzoc.setChecked(False)
+
         hbox.addStretch()
 
         vbox.addStretch()
@@ -223,6 +238,12 @@ class GridQATab(QtWidgets.QMainWindow):
         """trigger the grid qa v5"""
         self._click_grid_qa(5)
 
+    def on_changed_check_catzoc(self):
+        checked = self.set_check_catzoc.isChecked()
+        if checked:
+            if not self.set_force_tvu_qc_gqv5.isChecked():
+                self.set_force_tvu_qc_gqv5.setChecked(True)
+
     # common
 
     @classmethod
@@ -248,6 +269,7 @@ class GridQATab(QtWidgets.QMainWindow):
         # check for user input as force TVU QC
         if version == 5:
             self.force_tvu_qc_gqv5 = self.set_force_tvu_qc_gqv5.isChecked()
+            self.check_catzoc = self.set_check_catzoc.isChecked()
             self.toggle_mode_gqv5 = self.set_toggle_mode_gqv5.value()
         else:  # this case should be never reached after the sanity checks
             raise RuntimeError("unknown Grid QA's version: %s" % version)
@@ -352,6 +374,7 @@ class GridQATab(QtWidgets.QMainWindow):
                     return False
 
                 self.prj.grid_qa_v5(force_tvu_qc=self.force_tvu_qc_gqv5,
+                                    check_catzoc=self.check_catzoc,
                                     calc_object_detection=(self.toggle_mode_gqv5 == 0),
                                     calc_full_coverage=(self.toggle_mode_gqv5 == 1),
                                     hist_depth=self.hist_depth_v5.isChecked(),

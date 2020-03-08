@@ -728,7 +728,7 @@ class SurveyProject(BaseProject):
             self._qa = None
             raise e
 
-    def grid_qa_v5(self, force_tvu_qc=True,
+    def grid_qa_v5(self, force_tvu_qc=True, check_catzoc=False,
                    calc_object_detection=True, calc_full_coverage=True,
                    hist_depth=True, hist_density=True, hist_tvu_qc=True, hist_pct_res=True,
                    depth_vs_density=False, depth_vs_tvu_qc=False,
@@ -736,6 +736,10 @@ class SurveyProject(BaseProject):
         """Calculate grid QA using the passed parameters and the loaded grids"""
         if not self.has_grid():
             logger.warning("first load some grids")
+            return False
+
+        if not force_tvu_qc and check_catzoc:
+            logger.warning("invalid combination of enabled flags: force tvu qc and check catzoc")
             return False
 
         try:
@@ -768,7 +772,7 @@ class SurveyProject(BaseProject):
             self._gr.selected_layers_in_cur_grid = layers
 
             # do the QA
-            self._qa = GridQAV5(grids=self._gr, force_tvu_qc=force_tvu_qc,
+            self._qa = GridQAV5(grids=self._gr, force_tvu_qc=force_tvu_qc, check_catzoc=check_catzoc,
                                 has_depth=has_depth, has_product_uncertainty=has_product_uncertainty,
                                 has_density=has_density, has_tvu_qc=has_tvu_qc, output_folder=self.gridqa_output_folder,
                                 object_detection=calc_object_detection, full_coverage=calc_full_coverage,
@@ -779,7 +783,7 @@ class SurveyProject(BaseProject):
 
             start_time = time.time()
             passed = self._qa.run()
-            logger.info("Grid QA v4 -> execution time: %.3f s" % (time.time() - start_time))
+            logger.info("Grid QA v5 -> execution time: %.3f s" % (time.time() - start_time))
 
             return passed
 
