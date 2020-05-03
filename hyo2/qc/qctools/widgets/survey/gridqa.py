@@ -26,68 +26,72 @@ class GridQATab(QtWidgets.QMainWindow):
         self.vbox = QtWidgets.QVBoxLayout()
         self.panel.setLayout(self.vbox)
 
-        # - grid qa v5
-        self.gridQAV5 = QtWidgets.QGroupBox("Grid QA v5")
-        self.vbox.addWidget(self.gridQAV5)
-        gqv5_hbox = QtWidgets.QHBoxLayout()
-        self.gridQAV5.setLayout(gqv5_hbox)
+        # - grid qa v6
+        self.gridQAV6 = QtWidgets.QGroupBox("Grid QA v6")
+        self.vbox.addWidget(self.gridQAV6)
+        gqv6_hbox = QtWidgets.QHBoxLayout()
+        self.gridQAV6.setLayout(gqv6_hbox)
         # -- parameters
-        self.setSettingsGQv5 = QtWidgets.QGroupBox("Settings")
-        gqv5_hbox.addWidget(self.setSettingsGQv5)
-        self.set_force_tvu_qc_gqv5 = None
-        self.set_check_catzoc = None
-        self.set_toggle_mode_gqv5 = None
-        self.hist_depth_v5 = None
-        self.hist_density_v5 = None
-        self.hist_tvu_qc_v5 = None
-        self.hist_pct_res_v5 = None
-        self.depth_vs_density_v5 = None
-        self.depth_vs_tvu_qc_v5 = None
-        self._ui_settings_gqv5()
+        self.setSettingsGQv6 = QtWidgets.QGroupBox("Settings")
+        gqv6_hbox.addWidget(self.setSettingsGQv6)
+        self.set_force_tvu_qc_gqv6 = None
+        self.text_set_tvu_qc = None
+        self.set_toggle_mode_gqv6 = None
+        self.hist_depth_v6 = None
+        self.hist_density_v6 = None
+        self.hist_tvu_qc_v6 = None
+        self.hist_pct_res_v6 = None
+        self.hist_catzoc = None
+        self.depth_vs_density_v6 = None
+        self.depth_vs_tvu_qc_v6 = None
+        self._ui_settings_gqv6()
         # -- execution
-        self.executeGQv5 = QtWidgets.QGroupBox("Execution")
-        gqv5_hbox.addWidget(self.executeGQv5)
-        self._ui_execute_gqv5()
+        self.executeGQv6 = QtWidgets.QGroupBox("Execution")
+        gqv6_hbox.addWidget(self.executeGQv6)
+        self._ui_execute_gqv6()
         # -- variables
-        self.toggle_mode_gqv5 = None
-        self.force_tvu_qc_gqv5 = False
-        self.check_catzoc = False
+        self.toggle_mode_gqv6 = None
+        self.force_tvu_qc_gqv6 = False
 
         self.vbox.addStretch()
 
-    # v5
+    def keyPressEvent(self, event):
+        key = event.key()
+        if event.modifiers() == QtCore.Qt.ControlModifier:
+            # logger.debug("pressed CTRL + %s" % key)
+            if key == QtCore.Qt.Key_F:
 
-    def _ui_settings_gqv5(self):
+                if self.set_force_tvu_qc_gqv6.isHidden():
+                    self.set_force_tvu_qc_gqv6.show()
+                    self.text_set_tvu_qc.show()
+
+                else:
+                    self.set_force_tvu_qc_gqv6.hide()
+                    self.text_set_tvu_qc.hide()
+
+                return True
+        return super(GridQATab, self).keyPressEvent(event)
+
+    # v6
+
+    def _ui_settings_gqv6(self):
         vbox = QtWidgets.QVBoxLayout()
-        self.setSettingsGQv5.setLayout(vbox)
+        self.setSettingsGQv6.setLayout(vbox)
 
-        vbox.addStretch()
-
-        hbox = QtWidgets.QHBoxLayout()
-        vbox.addLayout(hbox)
-        hbox.addStretch()
-        text_set_tvu_qc = QtWidgets.QLabel("Force TVU QC calculation")
-        hbox.addWidget(text_set_tvu_qc)
-        text_set_tvu_qc.setFixedHeight(GuiSettings.single_line_height())
-        text_set_tvu_qc.setMinimumWidth(80)
-        self.set_force_tvu_qc_gqv5 = QtWidgets.QCheckBox(self)
-        hbox.addWidget(self.set_force_tvu_qc_gqv5)
-        self.set_force_tvu_qc_gqv5.setChecked(True)
-
-        hbox.addStretch()
+        # vbox.addStretch()
 
         hbox = QtWidgets.QHBoxLayout()
         vbox.addLayout(hbox)
         hbox.addStretch()
-        text_set_catzoc = QtWidgets.QLabel("Plot TVU/CATZOC histograms <span style=\"color:red;\">(office only)</span>")
-        hbox.addWidget(text_set_catzoc)
-        text_set_catzoc.setFixedHeight(GuiSettings.single_line_height())
-        text_set_catzoc.setMinimumWidth(80)
-        self.set_check_catzoc = QtWidgets.QCheckBox(self)
-        # noinspection PyUnresolvedReferences
-        self.set_check_catzoc.stateChanged.connect(self.on_changed_check_catzoc)
-        hbox.addWidget(self.set_check_catzoc)
-        self.set_check_catzoc.setChecked(False)
+        self.text_set_tvu_qc = QtWidgets.QLabel("Force TVU QC calculation")
+        self.text_set_tvu_qc.setFixedHeight(GuiSettings.single_line_height())
+        self.text_set_tvu_qc.setMinimumWidth(80)
+        self.text_set_tvu_qc.setHidden(True)
+        hbox.addWidget(self.text_set_tvu_qc)
+        self.set_force_tvu_qc_gqv6 = QtWidgets.QCheckBox(self)
+        hbox.addWidget(self.set_force_tvu_qc_gqv6)
+        self.set_force_tvu_qc_gqv6.setChecked(True)
+        self.set_force_tvu_qc_gqv6.setHidden(True)
 
         hbox.addStretch()
 
@@ -98,15 +102,15 @@ class GridQATab(QtWidgets.QMainWindow):
         # stretch
         hbox.addStretch()
         # mode
-        self.set_toggle_mode_gqv5 = QtWidgets.QDial()
-        self.set_toggle_mode_gqv5.setNotchesVisible(True)
-        self.set_toggle_mode_gqv5.setWrapping(False)
-        self.set_toggle_mode_gqv5.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.set_toggle_mode_gqv5.setRange(0, 1)
-        self.set_toggle_mode_gqv5.setSliderPosition(1)
-        self.set_toggle_mode_gqv5.setFixedSize(QtCore.QSize(40, 40))
-        self.set_toggle_mode_gqv5.setInvertedAppearance(False)
-        hbox.addWidget(self.set_toggle_mode_gqv5)
+        self.set_toggle_mode_gqv6 = QtWidgets.QDial()
+        self.set_toggle_mode_gqv6.setNotchesVisible(True)
+        self.set_toggle_mode_gqv6.setWrapping(False)
+        self.set_toggle_mode_gqv6.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.set_toggle_mode_gqv6.setRange(0, 1)
+        self.set_toggle_mode_gqv6.setSliderPosition(1)
+        self.set_toggle_mode_gqv6.setFixedSize(QtCore.QSize(40, 40))
+        self.set_toggle_mode_gqv6.setInvertedAppearance(False)
+        hbox.addWidget(self.set_toggle_mode_gqv6)
         hbox.addStretch()
 
         hbox = QtWidgets.QHBoxLayout()
@@ -143,30 +147,43 @@ class GridQATab(QtWidgets.QMainWindow):
         text_hist_depth = QtWidgets.QLabel("depth:")
         hbox.addWidget(text_hist_depth)
         text_hist_depth.setFixedHeight(GuiSettings.single_line_height())
-        self.hist_depth_v5 = QtWidgets.QCheckBox(self)
-        hbox.addWidget(self.hist_depth_v5)
-        self.hist_depth_v5.setChecked(True)
+        self.hist_depth_v6 = QtWidgets.QCheckBox(self)
+        hbox.addWidget(self.hist_depth_v6)
+        self.hist_depth_v6.setChecked(True)
         # histograms: density
-        text_hist_density = QtWidgets.QLabel(" density:")
+        text_hist_density = QtWidgets.QLabel("density:")
         hbox.addWidget(text_hist_density)
         text_hist_density.setFixedHeight(GuiSettings.single_line_height())
-        self.hist_density_v5 = QtWidgets.QCheckBox(self)
-        hbox.addWidget(self.hist_density_v5)
-        self.hist_density_v5.setChecked(True)
+        self.hist_density_v6 = QtWidgets.QCheckBox(self)
+        hbox.addWidget(self.hist_density_v6)
+        self.hist_density_v6.setChecked(True)
         # histograms: tvu qc
-        text_hist_tvu_qc = QtWidgets.QLabel(" TVU QC:")
+        text_hist_tvu_qc = QtWidgets.QLabel("TVU (IHO S-44):")
         hbox.addWidget(text_hist_tvu_qc)
         text_hist_tvu_qc.setFixedHeight(GuiSettings.single_line_height())
-        self.hist_tvu_qc_v5 = QtWidgets.QCheckBox(self)
-        hbox.addWidget(self.hist_tvu_qc_v5)
-        self.hist_tvu_qc_v5.setChecked(True)
+        self.hist_tvu_qc_v6 = QtWidgets.QCheckBox(self)
+        hbox.addWidget(self.hist_tvu_qc_v6)
+        self.hist_tvu_qc_v6.setChecked(True)
         # histograms: pct res
-        text_hist_pct_res = QtWidgets.QLabel(" % resolution:")
+        text_hist_pct_res = QtWidgets.QLabel("% resolution:")
         hbox.addWidget(text_hist_pct_res)
         text_hist_pct_res.setFixedHeight(GuiSettings.single_line_height())
-        self.hist_pct_res_v5 = QtWidgets.QCheckBox(self)
-        hbox.addWidget(self.hist_pct_res_v5)
-        self.hist_pct_res_v5.setChecked(True)
+        self.hist_pct_res_v6 = QtWidgets.QCheckBox(self)
+        hbox.addWidget(self.hist_pct_res_v6)
+        self.hist_pct_res_v6.setChecked(True)
+        hbox.addStretch()
+
+        hbox = QtWidgets.QHBoxLayout()
+        vbox.addLayout(hbox)
+        hbox.addStretch()
+        # catzoc
+        text_hist_catzoc = QtWidgets.QLabel("TVU (IHO S-57 CATZOC) [Branch]:")
+        hbox.addWidget(text_hist_catzoc)
+        text_hist_catzoc.setFixedHeight(GuiSettings.single_line_height())
+        self.hist_catzoc = QtWidgets.QCheckBox(self)
+        # self.hist_catzoc.stateChanged.connect(self.click_set_catzoc)
+        hbox.addWidget(self.hist_catzoc)
+        self.hist_catzoc.setChecked(False)
         hbox.addStretch()
 
         vbox.addSpacing(9)
@@ -183,26 +200,32 @@ class GridQATab(QtWidgets.QMainWindow):
         vbox.addLayout(hbox)
         hbox.addStretch()
         # depth vs density
-        text_depth_vs_density = QtWidgets.QLabel("density:")
+        text_depth_vs_density = QtWidgets.QLabel("Density:")
         hbox.addWidget(text_depth_vs_density)
         text_depth_vs_density.setFixedHeight(GuiSettings.single_line_height())
-        self.depth_vs_density_v5 = QtWidgets.QCheckBox(self)
-        hbox.addWidget(self.depth_vs_density_v5)
-        self.depth_vs_density_v5.setChecked(False)
+        self.depth_vs_density_v6 = QtWidgets.QCheckBox(self)
+        hbox.addWidget(self.depth_vs_density_v6)
+        self.depth_vs_density_v6.setChecked(False)
         # depth vs tvu qc
-        text_depth_vs_tvu_qc = QtWidgets.QLabel(" TVU QC:")
+        text_depth_vs_tvu_qc = QtWidgets.QLabel(" TVU (IHO S-44):")
         hbox.addWidget(text_depth_vs_tvu_qc)
         text_depth_vs_tvu_qc.setFixedHeight(GuiSettings.single_line_height())
-        self.depth_vs_tvu_qc_v5 = QtWidgets.QCheckBox(self)
-        hbox.addWidget(self.depth_vs_tvu_qc_v5)
-        self.depth_vs_tvu_qc_v5.setChecked(False)
+        self.depth_vs_tvu_qc_v6 = QtWidgets.QCheckBox(self)
+        hbox.addWidget(self.depth_vs_tvu_qc_v6)
+        self.depth_vs_tvu_qc_v6.setChecked(False)
+        hbox.addStretch()
+
+        vbox.addSpacing(9)
+
+        hbox = QtWidgets.QHBoxLayout()
+        vbox.addLayout(hbox)
         hbox.addStretch()
 
         vbox.addStretch()
 
-    def _ui_execute_gqv5(self):
+    def _ui_execute_gqv6(self):
         vbox = QtWidgets.QVBoxLayout()
-        self.executeGQv5.setLayout(vbox)
+        self.executeGQv6.setLayout(vbox)
 
         vbox.addStretch()
 
@@ -214,10 +237,10 @@ class GridQATab(QtWidgets.QMainWindow):
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
         button.setFixedWidth(GuiSettings.text_button_width())
-        button.setText("Grid QA v5")
+        button.setText("Grid QA v6")
         button.setToolTip('Perform quality assessment on loaded grids')
         # noinspection PyUnresolvedReferences
-        button.clicked.connect(self.click_grid_qa_v5)
+        button.clicked.connect(self.click_grid_qa_v6)
 
         button = QtWidgets.QPushButton()
         hbox.addWidget(button)
@@ -234,15 +257,9 @@ class GridQATab(QtWidgets.QMainWindow):
 
         vbox.addStretch()
 
-    def click_grid_qa_v5(self):
-        """trigger the grid qa v5"""
-        self._click_grid_qa(5)
-
-    def on_changed_check_catzoc(self):
-        checked = self.set_check_catzoc.isChecked()
-        if checked:
-            if not self.set_force_tvu_qc_gqv5.isChecked():
-                self.set_force_tvu_qc_gqv5.setChecked(True)
+    def click_grid_qa_v6(self):
+        """trigger the grid qa v6"""
+        self._click_grid_qa(6)
 
     # common
 
@@ -258,7 +275,7 @@ class GridQATab(QtWidgets.QMainWindow):
         # - version
         if not isinstance(version, int):
             raise RuntimeError("passed invalid type for version: %s" % type(version))
-        if version not in [5, ]:
+        if version not in [6, ]:
             raise RuntimeError("passed invalid Grid QA version: %s" % version)
         # - list of grids (although the buttons should be never been enabled without grids)
         if len(self.prj.grid_list) == 0:
@@ -267,10 +284,9 @@ class GridQATab(QtWidgets.QMainWindow):
         self.parent_win.change_info_url(Helper(lib_info=lib_info).web_url(suffix="survey_grid_qa_%d" % version))
 
         # check for user input as force TVU QC
-        if version == 5:
-            self.force_tvu_qc_gqv5 = self.set_force_tvu_qc_gqv5.isChecked()
-            self.check_catzoc = self.set_check_catzoc.isChecked()
-            self.toggle_mode_gqv5 = self.set_toggle_mode_gqv5.value()
+        if version == 6:
+            self.force_tvu_qc_gqv6 = self.set_force_tvu_qc_gqv6.isChecked()
+            self.toggle_mode_gqv6 = self.set_toggle_mode_gqv6.value()
         else:  # this case should be never reached after the sanity checks
             raise RuntimeError("unknown Grid QA's version: %s" % version)
 
@@ -283,7 +299,7 @@ class GridQATab(QtWidgets.QMainWindow):
             # we want to be sure that the label is based on the name of the new file input
             self.prj.clear_survey_label()
             # switcher between different versions of find fliers
-            if version == 5:
+            if version == 6:
                 success = self._grid_qa(grid_file=grid_file, version=version, idx=(i + 1), total=len(grid_list))
             else:  # this case should be never reached after the sanity checks
                 raise RuntimeError("unknown Grid QA version: %s" % version)
@@ -325,19 +341,19 @@ class GridQATab(QtWidgets.QMainWindow):
         self.prj.progress.update(value=10,
                                  text="Grid QA v%d [%d/%d]" % (version, idx, total))
 
-        if self.hist_tvu_qc_v5.isChecked() or self.depth_vs_tvu_qc_v5.isChecked():
+        if self.hist_tvu_qc_v6.isChecked() or self.depth_vs_tvu_qc_v6.isChecked():
 
             # manage the particular case of more than 1 TVU QC layers [but only if the force flag is OFF]
             tvu_qc_layers = self.prj.cur_grid_tvu_qc_layers()
             if len(tvu_qc_layers) == 1:
 
-                if version == 5:
+                if version == 6:
                     self.prj.set_cur_grid_tvu_qc_name(tvu_qc_layers[0])
 
             elif len(tvu_qc_layers) > 1:
 
-                if version == 5:
-                    if self.force_tvu_qc_gqv5:
+                if version == 6:
+                    if self.force_tvu_qc_gqv6:
 
                         self.prj.set_cur_grid_tvu_qc_name(tvu_qc_layers[0])
 
@@ -360,29 +376,32 @@ class GridQATab(QtWidgets.QMainWindow):
 
         try:
 
-            if version == 5:
+            if version == 6:
 
-                logger.info("knob-selected mode: %s" % self.toggle_mode_gqv5)
+                logger.info("knob-selected mode: %s" % self.toggle_mode_gqv6)
 
-                if not self.hist_depth_v5.isChecked() and not self.hist_density_v5.isChecked() \
-                        and not self.hist_tvu_qc_v5.isChecked() and not self.hist_pct_res_v5.isChecked() \
-                        and not self.depth_vs_density_v5.isChecked() and not self.depth_vs_tvu_qc_v5.isChecked():
+                if not self.hist_depth_v6.isChecked() and not self.hist_density_v6.isChecked() \
+                        and not self.hist_tvu_qc_v6.isChecked() and not self.hist_pct_res_v6.isChecked() \
+                        and not self.hist_catzoc.isChecked()\
+                        and not self.depth_vs_density_v6.isChecked() and not self.depth_vs_tvu_qc_v6.isChecked():
                     info_str = "You need to flag at least one plot as output!"
                     # noinspection PyCallByClass
                     QtWidgets.QMessageBox.warning(self, "No outputs", info_str, QtWidgets.QMessageBox.Ok)
                     self.prj.progress.end()
                     return False
 
-                self.prj.grid_qa_v5(force_tvu_qc=self.force_tvu_qc_gqv5,
-                                    check_catzoc=self.check_catzoc,
-                                    calc_object_detection=(self.toggle_mode_gqv5 == 0),
-                                    calc_full_coverage=(self.toggle_mode_gqv5 == 1),
-                                    hist_depth=self.hist_depth_v5.isChecked(),
-                                    hist_density=self.hist_density_v5.isChecked(),
-                                    hist_tvu_qc=self.hist_tvu_qc_v5.isChecked(),
-                                    hist_pct_res=self.hist_pct_res_v5.isChecked(),
-                                    depth_vs_density=self.depth_vs_density_v5.isChecked(),
-                                    depth_vs_tvu_qc=self.depth_vs_tvu_qc_v5.isChecked(),
+                self.prj.grid_qa_v6(force_tvu_qc=self.force_tvu_qc_gqv6,
+                                    calc_object_detection=(self.toggle_mode_gqv6 == 0),
+                                    calc_full_coverage=(self.toggle_mode_gqv6 == 1),
+                                    hist_depth=self.hist_depth_v6.isChecked(),
+                                    hist_density=self.hist_density_v6.isChecked(),
+                                    hist_tvu_qc=self.hist_tvu_qc_v6.isChecked(),
+                                    hist_pct_res=self.hist_pct_res_v6.isChecked(),
+                                    hist_catzoc_a1=self.hist_catzoc.isChecked(),
+                                    hist_catzoc_a2b=self.hist_catzoc.isChecked(),
+                                    hist_catzoc_c=self.hist_catzoc.isChecked(),
+                                    depth_vs_density=self.depth_vs_density_v6.isChecked(),
+                                    depth_vs_tvu_qc=self.depth_vs_tvu_qc_v6.isChecked(),
                                     progress_bar=self.prj.progress
                                     )
 

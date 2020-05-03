@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 import cython
 from libc.math cimport isnan
 
-#IHO TVU QC Calculations
+#IHO S-44 TVU QC Calculations
 # noinspection PyUnresolvedReferences
 @cython.cdivision(False)
 @cython.boundscheck(False)

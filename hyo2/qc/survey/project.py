@@ -19,8 +19,8 @@ from hyo2.qc.survey.anomaly.anomaly_detector_v1 import AnomalyDetectorV1
 from hyo2.qc.survey.anomaly.ad_params import AnomalyDetectionParams
 # noinspection PyProtectedMember
 from hyo2.grids.gappy import _gappy
-from hyo2.qc.survey.gridqa.grid_qa_v4 import GridQAV4
 from hyo2.qc.survey.gridqa.grid_qa_v5 import GridQAV5
+from hyo2.qc.survey.gridqa.grid_qa_v6 import GridQAV6
 from hyo2.grids.grids_manager import layer_types
 from hyo2.qc.survey.scan.base_scan import scan_algos
 from hyo2.qc.survey.scan.base_scan import survey_areas
@@ -681,56 +681,70 @@ class SurveyProject(BaseProject):
             return str()
 
     # ________________________________________________________________________________
-    # ############################    GRID-QA  METHODS    ############################
+    #                           GRID-QA  METHODS
 
-    def grid_qa_v4(self, force_tvu_qc=True, calc_object_detection=True, calc_full_coverage=True):
-        """Calculate grid QA using the passed parameters and the loaded grids"""
-        if not self.has_grid():
-            logger.warning("first load some grids")
-            return False
+    # def grid_qa_v5(self, force_tvu_qc=True, calc_object_detection=True, calc_full_coverage=True,
+    #                hist_depth=True, hist_density=True, hist_tvu_qc=True, hist_pct_res=True,
+    #                depth_vs_density=False, depth_vs_tvu_qc=False,
+    #                progress_bar=None):
+    #     """Calculate grid QA using the passed parameters and the loaded grids"""
+    #     if not self.has_grid():
+    #         logger.warning("first load some grids")
+    #         return False
+    #
+    #     try:
+    #
+    #         # layers selection
+    #         layers = list()
+    #         has_depth = self.cur_grid_has_depth_layer()
+    #         if has_depth:
+    #             layers.append(layer_types["depth"])
+    #
+    #         if hist_density or depth_vs_density:
+    #             has_density = self.cur_grid_has_density_layer()
+    #             if has_density:
+    #                 layers.append(layer_types["density"])
+    #         else:
+    #             has_density = False
+    #
+    #         if hist_tvu_qc or depth_vs_tvu_qc:
+    #             has_tvu_qc = self.cur_grid_has_tvu_qc_layer()
+    #             has_product_uncertainty = self.cur_grid_has_product_uncertainty_layer()
+    #             if has_tvu_qc and not force_tvu_qc:
+    #                 layers.append(layer_types["tvu_qc"])
+    #
+    #             elif has_product_uncertainty:
+    #                 layers.append(layer_types["product_uncertainty"])
+    #         else:
+    #             has_tvu_qc = False
+    #             has_product_uncertainty = False
+    #
+    #         self._gr.selected_layers_in_cur_grid = layers
+    #
+    #         # do the QA
+    #         self._qa = GridQAV5(grids=self._gr, force_tvu_qc=force_tvu_qc,
+    #                             has_depth=has_depth, has_product_uncertainty=has_product_uncertainty,
+    #                             has_density=has_density, has_tvu_qc=has_tvu_qc, output_folder=self.gridqa_output_folder,
+    #                             object_detection=calc_object_detection, full_coverage=calc_full_coverage,
+    #                             hist_depth=hist_depth, hist_density=hist_density,
+    #                             hist_tvu_qc=hist_tvu_qc, hist_pct_res=hist_pct_res,
+    #                             depth_vs_density=depth_vs_density, depth_vs_tvu_qc=depth_vs_tvu_qc,
+    #                             progress=progress_bar)
+    #
+    #         start_time = time.time()
+    #         passed = self._qa.run()
+    #         logger.info("Grid QA v5 -> execution time: %.3f s" % (time.time() - start_time))
+    #
+    #         return passed
+    #
+    #     except Exception as e:
+    #         traceback.print_exc()
+    #         self._qa = None
+    #         raise e
 
-        try:
-
-            # layers selection
-            layers = list()
-            has_depth = self.cur_grid_has_depth_layer()
-            if has_depth:
-                layers.append(layer_types["depth"])
-
-            has_density = self.cur_grid_has_density_layer()
-            if has_density:
-                layers.append(layer_types["density"])
-
-            has_tvu_qc = self.cur_grid_has_tvu_qc_layer()
-            has_product_uncertainty = self.cur_grid_has_product_uncertainty_layer()
-            if has_tvu_qc and not force_tvu_qc:
-                layers.append(layer_types["tvu_qc"])
-
-            elif has_product_uncertainty:
-                layers.append(layer_types["product_uncertainty"])
-
-            self._gr.selected_layers_in_cur_grid = layers
-
-            # do the QA
-            self._qa = GridQAV4(grids=self._gr, force_tvu_qc=force_tvu_qc,
-                                has_depth=has_depth, has_product_uncertainty=has_product_uncertainty,
-                                has_density=has_density, has_tvu_qc=has_tvu_qc, output_folder=self.gridqa_output_folder,
-                                object_detection=calc_object_detection, full_coverage=calc_full_coverage)
-
-            start_time = time.time()
-            passed = self._qa.run()
-            logger.info("Grid QA v4 -> execution time: %.3f s" % (time.time() - start_time))
-
-            return passed
-
-        except Exception as e:
-            traceback.print_exc()
-            self._qa = None
-            raise e
-
-    def grid_qa_v5(self, force_tvu_qc=True, check_catzoc=False,
-                   calc_object_detection=True, calc_full_coverage=True,
+    def grid_qa_v6(self, force_tvu_qc=True, calc_object_detection=True, calc_full_coverage=True,
                    hist_depth=True, hist_density=True, hist_tvu_qc=True, hist_pct_res=True,
+                   hist_catzoc_a1=True, hist_catzoc_a2b=True, hist_catzoc_c=True,
                    depth_vs_density=False, depth_vs_tvu_qc=False,
                    progress_bar=None):
         """Calculate grid QA using the passed parameters and the loaded grids"""
@@ -738,9 +752,9 @@ class SurveyProject(BaseProject):
             logger.warning("first load some grids")
             return False
 
-        if not force_tvu_qc and check_catzoc:
-            logger.warning("invalid combination of enabled flags: force tvu qc and check catzoc")
-            return False
+        # if not force_tvu_qc and check_catzoc:
+        #     logger.warning("invalid combination of enabled flags: force tvu qc and check catzoc")
+        #     return False
 
         try:
 
@@ -757,7 +771,7 @@ class SurveyProject(BaseProject):
             else:
                 has_density = False
 
-            if hist_tvu_qc or depth_vs_tvu_qc:
+            if hist_tvu_qc or depth_vs_tvu_qc or hist_catzoc_a1 or hist_catzoc_a2b or hist_catzoc_c:
                 has_tvu_qc = self.cur_grid_has_tvu_qc_layer()
                 has_product_uncertainty = self.cur_grid_has_product_uncertainty_layer()
                 if has_tvu_qc and not force_tvu_qc:
@@ -772,18 +786,19 @@ class SurveyProject(BaseProject):
             self._gr.selected_layers_in_cur_grid = layers
 
             # do the QA
-            self._qa = GridQAV5(grids=self._gr, force_tvu_qc=force_tvu_qc, check_catzoc=check_catzoc,
+            self._qa = GridQAV6(grids=self._gr, force_tvu_qc=force_tvu_qc,
                                 has_depth=has_depth, has_product_uncertainty=has_product_uncertainty,
                                 has_density=has_density, has_tvu_qc=has_tvu_qc, output_folder=self.gridqa_output_folder,
                                 object_detection=calc_object_detection, full_coverage=calc_full_coverage,
                                 hist_depth=hist_depth, hist_density=hist_density,
-                                hist_tvu_qc=hist_tvu_qc, hist_pct_res=hist_pct_res,
+                                hist_tvu_qc=hist_tvu_qc, hist_pct_res=hist_pct_res, hist_catzoc_a1=hist_catzoc_a1,
+                                hist_catzoc_a2b=hist_catzoc_a2b, hist_catzoc_c=hist_catzoc_c,
                                 depth_vs_density=depth_vs_density, depth_vs_tvu_qc=depth_vs_tvu_qc,
                                 progress=progress_bar)
 
             start_time = time.time()
             passed = self._qa.run()
-            logger.info("Grid QA v5 -> execution time: %.3f s" % (time.time() - start_time))
+            logger.info("Grid QA v6 -> execution time: %.3f s" % (time.time() - start_time))
 
             return passed
 

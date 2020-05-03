@@ -6,8 +6,8 @@ logger = logging.getLogger(__name__)
 
 qa_algos = {
     "BASE": 0,
-    "GRID_QA_v4": 4,
     "GRID_QA_v5": 5,
+    "GRID_QA_v6": 6,
 }
 
 
