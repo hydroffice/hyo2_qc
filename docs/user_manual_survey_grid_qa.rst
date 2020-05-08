@@ -90,7 +90,7 @@ The TVU QC layer is calculated on-the-fly by the program. TVU QC based on IHO S-
 
 .. math::
 
-    TVU\, QC (IHO S-44) = Uncertainty / \sqrt{A^2 + (B * Depth)^2}
+    TVU\, QC _{(IHO\hspace{1mm} S\textendash 44)} = Uncertainty / \sqrt{A^2 + (B * Depth)^2}
 
 where :math:`A = 0.5, B = 0.013` for Order 1 (depths less than 100 m), and :math:`A = 1.0, B = 0.023` for Order 2 (depths greater than 100 m).
 
@@ -99,7 +99,7 @@ TVU QC based on IHO S-57 CATZOC is used by the hydrographic branch to evaluate t
 
 .. math::
 
-    TVU\, QC (IHO S-57 CATZOC) = Uncertainty / (A + (B * Depth))
+    TVU\, QC _{(IHO\hspace{1mm} S\textendash 57\hspace{1mm} CATZOC)} = Uncertainty / (A + (B * Depth))
 
 where for:
 
