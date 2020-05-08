@@ -210,7 +210,7 @@ class HolesTab(QtWidgets.QMainWindow):
         self.upper_limit_v4 = QtWidgets.QSlider(QtCore.Qt.Horizontal)
         self.upper_limit_v4.setRange(1, 5)
         self.upper_limit_v4.setSingleStep(1)
-        self.upper_limit_v4.setValue(5)
+        self.upper_limit_v4.setValue(3)
         self.upper_limit_v4.setTickInterval(1)
         self.upper_limit_v4.setTickPosition(QtWidgets.QSlider.TicksBelow)
         self.upper_limit_v4.setDisabled(True)

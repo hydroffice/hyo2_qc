@@ -281,7 +281,10 @@ class GridQATab(QtWidgets.QMainWindow):
         if len(self.prj.grid_list) == 0:
             raise RuntimeError("the grid list is empty")
 
-        self.parent_win.change_info_url(Helper(lib_info=lib_info).web_url(suffix="survey_grid_qa_%d" % version))
+        url_suffix = "survey_grid_qa_%d" % version
+        if self.hist_catzoc.isChecked():
+            url_suffix += "_catzoc"
+        self.parent_win.change_info_url(Helper(lib_info=lib_info).web_url(suffix=url_suffix))
 
         # check for user input as force TVU QC
         if version == 6:

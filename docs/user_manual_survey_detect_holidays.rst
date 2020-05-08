@@ -113,7 +113,9 @@ The following images illustrate the outcomes of the three algorithms applied to 
 
 A candidate hole is flagged with a "1" (if certain) or a "2" (possible holiday).
 
-Note that the default **Upper holiday area limit (as multiple of minimum holiday size)** is set to unlimited, meaning that an unpopulated part of the grid will be flagged independently of its size. This setting exists so the search can be refined at the user's discretion.
+Note that the default **Upper holiday area limit (as multiple of minimum holiday size)** is set to 1000, meaning that
+an unpopulated part of the grid will be flagged only if smaller than 1000 times the minimum holiday size.
+This setting exists so the search can be refined at the user's discretion.
 
 For example:
 

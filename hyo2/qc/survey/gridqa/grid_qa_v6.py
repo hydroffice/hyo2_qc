@@ -119,7 +119,8 @@ class GridQAV6(BaseGridQA):
         self._depth_vs_density = depth_vs_density
         self._depth_vs_tvu_qc = depth_vs_tvu_qc
         logger.debug("output -> hist: depth %s, density %s, tvu qc %s, pct res %s, tvu catzoc %s" %
-                     (self._hist_depth, self._hist_density, self._hist_tvu_qc, self._hist_pct_res, self._hist_catzoc_a1))
+                     (self._hist_depth, self._hist_density, self._hist_tvu_qc, self._hist_pct_res,
+                      self._hist_catzoc_a1))
         logger.debug("output -> vs: density %s, tvu qc %s" % (self._depth_vs_density, self._depth_vs_tvu_qc))
 
         self.bathy_first = True
@@ -358,7 +359,7 @@ class GridQAV6(BaseGridQA):
                     tvu_qc_png_path = Helper.truncate_too_long(tvu_qc_png_path, left_truncation=True)
                     GridQAV6.plot_hysto(layer_name="TVU QC", bins=tvu_qc_bins, density=tvu_qc_density,
                                         bin_width=(1 / self.tvu_qc_mul), grid_info=self.tvu_qc_info,
-                                        png_path=tvu_qc_png_path, hist_color=(.17, .55, .75))
+                                        png_path=tvu_qc_png_path)
                 # save the depth vs. tvu qc plot as png
                 if self._depth_vs_tvu_qc:
                     self._finish_plot_depth_vs_tvu_qc()
@@ -495,7 +496,7 @@ class GridQAV6(BaseGridQA):
                     catzoca1_png_path = Helper.truncate_too_long(catzoca1_png_path, left_truncation=True)
                     GridQAV6.plot_hysto(layer_name="TVU CATZOC A1", bins=catzoc_a1_bins, density=catzoc_a1_density,
                                         bin_width=(1 / self.catzoc_a1_mul), grid_info=self.catzoc_a1_info,
-                                        png_path=catzoca1_png_path, hist_color='#805c9d')
+                                        png_path=catzoca1_png_path, hist_color='#bababa')
 
         # catzoc a2 / b (a2b)
         if self.has_product_uncertainty and self._hist_catzoc_a2b:
@@ -540,7 +541,7 @@ class GridQAV6(BaseGridQA):
                     GridQAV6.plot_hysto(layer_name="TVU CATZOC A2 / B", bins=catzoc_a2b_bins,
                                         density=catzoc_a2b_density, bin_width=(1 / self.catzoc_a2b_mul),
                                         grid_info=self.catzoc_a2b_info, png_path=catzoca2b_png_path,
-                                        hist_color='#805c9d')
+                                        hist_color='#bababa')
 
         # catzoc c
         if self.has_product_uncertainty and self._hist_catzoc_c:
@@ -583,7 +584,7 @@ class GridQAV6(BaseGridQA):
                     catzocc_png_path = Helper.truncate_too_long(catzocc_png_path, left_truncation=True)
                     GridQAV6.plot_hysto(layer_name="TVU CATZOC C", bins=catzoc_c_bins, density=catzoc_c_density,
                                         bin_width=(1 / self.catzoc_c_mul), grid_info=self.catzoc_c_info,
-                                        png_path=catzocc_png_path, hist_color='#805c9d')
+                                        png_path=catzocc_png_path, hist_color='#bababa')
 
         return success
 
@@ -740,7 +741,7 @@ class GridQAV6(BaseGridQA):
         self.density_info.basename = self.grids.current_basename
 
         self.tvu_qc_info = GridInfoV6()
-        self.tvu_qc_info.title = "Uncertainty Standards (IHO Orders 1 and/or 2)"
+        self.tvu_qc_info.title = "Uncertainty Standards - NOAA HSSD"
         self.tvu_qc_info.histo_x_label = "Node uncertainty as a fraction of allowable IHO TVU"
         self.tvu_qc_info.histo_y_label = "Percentage of nodes in each uncertainty group"
         self.tvu_qc_info.basename = self.grids.current_basename
@@ -1004,7 +1005,7 @@ class GridQAV6(BaseGridQA):
 
         # Resolution percentage layers
         pct_success = tile.calculate_pct_of_allowable_resolution(self.grids.depth_layer_name())
-        # logger.debug("is VR -> created resolution pct layers: %s" % pct_success)
+        logger.debug("is VR -> created resolution pct layers: %s" % pct_success)
 
         # - object detection
         if self.objection_detection:
@@ -1080,10 +1081,10 @@ class GridQAV6(BaseGridQA):
         fig = plt.figure()
         ax = fig.add_axes([0.1, 0.1, 0.81, 0.68])  # leaving room for title & subtitle
 
-        hist_color = (.65, .74, .86) if hist_color is None else hist_color
+        hist_color = (.17, .55, .75) if hist_color is None else hist_color
 
-        p1 = ax.bar(x=bins, height=100 * density, width=bin_width, align='center', linewidth=0, color=hist_color)
-        p2, = ax.plot(bins - bin_width / 2., 100 * density, drawstyle="steps-post", fillstyle="bottom")
+        ax.bar(x=bins, height=100 * density, width=bin_width, align='center', linewidth=0, color=hist_color)
+        ax.plot(bins - bin_width / 2., 100 * density, drawstyle="steps-post", fillstyle="bottom")
         ax.grid()
 
         x_min, x_max = bins.min(), bins.max()
@@ -1127,13 +1128,13 @@ class GridQAV6(BaseGridQA):
         other_indices = self.density_values.argsort()
         other_len = len(self.density_values)
 
-        dIdx0 = self.density_values[other_indices].searchsorted(5, 'left')
-        pass_slice, fail_slice = slice(dIdx0, other_len), slice(0, dIdx0)
+        d_idx0 = self.density_values[other_indices].searchsorted(5, 'left')
+        pass_slice, fail_slice = slice(d_idx0, other_len), slice(0, d_idx0)
 
-        p1, = self.density_ax.plot(self.density_values[other_indices][pass_slice],
-                                   self.bathy_values[other_indices][pass_slice], 'b+', alpha=0.5)
-        p2, = self.density_ax.plot(self.density_values[other_indices][fail_slice],
-                                   self.bathy_values[other_indices][fail_slice], 'r+', alpha=0.5)
+        self.density_ax.plot(self.density_values[other_indices][pass_slice],
+                             self.bathy_values[other_indices][pass_slice], 'b+', alpha=0.5)
+        self.density_ax.plot(self.density_values[other_indices][fail_slice],
+                             self.bathy_values[other_indices][fail_slice], 'r+', alpha=0.5)
 
     def _finish_plot_depth_vs_density(self):
 
@@ -1153,7 +1154,7 @@ class GridQAV6(BaseGridQA):
         png_path = os.path.join(self.output_folder, png_file)
         png_path = Helper.truncate_too_long(png_path, left_truncation=True)
 
-        title = self.density_fig.text(.5, .94, 'Node Depth vs. Sounding Density', fontsize=18, ha='center')
+        self.density_fig.text(.5, .94, 'Node Depth vs. Sounding Density', fontsize=18, ha='center')
         self.density_ax.set_xlabel('Soundings per node')
         self.density_fig.savefig(png_path, dpi=144, format='png')
 
@@ -1166,18 +1167,18 @@ class GridQAV6(BaseGridQA):
         other_indices = self.tvu_qc_values.argsort()
         other_len = len(self.tvu_qc_values)
 
-        dIdx0 = self.tvu_qc_values[other_indices].searchsorted(1, 'right')
-        pass_slice, fail_slice = slice(0, dIdx0), slice(dIdx0, other_len)
+        d_idx0 = self.tvu_qc_values[other_indices].searchsorted(1, 'right')
+        pass_slice, fail_slice = slice(0, d_idx0), slice(d_idx0, other_len)
 
         try:
-            p1, = self.tvu_qc_ax.plot(self.tvu_qc_values[other_indices][pass_slice],
-                                      self.bathy_values[other_indices][pass_slice], 'b+', alpha=0.5)
+            self.tvu_qc_ax.plot(self.tvu_qc_values[other_indices][pass_slice],
+                                self.bathy_values[other_indices][pass_slice], 'b+', alpha=0.5)
         except IndexError as e:
             logger.error("index issue while plotting pass slide, %s" % (e,))
 
         try:
-            p2, = self.tvu_qc_ax.plot(self.tvu_qc_values[other_indices][fail_slice],
-                                      self.bathy_values[other_indices][fail_slice], 'r+', alpha=0.5)
+            self.tvu_qc_ax.plot(self.tvu_qc_values[other_indices][fail_slice],
+                                self.bathy_values[other_indices][fail_slice], 'r+', alpha=0.5)
         except IndexError as e:
             logger.error("index issue while plotting fail slice, %s" % (e,))
 

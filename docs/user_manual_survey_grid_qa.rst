@@ -16,14 +16,12 @@ Computes grid statistics to ensure compliance with uncertainty and density requi
 .. index::
     single: grid qa; coverage
 
-* In **Settings**, check the box to calculate the TVU QC layer regardless of whether or not the grid contains the layer already.
-
 * Check the boxes that correspond with the plots you wish to generate. 
 
 .. index::
     single: grid, uncertainty, density
 
-* In **Execution**, click **Grid QA v5**.
+* In **Execution**, click **Grid QA v6**.
 
 .. _fig_grid_qa:
 .. figure:: _static/grid_qa_interface.png
@@ -63,30 +61,53 @@ Computes grid statistics to ensure compliance with uncertainty and density requi
 How Does It Work?
 ^^^^^^^^^^^^^^^^^
 
-The Depth, Uncertainty, Density (if available), and a computed Total Vertical Uncertainty (TVU) QC layer (optional) are used to compute particular statistics shown as a series of plots.  
+The Depth, Uncertainty, Density (if available), and a computed Total Vertical Uncertainty (TVU) QC layer are used to compute particular statistics shown as a series of plots.  
 
-The TVU QC is either given to the program in the grid input, or calculated on-the-fly. It is determined by a ratio of uncertainty to allowable error per NOAA and IHO specification:
+**The following plots are the output of Grid QA:**
+    * The Depth layer is plotted as a distribution (plot entitled **"Depth Distribution"**).
+    
+    * The Density layer is plotted as a distribution (plot entitled **"Object Detection Coverage"**).
+
+        * Percentages of nodes less than 5 soundings per node fall in the red shaded region of the plot and together must be less than 5% of all nodes in order to "pass".
+        
+    * Density is plotted against the corresponding Depth of the node (plot entitled **"Node Depth vs. Sounding Density"**).
+    
+    * TVU QC (IHO S-44) is plotted as a distribution (plot entitled **"Uncertainty Standards - NOAA HSSD"**).
+    
+        * Percentages of nodes with TVU QC greater than 1.0 (indicating that the allowable error has been exceeded) fall in the red shaded region of the plot, and together must be less than 5% of all nodes in order to "pass".
+        
+    * TVU QC (IHO S-44) is plotted against the corresponding Depth of the node (plot entitled **"Node Depth vs. TVU QC"**).
+
+    * Only for Variable Resolution grids, a histogram with the percentage of nodes at the prescribed resolution is created. This histogram can be used to evaluate whether *"95% of all surface nodes [..] have a resolution equal to or smaller than the coarsest allowable resolution for the node depth"* (NOAA HTD 2017-2 "Caris Variable Resolution Grids").
+	
+    * *TVU QC (IHO S-57 CATZOC) [Branch]* is plotted as a distribution (plot entitled *"Uncertainty Standards - CATZOC ..."*).
+
+|
+
+**TVU QC Calculations**
+
+The TVU QC layer is calculated on-the-fly by the program. TVU QC based on IHO S-44 Orders 1 and 2 is in alignment with the requirements set forth by the HSSD and is determined by a ratio of uncertainty to allowable error. It is calculated as such:  
 
 .. math::
 
-    TVU\, QC = Uncertainty / \sqrt{A^2 + (B * Depth)^2}
+    TVU\, QC (IHO S-44) = Uncertainty / \sqrt{A^2 + (B * Depth)^2}
 
 where :math:`A = 0.5, B = 0.013` for Order 1 (depths less than 100 m), and :math:`A = 1.0, B = 0.023` for Order 2 (depths greater than 100 m).
 
-The following plots are the output of Grid QA:
 
-* The Depth layer is plotted as a distribution (plot entitled **"Depth Distribution"**).
+TVU QC based on IHO S-57 CATZOC is used by the hydrographic branch to evaluate the quality of bathymetry for surveys that are not subject to the HSSD. **This check should NOT be used by NOAA field units or contract field units.** For TVU QC based on IHO S-57 CATZOC, TVU QC is calculated as such:
 
-* The Density layer is plotted as a distribution (plot entitled **"Object Detection Coverage"**). 
+.. math::
 
-    * Percentages of nodes less than 5 soundings per node fall in the red shaded region of the plot and together must be less than 5% of all nodes in order to "pass".
+    TVU\, QC (IHO S-57 CATZOC) = Uncertainty / (A + (B * Depth))
 
-* Density is plotted against the corresponding Depth of the node (plot entitled **"Node Depth vs. Sounding Density"**).
+where for:
 
-* TVU QC is plotted as a distribution (plot entitled **"Uncertainty Standards"**). 
+    *CATZOC A1:* :math:`A = 0.5, B = 0.01`
 
-    * Percentages of nodes with TVU QC greater than 1.0 (indicating that the allowable error has been exceeded) fall in the red shaded region of the plot, and together must be less than 5% of all nodes in order to "pass".
+    *CATZOC A2 and CATZOC B:* :math:`A = 1.0, B = 0.02`
 
-* TVU QC is plotted against the corresponding Depth of the node (plot entitled **"Node Depth vs. TVU QC"**).
+    *CATZOC C:* :math:`A = 2.0, B = 0.05`
 
-* Only for Variable Resolution grids, a histogram with the percentage of nodes at the prescribed resolution is created. This histogram can be used to evaluate whether *"95% of all surface nodes [..] have a resolution equal to or smaller than the coarsest allowable resolution for the node depth"* (NOAA HTD 2017-2 "Caris Variable Resolution Grids").
+
+Running the *TVU (IHO S-57 CATZOC) [Branch]* check will generate three plots, one for each calculation of CATZOC TVU QC mentioned above.

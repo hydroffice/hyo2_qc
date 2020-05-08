@@ -1540,7 +1540,8 @@ class FeatureScanV9(BaseScan):
             self.report += "Features without 'Prohibited feature' keyword [CHECK]"
             prohibited = S57Aux.select_by_object(objects=self.all_features, object_filter=[
                 'DRGARE', 'LOGPON', 'PIPARE', 'PIPOHD', 'PIPSOL', 'DMPGRD', 'LIGHTS', 'BOYLAT', 'BOYSAW', 'BOYSPP',
-                'DAYMAR', 'FOGSIG', 'CBLSUB', 'CBLARE', 'FAIRWY', 'RTPBCN', 'BOYISD', 'BOYINB', 'BOYCAR', 'CBLOHD'])
+                'DAYMAR', 'FOGSIG', 'CBLSUB', 'CBLARE', 'FAIRWY', 'RTPBCN', 'BOYISD', 'BOYINB', 'BOYCAR', 'CBLOHD',
+                'BCNSPP'])
             self.flagged_prohibited_kwds = self.check_for_missing_keywords(prohibited, attr_acronym='onotes',
                                                                            keywords=['Prohibited feature', ])
 
@@ -1918,7 +1919,8 @@ class FeatureScanV9(BaseScan):
             self.report += "Features without 'Prohibited feature' keyword [CHECK]"
             prohibited = S57Aux.select_by_object(objects=self.all_features, object_filter=[
                 'DRGARE', 'LOGPON', 'PIPARE', 'PIPOHD', 'PIPSOL', 'DMPGRD', 'LIGHTS', 'BOYLAT', 'BOYSAW', 'BOYSPP',
-                'DAYMAR', 'FOGSIG', 'CBLSUB', 'CBLARE', 'FAIRWY', 'RTPBCN', 'BOYISD', 'BOYINB', 'BOYCAR', 'CBLOHD'])
+                'DAYMAR', 'FOGSIG', 'CBLSUB', 'CBLARE', 'FAIRWY', 'RTPBCN', 'BOYISD', 'BOYINB', 'BOYCAR', 'CBLOHD',
+                'BCNSPP'])
             self.flagged_prohibited_kwds = self.check_for_missing_keywords(prohibited, attr_acronym='onotes',
                                                                            keywords=['Prohibited feature', ])
 
@@ -2294,7 +2296,8 @@ class FeatureScanV9(BaseScan):
             self.report += "Features without 'Prohibited feature' keyword [CHECK]"
             prohibited = S57Aux.select_by_object(objects=self.all_features, object_filter=[
                 'DRGARE', 'LOGPON', 'PIPARE', 'PIPOHD', 'PIPSOL', 'DMPGRD', 'LIGHTS', 'BOYLAT', 'BOYSAW', 'BOYSPP',
-                'DAYMAR', 'FOGSIG', 'CBLSUB', 'CBLARE', 'FAIRWY', 'RTPBCN', 'BOYISD', 'BOYINB', 'BOYCAR', 'CBLOHD'])
+                'DAYMAR', 'FOGSIG', 'CBLSUB', 'CBLARE', 'FAIRWY', 'RTPBCN', 'BOYISD', 'BOYINB', 'BOYCAR', 'CBLOHD',
+                'BCNSPP'])
             self.flagged_prohibited_kwds = self.check_for_missing_keywords(prohibited, attr_acronym='onotes',
                                                                            keywords=['Prohibited feature', ])
 
@@ -2596,5 +2599,3 @@ class FeatureScanV9(BaseScan):
                 self.report += 'Check %d - Features with empty/missing attribute remrks: %s' \
                                % (count, len(self.flagged_mcd_remarks))
                 count += 1
-
-
