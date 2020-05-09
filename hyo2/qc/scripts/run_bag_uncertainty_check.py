@@ -125,13 +125,19 @@ for i, bag_path in enumerate(prj.grid_list):
 
         prj.clear_survey_label()
         prj.open_grid(path=bag_path)
-        prj.retrieve_max_uncert(bag_path)
 
         max_uncert = prj.retrieve_max_uncert(bag_path)
         # manage the two possible cases of BAG without uncertainty (None or 0.0)
         if max_uncert is None:
             bag_without_uncertainty_list.append(bag_path)
         elif max_uncert == 0.0:
+            bag_without_uncertainty_list.append(bag_path)
+
+        min_uncert = prj.retrieve_min_uncert(bag_path)
+
+        if min_uncert < 0:
+            bag_without_uncertainty_list.append(bag_path)
+        elif min_uncert == 0.0:
             bag_without_uncertainty_list.append(bag_path)
 
         bag_done_list.append(bag_path)

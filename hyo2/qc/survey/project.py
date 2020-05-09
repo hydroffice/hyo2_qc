@@ -1965,6 +1965,55 @@ class SurveyProject(BaseProject):
         else:
             return max_uncert
 
+    def retrieve_min_uncert(self, path):
+        self.open_grid(path=path)
+
+        min_uncert = None
+        while self._gr.read_next_tile(layers=[self._gr.product_uncertainty_layer_name(), ]):
+            tile = self._gr.tiles[0]
+            # logger.debug("types: %s" % (list(tile.types),))
+
+            uncert_type = tile.type(self._gr.product_uncertainty_layer_name())
+            uncert_idx = tile.band_index(self._gr.product_uncertainty_layer_name())
+            # logger.debug("uncert layer: %s [idx: %s]" % (self.grids.grid_data_type(uncert_type), uncert_idx))
+
+            if uncert_type == GRIDS_DOUBLE:
+
+                uncert_values = tile.doubles[uncert_idx]
+                uncert_values[tile.doubles[uncert_idx] == tile.doubles_nodata[uncert_idx]] = np.nan
+                if len(uncert_values) == 0:
+                    raise RuntimeError("No uncertainty values")
+
+            elif uncert_type == GRIDS_FLOAT:
+
+                uncert_values = tile.floats[uncert_idx]
+                uncert_values[tile.floats[uncert_idx] == tile.floats_nodata[uncert_idx]] = np.nan
+                if len(uncert_values) == 0:
+                    raise RuntimeError("No uncertainty values")
+
+            else:
+                raise RuntimeError("Unsupported data type for uncertainty")
+
+            min_value = np.nanmin(uncert_values)
+            if not np.isnan(min_value):
+                if min_uncert is None:
+                    min_uncert = min_value
+                else:
+                    if min_value < min_uncert:
+                        min_uncert = min_value
+            logger.debug("min uncertainty: %s" % (min_uncert,))
+
+            self._gr.clear_tiles()
+
+        self.close_cur_grid()
+
+        if min_uncert is None:
+            logger.warning("unable to retrieve the minumum uncertainty")
+            return None
+
+        else:
+            return min_uncert
+
     def __repr__(self):
         msg = super().__repr__()
         msg += "  <active profile: %s>\n" % Helper.first_match(self.project_profiles, self.active_profile)
