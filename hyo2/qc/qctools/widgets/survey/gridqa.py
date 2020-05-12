@@ -42,6 +42,15 @@ class GridQATab(QtWidgets.QMainWindow):
         self.hist_tvu_qc_v6 = None
         self.hist_pct_res_v6 = None
         self.hist_catzoc = None
+        # self.hist_catzoc_a1 = None
+        # self.hist_catzoc_a2b = None
+        # self.hist_catzoc_c = None
+        # self.hist_catzoc_all = None
+        self.text_slider_a1 = None
+        self.text_slider_a2b = None
+        self.text_slider_c = None
+        self.text_catzoc_slider = None
+        self.catzoc_slider = None
         self.depth_vs_density_v6 = None
         self.depth_vs_tvu_qc_v6 = None
         self._ui_settings_gqv6()
@@ -181,12 +190,58 @@ class GridQATab(QtWidgets.QMainWindow):
         hbox.addWidget(text_hist_catzoc)
         text_hist_catzoc.setFixedHeight(GuiSettings.single_line_height())
         self.hist_catzoc = QtWidgets.QCheckBox(self)
-        # self.hist_catzoc.stateChanged.connect(self.click_set_catzoc)
+        self.hist_catzoc.stateChanged.connect(self.click_set_catzoc)
         hbox.addWidget(self.hist_catzoc)
         self.hist_catzoc.setChecked(False)
         hbox.addStretch()
 
-        vbox.addSpacing(9)
+        slider_hbox = QtWidgets.QHBoxLayout()
+        vbox.addLayout(slider_hbox)
+        slider_hbox.addStretch()
+
+        slider_gbox = QtWidgets.QGridLayout()
+        slider_hbox.addLayout(slider_gbox)
+
+        text_sz = 34
+        self.text_slider_a1 = QtWidgets.QLabel("A1")
+        self.text_slider_a1.setDisabled(True)
+        self.text_slider_a1.setFixedWidth(text_sz)
+        self.text_slider_a1.setAlignment(QtCore.Qt.AlignLeft)
+        self.text_slider_a1.setStyleSheet(GuiSettings.stylesheet_slider_labels())
+        slider_gbox.addWidget(self.text_slider_a1, 0, 1, 1, 1)
+        self.text_slider_a2b = QtWidgets.QLabel("A2 / B   ")
+        self.text_slider_a2b.setDisabled(True)
+        self.text_slider_a2b.setFixedWidth(text_sz)
+        self.text_slider_a2b.setAlignment(QtCore.Qt.AlignCenter)
+        self.text_slider_a2b.setStyleSheet(GuiSettings.stylesheet_slider_labels())
+        slider_gbox.addWidget(self.text_slider_a2b, 0, 2, 1, 1)
+        self.text_slider_c = QtWidgets.QLabel(" C ")
+        self.text_slider_c.setDisabled(True)
+        self.text_slider_c.setFixedWidth(text_sz - 8)
+        self.text_slider_c.setAlignment(QtCore.Qt.AlignCenter)
+        self.text_slider_c.setStyleSheet(GuiSettings.stylesheet_slider_labels())
+        slider_gbox.addWidget(self.text_slider_c, 0, 3, 1, 1)
+        self.text_slider_all = QtWidgets.QLabel("All ")
+        self.text_slider_all.setDisabled(True)
+        self.text_slider_all.setFixedWidth(text_sz)
+        self.text_slider_all.setAlignment(QtCore.Qt.AlignRight)
+        self.text_slider_all.setStyleSheet(GuiSettings.stylesheet_slider_labels())
+        slider_gbox.addWidget(self.text_slider_all, 0, 4, 1, 1)
+
+        self.text_catzoc_slider = QtWidgets.QLabel("Choose:")
+        self.text_catzoc_slider.setDisabled(True)
+        slider_gbox.addWidget(self.text_catzoc_slider, 1, 0, 1, 1)
+
+        self.catzoc_slider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
+        self.catzoc_slider.setRange(1, 4)
+        self.catzoc_slider.setSingleStep(1)
+        self.catzoc_slider.setValue(4)
+        self.catzoc_slider.setTickInterval(1)
+        self.catzoc_slider.setTickPosition(QtWidgets.QSlider.TicksBelow)
+        self.catzoc_slider.setDisabled(True)
+        slider_gbox.addWidget(self.catzoc_slider, 1, 1, 1, 4)
+
+        slider_hbox.addStretch()
 
         hbox = QtWidgets.QHBoxLayout()
         vbox.addLayout(hbox)
@@ -260,6 +315,16 @@ class GridQATab(QtWidgets.QMainWindow):
     def click_grid_qa_v6(self):
         """trigger the grid qa v6"""
         self._click_grid_qa(6)
+
+    def click_set_catzoc(self):
+        """enable catzoc slider when catzoc flag is checked"""
+        enable = self.hist_catzoc.isChecked()
+        self.catzoc_slider.setEnabled(enable)
+        self.text_catzoc_slider.setEnabled(enable)
+        self.text_slider_a1.setEnabled(enable)
+        self.text_slider_a2b.setEnabled(enable)
+        self.text_slider_c.setEnabled(enable)
+        self.text_slider_all.setEnabled(enable)
 
     # common
 
@@ -393,6 +458,21 @@ class GridQATab(QtWidgets.QMainWindow):
                     self.prj.progress.end()
                     return False
 
+                catzoc_hist_selection = self.catzoc_slider.value()
+                catzoc_a1 = False
+                catzoc_a2b = False
+                catzoc_c = False
+                if catzoc_hist_selection == 1:
+                    catzoc_a1 = True
+                elif catzoc_hist_selection == 2:
+                    catzoc_a2b = True
+                elif catzoc_hist_selection == 3:
+                    catzoc_c = True
+                else:
+                    catzoc_a1 = True
+                    catzoc_a2b = True
+                    catzoc_c = True
+
                 self.prj.grid_qa_v6(force_tvu_qc=self.force_tvu_qc_gqv6,
                                     calc_object_detection=(self.toggle_mode_gqv6 == 0),
                                     calc_full_coverage=(self.toggle_mode_gqv6 == 1),
@@ -400,9 +480,9 @@ class GridQATab(QtWidgets.QMainWindow):
                                     hist_density=self.hist_density_v6.isChecked(),
                                     hist_tvu_qc=self.hist_tvu_qc_v6.isChecked(),
                                     hist_pct_res=self.hist_pct_res_v6.isChecked(),
-                                    hist_catzoc_a1=self.hist_catzoc.isChecked(),
-                                    hist_catzoc_a2b=self.hist_catzoc.isChecked(),
-                                    hist_catzoc_c=self.hist_catzoc.isChecked(),
+                                    hist_catzoc_a1=(self.hist_catzoc.isChecked() and catzoc_a1),
+                                    hist_catzoc_a2b=(self.hist_catzoc.isChecked() and catzoc_a2b),
+                                    hist_catzoc_c=(self.hist_catzoc.isChecked() and catzoc_c),
                                     depth_vs_density=self.depth_vs_density_v6.isChecked(),
                                     depth_vs_tvu_qc=self.depth_vs_tvu_qc_v6.isChecked(),
                                     progress_bar=self.prj.progress

@@ -108,6 +108,3 @@ where for:
     *CATZOC A2 and CATZOC B:* :math:`A = 1.0, B = 0.02`
 
     *CATZOC C:* :math:`A = 2.0, B = 0.05`
-
-
-Running the *TVU (IHO S-57 CATZOC) [Branch]* check will generate three plots, one for each calculation of CATZOC TVU QC mentioned above.
