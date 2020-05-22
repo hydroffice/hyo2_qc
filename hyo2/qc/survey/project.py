@@ -18,7 +18,7 @@ from hyo2.qc.survey.fliers.find_fliers_v8 import FindFliersV8
 from hyo2.qc.survey.anomaly.anomaly_detector_v1 import AnomalyDetectorV1
 from hyo2.qc.survey.anomaly.ad_params import AnomalyDetectionParams
 # noinspection PyProtectedMember
-from hyo2.grids.gappy import _gappy
+from hyo2.grids import _gappy
 from hyo2.qc.survey.gridqa.grid_qa_v5 import GridQAV5
 from hyo2.qc.survey.gridqa.grid_qa_v6 import GridQAV6
 from hyo2.grids.grids_manager import layer_types
@@ -26,6 +26,7 @@ from hyo2.qc.survey.scan.base_scan import scan_algos
 from hyo2.qc.survey.scan.base_scan import survey_areas
 from hyo2.qc.survey.scan.feature_scan_v8 import FeatureScanV8
 from hyo2.qc.survey.scan.feature_scan_v9 import FeatureScanV9
+from hyo2.qc.survey.scan.feature_scan_v10 import FeatureScanV10
 from hyo2.qc.survey.designated.base_designated import designated_algos
 from hyo2.qc.survey.designated.designated_scan_v2 import DesignatedScanV2
 from hyo2.qc.survey.valsou.base_valsou import valsou_algos
@@ -978,7 +979,7 @@ class SurveyProject(BaseProject):
 
         # sanity checks
         # - version
-        if version not in [8, 9]:
+        if version not in [9, 10]:
             raise RuntimeError("passed invalid Feature Scan version: %s" % version)
 
         # - list of grids (although the buttons should be never been enabled without grids)
@@ -1001,7 +1002,7 @@ class SurveyProject(BaseProject):
                     multimedia_folder = None
 
             # switcher between different versions of feature scan
-            if version in [8, 9]:
+            if version in [9, 10]:
                 self._feature_scan(feature_file=s57_file, version=version, specs_version=specs_version,
                                    survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
                                    sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder, use_htd=use_htd,
@@ -1053,6 +1054,12 @@ class SurveyProject(BaseProject):
                                        sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder,
                                        use_htd=use_htd)
 
+            if version == 10:
+                self._scan_features_v10(specs_version=specs_version,
+                                       survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
+                                       sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder,
+                                       use_htd=use_htd)
+
             else:
                 RuntimeError("unknown Feature Scan version: %s" % version)
 
@@ -1100,6 +1107,28 @@ class SurveyProject(BaseProject):
             start_time = time.time()
             self._scan.run()
             logger.info("scan features v9 -> execution time: %.3f s" % (time.time() - start_time))
+
+        except Exception as e:
+            traceback.print_exc()
+            self._scan = None
+            raise e
+
+    def _scan_features_v10(self, specs_version: str, survey_area: int, use_mhw: bool, mhw_value: float,
+                          sorind: Optional[str], sordat: Optional[str], multimedia_folder: Optional[str], use_htd: bool):
+        """Look for fliers using the passed parameters and the loaded grids"""
+        if not self.has_s57():
+            return
+
+        try:
+
+            self._scan = FeatureScanV10(s57=self.cur_s57, profile=self.active_profile, version=specs_version,
+                                       survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
+                                       sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder,
+                                       use_htd=use_htd)
+
+            start_time = time.time()
+            self._scan.run()
+            logger.info("scan features v10 -> execution time: %.3f s" % (time.time() - start_time))
 
         except Exception as e:
             traceback.print_exc()
@@ -1180,6 +1209,29 @@ class SurveyProject(BaseProject):
 
             else:
                 raise RuntimeError("Not implemented version: %s" % self._scan.version)
+
+        elif self._scan.type == scan_algos['FEATURE_SCAN_v10']:
+
+            if self._scan.version == '2018':
+                output_pdf = os.path.join(output_folder, "%s.SFSv10.2018.pdf" % self.cur_s57_basename)
+                title_pdf = "Survey Feature Scan v10 - Tests against HSSD 2018"
+
+            elif self._scan.version == '2019':
+                output_pdf = os.path.join(output_folder, "%s.SFSv10.2019.pdf" % self.cur_s57_basename)
+                title_pdf = "Survey Feature Scan v10 - Tests against HSSD 2019"
+
+            elif self._scan.version == '2020':
+                output_pdf = os.path.join(output_folder, "%s.SFSv10.2020.pdf" % self.cur_s57_basename)
+                title_pdf = "Survey Feature Scan v10 - Tests against HSSD 2020"
+
+            elif self._scan.version == '2021':
+                output_pdf = os.path.join(output_folder, "%s.SFSv10.2021.pdf" % self.cur_s57_basename)
+                title_pdf = "Survey Feature Scan v10 - Tests against HSSD 2021"
+
+            else:
+                raise RuntimeError("Not implemented version: %s" % self._scan.version)
+
+
 
         else:
             raise RuntimeError("Not implemented feature scan algorithm")

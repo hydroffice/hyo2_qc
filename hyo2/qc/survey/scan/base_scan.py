@@ -11,6 +11,8 @@ scan_algos = {
     "FEATURE_SCAN_v7": 7,
     "FEATURE_SCAN_v8": 8,
     "FEATURE_SCAN_v9": 9,
+    "FEATURE_SCAN_v10": 10,
+
 }
 
 survey_areas = {
