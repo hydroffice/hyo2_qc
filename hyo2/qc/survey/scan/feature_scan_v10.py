@@ -83,6 +83,7 @@ class FeatureScanV10(BaseScan):
         self.flagged_coalne = list()
         self.flagged_slcons = list()
         self.flagged_lndelv = list()
+        self.flagged_obstrn_unknown_valsou = list()
         self.flagged_new_valsous_watlev = list()
         self.flagged_new_elevat = list()
         self.flagged_m_covr_catcov = list()
@@ -104,6 +105,7 @@ class FeatureScanV10(BaseScan):
         self.flagged_images_non_sbdare = list()
         self.flagged_images_sbdare_points = list()
         self.flagged_images_sbdare_lines_areas = list()
+        self.flagged_images_features = list()
 
     @classmethod
     def check_sorind(cls, value, check_space=True):
@@ -678,7 +680,7 @@ class FeatureScanV10(BaseScan):
                 if elevat is not None:
                     break
 
-            if self.version in ["2019", "2020"]:
+            if self.version in ["2019", "2020", "2021"]:
                 if self.survey_area in [0, 1, 2]:
                     if elevat > + 0.1:
                         pass
@@ -1952,22 +1954,20 @@ class FeatureScanV10(BaseScan):
 
         # Filter wrecks if they have a known, undefined, and unknown valsou.
         wrecks_valsou = S57Aux.select_by_attribute(objects=wrecks, attribute='VALSOU')
-        wrecks_with_valsou_known = S57Aux.filter_by_attribute_value(wrecks_valsou, attribute='VALSOU',
-                                                                    value_filter=['', ], )
-        wrecks_unknown_valsou = S57Aux.select_by_attribute_value(wrecks, attribute='VALSOU', value_filter=['', ])
+        logger.debug("Total number of wrecks without undefined VALSOU: %d" % (len(wrecks_valsou)))
         wrecks_undefined_valsou = S57Aux.filter_by_attribute(wrecks, attribute='VALSOU')
+        logger.debug("Total number of wrecks with undefined VALSOU: %d" % (len(wrecks_undefined_valsou)))
 
         # Ensure wrecks with valsou contain watlev
         self.report += "New or Updated WRECKS with empty/missing mandatory attribute WATLEV [CHECK]"
-        self.flagged_wrecks_watlev = self.flag_features_with_attribute_value(wrecks_with_valsou_known,
+        self.flagged_wrecks_watlev = self.flag_features_with_attribute_value(wrecks_valsou,
                                                                              attribute='WATLEV',
                                                                              values_to_flag=['', ],
                                                                              check_attrib_existence=True)
 
         # Ensure wrecks with unknown valsou have watlev unknown
         self.report += "New or Updated WRECKS with empty VALSOU shall have WATLEV of 'unknown' [CHECK]"
-        self.flagged_wrecks_unknown_watlev = self.flag_features_with_attribute_value(wrecks_unknown_valsou +
-                                                                                     wrecks_undefined_valsou,
+        self.flagged_wrecks_unknown_watlev = self.flag_features_with_attribute_value(wrecks_undefined_valsou,
                                                                                      attribute='WATLEV',
                                                                                      values_to_flag=["1", "2", "3",
                                                                                                      "4", "5", "6",
@@ -1979,37 +1979,36 @@ class FeatureScanV10(BaseScan):
 
         # Ensure wrecks with valsou contain tecsou
         self.report += "New or Updated WRECKS with empty/missing mandatory attribute TECSOU [CHECK]"
-        self.flagged_wrecks_tecsou = self.flag_features_with_attribute_value(wrecks_with_valsou_known,
+        self.flagged_wrecks_tecsou = self.flag_features_with_attribute_value(wrecks_valsou,
                                                                              attribute='TECSOU',
                                                                              values_to_flag=['', ],
                                                                              check_attrib_existence=True)
 
         # Ensure wrecks with unknown valsou have tecsou "unknown"
         self.report += "New or Updated WRECKS with empty VALSOU shall have TECSOU of 'unknown' [CHECK]"
-        self.flagged_wrecks_unknown_tecsou = self.flag_features_with_attribute_value(wrecks_unknown_valsou +
-                                                                                     wrecks_undefined_valsou,
+        self.flagged_wrecks_unknown_tecsou = self.flag_features_with_attribute_value(wrecks_undefined_valsou,
                                                                                      attribute='TECSOU',
                                                                                      values_to_flag=["1", "2", "3",
                                                                                                      "4", "5", "6",
                                                                                                      "7", "8", "9",
-                                                                                                     "10",
-                                                                                                     "11", "12", "13"
-                                                                                                                 "14", ])
+                                                                                                     "10", "11", "12",
+                                                                                                     "13", "14", ],
+                                                                                     check_attrib_existence=True)
 
         # @ Ensure new or updated wrecks have quasou
         self.report += "New or Updated WRECKS missing mandatory attribute QUASOU [CHECK]"
-        self.flagged_wrecks_quasou = self.flag_features_with_attribute_value(wrecks_with_valsou_known,
+        self.flagged_wrecks_quasou = self.flag_features_with_attribute_value(wrecks_valsou,
                                                                              attribute='QUASOU',
                                                                              values_to_flag=['', ],
                                                                              check_attrib_existence=True)
 
         # Ensure wrecks with unknown valsou have quasou "unknown"
         self.report += "New or Updated WRECKS with empty VALSOU shall have QUASOU of 'depth unknown' [CHECK]"
-        self.flagged_wrecks_unknown_quasou = self.flag_features_with_attribute_value(wrecks_unknown_valsou +
-                                                                                     wrecks_undefined_valsou,
+        self.flagged_wrecks_unknown_quasou = self.flag_features_with_attribute_value(wrecks_undefined_valsou,
                                                                                      attribute='QUASOU',
-                                                                                     values_to_flag=["1", "6", "7",
-                                                                                                     "8", "9", ])
+                                                                                     values_to_flag=["1", "3", "4", "5",
+                                                                                                     "6", "7", "8", "9",
+                                                                                                     "10", "11"])
 
         # @ Isolate new or updated rocks
         rocks = S57Aux.select_by_object(objects=new_update_features, object_filter=['UWTROC', ])
@@ -2019,21 +2018,17 @@ class FeatureScanV10(BaseScan):
 
         # Filter rocks if they have a known, undefined, and unknown valsou.
         rocks_valsou = S57Aux.select_by_attribute(objects=rocks, attribute='VALSOU')
-        rocks_with_valsou_known = S57Aux.filter_by_attribute_value(rocks_valsou, attribute='VALSOU',
-                                                                   value_filter=['', ], )
-        rocks_unknown_valsou = S57Aux.select_by_attribute_value(rocks, attribute='VALSOU', value_filter=['', ])
         rocks_undefined_valsou = S57Aux.filter_by_attribute(rocks, attribute='VALSOU')
 
         # Ensure rocks with valsou contain watlev
         self.report += "New or Updated UWTROC with empty/missing mandatory attribute WATLEV [CHECK]"
-        self.flagged_uwtroc_watlev = self.flag_features_with_attribute_value(rocks, attribute='WATLEV',
+        self.flagged_uwtroc_watlev = self.flag_features_with_attribute_value(rocks_valsou, attribute='WATLEV',
                                                                              values_to_flag=['', ],
                                                                              check_attrib_existence=True)
 
         # Ensure wrecks with unknown valsou have watlev unknown
         self.report += "New or Updated UWTROC with empty VALSOU shall have WATLEV of 'unknown' [CHECK]"
-        self.flagged_uwtroc_unknown_watlev = self.flag_features_with_attribute_value(rocks_unknown_valsou +
-                                                                                     rocks_undefined_valsou,
+        self.flagged_uwtroc_unknown_watlev = self.flag_features_with_attribute_value(rocks_undefined_valsou,
                                                                                      attribute='WATLEV',
                                                                                      values_to_flag=["1", "2", "3",
                                                                                                      "4", "5", "6",
@@ -2041,28 +2036,27 @@ class FeatureScanV10(BaseScan):
 
         # @ Ensure new or updated rocks have quasou
         self.report += "New or Updated UWTROC with empty/missing mandatory attribute QUASOU [CHECK]"
-        self.flagged_uwtroc_quasou = self.flag_features_with_attribute_value(rocks, attribute='QUASOU',
+        self.flagged_uwtroc_quasou = self.flag_features_with_attribute_value(rocks_valsou, attribute='QUASOU',
                                                                              values_to_flag=['', ],
                                                                              check_attrib_existence=True)
 
         # Ensure rocks with unknown valsou have tecsou "unknown"
         self.report += "New or Updated UWTROC with empty VALSOU shall have QUASOU of 'depth unknown' [CHECK]"
-        self.flagged_uwtroc_unknown_quasou = self.flag_features_with_attribute_value(rocks_unknown_valsou +
-                                                                                     rocks_undefined_valsou,
+        self.flagged_uwtroc_unknown_quasou = self.flag_features_with_attribute_value(rocks_undefined_valsou,
                                                                                      attribute='QUASOU',
-                                                                                     values_to_flag=["1", "6", "7",
-                                                                                                     "8", "9", ])
+                                                                                     values_to_flag=["1", "3", "4", "5",
+                                                                                                     "6", "7", "8", "9",
+                                                                                                     "10", "11"])
 
         # @ Ensure new or updated rocks have tecsou
         self.report += "New or Updated UWTROC with empty/missing mandatory attribute TECSOU [CHECK]"
-        self.flagged_uwtroc_tecsou = self.flag_features_with_attribute_value(rocks_with_valsou_known,
+        self.flagged_uwtroc_tecsou = self.flag_features_with_attribute_value(rocks_valsou,
                                                                              attribute='TECSOU',
                                                                              values_to_flag=['', ],
                                                                              check_attrib_existence=True)
         # Ensure rocks with unknown valsou have tecsou "unknown"
         self.report += "New or Updated UWTROC with empty VALSOU shall have TECSOU of 'unknown' [CHECK]"
-        self.flagged_uwtroc_unknown_tecsou = self.flag_features_with_attribute_value(rocks_unknown_valsou +
-                                                                                     rocks_undefined_valsou,
+        self.flagged_uwtroc_unknown_tecsou = self.flag_features_with_attribute_value(rocks_undefined_valsou,
                                                                                      attribute='TECSOU',
                                                                                      values_to_flag=["1", "2", "3",
                                                                                                      "4", "5", "6",
@@ -2122,52 +2116,56 @@ class FeatureScanV10(BaseScan):
                                                                                                    "4", "5", "6",
                                                                                                    "7", ])
         obstrn_valsou = S57Aux.select_by_attribute(objects=obstrns, attribute='VALSOU')
-        obstrn_with_valsou_known = S57Aux.filter_by_attribute_value(obstrn_valsou, attribute='VALSOU',
-                                                                    value_filter=['', ], )
-        obstrn_unknown_valsou = S57Aux.select_by_attribute_value(obstrns, attribute='VALSOU', value_filter=['', ])
         obstrn_undefined_valsou = S57Aux.filter_by_attribute(obstrns, attribute='VALSOU')
 
         self.report += "New or Updated OBSTRN with empty/missing mandatory attribute QUASOU [CHECK]"
-        self.flagged_obstrn_quasou = self.flag_features_with_attribute_value(obstrn_with_valsou_known,
+        self.flagged_obstrn_quasou = self.flag_features_with_attribute_value(obstrn_valsou,
                                                                              attribute='QUASOU',
                                                                              values_to_flag=['', ],
                                                                              check_attrib_existence=True)
         # Ensure obstrn with unknown valsou have quasou "unknown"
         self.report += "New or Updated OBSTRN with empty VALSOU shall have QUASOU of 'depth unknown' [CHECK]"
-        self.flagged_obstrn_unknown_quasou = self.flag_features_with_attribute_value(obstrn_unknown_valsou +
-                                                                                     obstrn_undefined_valsou,
+        self.flagged_obstrn_unknown_quasou = self.flag_features_with_attribute_value(obstrn_undefined_valsou,
                                                                                      attribute='QUASOU',
                                                                                      values_to_flag=["1", "6", "7",
                                                                                                      "8", "9", ])
 
         # @ Ensure new or updated obstructions with valsou have tecsou
         self.report += "New or Updated OBSTRN missing mandatory attribute TECSOU [CHECK]"
-        self.flagged_obstrn_tecsou = self.flag_features_with_attribute_value(obstrn_with_valsou_known,
+        self.flagged_obstrn_tecsou = self.flag_features_with_attribute_value(obstrn_valsou,
                                                                              attribute='TECSOU',
                                                                              values_to_flag=['', ],
                                                                              check_attrib_existence=True)
 
         # Ensure obstrn with unknown valsou have tecsou "unknown"
         self.report += "New or Updated OBSTRN with empty VALSOU shall have TECSOU of 'unknown' [CHECK]"
-        self.flagged_obstrn_unknown_tecsou = self.flag_features_with_attribute_value(obstrn_unknown_valsou +
-                                                                                     obstrn_undefined_valsou,
+        self.flagged_obstrn_unknown_tecsou = self.flag_features_with_attribute_value(obstrn_undefined_valsou,
                                                                                      attribute='TECSOU',
                                                                                      values_to_flag=["1", "2", "3",
                                                                                                      "4", "5", "6",
                                                                                                      "7", "8", "9",
-                                                                                                     "10",
-                                                                                                     "11", "12", "13"
-                                                                                                                 "14", ])
+                                                                                                     "10", "11", "12",
+                                                                                                     "13"
+                                                                                                     "14", ])
 
         # Isolate line and area foul area obstructions
         obstrns_foul_lines_areas = S57Aux.select_lines_and_areas(obstrns_foul)
         # Check line and area foul area obstructions do not have VALSOU
-        self.report += "Foul obstructions shall not have VALSOU [CHECK]"
+        self.report += "Foul OBSTRN shall not have VALSOU [CHECK]"
         self.flagged_obstrn_foul_valsou = self.check_features_without_attribute(objects=obstrns_foul_lines_areas +
                                                                                         obstrns_foul_ground,
                                                                                 attribute='VALSOU', possible=False)
 
-        # Select all the new features with valsou attribute THIS ONE SHOULD BE SPLIT INTO DIFFERENT FEATURE TYPES...
+        # Isolcate linea and area objects that are not foul
+        obstrns_no_foul_foulground = S57Aux.filter_by_attribute_value(objects=obstrns, attribute='CATOBS',
+                                                           value_filter=['6', "7", ])
+        obstrns_no_foul_lines_areas = S57Aux.select_lines_and_areas(obstrns_no_foul_foulground)
+        # Check line and area obstructions that are not foul: VALSOU shall be left blank if depth not available.
+        self.report += "Warning: New or Updated line or area OBSTRN should have VALSOU populated [CHECK]"
+        self.flagged_obstrn_unknown_valsou = self.check_features_for_attribute(obstrns_no_foul_lines_areas, 'VALSOU',
+                                                                               possible=True)
+
+        # Select all the new features with valsou attribute and check for valid quasou.
         new_valsous = S57Aux.select_by_attribute(objects=new_update_features, attribute='VALSOU')
         self.report += "New or Updated VALSOU features with invalid QUASOU [CHECK]"
         self.flagged_new_valsous_quasou = self._check_features_for_valid_quasou(new_valsous)
@@ -2271,17 +2269,13 @@ class FeatureScanV10(BaseScan):
         # Isolate new or updated point seabed areas
         sbdare_points = S57Aux.select_only_points(sbdare)
 
-        self.report += "Invalid SBDARE IMAGE name per HSSD [CHECK]"
+        self.report += "Invalid bottom sample IMAGE name per HSSD [CHECK]"
         self.flagged_images_sbdare_points = self._check_sbdare_images_per_htd(sbdare_points)
 
-        self.report += "Invalid non-SBDARE IMAGE name per HSSD [CHECK]"
+        self.report += "Invalid feature IMAGE name per HSSD [CHECK]"
         non_sbdare_features = S57Aux.filter_by_object(objects=self.all_features, object_filter=['SBDARE', ])
-        self.flagged_images_non_sbdare = self._check_nonsbdare_images_per_htd(non_sbdare_features)
-
-        # Isolate new or update line and area seabed areas
-        self.report += "Invalid line or area SBDARE IMAGE name per HSSD [CHECK]"
         sbdare_lines_areas = S57Aux.select_lines_and_areas(sbdare)
-        self.flagged_images_sbdare_lines_areas = self._check_nonsbdare_images_per_htd(sbdare_lines_areas)
+        self.flagged_images_features = self._check_nonsbdare_images_per_htd(non_sbdare_features + sbdare_lines_areas)
 
         if self.profile == 0:  # office
             # For the office profile, ensure all features have onotes
@@ -2529,6 +2523,10 @@ class FeatureScanV10(BaseScan):
 
             count += 1
 
+            self.report += 'Check %d - Warning: New or Updated line or area OBSTRN missing attribute VALSOU: %s' \
+                           % (count, len(self.flagged_obstrn_unknown_valsou))
+            count += 1
+
             self.report += 'Check %d - New or Updated VALSOU features with invalid QUASOU: %s' \
                            % (count, len(self.flagged_new_valsous_quasou))
             count += 1
@@ -2599,16 +2597,12 @@ class FeatureScanV10(BaseScan):
         count += 1
 
         if self.version in ["2020", "2021"]:
-            self.report += 'Check %d - Invalid SBDARE IMAGE name per HSSD: %s' \
+            self.report += 'Check %d - Invalid bottom sample IMAGE name per HSSD: %s' \
                            % (count, len(self.flagged_images_sbdare_points))
             count += 1
 
-            self.report += 'Check %d - Invalid non-SBDARE feature IMAGE nam per HSSD: %s' \
-                           % (count, len(self.flagged_images_non_sbdare))
-            count += 1
-
-            self.report += 'Check %d - Invalid line or area SBDARE feature IMAGE name per HSSD: %s' \
-                           % (count, len(self.flagged_images_non_sbdare))
+            self.report += 'Check %d - Invalid feature IMAGE name per HSSD: %s' \
+                           % (count, len(self.flagged_images_features))
             count += 1
 
         if self.profile == 1:  # field profile
@@ -2641,39 +2635,38 @@ class FeatureScanV10(BaseScan):
                                % (count, len(self.flagged_images_non_sbdare))
                 count += 1
 
-                self.report += 'Check %d - Features with empty/missing onotes: %s' \
-                               % (count, len(self.flagged_without_onotes))
-                count += 1
+            self.report += 'Check %d - Features with empty/missing onotes: %s' \
+                           % (count, len(self.flagged_without_onotes))
+            count += 1
+            self.report += 'Check %d - Features with empty/unknown attribute hsdrec: %s' \
+                           % (count, len(self.flagged_hsdrec_empty))
+            count += 1
+            self.report += "Check %d - Features without 'Prohibited feature' keyword: %s" \
+                           % (count, len(self.flagged_prohibited_kwds))
+            count += 1
+            self.report += "Check %d - Fish havens without 'Prohibited feature' keyword: %s" \
+                           % (count, len(self.flagged_fish_haven_kwds))
+            count += 1
+            self.report += "Check %d - Mooring buoys without 'Prohibited feature' keyword: %s" \
+                           % (count, len(self.flagged_mooring_buoy_kwds))
+            count += 1
+            self.report += 'Check %d - M_QUAL features with empty/missing mandatory attribute CATZOC: %s' \
+                           % (count, len(self.flagged_m_qual_catzoc))
+            count += 1
+            self.report += 'Check %d - M_QUAL features missing mandatory attribute SURSTA: %s' \
+                           % (count, len(self.flagged_m_qual_sursta))
+            count += 1
+            self.report += 'Check %d - M_QUAL features missing mandatory attribute SUREND: %s' \
+                           % (count, len(self.flagged_m_qual_surend))
+            count += 1
+            self.report += 'Check %d - M_QUAL features with empty/missing mandatory attribute TECSOU: %s' \
+                           % (count, len(self.flagged_m_qual_tecsou))
+            count += 1
 
-                self.report += 'Check %d - Features with empty/unknown attribute hsdrec: %s' \
-                               % (count, len(self.flagged_hsdrec_empty))
-                count += 1
-                self.report += "Check %d - Features without 'Prohibited feature' keyword: %s" \
-                               % (count, len(self.flagged_prohibited_kwds))
-                count += 1
-                self.report += "Check %d - Fish havens without 'Prohibited feature' keyword: %s" \
-                               % (count, len(self.flagged_fish_haven_kwds))
-                count += 1
-                self.report += "Check %d - Mooring buoys without 'Prohibited feature' keyword: %s" \
-                               % (count, len(self.flagged_mooring_buoy_kwds))
-                count += 1
-                self.report += 'Check %d - M_QUAL features with empty/missing mandatory attribute CATZOC: %s' \
-                               % (count, len(self.flagged_m_qual_catzoc))
-                count += 1
-                self.report += 'Check %d - M_QUAL features missing mandatory attribute SURSTA: %s' \
-                               % (count, len(self.flagged_m_qual_sursta))
-                count += 1
-                self.report += 'Check %d - M_QUAL features missing mandatory attribute SUREND: %s' \
-                               % (count, len(self.flagged_m_qual_surend))
-                count += 1
-                self.report += 'Check %d - M_QUAL features with empty/missing mandatory attribute TECSOU: %s' \
-                               % (count, len(self.flagged_m_qual_tecsou))
-                count += 1
+            self.report += 'Check %d - Features with empty/unknown attribute descrp: %s' \
+                           % (count, len(self.flagged_mcd_description))
+            count += 1
 
-                self.report += 'Check %d - Features with empty/unknown attribute descrp: %s' \
-                               % (count, len(self.flagged_mcd_description))
-                count += 1
-
-                self.report += 'Check %d - Features with empty/missing attribute remrks: %s' \
-                               % (count, len(self.flagged_mcd_remarks))
-                count += 1
+            self.report += 'Check %d - Features with empty/missing attribute remrks: %s' \
+                           % (count, len(self.flagged_mcd_remarks))
+            count += 1
