@@ -277,7 +277,7 @@ In the specific, an edge node is identified when 6 or less adjacent valid neighb
 
 Once that an edge node is identified, the least depth and the maximum difference with its neighbors are calculated.
 
-The least depth is used to calculate to local Total Vertical Uncertainty (TVU), and then a flagging threshold is set to 90% of the resulting TVU. The TVU is calculated per NOAA specifications:
+The least depth is used to calculate to local Total Vertical Uncertainty (TVU), and then a flagging threshold is set by the user and by default is set to 100% of the resulting TVU. The TVU is calculated per NOAA specifications:
 
 .. math::
 
@@ -287,6 +287,22 @@ where :math:`A = 0.5, B = 0.013` for Order 1 (depths less than 100 m), and :math
 
 .. note::
     Since the TVU is based on the local least depth, the algorithm automatically adapts the threshold calculation to the proper Order (1 or 2). For example if the edge node in question is 102m and its neighbors are 99m, the TVU will be calculated at Order 1 specifications.
+
+The Percent TVU option allows you to adjust the threshold height used to flag fliers. In the original implementation of Noisy Edges, the flier height was determined at 90% of the TVU of a node. Now the slider allows the user to adjust that number. The following table shows an example of how the minimum flier height would change for a node with 20m of depth:
+
++---+---+---+---+---+----+----+----+----+---+---+
+|  Percent of TVU   |  Mimimum Flier Height (m) |
++===+===+===+===+===+===+===+===+===+===+===+===+
+|        90         |           0.508           |
++---+---+---+---+---+---+---+---+---+---+---+---+
+|        100        |           0.564           |
++---+---+---+---+---+---+---+---+---+---+---+---+
+|        125        |           0.705           |
++---+---+---+---+---+---+---+---+---+---+---+---+
+|        150        |           0.846           |
++---+---+---+---+---+---+---+---+---+---+---+---+
+|        200        |           1.128           |
++---+---+---+---+---+---+---+---+---+---+---+---+
 
 Finally, an edge node is flagged when the maximum depth difference with its neighbors is greater than the flagging threshold.
 

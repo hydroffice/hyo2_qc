@@ -108,7 +108,7 @@ RorI is based on the following specifications:
   * Pacific Coast: 0.6096 m
   * Great Lakes: 1.2192 m
         
-* **HSSD 2019**:
+* **HSSD 2019+**:
 
   * All regions: 0.1 m
 

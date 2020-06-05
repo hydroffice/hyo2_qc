@@ -184,7 +184,7 @@ class MainWin(QtWidgets.QMainWindow):
         text_special.setAlignment(QtCore.Qt.AlignRight)
         text_special.setFixedWidth(70)
         label2_hbox.addWidget(text_special)
-        text_2 = QtWidgets.QLabel(" HSSD 2019")
+        text_2 = QtWidgets.QLabel(" HSSD 2019+")
         text_2.setAlignment(QtCore.Qt.AlignLeft)
         text_2.setFixedWidth(70)
         label2_hbox.addWidget(text_2)

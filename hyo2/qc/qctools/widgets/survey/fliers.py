@@ -58,16 +58,16 @@ class FliersTab(QtWidgets.QMainWindow):
         self.set_check_slivers_ffv8 = None
         self.set_check_isolated_ffv8 = None
         self.set_check_edges_ffv8 = None
-        self.text_distance = None
-        self.text_distance_2 = None
-        self.text_distance_3 = None
-        self.slider_edges_distance_v8 = None
         self.text_pct = None
         self.text_pct_90 = None
         self.text_pct_100 = None
         self.text_pct_125 = None
         self.text_pct_150 = None
         self.text_pct_200 = None
+        self.text_distance = None
+        self.text_distance_2 = None
+        self.text_distance_3 = None
+        self.slider_edges_distance_v8 = None
         self.slider_edges_pct_tvu_v8 = None
         self.set_filter_fff_ffv8 = None
         self.set_filter_designated_ffv8 = None
@@ -88,33 +88,17 @@ class FliersTab(QtWidgets.QMainWindow):
 
             # noinspection PyUnresolvedReferences
             if key == QtCore.Qt.Key_6:
-
                 if self.slider_edges_distance_v8.isHidden():
                     self.slider_edges_distance_v8.show()
                     self.text_distance.show()
                     self.text_distance_2.show()
                     self.text_distance_3.show()
 
-                    self.slider_edges_pct_tvu_v8.show()
-                    self.text_pct.show()
-                    self.text_pct_90.show()
-                    self.text_pct_100.show()
-                    self.text_pct_125.show()
-                    self.text_pct_150.show()
-                    self.text_pct_200.show()
                 else:
                     self.slider_edges_distance_v8.hide()
                     self.text_distance.hide()
                     self.text_distance_2.hide()
                     self.text_distance_3.hide()
-
-                    self.slider_edges_pct_tvu_v8.hide()
-                    self.text_pct.hide()
-                    self.text_pct_90.hide()
-                    self.text_pct_100.hide()
-                    self.text_pct_125.hide()
-                    self.text_pct_150.hide()
-                    self.text_pct_200.hide()
 
                 # return True
         return super(FliersTab, self).keyPressEvent(event)
@@ -203,7 +187,60 @@ class FliersTab(QtWidgets.QMainWindow):
         self.set_check_edges_ffv8 = QtWidgets.QCheckBox("#6: Noisy Edges")
         self.set_check_edges_ffv8.setDisabled(True)
         self.set_check_edges_ffv8.setChecked(self.settings.value("survey/ff8_edges", 0) == 1)
+        self.set_check_edges_ffv8.stateChanged.connect(self.click_set_6)
         chk_vbox.addWidget(self.set_check_edges_ffv8)
+
+        slider_pct_gbox = QtWidgets.QGridLayout()
+        chk_vbox.addLayout(slider_pct_gbox)
+
+        # labels
+        text_sz = 36
+        text_label = QtWidgets.QLabel("")
+        slider_pct_gbox.addWidget(text_label, 0, 0, 1, 1)
+
+        self.text_pct_90 = QtWidgets.QLabel("90")
+        self.text_pct_90.setFixedWidth(text_sz)
+        self.text_pct_90.setAlignment(QtCore.Qt.AlignLeft)
+        self.text_pct_90.setStyleSheet(GuiSettings.stylesheet_slider_labels())
+        self.text_pct_90.setDisabled(True)
+        slider_pct_gbox.addWidget(self.text_pct_90, 0, 1, 1, 1)
+        self.text_pct_100 = QtWidgets.QLabel("100")
+        self.text_pct_100.setFixedWidth(text_sz)
+        self.text_pct_100.setAlignment(QtCore.Qt.AlignLeft)
+        self.text_pct_100.setStyleSheet(GuiSettings.stylesheet_slider_labels())
+        self.text_pct_100.setDisabled(True)
+        slider_pct_gbox.addWidget(self.text_pct_100, 0, 2, 1, 1)
+        self.text_pct_125 = QtWidgets.QLabel("125")
+        self.text_pct_125.setFixedWidth(text_sz)
+        self.text_pct_125.setAlignment(QtCore.Qt.AlignCenter)
+        self.text_pct_125.setStyleSheet(GuiSettings.stylesheet_slider_labels())
+        self.text_pct_125.setDisabled(True)
+        slider_pct_gbox.addWidget(self.text_pct_125, 0, 3, 1, 1)
+        self.text_pct_150 = QtWidgets.QLabel("150")
+        self.text_pct_150.setFixedWidth(text_sz)
+        self.text_pct_150.setAlignment(QtCore.Qt.AlignRight)
+        self.text_pct_150.setStyleSheet(GuiSettings.stylesheet_slider_labels())
+        self.text_pct_150.setDisabled(True)
+        slider_pct_gbox.addWidget(self.text_pct_150, 0, 4, 1, 1)
+        self.text_pct_200 = QtWidgets.QLabel("200")
+        self.text_pct_200.setFixedWidth(text_sz)
+        self.text_pct_200.setAlignment(QtCore.Qt.AlignRight)
+        self.text_pct_200.setStyleSheet(GuiSettings.stylesheet_slider_labels())
+        self.text_pct_200.setDisabled(True)
+        slider_pct_gbox.addWidget(self.text_pct_200, 0, 5, 1, 1)
+
+        self.text_pct = QtWidgets.QLabel("Pct. TVU")
+        self.text_pct.setDisabled(True)
+        slider_pct_gbox.addWidget(self.text_pct, 1, 0, 1, 1)
+
+        self.slider_edges_pct_tvu_v8 = QtWidgets.QSlider(QtCore.Qt.Horizontal)
+        self.slider_edges_pct_tvu_v8.setRange(1, 5)
+        self.slider_edges_pct_tvu_v8.setSingleStep(1)
+        self.slider_edges_pct_tvu_v8.setValue(2)
+        self.slider_edges_pct_tvu_v8.setTickInterval(1)
+        self.slider_edges_pct_tvu_v8.setTickPosition(QtWidgets.QSlider.TicksBelow)
+        self.slider_edges_pct_tvu_v8.setDisabled(True)
+        slider_pct_gbox.addWidget(self.slider_edges_pct_tvu_v8, 1, 1, 1, 5)
 
         slider_distance_gbox = QtWidgets.QGridLayout()
         chk_vbox.addLayout(slider_distance_gbox)
@@ -243,66 +280,23 @@ class FliersTab(QtWidgets.QMainWindow):
         self.slider_edges_distance_v8.setHidden(True)
         slider_distance_gbox.addWidget(self.slider_edges_distance_v8, 1, 1, 1, 5)
 
-        slider_pct_gbox = QtWidgets.QGridLayout()
-        chk_vbox.addLayout(slider_pct_gbox)
-
-        # labels
-        text_sz = 36
-        text_label = QtWidgets.QLabel("")
-        slider_pct_gbox.addWidget(text_label, 0, 0, 1, 1)
-
-        self.text_pct_90 = QtWidgets.QLabel("90")
-        self.text_pct_90.setFixedWidth(text_sz)
-        self.text_pct_90.setAlignment(QtCore.Qt.AlignLeft)
-        self.text_pct_90.setStyleSheet(GuiSettings.stylesheet_slider_labels())
-        self.text_pct_90.setDisabled(True)
-        self.text_pct_90.setHidden(True)
-        slider_pct_gbox.addWidget(self.text_pct_90, 0, 1, 1, 1)
-        self.text_pct_100 = QtWidgets.QLabel("100")
-        self.text_pct_100.setFixedWidth(text_sz)
-        self.text_pct_100.setAlignment(QtCore.Qt.AlignLeft)
-        self.text_pct_100.setStyleSheet(GuiSettings.stylesheet_slider_labels())
-        self.text_pct_100.setDisabled(True)
-        self.text_pct_100.setHidden(True)
-        slider_pct_gbox.addWidget(self.text_pct_100, 0, 2, 1, 1)
-        self.text_pct_125 = QtWidgets.QLabel("125")
-        self.text_pct_125.setFixedWidth(text_sz)
-        self.text_pct_125.setAlignment(QtCore.Qt.AlignCenter)
-        self.text_pct_125.setStyleSheet(GuiSettings.stylesheet_slider_labels())
-        self.text_pct_125.setDisabled(True)
-        self.text_pct_125.setHidden(True)
-        slider_pct_gbox.addWidget(self.text_pct_125, 0, 3, 1, 1)
-        self.text_pct_150 = QtWidgets.QLabel("150")
-        self.text_pct_150.setFixedWidth(text_sz)
-        self.text_pct_150.setAlignment(QtCore.Qt.AlignRight)
-        self.text_pct_150.setStyleSheet(GuiSettings.stylesheet_slider_labels())
-        self.text_pct_150.setDisabled(True)
-        self.text_pct_150.setHidden(True)
-        slider_pct_gbox.addWidget(self.text_pct_150, 0, 4, 1, 1)
-        self.text_pct_200 = QtWidgets.QLabel("200")
-        self.text_pct_200.setFixedWidth(text_sz)
-        self.text_pct_200.setAlignment(QtCore.Qt.AlignRight)
-        self.text_pct_200.setStyleSheet(GuiSettings.stylesheet_slider_labels())
-        self.text_pct_200.setDisabled(True)
-        self.text_pct_200.setHidden(True)
-        slider_pct_gbox.addWidget(self.text_pct_200, 0, 5, 1, 1)
-
-        self.text_pct = QtWidgets.QLabel("Pct. TVU")
-        self.text_pct.setHidden(True)
-        self.text_pct.setDisabled(True)
-        slider_pct_gbox.addWidget(self.text_pct, 1, 0, 1, 1)
-
-        self.slider_edges_pct_tvu_v8 = QtWidgets.QSlider(QtCore.Qt.Horizontal)
-        self.slider_edges_pct_tvu_v8.setRange(1, 5)
-        self.slider_edges_pct_tvu_v8.setSingleStep(1)
-        self.slider_edges_pct_tvu_v8.setValue(1)
-        self.slider_edges_pct_tvu_v8.setTickInterval(1)
-        self.slider_edges_pct_tvu_v8.setTickPosition(QtWidgets.QSlider.TicksBelow)
-        self.slider_edges_pct_tvu_v8.setDisabled(True)
-        self.slider_edges_pct_tvu_v8.setHidden(True)
-        slider_pct_gbox.addWidget(self.slider_edges_pct_tvu_v8, 1, 1, 1, 5)
-
         hbox.addStretch()
+
+    def click_set_6(self):
+        enable = self.set_check_edges_ffv8.isChecked()
+        self.slider_edges_distance_v8.setEnabled(enable)
+        self.text_pct.setEnabled(enable)
+        self.text_pct_90.setEnabled(enable)
+        self.text_pct_100.setEnabled(enable)
+        self.text_pct_125.setEnabled(enable)
+        self.text_pct_150.setEnabled(enable)
+        self.text_pct_200.setEnabled(enable)
+        self.slider_edges_pct_tvu_v8.setEnabled(enable)
+
+        self.text_distance.setEnabled(enable)
+        self.text_distance_2.setEnabled(enable)
+        self.text_distance_3.setEnabled(enable)
+        self.slider_edges_distance_v8.setEnabled(enable)
 
     def _ui_settings_params_filters_ffv8(self, vbox: QtWidgets.QVBoxLayout, min_group_box: int) -> None:
         hbox = QtWidgets.QHBoxLayout()
@@ -447,17 +441,21 @@ class FliersTab(QtWidgets.QMainWindow):
             self.set_check_slivers_ffv8.setEnabled(True)
             self.set_check_isolated_ffv8.setEnabled(True)
             self.set_check_edges_ffv8.setEnabled(True)
-            self.text_distance.setEnabled(True)
-            self.text_distance_2.setEnabled(True)
-            self.text_distance_3.setEnabled(True)
-            self.slider_edges_distance_v8.setEnabled(True)
-            self.text_pct.setEnabled(True)
-            self.text_pct_90.setEnabled(True)
-            self.text_pct_100.setEnabled(True)
-            self.text_pct_125.setEnabled(True)
-            self.text_pct_150.setEnabled(True)
-            self.text_pct_200.setEnabled(True)
-            self.slider_edges_pct_tvu_v8.setEnabled(True)
+
+            if self.set_check_edges_ffv8.isChecked():
+                self.slider_edges_distance_v8.setEnabled(True)
+                self.text_pct.setEnabled(True)
+                self.text_pct_90.setEnabled(True)
+                self.text_pct_100.setEnabled(True)
+                self.text_pct_125.setEnabled(True)
+                self.text_pct_150.setEnabled(True)
+                self.text_pct_200.setEnabled(True)
+                self.slider_edges_pct_tvu_v8.setEnabled(True)
+
+                self.text_distance.setEnabled(True)
+                self.text_distance_2.setEnabled(True)
+                self.text_distance_3.setEnabled(True)
+                self.slider_edges_distance_v8.setEnabled(True)
 
             self.set_distance_label_ffv8.setEnabled(True)
             self.set_distance_label2_ffv8.setEnabled(True)
@@ -485,9 +483,7 @@ class FliersTab(QtWidgets.QMainWindow):
             self.set_check_slivers_ffv8.setDisabled(True)
             self.set_check_isolated_ffv8.setDisabled(True)
             self.set_check_edges_ffv8.setDisabled(True)
-            self.text_distance.setDisabled(True)
-            self.text_distance_2.setDisabled(True)
-            self.text_distance_3.setDisabled(True)
+
             self.slider_edges_distance_v8.setDisabled(True)
             self.text_pct.setDisabled(True)
             self.text_pct_90.setDisabled(True)
@@ -496,6 +492,11 @@ class FliersTab(QtWidgets.QMainWindow):
             self.text_pct_150.setDisabled(True)
             self.text_pct_200.setDisabled(True)
             self.slider_edges_pct_tvu_v8.setDisabled(True)
+
+            self.text_distance.setDisabled(True)
+            self.text_distance_2.setDisabled(True)
+            self.text_distance_3.setDisabled(True)
+            self.slider_edges_distance_v8.setDisabled(True)
 
             self.set_distance_label_ffv8.setDisabled(True)
             self.set_distance_label2_ffv8.setDisabled(True)

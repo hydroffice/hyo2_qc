@@ -305,11 +305,12 @@ class ScanTab(QtWidgets.QMainWindow):
         # noinspection PyUnresolvedReferences
         self.use_htd_v10.stateChanged.connect(self.change_use_htd_v10)
         toggle_hbox.addWidget(self.use_htd_v10)
-        self.htd_text_v10 = QtWidgets.QLabel('Check Image Names per HTDs (NOAA only)')
+        self.htd_text_v10 = QtWidgets.QLabel('Check Image Names per HSSD')
         self.htd_text_v10.setFixedWidth(text_spacing)
         toggle_hbox.addWidget(self.htd_text_v10)
         # take care to activate/deactivate the HTD items at the GUI initialization
         enable = self.toggle_specs_v10.value() in [2018, 2019] and self.prj.active_profile in [1, ]
+        self.use_htd_v10.setChecked(True)
         self.use_htd_v10.setEnabled(enable)
         self.htd_text_v10.setEnabled(enable)
         # stretch
@@ -449,6 +450,7 @@ class ScanTab(QtWidgets.QMainWindow):
             self.text_office_v10.setText("")
         else:
             self.text_office_v10.setText(self.text_office_note_v10)
+            self.use_htd_v10.setChecked(True)
 
     def change_use_htd_v10(self):
         logger.info('use HTD check: %s' % self.use_htd_v10.isChecked())
@@ -490,6 +492,12 @@ class ScanTab(QtWidgets.QMainWindow):
         enable2 = value in [2018, 2019] and self.prj.active_profile in [1, ]
         self.use_htd_v10.setEnabled(enable2)
         self.htd_text_v10.setEnabled(enable2)
+
+        if value in [2020, 2021]:
+            self.htd_text_v10.setText('Check Image Names per HSSD')
+            self.use_htd_v10.setChecked(True)
+        else:
+            self.htd_text_v10.setText('Check Image Names per HTDs (NOAA only)')
 
         self.use_mhw_v10.setEnabled(enable)
         enable3 = enable and self.use_mhw_v10.isChecked()
