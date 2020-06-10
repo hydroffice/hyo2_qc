@@ -956,13 +956,22 @@ class FeatureScanV10(BaseScan):
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
-                if len(tokens[2]) != 15:
-                    # add to the flagged feature list and to the flagged report
-                    self._append_flagged(obj.centroid.x, obj.centroid.y, "invalid timestamp in filename")
-                    self.report += 'found %s at (%s, %s) with image having invalid timestamp in filename: %s ' % \
+                if self.version in ["2018", "2019", "2021"]:
+                    if len(tokens[2]) != 15:
+                        # add to the flagged feature list and to the flagged report
+                        self._append_flagged(obj.centroid.x, obj.centroid.y, "invalid timestamp in filename")
+                        self.report += 'found %s at (%s, %s) with image having invalid timestamp in filename: %s ' % \
                                    (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
-                    flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
-                    continue
+                        flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
+                        continue
+                if self.version in ["2020"]:
+                    if len(tokens[2]) not in [14, 15]:
+                        # add to the flagged feature list and to the flagged report
+                        self._append_flagged(obj.centroid.x, obj.centroid.y, "invalid timestamp in filename")
+                        self.report += 'found %s at (%s, %s) with image having invalid timestamp in filename: %s ' % \
+                                   (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
+                        flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
+                        continue
 
         if len(flagged) == 0:
             self.report += "OK"
