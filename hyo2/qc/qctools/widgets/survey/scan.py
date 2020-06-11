@@ -608,7 +608,7 @@ class ScanTab(QtWidgets.QMainWindow):
                         return
 
                 if self.check_sordat_v10.isChecked():
-                    sordat = self.sordat_value_v10
+                    sordat = self.sordat_value_v10.text()
                     is_valid = self.prj.check_sordat(value=sordat)
                     if not is_valid:
                         msg = "An invalid SORDAT was entered!\n\nCheck: %s" % sordat
