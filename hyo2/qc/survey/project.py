@@ -953,11 +953,11 @@ class SurveyProject(BaseProject):
 
     @classmethod
     def check_sorind(cls, value):
-        return FeatureScanV8.check_sorind(value=value)
+        return FeatureScanV10.check_sorind(value=value)
 
     @classmethod
     def check_sordat(cls, value):
-        return FeatureScanV8.check_sordat(value=value)
+        return FeatureScanV10.check_sordat(value=value)
 
     @property
     def flagged_features(self):
