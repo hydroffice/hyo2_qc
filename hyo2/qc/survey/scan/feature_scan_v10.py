@@ -1441,7 +1441,7 @@ class FeatureScanV10(BaseScan):
             prohibited = S57Aux.select_by_object(objects=self.all_features, object_filter=[
                 'DRGARE', 'LOGPON', 'PIPARE', 'PIPOHD', 'PIPSOL', 'DMPGRD', 'LIGHTS', 'BOYLAT', 'BOYSAW', 'BOYSPP',
                 'DAYMAR', 'FOGSIG', 'CBLSUB', 'CBLARE', 'FAIRWY', 'RTPBCN', 'BOYISD', 'BOYINB', 'BOYCAR', 'CBLOHD',
-                'BCNSPP', 'BCNLAT'])
+                'BCNSPP', 'BCNLAT', 'BRIDGE'])
             self.flagged_prohibited_kwds = self.check_for_missing_keywords(prohibited, attr_acronym='onotes',
                                                                            keywords=['Prohibited feature', ])
 
@@ -1819,7 +1819,7 @@ class FeatureScanV10(BaseScan):
             prohibited = S57Aux.select_by_object(objects=self.all_features, object_filter=[
                 'DRGARE', 'LOGPON', 'PIPARE', 'PIPOHD', 'PIPSOL', 'DMPGRD', 'LIGHTS', 'BOYLAT', 'BOYSAW', 'BOYSPP',
                 'DAYMAR', 'FOGSIG', 'CBLSUB', 'CBLARE', 'FAIRWY', 'RTPBCN', 'BOYISD', 'BOYINB', 'BOYCAR', 'CBLOHD',
-                'BCNSPP', 'BCNLAT'])
+                'BCNSPP', 'BCNLAT', 'BRIDGE'])
             self.flagged_prohibited_kwds = self.check_for_missing_keywords(prohibited, attr_acronym='onotes',
                                                                            keywords=['Prohibited feature', ])
 
@@ -2308,7 +2308,7 @@ class FeatureScanV10(BaseScan):
             prohibited = S57Aux.select_by_object(objects=self.all_features, object_filter=[
                 'DRGARE', 'LOGPON', 'PIPARE', 'PIPOHD', 'PIPSOL', 'DMPGRD', 'LIGHTS', 'BOYLAT', 'BOYSAW', 'BOYSPP',
                 'DAYMAR', 'FOGSIG', 'CBLSUB', 'CBLARE', 'FAIRWY', 'RTPBCN', 'BOYISD', 'BOYINB', 'BOYCAR', 'CBLOHD',
-                'BCNSPP', 'BCNLAT'])
+                'BCNSPP', 'BCNLAT', 'BRIDGE'])
             self.flagged_prohibited_kwds = self.check_for_missing_keywords(prohibited, attr_acronym='onotes',
                                                                            keywords=['Prohibited feature', ])
 
@@ -2797,7 +2797,7 @@ class FeatureScanV10(BaseScan):
             prohibited = S57Aux.select_by_object(objects=self.all_features, object_filter=[
                 'DRGARE', 'LOGPON', 'PIPARE', 'PIPOHD', 'PIPSOL', 'DMPGRD', 'LIGHTS', 'BOYLAT', 'BOYSAW', 'BOYSPP',
                 'DAYMAR', 'FOGSIG', 'CBLSUB', 'CBLARE', 'FAIRWY', 'RTPBCN', 'BOYISD', 'BOYINB', 'BOYCAR', 'CBLOHD',
-                'BCNSPP', 'BCNLAT'])
+                'BCNSPP', 'BCNLAT', 'BRIDGE'])
             self.flagged_prohibited_kwds = self.check_for_missing_keywords(prohibited, attr_acronym='onotes',
                                                                            keywords=['Prohibited feature', ])
 
