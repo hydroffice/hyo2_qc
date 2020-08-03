@@ -26,7 +26,7 @@ class InputsTab(QtWidgets.QMainWindow):
         self.vbox = QtWidgets.QVBoxLayout()
         self.panel.setLayout(self.vbox)
 
-        self.loadData = QtWidgets.QGroupBox("Data inputs  [drap-and-drop to add, right click to drop files]")
+        self.loadData = QtWidgets.QGroupBox("Data inputs  [drag-and-drop to add, right click to drop files]")
         # self.loadData.setStyleSheet("QGroupBox::title { color: rgb(155, 155, 155); }")
         self.vbox.addWidget(self.loadData)
 
@@ -99,7 +99,7 @@ class InputsTab(QtWidgets.QMainWindow):
         self.vbox.addStretch()
 
         # data outputs
-        self.savedData = QtWidgets.QGroupBox("Data outputs [drap-and-drop the desired output folder]")
+        self.savedData = QtWidgets.QGroupBox("Data outputs [drag-and-drop the desired output folder]")
         self.savedData.setStyleSheet("QGroupBox::title { color: rgb(155, 155, 155); }")
         self.savedData.setMaximumHeight(GuiSettings.single_line_height() * 8)
         self.vbox.addWidget(self.savedData)
