@@ -101,9 +101,9 @@ unc_data = collect_pkg_data('hyo2.unccalc')
 proj4_data = collect_folder_data(folder=os.path.join("Library", "share"))
 pyside2_data = collect_pkg_data('PySide2')
 
-icon_file = 'freeze\QCTools.ico'
+icon_file = os.path.normpath(os.path.join(os.getcwd(), 'freeze', 'QCTools.ico'))
 if is_darwin:
-    icon_file = 'freeze\QCTools.icns'
+    icon_file = os.path.normpath(os.path.join(os.getcwd(), 'freeze', 'QCTools.icns'))
 
 a = Analysis(['QCTools.py'],
              pathex=[],
