@@ -37,6 +37,8 @@ class GridQATab(QtWidgets.QMainWindow):
         self.set_force_tvu_qc_gqv6 = None
         self.text_set_tvu_qc = None
         self.set_toggle_mode_gqv6 = None
+        self.text_obj = None
+        self.text_cov = None
         self.hist_depth_v6 = None
         self.hist_density_v6 = None
         self.hist_tvu_qc_v6 = None
@@ -87,7 +89,7 @@ class GridQATab(QtWidgets.QMainWindow):
         vbox = QtWidgets.QVBoxLayout()
         self.setSettingsGQv6.setLayout(vbox)
 
-        # vbox.addStretch()
+        # hidden flagged Force TVU QC calculation
 
         hbox = QtWidgets.QHBoxLayout()
         vbox.addLayout(hbox)
@@ -106,40 +108,7 @@ class GridQATab(QtWidgets.QMainWindow):
 
         vbox.addStretch()
 
-        hbox = QtWidgets.QHBoxLayout()
-        vbox.addLayout(hbox)
-        # stretch
-        hbox.addStretch()
-        # mode
-        self.set_toggle_mode_gqv6 = QtWidgets.QDial()
-        self.set_toggle_mode_gqv6.setNotchesVisible(True)
-        self.set_toggle_mode_gqv6.setWrapping(False)
-        self.set_toggle_mode_gqv6.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.set_toggle_mode_gqv6.setRange(0, 1)
-        self.set_toggle_mode_gqv6.setSliderPosition(1)
-        self.set_toggle_mode_gqv6.setFixedSize(QtCore.QSize(40, 40))
-        self.set_toggle_mode_gqv6.setInvertedAppearance(False)
-        hbox.addWidget(self.set_toggle_mode_gqv6)
-        hbox.addStretch()
-
-        hbox = QtWidgets.QHBoxLayout()
-        vbox.addLayout(hbox)
-
-        # stretch
-        hbox.addStretch()
-        # mode
-        text_obj = QtWidgets.QLabel("Object detection")
-        text_obj.setAlignment(QtCore.Qt.AlignCenter)
-        text_obj.setFixedWidth(85)
-        hbox.addWidget(text_obj)
-        text_cov = QtWidgets.QLabel("Full coverage")
-        text_cov.setAlignment(QtCore.Qt.AlignCenter)
-        text_cov.setFixedWidth(85)
-        hbox.addWidget(text_cov)
-        # stretch
-        hbox.addStretch()
-
-        vbox.addSpacing(9)
+        # histograms label
 
         hbox = QtWidgets.QHBoxLayout()
         vbox.addLayout(hbox)
@@ -148,6 +117,8 @@ class GridQATab(QtWidgets.QMainWindow):
         text_hist = QtWidgets.QLabel("<i>Histograms</i>")
         hbox.addWidget(text_hist)
         hbox.addStretch()
+
+        # common histograms
 
         hbox = QtWidgets.QHBoxLayout()
         vbox.addLayout(hbox)
@@ -173,7 +144,20 @@ class GridQATab(QtWidgets.QMainWindow):
         self.hist_tvu_qc_v6 = QtWidgets.QCheckBox(self)
         hbox.addWidget(self.hist_tvu_qc_v6)
         self.hist_tvu_qc_v6.setChecked(True)
+        hbox.addStretch()
+
+        # VR-only
+
+        vr_only_group = QtWidgets.QGroupBox("VR-only")
+        vbox.addWidget(vr_only_group)
+
+        vr_only_vbox = QtWidgets.QVBoxLayout()
+        vr_only_group.setLayout(vr_only_vbox)
+
         # histograms: pct res
+        hbox = QtWidgets.QHBoxLayout()
+        vr_only_vbox.addLayout(hbox)
+        hbox.addStretch()
         text_hist_pct_res = QtWidgets.QLabel("% resolution:")
         hbox.addWidget(text_hist_pct_res)
         text_hist_pct_res.setFixedHeight(GuiSettings.single_line_height())
@@ -182,21 +166,67 @@ class GridQATab(QtWidgets.QMainWindow):
         self.hist_pct_res_v6.setChecked(True)
         hbox.addStretch()
 
+        # ObjectDetection/FullCoverage knob
+
         hbox = QtWidgets.QHBoxLayout()
-        vbox.addLayout(hbox)
+        vr_only_vbox.addLayout(hbox)
+        # stretch
+        hbox.addStretch()
+        # mode
+        self.set_toggle_mode_gqv6 = QtWidgets.QDial()
+        self.set_toggle_mode_gqv6.setNotchesVisible(True)
+        self.set_toggle_mode_gqv6.setWrapping(False)
+        self.set_toggle_mode_gqv6.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.set_toggle_mode_gqv6.setRange(0, 1)
+        self.set_toggle_mode_gqv6.setSliderPosition(1)
+        self.set_toggle_mode_gqv6.setFixedSize(QtCore.QSize(40, 40))
+        self.set_toggle_mode_gqv6.setInvertedAppearance(False)
+        hbox.addWidget(self.set_toggle_mode_gqv6)
+        # noinspection PyUnresolvedReferences
+        self.hist_pct_res_v6.stateChanged.connect(self.click_set_pct_res)
+        hbox.addStretch()
+
+        hbox = QtWidgets.QHBoxLayout()
+        vr_only_vbox.addLayout(hbox)
+
+        # stretch
+        hbox.addStretch()
+        # mode
+        self.text_obj = QtWidgets.QLabel("Object detection")
+        self.text_obj.setAlignment(QtCore.Qt.AlignCenter)
+        self.text_obj.setFixedWidth(85)
+        hbox.addWidget(self.text_obj)
+        self.text_cov = QtWidgets.QLabel("Full coverage")
+        self.text_cov.setAlignment(QtCore.Qt.AlignCenter)
+        self.text_cov.setFixedWidth(85)
+        hbox.addWidget(self.text_cov)
+        # stretch
+        hbox.addStretch()
+
+        # Branch-only
+
+        branch_only_group = QtWidgets.QGroupBox("Branch-only")
+        vbox.addWidget(branch_only_group)
+
+        branch_only_vbox = QtWidgets.QVBoxLayout()
+        branch_only_group.setLayout(branch_only_vbox)
+
+        hbox = QtWidgets.QHBoxLayout()
+        branch_only_vbox.addLayout(hbox)
         hbox.addStretch()
         # catzoc
-        text_hist_catzoc = QtWidgets.QLabel("TVU (IHO S-57 CATZOC) [Branch]:")
+        text_hist_catzoc = QtWidgets.QLabel("TVU (IHO S-57 CATZOC):")
         hbox.addWidget(text_hist_catzoc)
         text_hist_catzoc.setFixedHeight(GuiSettings.single_line_height())
         self.hist_catzoc = QtWidgets.QCheckBox(self)
+        # noinspection PyUnresolvedReferences
         self.hist_catzoc.stateChanged.connect(self.click_set_catzoc)
         hbox.addWidget(self.hist_catzoc)
         self.hist_catzoc.setChecked(False)
         hbox.addStretch()
 
         slider_hbox = QtWidgets.QHBoxLayout()
-        vbox.addLayout(slider_hbox)
+        branch_only_vbox.addLayout(slider_hbox)
         slider_hbox.addStretch()
 
         slider_gbox = QtWidgets.QGridLayout()
@@ -242,6 +272,8 @@ class GridQATab(QtWidgets.QMainWindow):
         slider_gbox.addWidget(self.catzoc_slider, 1, 1, 1, 4)
 
         slider_hbox.addStretch()
+
+        vbox.addSpacing(9)
 
         hbox = QtWidgets.QHBoxLayout()
         vbox.addLayout(hbox)
@@ -318,13 +350,19 @@ class GridQATab(QtWidgets.QMainWindow):
 
     def click_set_catzoc(self):
         """enable catzoc slider when catzoc flag is checked"""
-        enable = self.hist_catzoc.isChecked()
-        self.catzoc_slider.setEnabled(enable)
-        self.text_catzoc_slider.setEnabled(enable)
-        self.text_slider_a1.setEnabled(enable)
-        self.text_slider_a2b.setEnabled(enable)
-        self.text_slider_c.setEnabled(enable)
-        self.text_slider_all.setEnabled(enable)
+        is_enabled = self.hist_catzoc.isChecked()
+        self.catzoc_slider.setEnabled(is_enabled)
+        self.text_catzoc_slider.setEnabled(is_enabled)
+        self.text_slider_a1.setEnabled(is_enabled)
+        self.text_slider_a2b.setEnabled(is_enabled)
+        self.text_slider_c.setEnabled(is_enabled)
+        self.text_slider_all.setEnabled(is_enabled)
+
+    def click_set_pct_res(self):
+        is_enabled = self.hist_pct_res_v6.isChecked()
+        self.set_toggle_mode_gqv6.setEnabled(is_enabled)
+        self.text_obj.setEnabled(is_enabled)
+        self.text_cov.setEnabled(is_enabled)
 
     # common
 
