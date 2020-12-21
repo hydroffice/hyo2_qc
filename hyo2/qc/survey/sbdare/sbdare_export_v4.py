@@ -86,6 +86,9 @@ class SbdareExportV4(BaseSbdare):
 
         self.sbdare_features = S57Aux.select_by_object(self.all_features, object_filter=['SBDARE', ])
         self.sbdare_features = S57Aux.select_only_points(self.sbdare_features)
+        # only export new and updated bottom samples per chief's meeting in October 2020
+        self.sbdare_features = S57Aux.select_by_attribute_value(self.sbdare_features, attribute='descrp',
+                                                               value_filter=['1', '2', ])
 
         logger.debug("identified %d SBDARE features" % len(self.sbdare_features))
 
@@ -247,7 +250,6 @@ class SbdareExportV4(BaseSbdare):
 
             elif attribute.acronym == 'remrks':
                 info.remrks = self._commaed_str(attribute.value.replace(";", "--")).replace(",","-")
-                info.remrks = info.remrks.replace(",", " ")
 
             elif attribute.acronym == 'SORDAT':
                 info.sordat = attribute.value.strip()
