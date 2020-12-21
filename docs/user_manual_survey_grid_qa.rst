@@ -69,18 +69,21 @@ The Depth, Uncertainty, Density (if available), and a computed Total Vertical Un
     * The Density layer is plotted as a distribution (plot entitled **"Object Detection Coverage"**).
 
         * Percentages of nodes less than 5 soundings per node fall in the red shaded region of the plot and together must be less than 5% of all nodes in order to "pass".
-        
-    * Density is plotted against the corresponding Depth of the node (plot entitled **"Node Depth vs. Sounding Density"**).
-    
+
     * TVU QC (IHO S-44) is plotted as a distribution (plot entitled **"Uncertainty Standards - NOAA HSSD"**).
-    
+
         * Percentages of nodes with TVU QC greater than 1.0 (indicating that the allowable error has been exceeded) fall in the red shaded region of the plot, and together must be less than 5% of all nodes in order to "pass".
+
+    * Only for Variable Resolution grids, a histogram with the percentage of nodes at the prescribed resolution is created. This histogram can be used to evaluate whether *"95% of all surface nodes [..] have a resolution equal to or smaller than the coarsest allowable resolution for the node depth"* (NOAA HSSD).
+
+    * *TVU QC (IHO S-57 CATZOC) [Branch]* is plotted as a distribution (plot entitled *"Uncertainty Standards - CATZOC ..."*).
+
+    * Density is plotted against the corresponding Depth of the node (plot entitled **"Node Depth vs. Sounding Density"**).
         
     * TVU QC (IHO S-44) is plotted against the corresponding Depth of the node (plot entitled **"Node Depth vs. TVU QC"**).
 
-    * Only for Variable Resolution grids, a histogram with the percentage of nodes at the prescribed resolution is created. This histogram can be used to evaluate whether *"95% of all surface nodes [..] have a resolution equal to or smaller than the coarsest allowable resolution for the node depth"* (NOAA HTD 2017-2 "Caris Variable Resolution Grids").
-	
-    * *TVU QC (IHO S-57 CATZOC) [Branch]* is plotted as a distribution (plot entitled *"Uncertainty Standards - CATZOC ..."*).
+
+
 
 |
 
@@ -95,7 +98,9 @@ The TVU QC layer is calculated on-the-fly by the program. TVU QC based on IHO S-
 where :math:`A = 0.5, B = 0.013` for Order 1 (depths less than 100 m), and :math:`A = 1.0, B = 0.023` for Order 2 (depths greater than 100 m).
 
 
-TVU QC based on IHO S-57 CATZOC is used by the hydrographic branch to evaluate the quality of bathymetry for surveys that are not subject to the HSSD. **This check should NOT be used by NOAA field units or contract field units.** For TVU QC based on IHO S-57 CATZOC, TVU QC is calculated as such:
+TVU QC based on IHO S-57 CATZOC is used by the hydrographic branch to evaluate the quality of bathymetry for surveys that are not subject to the HSSD. **This check should NOT be used by NOAA field units or contract field units.**
+
+For TVU QC based on IHO S-57 CATZOC, TVU QC is calculated as such:
 
 .. math::
 

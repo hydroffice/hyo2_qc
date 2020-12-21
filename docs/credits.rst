@@ -15,5 +15,6 @@ Feel free to contact us for comments and suggestions:
 * `Giuseppe Masetti <mailto:gmasetti@ccom.unh.edu>`_
 * `Tyanne Faulkes <mailto:tyanne.faulkes@noaa.gov>`_
 * `Julia Wallace <mailto:julia.wallace@noaa.gov>`_
+* `Matt Wilson <mailto:matthew.wilson@noaa.gov>`_
 * `Brian R. Calder <mailto:brc@ccom.unh.edu>`_
 
