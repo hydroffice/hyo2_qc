@@ -10,6 +10,8 @@ from hyo2.abc.lib.helper import Helper
 default_logging.load()
 logger = logging.getLogger()
 
+#version: 0.1
+
 # set settings
 
 ask_for_input_folder = True
@@ -127,15 +129,13 @@ for i, bag_path in enumerate(prj.grid_list):
         prj.open_grid(path=bag_path)
 
         max_uncert = prj.retrieve_max_uncert(bag_path)
-        # manage the two possible cases of BAG without uncertainty (None or 0.0)
-        if max_uncert is None:
-            bag_without_uncertainty_list.append(bag_path)
-        elif max_uncert == 0.0:
-            bag_without_uncertainty_list.append(bag_path)
-
         min_uncert = prj.retrieve_min_uncert(bag_path)
-
-        if min_uncert < 0:
+        # manage the two possible cases of BAG without uncertainty (None or 0.0)
+        if max_uncert is None or min_uncert is None:
+            bag_without_uncertainty_list.append(bag_path)
+        elif max_uncert or min_uncert == 0.0:
+            bag_without_uncertainty_list.append(bag_path)
+        elif min_uncert < 0:
             bag_without_uncertainty_list.append(bag_path)
         elif min_uncert == 0.0:
             bag_without_uncertainty_list.append(bag_path)
