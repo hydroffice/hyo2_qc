@@ -9,6 +9,7 @@ Survey Validation
     user_manual_survey_detect_fliers
     user_manual_survey_detect_holidays
     user_manual_survey_grid_qa
+    user_manual_survey_bag_checks
     user_manual_survey_scan_designated
     user_manual_survey_scan_features
     user_manual_survey_valsou_checks

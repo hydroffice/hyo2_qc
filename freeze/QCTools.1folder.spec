@@ -17,7 +17,7 @@
 # - For PyProj:
 #   . copy Share folder
 #
-# Uploading to BitBucket: curl -s -u giumas:password -X POST https://api.bitbucket.org/2.0/repositories/hydroffice/hyo_qctools/downloads -F files=@QCTools.3.2.8.zip
+# Uploading to BitBucket: curl -s -v -u giumas:password -X POST https://api.bitbucket.org/2.0/repositories/hydroffice/hyo_qctools/downloads -F files=@QCTools.3.2.8.zip
 
 from PyInstaller.building.build_main import Analysis, PYZ, EXE, COLLECT, TOC
 from PyInstaller.utils.hooks import get_package_paths, remove_prefix, PY_IGNORE_EXTENSIONS

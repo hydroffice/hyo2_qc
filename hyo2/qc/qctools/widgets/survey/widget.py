@@ -12,6 +12,7 @@ from hyo2.qc.qctools.widgets.survey.fliers import FliersTab
 from hyo2.qc.qctools.widgets.survey.anomaly import AnomalyTab
 from hyo2.qc.qctools.widgets.survey.holes import HolesTab
 from hyo2.qc.qctools.widgets.survey.gridqa import GridQATab
+from hyo2.qc.qctools.widgets.survey.bagqa import BAGQATab
 from hyo2.qc.qctools.widgets.survey.scan import ScanTab
 from hyo2.qc.qctools.widgets.survey.designated import DesignatedTab
 from hyo2.qc.qctools.widgets.survey.valsou import ValsouTab
@@ -113,10 +114,18 @@ class SurveyWidget(AbstractWidget):
         self.tabs.setTabToolTip(self.idx_gridqa, "Grid QA")
         self.tabs.setTabEnabled(self.idx_gridqa, False)
 
+        # - bag qa
+        self.tab_bagqa = BAGQATab(parent_win=self, prj=self.prj)
+        # noinspection PyArgumentList
+        self.idx_bagqa = self.tabs.insertTab(5, self.tab_bagqa,
+                                              QtGui.QIcon(os.path.join(self.media, 'gridqa.png')), "")
+        self.tabs.setTabToolTip(self.idx_bagqa, "BAG QA")
+        self.tabs.setTabEnabled(self.idx_bagqa, False)
+
         # - designated
         self.tab_designated = DesignatedTab(parent_win=self, prj=self.prj)
         # noinspection PyArgumentList
-        self.idx_designated = self.tabs.insertTab(5, self.tab_designated,
+        self.idx_designated = self.tabs.insertTab(6, self.tab_designated,
                                                   QtGui.QIcon(os.path.join(self.media, 'designated.png')), "")
         self.tabs.setTabToolTip(self.idx_designated, "Scan designated (BAG only)")
         self.tabs.setTabEnabled(self.idx_designated, False)
@@ -124,7 +133,7 @@ class SurveyWidget(AbstractWidget):
         # - scan features
         self.tab_scan = ScanTab(parent_win=self, prj=self.prj)
         # noinspection PyArgumentList
-        self.idx_scan = self.tabs.insertTab(6, self.tab_scan,
+        self.idx_scan = self.tabs.insertTab(7, self.tab_scan,
                                             QtGui.QIcon(os.path.join(self.media, 'scan_features.png')), "")
         self.tabs.setTabToolTip(self.idx_scan, "Scan features")
         self.tabs.setTabEnabled(self.idx_scan, False)
@@ -132,7 +141,7 @@ class SurveyWidget(AbstractWidget):
         # - VALSOU checks
         self.tab_valsou = ValsouTab(parent_win=self, prj=self.prj)
         # noinspection PyArgumentList
-        self.idx_valsou = self.tabs.insertTab(7, self.tab_valsou,
+        self.idx_valsou = self.tabs.insertTab(8, self.tab_valsou,
                                               QtGui.QIcon(os.path.join(self.media, 'valsou.png')), "")
         self.tabs.setTabToolTip(self.idx_valsou, "VALSOU check")
         self.tabs.setTabEnabled(self.idx_valsou, False)
@@ -140,7 +149,7 @@ class SurveyWidget(AbstractWidget):
         # - SBDARE checks
         self.tab_sbdare = SbdareTab(parent_win=self, prj=self.prj)
         # noinspection PyArgumentList
-        self.idx_sbdare = self.tabs.insertTab(8, self.tab_sbdare,
+        self.idx_sbdare = self.tabs.insertTab(9, self.tab_sbdare,
                                               QtGui.QIcon(os.path.join(self.media, 'sbdare.png')), "")
         self.tabs.setTabToolTip(self.idx_sbdare, "SBDARE export")
         self.tabs.setTabEnabled(self.idx_sbdare, False)
@@ -148,7 +157,7 @@ class SurveyWidget(AbstractWidget):
         # - Submission tests
         self.tab_submission = SubmissionTab(parent_win=self, prj=self.prj)
         # noinspection PyArgumentList
-        self.idx_submission = self.tabs.insertTab(9, self.tab_submission,
+        self.idx_submission = self.tabs.insertTab(10, self.tab_submission,
                                                   QtGui.QIcon(os.path.join(self.media, 'submission.png')), "")
         self.tabs.setTabToolTip(self.idx_submission, "Submission checks")
         self.tabs.setTabEnabled(self.idx_submission, True)
@@ -187,6 +196,8 @@ class SurveyWidget(AbstractWidget):
             self.tabs.setTabEnabled(self.idx_anomaly, True)
         self.tabs.setTabEnabled(self.idx_holes, True)
         self.tabs.setTabEnabled(self.idx_gridqa, True)
+        if self.prj.has_bag_grid():
+            self.tabs.setTabEnabled(self.idx_bagqa, True)
         if self.prj.has_bag_grid() and self.has_s57:
             self.tabs.setTabEnabled(self.idx_designated, True)
         else:

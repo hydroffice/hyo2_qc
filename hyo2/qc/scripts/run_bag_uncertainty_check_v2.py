@@ -106,16 +106,57 @@ logger.debug("output folder: %s" % output_folder)
 import numpy as np
 from hyo2.bag import bag
 from hyo2.bag.meta import Meta
+import datetime
 
-report = str()
+##t=datetime.datetime.now()
+##year=str(t.year)
+##month=str(t.month)
+datetime_string=str(datetime.datetime.now())
+datetime_string=datetime_string.split('.')[0]
+datetime_string=datetime_string.replace(':','')
+report_filename = 'BAG_CHECK_output_'+datetime_stringcd+'.txt'
+report_full_filename = os.path.join(output_folder,report_filename)
+f = open(report_full_filename,'x')
 
 for b in range(0,len(bag_todo_list)):
     w=bag.BAGFile(bag_todo_list[b])
     print('\n',bag_todo_list[b],'\n')
+    f.write('\n** '+bag_todo_list[b]+' **\n')
 
     meta = Meta(w.metadata())
     output_xml = bag_todo_list[b]+'_metadata.xml'
     w.extract_metadata(output_xml)
+
+    fyle = open(output_xml)
+    while 1:
+        line = fyle.readline()
+        if 'DATUM' in line:
+            datum = line
+        if 'WGS 84' in line:
+            check_passed = 1
+            break
+        if 'NAD 83' in line:
+            check_passed = 2
+            break
+        if not line:
+            check_passed = 0
+            break
+
+    if check_passed==1:
+        print('WGS 84 identified! Here is the datum information found:')
+        f.write('\nWGS 84 identified! Here is the datum information found:\n')
+        print(datum)
+        f.write(datum)
+    elif check_passed==2:
+        print('NAD 83 identified! Here is the datum information found:')
+        f.write('\nNAD 83 identified! Here is the datum information found:\n')
+        print(datum)
+        f.write(datum)
+    else:
+        print('Warning: WGS 84 or NAD 83 could not be identified! Here is the datum information found:')
+        f.write('\nWarning: WGS 84 or NAD 83 could not be identified! Here is the datum information found:\n')
+        print(datum)
+        f.write(datum)
 
     if w.has_uncertainty():
         
@@ -164,14 +205,28 @@ for b in range(0,len(bag_todo_list)):
         print(len(high_uncert_tracker),'cells were flagged for having uncertainty greater than',uncertainty_flag)
         print(len(zero_uncert_tracker),'cells were flagged for having uncertainty equal to zero')
         print(len(negative_uncert_tracker),'cells were flagged for having uncertainty less than zero')
+        f.write('\nmax elevation '+str(abs(max_depth))+' at index '+str(max_depth_idx))
+        f.write('\nmin elevation '+str(abs(min_depth))+' at index '+str(min_depth_idx))
+        f.write('\nmax uncert '+str(max_uncert)+' at index '+str(max_uncert_idx))
+        f.write('\nmin uncert '+str(min_uncert)+' at index '+str(min_uncert_idx))
+        f.write('\n'+str(len(high_uncert_tracker))+' cells were flagged for having uncertainty greater than '+str(uncertainty_flag))
+        f.write('\n'+str(len(zero_uncert_tracker))+' cells were flagged for having uncertainty equal to zero')
+        f.write('\n'+str(len(negative_uncert_tracker))+' cells were flagged for having uncertainty less than zero') 
         if len(high_uncert_tracker)+len(zero_uncert_tracker)+len(negative_uncert_tracker)==0:
             print('BAG passed this check!')
+            f.write('\nBAG passed this check!\n')
         else:
             print('BAG failed this check!')
+            f.write('\nBAG failed this check!\n')
 
     else:
-        print(path,'has no uncertainty layer.')
+        print('No uncertainty layer.')
+        f.write('\nNo uncertainty layer.\n')
         print('BAG failed this check!')
+        f.write('\nBAG failed this check!\n')
+f.close()
+
+print('\nCheck the output directory for the printed report.')
 
 stop=0
 while stop==0:
