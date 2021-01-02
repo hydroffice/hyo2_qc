@@ -51,6 +51,7 @@ setup(
         "hyo2.abc",
         "hyo2.grids",
         "hyo2.enc",
+        "matplotlib",
         "scipy",
         "pillow",
         "piexif",

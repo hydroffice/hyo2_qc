@@ -115,6 +115,7 @@ The logic for the 2020 QC Tools feature scan is shown below. For previous years,
     * Checks for features that are prohibited by MCD (**"DRGARE", "LOGPON", "PIPARE", "PIPOHD", "PIPSOL", "DMPGRD" "LIGHTS", "BOYLAT", "BOYSAW", "BOYSPP", "DAYMAR", "FOGSIG", "CBLSUB", "CBLARE", "FAIRWY", "RTPBCN", "BOYISD", "BOYINB", "BOYCAR", "CBLOHD", "BCNSPP", "BCNLAT", "BRIDGE", "OBSTRN"** with **"CATOBS"** = 5, **MORFAC** with **CATMOR** = 7.
     * All **M_QUAL** features must have **"CATZOC", "SURSTA", "SUREND",** and **"TECSOU".**
     * All features must have **"descrp"** and **remrks"**.
+    * All free text strings have a character limit of 255.
 
 .. rubric:: Footnotes
 

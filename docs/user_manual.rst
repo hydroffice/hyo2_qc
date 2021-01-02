@@ -1,5 +1,5 @@
 ***********
-User manual
+User Manual
 ***********
 
 .. toctree::

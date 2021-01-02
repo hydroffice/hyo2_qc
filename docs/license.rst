@@ -1,17 +1,6 @@
 License
 =======
 
-Copyright Notice and License Terms for: hyo.qctools - QC Tools package for HydrOffice
-Copyright (c) 2017, University of New Hampshire, Center for Coastal and Ocean Mapping
-
-Released under a dual license:
-- Community license (under LGPL v3)
-- Industrial Associate license
-
-For more info, visit: http://www.hydroffice.org/license/
-
------------------------------------------------------------------------------
-
 **GNU LESSER GENERAL PUBLIC LICENSE**
 
 *Version 3, 29 June 2007*
