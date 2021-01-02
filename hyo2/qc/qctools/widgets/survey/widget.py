@@ -12,7 +12,7 @@ from hyo2.qc.qctools.widgets.survey.fliers import FliersTab
 from hyo2.qc.qctools.widgets.survey.anomaly import AnomalyTab
 from hyo2.qc.qctools.widgets.survey.holes import HolesTab
 from hyo2.qc.qctools.widgets.survey.gridqa import GridQATab
-from hyo2.qc.qctools.widgets.survey.bagqa import BAGQATab
+from hyo2.qc.qctools.widgets.survey.bag_checks import BAGChecksTab
 from hyo2.qc.qctools.widgets.survey.scan import ScanTab
 from hyo2.qc.qctools.widgets.survey.designated import DesignatedTab
 from hyo2.qc.qctools.widgets.survey.valsou import ValsouTab
@@ -114,13 +114,13 @@ class SurveyWidget(AbstractWidget):
         self.tabs.setTabToolTip(self.idx_gridqa, "Grid QA")
         self.tabs.setTabEnabled(self.idx_gridqa, False)
 
-        # - bag qa
-        self.tab_bagqa = BAGQATab(parent_win=self, prj=self.prj)
+        # - bag checks
+        self.tab_bag_checks = BAGChecksTab(parent_win=self, prj=self.prj)
         # noinspection PyArgumentList
-        self.idx_bagqa = self.tabs.insertTab(5, self.tab_bagqa,
-                                              QtGui.QIcon(os.path.join(self.media, 'gridqa.png')), "")
-        self.tabs.setTabToolTip(self.idx_bagqa, "BAG QA")
-        self.tabs.setTabEnabled(self.idx_bagqa, False)
+        self.idx_bag_checks = self.tabs.insertTab(5, self.tab_bag_checks,
+                                                  QtGui.QIcon(os.path.join(self.media, 'bag_checks.png')), "")
+        self.tabs.setTabToolTip(self.idx_bag_checks, "BAG Checks")
+        self.tabs.setTabEnabled(self.idx_bag_checks, False)
 
         # - designated
         self.tab_designated = DesignatedTab(parent_win=self, prj=self.prj)
@@ -197,7 +197,7 @@ class SurveyWidget(AbstractWidget):
         self.tabs.setTabEnabled(self.idx_holes, True)
         self.tabs.setTabEnabled(self.idx_gridqa, True)
         if self.prj.has_bag_grid():
-            self.tabs.setTabEnabled(self.idx_bagqa, True)
+            self.tabs.setTabEnabled(self.idx_bag_checks, True)
         if self.prj.has_bag_grid() and self.has_s57:
             self.tabs.setTabEnabled(self.idx_designated, True)
         else:
@@ -213,6 +213,7 @@ class SurveyWidget(AbstractWidget):
         self.tabs.setTabEnabled(self.idx_anomaly, False)
         self.tabs.setTabEnabled(self.idx_holes, False)
         self.tabs.setTabEnabled(self.idx_gridqa, False)
+        self.tabs.setTabEnabled(self.idx_bag_checks, False)
         self.tabs.setTabEnabled(self.idx_designated, False)
         self.tabs.setTabEnabled(self.idx_valsou, False)
         
