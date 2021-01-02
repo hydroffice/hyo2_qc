@@ -1,8 +1,10 @@
 import logging
+from typing import Optional
 
 from hyo2.qc.common import lib_info
 from hyo2.abc.lib.helper import Helper
 from hyo2.abc.app.report import Report
+from hyo2.s57.s57 import S57File
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +26,7 @@ survey_areas = {
 
 class BaseScan:
 
-    def __init__(self, s57):
+    def __init__(self, s57: Optional[S57File]) -> None:
 
         self.type = scan_algos["BASE"]
 
@@ -35,7 +37,7 @@ class BaseScan:
         # report
         self.report = Report(lib_name=lib_info.lib_name, lib_version=lib_info.lib_version)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         msg = "  <BaseScan>\n"
 
         msg += "    <type: %s>\n" % Helper.first_match(scan_algos, self.type)

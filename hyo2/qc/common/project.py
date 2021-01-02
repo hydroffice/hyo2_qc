@@ -248,7 +248,7 @@ class BaseProject:
     def clear_s57_list(self):
         self._ft.clear_s57_list()
 
-    def read_feature_file(self, feature_path):
+    def read_feature_file(self, feature_path: str) -> None:
         self._ft.read_feature_file(feature_path=feature_path)
         self.make_survey_label()
 

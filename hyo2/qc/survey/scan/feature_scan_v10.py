@@ -1,17 +1,18 @@
 import datetime
 import logging
 import os
-from typing import Optional
+from typing import List, Optional
 
 from hyo2.qc.survey.scan.base_scan import BaseScan, scan_algos, survey_areas
 from hyo2.qc.common.s57_aux import S57Aux
 from hyo2.abc.lib.helper import Helper
+from hyo2.s57.s57 import S57File, S57Record10
 
 logger = logging.getLogger(__name__)
 
 
 class FeatureScanV10(BaseScan):
-    def __init__(self, s57, profile: int = 0, version: str = "2019",
+    def __init__(self, s57: S57File, profile: int = 0, version: str = "2019",
                  survey_area: int = survey_areas["Pacific Coast"], use_mhw: bool = False, mhw_value: float = 0.0,
                  sorind: Optional[str] = None, sordat: Optional[str] = None, multimedia_folder: Optional[str] = None,
                  use_htd: bool = False):
@@ -19,7 +20,7 @@ class FeatureScanV10(BaseScan):
 
         self.type = scan_algos["FEATURE_SCAN_v10"]
         self.version = version
-        self.all_features = self.s57.rec10s
+        self.all_features = self.s57.rec10s  # type: List[S57Record10]
         self.profile = profile
         self.survey_area = survey_area
         self.use_mhw = use_mhw
@@ -106,9 +107,12 @@ class FeatureScanV10(BaseScan):
         self.flagged_images_sbdare_points = list()
         self.flagged_images_sbdare_lines_areas = list()
         self.flagged_images_features = list()
+        self.flagged_character_limit = list()
+
+        self.character_limit = 255
 
     @classmethod
-    def check_sorind(cls, value, check_space=True):
+    def check_sorind(cls, value: str, check_space: bool = True) -> bool:
         tokens = value.split(',')
         # logger.debug("%s" % tokens)
 
@@ -144,7 +148,7 @@ class FeatureScanV10(BaseScan):
         return True
 
     @classmethod
-    def check_sordat(cls, value):
+    def check_sordat(cls, value: str) -> bool:
 
         # logger.debug("%s" % attr.value)
 
@@ -177,7 +181,7 @@ class FeatureScanV10(BaseScan):
         return True
 
     # noinspection PyStatementEffect
-    def check_feature_redundancy_and_geometry(self):
+    def check_feature_redundancy_and_geometry(self) -> List[S57Record10]:
         """Function that identifies the presence of duplicated feature looking at their geometries"""
         logger.debug('Checking for feature redundancy...')
 
@@ -228,7 +232,8 @@ class FeatureScanV10(BaseScan):
         return tmp_features
 
     # noinspection PyStatementEffect
-    def check_features_for_attribute(self, objects, attribute, possible=False):
+    def check_features_for_attribute(self, objects: List[S57Record10], attribute: str, possible: bool = False) \
+            -> List[list]:
         """Check if the passed features have the passed attribute"""
         flagged = list()
 
@@ -258,8 +263,8 @@ class FeatureScanV10(BaseScan):
         return flagged
 
     # noinspection PyStatementEffect
-    def flag_features_with_attribute_value(self, objects, attribute, values_to_flag, check_attrib_existence=False,
-                                           possible=False):
+    def flag_features_with_attribute_value(self, objects: List[S57Record10], attribute: str, values_to_flag: List[str],
+                                           check_attrib_existence: bool = False, possible: bool = False) -> List[list]:
         """Flag the passed features if they have the passed values for the passed attribute"""
         flagged = list()
 
@@ -315,7 +320,8 @@ class FeatureScanV10(BaseScan):
 
         return flagged
 
-    def check_for_missing_keywords(self, objects, attr_acronym, keywords):
+    def check_for_missing_keywords(self, objects: List[S57Record10], attr_acronym: str, keywords: List[str]) \
+            -> List[list]:
         """Check if the passed features do not have the passed keywords in a specific attribute"""
         flagged = list()
 
@@ -356,7 +362,7 @@ class FeatureScanV10(BaseScan):
 
         return flagged
 
-    def flag_features_by_type(self, objects, types_to_flag):
+    def flag_features_by_type(self, objects: List[S57Record10], types_to_flag: List[str]) -> List[list]:
         """Flag the passed features if they have the passed values for the passed attribute"""
         flagged = list()
 
@@ -376,7 +382,8 @@ class FeatureScanV10(BaseScan):
 
         return flagged
 
-    def check_features_without_attribute(self, objects, attribute, possible=False):
+    def check_features_without_attribute(self, objects: List[S57Record10], attribute: str, possible: bool = False) \
+            -> List[list]:
         """Check if the passed features have the passed attribute"""
         flagged = list()
 
@@ -405,7 +412,7 @@ class FeatureScanV10(BaseScan):
 
         return flagged
 
-    def _check_features_for_valid_sorind(self, objects, check_space=True):
+    def _check_features_for_valid_sorind(self, objects: List[S57Record10], check_space: bool = True) -> List[list]:
         """Check if the passed features have valid SORIND"""
         flagged = list()
 
@@ -432,7 +439,7 @@ class FeatureScanV10(BaseScan):
 
         return flagged
 
-    def _check_features_for_match_sorind(self, objects):
+    def _check_features_for_match_sorind(self, objects: List[S57Record10]) -> List[list]:
         """Check if the passed features have valid SORIND"""
         flagged = list()
 
@@ -460,7 +467,7 @@ class FeatureScanV10(BaseScan):
         return flagged
 
     # noinspection PyStatementEffect
-    def _check_features_for_valid_sordat(self, objects):
+    def _check_features_for_valid_sordat(self, objects: List[S57Record10]) -> List[list]:
         """Check if the passed features have matching SORDAT"""
         flagged = list()
 
@@ -488,7 +495,7 @@ class FeatureScanV10(BaseScan):
         return flagged
 
     # noinspection PyStatementEffect
-    def _check_features_for_match_sordat(self, objects):
+    def _check_features_for_match_sordat(self, objects: List[S57Record10]) -> List[list]:
         """Check if the passed features have matching SORDAT"""
         flagged = list()
 
@@ -516,7 +523,7 @@ class FeatureScanV10(BaseScan):
         return flagged
 
     # noinspection PyStatementEffect
-    def _check_features_for_valid_watlev(self, objects):
+    def _check_features_for_valid_watlev(self, objects: List[S57Record10]) -> List[list]:
         """Check if the passed features have valid WATLEV"""
         logger.debug("checking for invalid WATLEV and VALSOU ...")
 
@@ -663,7 +670,7 @@ class FeatureScanV10(BaseScan):
         return flagged
 
     # noinspection PyStatementEffect
-    def _check_features_for_valid_elevat(self, objects):
+    def _check_features_for_valid_elevat(self, objects: List[S57Record10]) -> List[list]:
         """Check if the passed features have valid ELEVAT"""
         logger.debug("checking for invalid ELEVAT ...")
 
@@ -726,7 +733,7 @@ class FeatureScanV10(BaseScan):
 
         return flagged
 
-    def _check_features_for_valid_quasou(self, objects):
+    def _check_features_for_valid_quasou(self, objects: List[S57Record10]) -> List[list]:
         """Check if the passed features have valid QUASOU"""
         logger.debug("checking for invalid QUASOU ...")
 
@@ -801,7 +808,7 @@ class FeatureScanV10(BaseScan):
 
         return flagged
 
-    def _check_features_for_images(self, objects):
+    def _check_features_for_images(self, objects: List[S57Record10]) -> List[list]:
         # Checked if passed images have correct separator per HSSD and are found in the multimedia folder
         logger.debug("checking for invalid IMAGES ...")
 
@@ -859,7 +866,7 @@ class FeatureScanV10(BaseScan):
 
         return flagged
 
-    def _check_nonsbdare_images_per_htd(self, objects):
+    def _check_nonsbdare_images_per_htd(self, objects: List[S57Record10]) -> List[list]:
         """"Check if the passed features have valid image name per HTD 2018-5"""
         logger.debug("checking for invalid IMAGE NAMES per HTD 2018-5...")
 
@@ -910,7 +917,7 @@ class FeatureScanV10(BaseScan):
 
         return flagged
 
-    def _check_sbdare_images_per_htd(self, objects):
+    def _check_sbdare_images_per_htd(self, objects: List[S57Record10]) -> List[list]:
         """"Check if the passed features have valid image name per HTD 2018-4"""
         logger.debug("checking for invalid IMAGE NAMES per HTD 2018-4...")
 
@@ -961,7 +968,7 @@ class FeatureScanV10(BaseScan):
                         # add to the flagged feature list and to the flagged report
                         self._append_flagged(obj.centroid.x, obj.centroid.y, "invalid timestamp in filename")
                         self.report += 'found %s at (%s, %s) with image having invalid timestamp in filename: %s ' % \
-                                   (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
+                                       (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                         flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                         continue
                 if self.version in ["2020"]:
@@ -969,7 +976,7 @@ class FeatureScanV10(BaseScan):
                         # add to the flagged feature list and to the flagged report
                         self._append_flagged(obj.centroid.x, obj.centroid.y, "invalid timestamp in filename")
                         self.report += 'found %s at (%s, %s) with image having invalid timestamp in filename: %s ' % \
-                                   (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
+                                       (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                         flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                         continue
 
@@ -981,7 +988,7 @@ class FeatureScanV10(BaseScan):
         return flagged
 
     # noinspection PyStatementEffect
-    def allowable_sbdare(self, sbdare_points):
+    def allowable_sbdare(self, sbdare_points: List[S57Record10]) -> List[list]:
         # report section
         allowable = [['1', '4'], ['2', '4'], ['3', '4'], ['4', '14'], ['4', '17'], ['5', '1'],
                      ['5', '2'], ['5', '3'], ['6', '1'], ['6', '2'], ['6', '3'], ['6', '4'],
@@ -1030,7 +1037,8 @@ class FeatureScanV10(BaseScan):
         return flagged
 
     # noinspection PyStatementEffect
-    def check_attribute_counts(self, sbdare_points, limiting_attribute, dependent):
+    def check_attribute_counts(self, sbdare_points: List[S57Record10], limiting_attribute: str, dependent: str) \
+            -> List[list]:
         """Function to ensure that one attribute (dependent) does not have more values
         than one that relates to it (limiting attribute)"""
         flagged = list()
@@ -1070,7 +1078,32 @@ class FeatureScanV10(BaseScan):
 
         return flagged
 
-    def _append_flagged(self, x, y, note):
+    def check_character_limit(self, objects: List[S57Record10], attributes: List[str], character_limit: int) \
+            -> List[list]:
+        """Check if the passed attribute of the passed features is not longer than the passed character limit"""
+        flagged = list()
+
+        for obj in objects:
+            # do the test
+            for attr in obj.attributes:
+                if attr.acronym in attributes:
+                    nr_chars = len(attr.value)
+                    if len(attr.value) > character_limit:
+                        # add to the flagged feature list
+                        self._append_flagged(obj.centroid.x, obj.centroid.y, '%d-characters limit exceeds [%d in %s]'
+                                             % (character_limit, nr_chars, attr.acronym))
+                        # add to the flagged report
+                        self.report += 'found %s at (%s, %s) exceeds %d-characters limit [%d in %s]' \
+                                       % (obj.acronym, obj.centroid.x, obj.centroid.y, character_limit,
+                                          nr_chars, attr.acronym)
+                        flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
+
+        if len(flagged) == 0:
+            self.report += "OK"
+
+        return flagged
+
+    def _append_flagged(self, x: float, y: float, note: str) -> None:
         """S57Aux function that append the note (if the feature position was already flagged) or add a new one"""
         # check if the point was already flagged
         for i in range(len(self.flagged_features[0])):
@@ -1083,7 +1116,7 @@ class FeatureScanV10(BaseScan):
         self.flagged_features[1].append(y)
         self.flagged_features[2].append(note)
 
-    def run(self):
+    def run(self) -> None:
         """Execute the set of check of the feature scan algorithm"""
         msg = "Feature Scan settings:\n"
         msg += "- HSSD version: %s\n" % self.version
@@ -1113,7 +1146,7 @@ class FeatureScanV10(BaseScan):
             raise RuntimeError("unsupported specs version: %s" % self.version)
 
     # noinspection PyStatementEff
-    def run_2018(self):
+    def run_2018(self) -> None:
         """HSSD 2018 checks """
 
         # @ Ensure no feature redundancy
@@ -1488,11 +1521,18 @@ class FeatureScanV10(BaseScan):
             self.report += "Features missing mandatory attribute remarks [CHECK]"
             self.flagged_mcd_remarks = self.check_features_for_attribute(self.all_features, attribute='remrks')
 
+            # New Requirement from mcd in 2020 - character limit for all fields with free text strings
+            self.report += "Features with text input fields exceeding %d characters [CHECK]" % self.character_limit
+            self.flagged_character_limit = self.check_character_limit(objects=self.all_features,
+                                                                      attributes=['images', 'invreq', 'keywrd',
+                                                                                  'onotes', 'recomd', 'remrks'],
+                                                                      character_limit=self.character_limit)
+
         # finalize the summary
         self.finalize_summary()
 
     # noinspection PyStatementEffect
-    def run_2019(self):
+    def run_2019(self) -> None:
         """HSSD 2019 checks """
 
         # @ Ensure no feature redundancy
@@ -1865,10 +1905,17 @@ class FeatureScanV10(BaseScan):
             self.report += "Features missing mandatory attribute remarks [CHECK]"
             self.flagged_mcd_remarks = self.check_features_for_attribute(self.all_features, attribute='remrks')
 
+            # New Requirement from mcd in 2020 - character limit for all fields with free text strings
+            self.report += "Features with text input fields exceeding %d characters [CHECK]" % self.character_limit
+            self.flagged_character_limit = self.check_character_limit(objects=self.all_features,
+                                                                      attributes=['images', 'invreq', 'keywrd',
+                                                                                  'onotes', 'recomd', 'remrks'],
+                                                                      character_limit=self.character_limit)
+
         # finalize the summary
         self.finalize_summary()
 
-    def run_2020(self):
+    def run_2020(self) -> None:
         """HSSD 2020 checks """
 
         # @ Ensure no feature redundancy
@@ -2354,10 +2401,17 @@ class FeatureScanV10(BaseScan):
             self.report += "Features missing mandatory attribute remarks [CHECK]"
             self.flagged_mcd_remarks = self.check_features_for_attribute(self.all_features, attribute='remrks')
 
+            # New Requirement from mcd in 2020 - character limit for all fields with free text strings
+            self.report += "Features with text input fields exceeding %d characters [CHECK]" % self.character_limit
+            self.flagged_character_limit = self.check_character_limit(objects=self.all_features,
+                                                                      attributes=['images', 'invreq', 'keywrd',
+                                                                                  'onotes', 'recomd', 'remrks'],
+                                                                      character_limit=self.character_limit)
+
         # finalize the summary
         self.finalize_summary()
 
-    def run_2021(self):
+    def run_2021(self) -> None:
         """HSSD 2021 checks """
 
         # @ Ensure no feature redundancy
@@ -2843,6 +2897,13 @@ class FeatureScanV10(BaseScan):
             self.report += "Features missing mandatory attribute remarks [CHECK]"
             self.flagged_mcd_remarks = self.check_features_for_attribute(self.all_features, attribute='remrks')
 
+            # New Requirement from mcd in 2020 - character limit for all fields with free text strings
+            self.report += "Features with text input fields exceeding %d characters [CHECK]" % self.character_limit
+            self.flagged_character_limit = self.check_character_limit(objects=self.all_features,
+                                                                      attributes=['images', 'invreq', 'keywrd',
+                                                                                  'onotes', 'recomd', 'remrks'],
+                                                                      character_limit=self.character_limit)
+
         # finalize the summary
         self.finalize_summary()
 
@@ -3170,4 +3231,8 @@ class FeatureScanV10(BaseScan):
 
             self.report += 'Check %d - Features with empty/missing attribute remrks: %s' \
                            % (count, len(self.flagged_mcd_remarks))
+            count += 1
+
+            self.report += 'Check %d - Features with text input fields exceeding %d characters: %s' \
+                           % (count, self.character_limit, len(self.flagged_character_limit))
             count += 1

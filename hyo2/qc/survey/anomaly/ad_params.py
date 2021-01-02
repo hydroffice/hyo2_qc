@@ -3,7 +3,6 @@ from typing import Optional
 from hyo2.abc.lib.progress.abstract_progress import AbstractProgress
 from hyo2.abc.lib.progress.cli_progress import CliProgress
 from hyo2.abc.lib.helper import Helper
-from hyo2.ca.common.plot_settings import PlotSettings
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +19,6 @@ class AnomalyDetectionParams:
         self._version = 1
 
         self._visual_debug = False
-        self._plot_settings = PlotSettings()
 
         self._progress = CliProgress()
         self._progress_span = 100
@@ -61,14 +59,6 @@ class AnomalyDetectionParams:
         self._visual_debug = value
 
     @property
-    def plot_settings(self) -> PlotSettings:
-        return self._plot_settings
-
-    @plot_settings.setter
-    def plot_settings(self, value: PlotSettings) -> None:
-        self._plot_settings = value
-
-    @property
     def progress(self) -> Optional[AbstractProgress]:
         return self._progress
 
@@ -104,7 +94,6 @@ class AnomalyDetectionParams:
         msg = "  <%s>\n" % self.__class__.__name__
         msg += "    <type: %s [v.%d]>\n" % (self.algo, self._version)
         msg += "    <visual debug: %s>\n" % self.visual_debug
-        msg += "    <plot settings: %s>\n" % bool(self.plot_settings)
         msg += "    <progress: %s>\n" % bool(self.progress)
         msg += "    <progress span: %s>\n" % self.progress_span
         msg += "    <write kml: %s>\n" % self.write_kml

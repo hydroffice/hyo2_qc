@@ -346,8 +346,6 @@ class SurveyProject(BaseProject):
         try:
             self._gr.select_layers_in_current = [self._gr.depth_layer_name(), ]
 
-            params = AnomalyDetectionParams()
-
             self._anomaly = AnomalyDetectorV1(grid=self._gr,
                                               height=height,
                                               # can be None in case of just gaussian curv or isolated nodes
@@ -684,65 +682,6 @@ class SurveyProject(BaseProject):
     # ________________________________________________________________________________
     #                           GRID-QA  METHODS
 
-    # def grid_qa_v5(self, force_tvu_qc=True, calc_object_detection=True, calc_full_coverage=True,
-    #                hist_depth=True, hist_density=True, hist_tvu_qc=True, hist_pct_res=True,
-    #                depth_vs_density=False, depth_vs_tvu_qc=False,
-    #                progress_bar=None):
-    #     """Calculate grid QA using the passed parameters and the loaded grids"""
-    #     if not self.has_grid():
-    #         logger.warning("first load some grids")
-    #         return False
-    #
-    #     try:
-    #
-    #         # layers selection
-    #         layers = list()
-    #         has_depth = self.cur_grid_has_depth_layer()
-    #         if has_depth:
-    #             layers.append(layer_types["depth"])
-    #
-    #         if hist_density or depth_vs_density:
-    #             has_density = self.cur_grid_has_density_layer()
-    #             if has_density:
-    #                 layers.append(layer_types["density"])
-    #         else:
-    #             has_density = False
-    #
-    #         if hist_tvu_qc or depth_vs_tvu_qc:
-    #             has_tvu_qc = self.cur_grid_has_tvu_qc_layer()
-    #             has_product_uncertainty = self.cur_grid_has_product_uncertainty_layer()
-    #             if has_tvu_qc and not force_tvu_qc:
-    #                 layers.append(layer_types["tvu_qc"])
-    #
-    #             elif has_product_uncertainty:
-    #                 layers.append(layer_types["product_uncertainty"])
-    #         else:
-    #             has_tvu_qc = False
-    #             has_product_uncertainty = False
-    #
-    #         self._gr.selected_layers_in_cur_grid = layers
-    #
-    #         # do the QA
-    #         self._qa = GridQAV5(grids=self._gr, force_tvu_qc=force_tvu_qc,
-    #                             has_depth=has_depth, has_product_uncertainty=has_product_uncertainty,
-    #                             has_density=has_density, has_tvu_qc=has_tvu_qc, output_folder=self.gridqa_output_folder,
-    #                             object_detection=calc_object_detection, full_coverage=calc_full_coverage,
-    #                             hist_depth=hist_depth, hist_density=hist_density,
-    #                             hist_tvu_qc=hist_tvu_qc, hist_pct_res=hist_pct_res,
-    #                             depth_vs_density=depth_vs_density, depth_vs_tvu_qc=depth_vs_tvu_qc,
-    #                             progress=progress_bar)
-    #
-    #         start_time = time.time()
-    #         passed = self._qa.run()
-    #         logger.info("Grid QA v5 -> execution time: %.3f s" % (time.time() - start_time))
-    #
-    #         return passed
-    #
-    #     except Exception as e:
-    #         traceback.print_exc()
-    #         self._qa = None
-    #         raise e
-
     def grid_qa_v6(self, force_tvu_qc=True, calc_object_detection=True, calc_full_coverage=True,
                    hist_depth=True, hist_density=True, hist_tvu_qc=True, hist_pct_res=True,
                    hist_catzoc_a1=True, hist_catzoc_a2b=True, hist_catzoc_c=True,
@@ -752,10 +691,6 @@ class SurveyProject(BaseProject):
         if not self.has_grid():
             logger.warning("first load some grids")
             return False
-
-        # if not force_tvu_qc and check_catzoc:
-        #     logger.warning("invalid combination of enabled flags: force tvu qc and check catzoc")
-        #     return False
 
         try:
 
@@ -1022,9 +957,10 @@ class SurveyProject(BaseProject):
                     self._open_scan_output_folder()
                     opened_folders.append(self._scan_output_folder)
 
-    def _feature_scan(self, feature_file, version, specs_version,
-                      survey_area, use_mhw, mhw_value, sorind, sordat, multimedia_folder, use_htd,
-                      idx, total):
+    def _feature_scan(self, feature_file: str, version: int, specs_version: str,
+                      survey_area: int, use_mhw: bool, mhw_value: float, sorind: Optional[str], sordat: Optional[str],
+                      multimedia_folder: Optional[str], use_htd: bool,
+                      idx: int, total: int) -> None:
         """ feature scan in the loaded s57 features """
         logger.debug('feature scan v%d ...' % version)
 
@@ -1056,9 +992,9 @@ class SurveyProject(BaseProject):
 
             if version == 10:
                 self._scan_features_v10(specs_version=specs_version,
-                                       survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
-                                       sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder,
-                                       use_htd=use_htd)
+                                        survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
+                                        sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder,
+                                        use_htd=use_htd)
 
             else:
                 RuntimeError("unknown Feature Scan version: %s" % version)
@@ -1092,7 +1028,8 @@ class SurveyProject(BaseProject):
             raise e
 
     def _scan_features_v9(self, specs_version: str, survey_area: int, use_mhw: bool, mhw_value: float,
-                          sorind: Optional[str], sordat: Optional[str], multimedia_folder: Optional[str], use_htd: bool):
+                          sorind: Optional[str], sordat: Optional[str], multimedia_folder: Optional[str],
+                          use_htd: bool):
         """Look for fliers using the passed parameters and the loaded grids"""
         if not self.has_s57():
             return
@@ -1114,7 +1051,8 @@ class SurveyProject(BaseProject):
             raise e
 
     def _scan_features_v10(self, specs_version: str, survey_area: int, use_mhw: bool, mhw_value: float,
-                          sorind: Optional[str], sordat: Optional[str], multimedia_folder: Optional[str], use_htd: bool):
+                           sorind: Optional[str], sordat: Optional[str], multimedia_folder: Optional[str],
+                           use_htd: bool):
         """Look for fliers using the passed parameters and the loaded grids"""
         if not self.has_s57():
             return
@@ -1122,9 +1060,9 @@ class SurveyProject(BaseProject):
         try:
 
             self._scan = FeatureScanV10(s57=self.cur_s57, profile=self.active_profile, version=specs_version,
-                                       survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
-                                       sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder,
-                                       use_htd=use_htd)
+                                        survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
+                                        sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder,
+                                        use_htd=use_htd)
 
             start_time = time.time()
             self._scan.run()
@@ -1230,8 +1168,6 @@ class SurveyProject(BaseProject):
 
             else:
                 raise RuntimeError("Not implemented version: %s" % self._scan.version)
-
-
 
         else:
             raise RuntimeError("Not implemented feature scan algorithm")

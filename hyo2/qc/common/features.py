@@ -1,8 +1,10 @@
-from hyo2.s57.s57 import S57
+from hyo2.s57.s57 import S57, S57File
 
 import os
 import traceback
 import logging
+from typing import List, Optional
+
 logger = logging.getLogger(__name__)
 
 
@@ -11,13 +13,13 @@ class Features:
     def __init__(self):
 
         # features
-        self._cur_s57 = None
+        self._cur_s57 = None  # type: Optional[S57File]
         self._cur_s57_path = str()
         self._cur_s57_basename = str()
         self._s57_list = list()
 
         # SS
-        self._cur_ss = None
+        self._cur_ss = None  # type: Optional[S57File]
         self._cur_ss_path = str()
         self._cur_ss_basename = str()
         self._ss_list = list()
@@ -26,14 +28,14 @@ class Features:
     # ######################        S57 LIST METHODS        #########################
 
     @property
-    def cur_s57(self):
+    def cur_s57(self) -> Optional[S57File]:
         return self._cur_s57
 
     @property
-    def s57_list(self):
+    def s57_list(self) -> List[str]:
         return self._s57_list
 
-    def add_to_s57_list(self, s57_path):
+    def add_to_s57_list(self, s57_path: str) -> None:
         if not os.path.exists(s57_path):
             raise RuntimeError("The passed file does not exist: %s" % s57_path)
 
@@ -54,7 +56,7 @@ class Features:
 
         self._s57_list.append(s57_path)
 
-    def remove_from_s57_list(self, s57_path):
+    def remove_from_s57_list(self, s57_path: str) -> None:
         # case that the s57 file is not in the list
         if s57_path not in self._s57_list:
             logger.warning('the file is not present: %s' % s57_path)
@@ -63,32 +65,32 @@ class Features:
 
         self._s57_list.remove(s57_path)
 
-    def clear_s57_list(self):
+    def clear_s57_list(self) -> None:
         self._s57_list = list()
 
     @property
-    def cur_s57_basename(self):
+    def cur_s57_basename(self) -> str:
         if self.has_s57():
             return self._cur_s57_basename
         else:
             return str()
 
     @property
-    def cur_s57_path(self):
+    def cur_s57_path(self) -> str:
         if self.has_s57():
             return self._cur_s57_path
         else:
             return str()
 
     @property
-    def cur_ss_basename(self):
+    def cur_ss_basename(self) -> str:
         if self.has_ss():
             return self._cur_ss_basename
         else:
             return str()
 
     @property
-    def cur_ss_path(self):
+    def cur_ss_path(self) -> str:
         if self.has_ss():
             return self._cur_ss_path
         else:
@@ -97,11 +99,11 @@ class Features:
     # ________________________________________________________________________________
     # ############################## FEATURE READ METHODS ############################
 
-    def has_s57(self):
+    def has_s57(self) -> bool:
         """Return if S57 present"""
         return bool(self._cur_s57)
 
-    def read_feature_file(self, feature_path):
+    def read_feature_file(self, feature_path: str) -> None:
         if not os.path.exists(feature_path):
             raise RuntimeError('the passed path does not exist: %s' % feature_path)
 
@@ -111,7 +113,7 @@ class Features:
         else:
             raise RuntimeError('unknown feature file extension for %s' % feature_path)
 
-    def _read_s57_file(self, s57_path):
+    def _read_s57_file(self, s57_path: str) -> None:
         """Read the S57 file"""
         try:
             s57 = S57()
@@ -132,15 +134,15 @@ class Features:
     # ##############################   SS READ METHODS   #############################
 
     @property
-    def cur_ss(self):
+    def cur_ss(self) -> Optional[S57File]:
         return self._cur_ss
 
-    def has_ss(self):
+    def has_ss(self) -> bool:
         """Return if SS present"""
 
         return bool(self._cur_ss)
 
-    def read_ss_file(self, ss_path):
+    def read_ss_file(self, ss_path: str) -> None:
         if not os.path.exists(ss_path):
             raise RuntimeError('the passed path does not exist: %s' % ss_path)
 
@@ -150,7 +152,7 @@ class Features:
         else:
             raise RuntimeError('unknown ss file extension for %s' % ss_path)
 
-    def _read_ss_file(self, ss_path):
+    def _read_ss_file(self, ss_path: str) -> None:
         """Read the SS file"""
         try:
             ss = S57()
@@ -170,10 +172,10 @@ class Features:
     # ######################        SS LIST METHODS        #########################
 
     @property
-    def ss_list(self):
+    def ss_list(self) -> List[str]:
         return self._ss_list
 
-    def add_to_ss_list(self, ss_path):
+    def add_to_ss_list(self, ss_path: str) -> None:
         if not os.path.exists(ss_path):
             raise RuntimeError("The passed file does not exist: %s" % ss_path)
 
@@ -194,7 +196,7 @@ class Features:
 
         self._ss_list.append(ss_path)
 
-    def remove_from_ss_list(self, ss_path):
+    def remove_from_ss_list(self, ss_path: str) -> None:
         # case that the s57 file is not in the list
         if ss_path not in self._ss_list:
             logger.warning('the file is not present: %s' % ss_path)
@@ -202,13 +204,14 @@ class Features:
 
         self._ss_list.remove(ss_path)
 
-    def clear_ss_list(self):
+    def clear_ss_list(self) -> None:
         self._ss_list = list()
 
     # _______________________________________________________________________________
     # ######################        TRUNCATE METHODS        #########################
 
-    def truncate(self, input_file, output_file, decimal_places):
+    @classmethod
+    def truncate(cls, input_file: str, output_file: str, decimal_places: int) -> bool:
 
         try:
             s57 = S57()
