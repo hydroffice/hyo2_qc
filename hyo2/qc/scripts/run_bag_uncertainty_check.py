@@ -133,7 +133,7 @@ for i, bag_path in enumerate(prj.grid_list):
         # manage the two possible cases of BAG without uncertainty (None or 0.0)
         if max_uncert is None or min_uncert is None:
             bag_without_uncertainty_list.append(bag_path)
-        elif max_uncert or min_uncert == 0.0:
+        elif max_uncert == 0.0 or min_uncert == 0.0:
             bag_without_uncertainty_list.append(bag_path)
         elif min_uncert < 0:
             bag_without_uncertainty_list.append(bag_path)
