@@ -1,25 +1,26 @@
-from osgeo import osr
 from collections import defaultdict
-import numpy as np
+from datetime import datetime
 import time
 import os
 import traceback
 import logging
 from typing import Optional
 
+import numpy as np
+from osgeo import osr
+
 from hyo2.abc.lib.progress.cli_progress import CliProgress
 from hyo2.abc.lib.gdal_aux import GdalAux
 from hyo2.abc.lib.helper import Helper
+from hyo2.abc.app.report import Report
 from hyo2.qc.common.project import BaseProject
 from hyo2.qc.common.writers.s57_writer import S57Writer
 from hyo2.qc.common.writers.kml_writer import KmlWriter
 from hyo2.qc.common.writers.shp_writer import ShpWriter
 from hyo2.qc.survey.fliers.find_fliers_v8 import FindFliersV8
 from hyo2.qc.survey.anomaly.anomaly_detector_v1 import AnomalyDetectorV1
-from hyo2.qc.survey.anomaly.ad_params import AnomalyDetectionParams
 # noinspection PyProtectedMember
 from hyo2.grids import _gappy
-from hyo2.qc.survey.gridqa.grid_qa_v5 import GridQAV5
 from hyo2.qc.survey.gridqa.grid_qa_v6 import GridQAV6
 from hyo2.grids.grids_manager import layer_types
 from hyo2.qc.survey.scan.base_scan import scan_algos
@@ -39,6 +40,10 @@ from hyo2.qc.survey.submission.base_submission import BaseSubmission, submission
 from hyo2.qc.survey.submission.submission_checks_v3 import SubmissionChecksV3
 # noinspection PyProtectedMember
 from hyo2.grids._grids import FLOAT as GRIDS_FLOAT, DOUBLE as GRIDS_DOUBLE
+from hyo2.qc import name as lib_name, __version__ as lib_version
+
+from hyo2.bag import bag
+from hyo2.bag.meta import Meta
 
 logger = logging.getLogger(__name__)
 
@@ -71,6 +76,23 @@ class SurveyProject(BaseProject):
 
         # grid qa
         self._qa = None
+
+        # bag checks
+        self._bc = None
+        self._bc_msg = str()
+        self._bc_noaa_ocs_profile = False
+        self._bc_structure = False
+        self._bc_metadata = False
+        self._bc_elevation = False
+        self._bc_uncertainty = False
+        self._bc_tracking_list = False
+        self._bc_structure_valid = False
+        self._bc_metadata_valid = False
+        self._bc_elevation_valid = False
+        self._bc_uncertainty_valid = False
+        self._bc_tracking_list_valid = False
+        self._bc_report = None
+        self._bc_pdf = str()
 
         # scan features
         self._scan = None
@@ -763,6 +785,315 @@ class SurveyProject(BaseProject):
 
         return output_folder
 
+    # ________________________________________________________________________________
+    # ############################# BAG-CHECKS METHODS ###############################
+
+    def bag_checks_v1(self, use_nooa_ocs_profile: bool = False, check_structure: bool = False,
+                      check_metadata: bool = False, check_elevation: bool = False, 
+                      check_uncertainty: bool = False, check_tracking_list: bool = False):
+        """Check the input BAG files"""
+        
+        self._bc_noaa_ocs_profile = use_nooa_ocs_profile
+        self._bc_structure = check_structure
+        self._bc_metadata = check_metadata
+        self._bc_elevation = check_elevation
+        self._bc_uncertainty = check_uncertainty
+        self._bc_tracking_list = check_tracking_list
+
+        self.progress.start(title="BAG Checks v1", text="Loading")
+
+        if not self._bc_structure and not self._bc_metadata and not self._bc_elevation and not self._bc_uncertainty \
+                and not self._bc_tracking_list:
+            raise RuntimeError('At least one check needs to be selected')
+            
+        logger.info('BAG Checks v1 -> Structure: %s, Metadata: %s, Elevation: %s, Uncertainty: %s, Tracking List: %s'
+                    % (self._bc_structure, self._bc_metadata, self._bc_elevation, self._bc_uncertainty,
+                       self._bc_tracking_list))
+
+        if self._bc_noaa_ocs_profile:
+            logger.info('Using the NOAA OCS profile')
+        else:
+            logger.info('Using the general profile')
+
+        # Check if the grid list is empty
+        if len(self.grid_list) == 0:
+            raise RuntimeError("The grid list is empty")
+
+        if not self.has_bag_grid():
+            raise RuntimeError("At least one BAG file is required")
+
+        try:
+            start_time = time.time()
+
+            # for each file in the project grid list
+            self._bc_msg = "Checks results per input:\n"
+            opened_folders = list()
+
+            nr_of_files = len(self.grid_list)
+            for i, grid_file in enumerate(self.grid_list):
+
+                success = self._bag_checks_v1(grid_file=grid_file, idx=i, total=nr_of_files)
+
+                if success:
+                    if self.cur_bag_checks_passed:
+                        self._bc_msg += "- %s: pass\n" % self.cur_grid_basename
+                    else:
+                        self._bc_msg += "- %s: fail\n" % self.cur_grid_basename
+                    # open the output folder (if not already open)
+                    if self.bagchecks_output_folder not in opened_folders:
+                        self.open_bagchecks_output_folder()
+                        opened_folders.append(self.bagchecks_output_folder)
+                else:
+                    self._bc_msg += "- %s: skip\n" % self.cur_grid_basename
+
+            logger.info("BAG Checks v1 -> execution time: %.3f s" % (time.time() - start_time))
+
+        except Exception as e:
+            traceback.print_exc()
+            self._bc = None
+            self._bc_msg = None
+            self.progress.end()
+            raise e
+
+        self.progress.end()
+
+    def _bag_checks_v1(self, grid_file: str, idx: int, total: int) -> bool:
+
+        quantum = 100.0 / total
+        cur_quantum = quantum * idx
+
+        self.progress.update(value=cur_quantum + quantum * 0.1, text="[%d/%d] File opening" % (idx + 1, total))
+
+        # we want to be sure that the label is based on the name of the new file input
+        self.clear_survey_label()
+
+        self.set_cur_grid(path=grid_file)
+        self.open_to_read_cur_grid()
+        if not self._gr.is_bag():
+            return False
+
+        self._bc_report = Report(lib_name=lib_name, lib_version=lib_version)
+
+        self.progress.update(value=cur_quantum + quantum * 0.2, text="[%d/%d] Structure checking" % (idx + 1, total))
+
+        if self._bc_structure:
+            self._bag_checks_v1_structure(grid_file=grid_file)
+
+        self.progress.update(value=cur_quantum + quantum * 0.4, text="[%d/%d] Metadata checking" % (idx + 1, total))
+
+        if self._bc_metadata:
+            self._bag_checks_v1_metadata(grid_file=grid_file)
+
+        self.progress.update(value=cur_quantum + quantum * 0.6, text="[%d/%d] Elevation checking" % (idx + 1, total))
+
+        if self._bc_elevation:
+            self._bag_checks_v1_elevation(grid_file=grid_file)
+
+        self.progress.update(value=cur_quantum + quantum * 0.8, text="[%d/%d] Uncertainty checking" % (idx + 1, total))
+
+        if self._bc_uncertainty:
+            self._bag_checks_v1_uncertainty(grid_file=grid_file)
+
+        self.progress.update(value=cur_quantum + quantum * 0.95, text="[%d/%d] Tracking list checking" % (idx + 1, total))
+
+        if self._bc_tracking_list:
+            self._bag_checks_v1_tracking_list(grid_file=grid_file)
+
+        output_pdf = os.path.join(self.bagchecks_output_folder, "%s.BCv1.%s.pdf"
+                                  % (self.cur_grid_basename, datetime.now().strftime("%Y%m%d.%H%M%S")))
+        if self._bc_noaa_ocs_profile:
+            title_pdf = "BAG Checks v1 - Tests against NOAA OCS Profile"
+        else:
+            title_pdf = "BAG Checks v1 - Tests against General Profile"
+        if self._bc_report.generate_pdf(output_pdf, title_pdf, use_colors=True):
+            self._bc_pdf = output_pdf
+
+        return True
+
+    def _bag_checks_v1_structure(self, grid_file: str) -> None:
+        self._bc_report += "Structure [CHECK]"
+
+        self._bc_structure_valid = True
+
+        try:
+            bf = bag.BAGFile(grid_file)
+
+            if not bf.has_elevation():
+                self._bc_structure_valid = False
+                self._bc_report += "Missing Elevation layer"
+
+            if not bf.has_uncertainty():
+                self._bc_structure_valid = False
+                self._bc_report += "Missing Uncertainty layer"
+
+        except Exception as e:
+            self._bc_structure_valid = False
+            self._bc_report += "Unknown issue: %s" % e
+
+        if self._bc_structure_valid:
+            self._bc_report += "OK"
+
+    def _bag_checks_v1_metadata(self, grid_file: str) -> None:
+        self._bc_report += "Metadata [CHECK]"
+
+        self._bc_metadata_valid = True
+
+        try:
+            bf = bag.BAGFile(grid_file)
+            meta = Meta(bf.metadata())
+
+            srs = osr.SpatialReference()
+            srs.ImportFromWkt(meta.wkt_srs)
+            # check if projected coordinates
+            if not srs.IsProjected:
+                self._bc_report += "The spatial reference system does is NOT projected [%s...]" % meta.wkt_srs[:20]
+                self._bc_metadata_valid = False
+            # TODO: additional checks on SRS
+
+            # check file creation date
+            if meta.date is None:
+                self._bc_report += "Unable to retrieve the creation date."
+                self._bc_metadata_valid = False
+
+            # TODO: add checks to retrieve start/end of survey in the BAG library
+
+        except Exception as e:
+            self._bc_metadata_valid = False
+            self._bc_report += "Unknown issue: %s" % e
+
+        if self._bc_metadata_valid:
+            self._bc_report += "OK"
+
+    def _bag_checks_v1_elevation(self, grid_file: str) -> None:
+        self._bc_report += "Elevation [CHECK]"
+
+        self._bc_elevation_valid = True
+
+        try:
+            bf = bag.BAGFile(grid_file)
+
+            if not bf.has_elevation():
+                self._bc_elevation_valid = False
+                self._bc_report += "Missing Elevation layer"
+
+            else:
+                elevation = bf.elevation()
+                min_elevation = np.nanmin(elevation)
+                max_elevation = np.nanmax(elevation)
+                logger.debug('min/max elevation: %s/%s' % (min_elevation, max_elevation))
+
+                if np.isnan(min_elevation):  # all NaN case
+                    self._bc_elevation_valid = False
+                    self._bc_report += "All elevation values are NaN"
+
+        except Exception as e:
+            self._bc_elevation_valid = False
+            self._bc_report += "Unknown issue: %s" % e
+
+        if self._bc_elevation_valid:
+            self._bc_report += "OK"
+
+    def _bag_checks_v1_uncertainty(self, grid_file: str) -> None:
+        self._bc_report += "Uncertainty [CHECK]"
+
+        self._bc_uncertainty_valid = True
+
+        try:
+            bf = bag.BAGFile(grid_file)
+
+            if not bf.has_uncertainty():
+                self._bc_uncertainty_valid = False
+                self._bc_report += "Missing Uncertainty layer"
+
+            else:
+                elevation = bf.elevation()
+                min_elevation = np.nanmin(elevation)
+                max_elevation = np.nanmax(elevation)
+                # logger.debug('min/max elevation: %s/%s' % (min_elevation, max_elevation))
+                uncertainty = bf.uncertainty()
+                min_uncertainty = np.nanmin(uncertainty)
+                max_uncertainty = np.nanmax(uncertainty)
+                logger.debug('min/max uncertainty: %s/%s' % (min_uncertainty, max_uncertainty))
+
+                if np.isnan(min_uncertainty):  # all NaN case
+                    self._bc_uncertainty_valid = False
+                    self._bc_report += "All uncertainty values are NaN"
+
+                elif min_uncertainty <= 0.0:
+                    self._bc_uncertainty_valid = False
+                    self._bc_report += "At least one negative or zero value of uncertainty is present (%.3f)" \
+                                       % min_uncertainty
+
+        except Exception as e:
+            self._bc_uncertainty_valid = False
+            self._bc_report += "Unknown issue: %s" % e
+
+        if self._bc_uncertainty_valid:
+            self._bc_report += "OK"
+
+    def _bag_checks_v1_tracking_list(self, grid_file: str) -> None:
+        self._bc_report += "Tracking List [CHECK]"
+
+        self._bc_tracking_list_valid = True
+
+        try:
+            bf = bag.BAGFile(grid_file)
+
+        except Exception as e:
+            self._bc_tracking_list_valid = False
+            self._bc_report += "Unknown issue: %s" % e
+
+        if self._bc_tracking_list_valid:
+            self._bc_report += "OK"
+
+    def open_bagchecks_output_folder(self):
+        logger.info("open %s" % self.bagchecks_output_folder)
+        Helper.explore_folder(self.bagchecks_output_folder)
+
+    @property
+    def bagchecks_output_folder(self):
+        # make up the output folder (creating it if it does not exist)
+        if self.output_project_folder:
+            output_folder = os.path.join(self.output_folder, self._survey)
+        else:
+            output_folder = self.output_folder
+        if self.output_subfolders:
+            output_folder = os.path.join(output_folder, "bag_checks")
+        else:
+            output_folder = os.path.join(output_folder)
+        if not os.path.exists(output_folder):
+            os.makedirs(output_folder)
+
+        return output_folder
+
+    @property
+    def bag_checks_message(self) -> str:
+        return self._bc_msg
+
+    @property
+    def cur_bag_checks_passed(self) -> bool:
+
+        if self._bc_structure:
+            if not self._bc_structure_valid:
+                return False
+
+        if self._bc_metadata:
+            if not self._bc_metadata_valid:
+                return False
+
+        if self._bc_elevation:
+            if not self._bc_elevation_valid:
+                return False
+
+        if self._bc_uncertainty:
+            if not self._bc_uncertainty_valid:
+                return False
+
+        if self._bc_tracking_list:
+            if not self._bc_tracking_list_valid:
+                return False
+
+        return True
     # ________________________________________________________________________________
     # ########################### DESIGNATED-SCAN METHODS ############################
 
