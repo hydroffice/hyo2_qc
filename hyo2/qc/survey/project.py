@@ -1007,13 +1007,13 @@ class SurveyProject(BaseProject):
 
             else:
                 elevation = bf.elevation()
-                med_elevation = np.nanmedian(elevation)
-                if np.isnan(med_elevation):
+                med_depth = -np.nanmedian(elevation)
+                if np.isnan(med_depth):
                     high_unc_threshold = 30.0
-                elif med_elevation > 30.0:
+                elif med_depth > 30.0:
                     high_unc_threshold = 30.0
                 else:
-                    high_unc_threshold = med_elevation
+                    high_unc_threshold = med_depth
                 logger.debug('max uncertainty threshold: %s' % (high_unc_threshold, ))
 
                 # logger.debug('min/max elevation: %s/%s' % (min_elevation, max_elevation))
