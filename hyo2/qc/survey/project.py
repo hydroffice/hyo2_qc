@@ -1007,8 +1007,15 @@ class SurveyProject(BaseProject):
 
             else:
                 elevation = bf.elevation()
-                min_elevation = np.nanmin(elevation)
-                max_elevation = np.nanmax(elevation)
+                med_elevation = np.nanmedian(elevation)
+                if np.isnan(med_elevation):
+                    high_unc_threshold = 30.0
+                elif med_elevation > 30.0:
+                    high_unc_threshold = 30.0
+                else:
+                    high_unc_threshold = med_elevation
+                logger.debug('max uncertainty threshold: %s' % (high_unc_threshold, ))
+
                 # logger.debug('min/max elevation: %s/%s' % (min_elevation, max_elevation))
                 uncertainty = bf.uncertainty()
                 min_uncertainty = np.nanmin(uncertainty)
@@ -1023,6 +1030,10 @@ class SurveyProject(BaseProject):
                     self._bc_uncertainty_valid = False
                     self._bc_report += "At least one negative or zero value of uncertainty is present (%.3f)" \
                                        % min_uncertainty
+
+                if max_uncertainty >= high_unc_threshold:
+                    self._bc_uncertainty_valid = False
+                    self._bc_report += "Too high value for maximum uncertainty: %.2f" % max_uncertainty
 
         except Exception as e:
             self._bc_uncertainty_valid = False
