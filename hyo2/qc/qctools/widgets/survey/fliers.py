@@ -892,7 +892,7 @@ class FliersTab(QtWidgets.QMainWindow):
                                         progress_bar=self.prj.progress
                                         )
 
-                if self.set_check_edges_ffv8.isChecked() or self.set_filter_designated_ffv8.isChecked():
+                if self.set_filter_fff_ffv8.isChecked() or self.set_filter_designated_ffv8.isChecked():
                     self.prj.close_cur_grid()
                     self.prj.set_cur_grid(path=grid_file)
                     self.prj.open_to_read_cur_grid()
