@@ -82,11 +82,16 @@ class SurveyProject(BaseProject):
         self._bc_elevation = False
         self._bc_uncertainty = False
         self._bc_tracking_list = False
-        self._bc_structure_valid = False
-        self._bc_metadata_valid = False
-        self._bc_elevation_valid = False
-        self._bc_uncertainty_valid = False
-        self._bc_tracking_list_valid = False
+        self._bc_structure_errors = 0  # type: int
+        self._bc_structure_warnings = 0  # type: int
+        self._bc_metadata_errors = 0  # type: int
+        self._bc_metadata_warnings = 0  # type: int
+        self._bc_elevation_errors = 0  # type: int
+        self._bc_elevation_warnings = 0  # type: int
+        self._bc_uncertainty_errors = 0  # type: int
+        self._bc_uncertainty_warnings = 0  # type: int
+        self._bc_tracking_list_errors = 0  # type: int
+        self._bc_tracking_list_warnings = 0  # type: int
         self._bc_report = None
         self._bc_pdf = str()
 
@@ -705,43 +710,45 @@ class SurveyProject(BaseProject):
         quantum = 100.0 / total
         cur_quantum = quantum * idx
 
-        self.progress.update(value=cur_quantum + quantum * 0.1, text="[%d/%d] File opening" % (idx + 1, total))
+        self.progress.update(value=cur_quantum + quantum * 0.05, text="[%d/%d] File opening" % (idx + 1, total))
 
         # we want to be sure that the label is based on the name of the new file input
         self.clear_survey_label()
 
         self.set_cur_grid(path=grid_file)
         self.open_to_read_cur_grid()
-        if not self._gr.is_bag():
+        if not self._gr.is_bag():  # skip CSAR
+            return False
+        if self._gr.is_vr():  # skip VR BAG
             return False
 
         self._bc_report = Report(lib_name=lib_name, lib_version=lib_version)
 
-        self.progress.update(value=cur_quantum + quantum * 0.2, text="[%d/%d] Structure checking" % (idx + 1, total))
+        self.progress.update(value=cur_quantum + quantum * 0.15, text="[%d/%d] Structure checking" % (idx + 1, total))
 
-        if self._bc_structure:
-            self._bag_checks_v1_structure(grid_file=grid_file)
+        self._bag_checks_v1_structure(grid_file=grid_file)
 
-        self.progress.update(value=cur_quantum + quantum * 0.4, text="[%d/%d] Metadata checking" % (idx + 1, total))
+        self.progress.update(value=cur_quantum + quantum * 0.3, text="[%d/%d] Metadata checking" % (idx + 1, total))
 
-        if self._bc_metadata:
-            self._bag_checks_v1_metadata(grid_file=grid_file)
+        self._bag_checks_v1_metadata(grid_file=grid_file)
 
-        self.progress.update(value=cur_quantum + quantum * 0.6, text="[%d/%d] Elevation checking" % (idx + 1, total))
+        self.progress.update(value=cur_quantum + quantum * 0.5, text="[%d/%d] Elevation checking" % (idx + 1, total))
 
-        if self._bc_elevation:
-            self._bag_checks_v1_elevation(grid_file=grid_file)
+        self._bag_checks_v1_elevation(grid_file=grid_file)
 
-        self.progress.update(value=cur_quantum + quantum * 0.8, text="[%d/%d] Uncertainty checking" % (idx + 1, total))
+        self.progress.update(value=cur_quantum + quantum * 0.7, text="[%d/%d] Uncertainty checking" % (idx + 1, total))
 
-        if self._bc_uncertainty:
-            self._bag_checks_v1_uncertainty(grid_file=grid_file)
+        self._bag_checks_v1_uncertainty(grid_file=grid_file)
 
-        self.progress.update(value=cur_quantum + quantum * 0.95,
+        self.progress.update(value=cur_quantum + quantum * 0.85,
                              text="[%d/%d] Tracking list checking" % (idx + 1, total))
 
-        if self._bc_tracking_list:
-            self._bag_checks_v1_tracking_list(grid_file=grid_file)
+        self._bag_checks_v1_tracking_list(grid_file=grid_file)
+
+        self.progress.update(value=cur_quantum + quantum * 0.95,
+                             text="[%d/%d] Summary" % (idx + 1, total))
+
+        self._bag_checks_v1_summary()
 
         output_pdf = os.path.join(self.bagchecks_output_folder, "%s.BCv1.%s.pdf"
                                   % (self.cur_grid_basename, datetime.now().strftime("%Y%m%d.%H%M%S")))
@@ -755,151 +762,314 @@ class SurveyProject(BaseProject):
         return True
 
     def _bag_checks_v1_structure(self, grid_file: str) -> None:
-        self._bc_report += "Structure [CHECK]"
+        if self._bc_structure is False:
+            self._bc_report += "Structure [SKIP_SEC]"
+            self._bc_report += "All structure-related checks are deactivated. [SKIP_REP]"
+            return
 
-        self._bc_structure_valid = True
+        self._bc_report += "Structure [SECTION]"
+
+        self._bc_structure_errors = 0
+        self._bc_structure_warnings = 0
 
         try:
             bf = bag.BAGFile(grid_file)
+            # logger.debug('BAG version: %s' % bf.bag_version())
 
+            # CHK: presence of root
+            self._bc_report += "Check the presence of the BAG Root group [CHECK]"
+            if not bf.has_bag_root():
+                self._bc_structure_errors += 1
+                self._bc_report += "[ERROR] Missing the BAG Root group"
+            else:
+                self._bc_report += "OK"
+
+            # CHK: presence of version
+            self._bc_report += "Check the presence of the BAG Version attribute [CHECK]"
+            if not bf.has_bag_version():
+                self._bc_structure_errors += 1
+                self._bc_report += "[ERROR] Missing the BAG Version attribute"
+            else:
+                self._bc_report += "OK"
+
+            # CHK: presence of metadata
+            self._bc_report += "Check the presence of the Metadata dataset [CHECK]"
+            if not bf.has_metadata():
+                self._bc_structure_errors += 1
+                self._bc_report += "[ERROR] Missing the Metadata dataset"
+            else:
+                self._bc_report += "OK"
+
+            # CHK: presence of elevation
+            self._bc_report += "Check the presence of the Elevation dataset [CHECK]"
             if not bf.has_elevation():
-                self._bc_structure_valid = False
-                self._bc_report += "Missing Elevation layer"
+                self._bc_structure_errors += 1
+                self._bc_report += "[ERROR] Missing the Elevation dataset"
+            else:
+                self._bc_report += "OK"
 
+            # CHK: presence of uncertainty
+            self._bc_report += "Check the presence of the Uncertainty dataset [CHECK]"
             if not bf.has_uncertainty():
-                self._bc_structure_valid = False
-                self._bc_report += "Missing Uncertainty layer"
+                self._bc_structure_errors += 1
+                self._bc_report += "[ERROR] Missing the Uncertainty dataset"
+            else:
+                self._bc_report += "OK"
+
+            # CHK: presence of tracking list
+            self._bc_report += "Check the presence of the Tracking List dataset [CHECK]"
+            if not bf.has_tracking_list():
+                self._bc_structure_errors += 1
+                self._bc_report += "[ERROR] Missing the Tracking List dataset"
+            else:
+                self._bc_report += "OK"
 
         except Exception as e:
-            self._bc_structure_valid = False
-            self._bc_report += "Unknown issue: %s" % e
-
-        if self._bc_structure_valid:
-            self._bc_report += "OK"
+            traceback.print_exc()
+            self._bc_report += "Other potential issues [CHECK]"
+            self._bc_structure_errors += 1
+            self._bc_report += "[ERROR] %s" % e
 
     def _bag_checks_v1_metadata(self, grid_file: str) -> None:
-        self._bc_report += "Metadata [CHECK]"
+        if self._bc_metadata is False:
+            self._bc_report += "Metadata [SKIP_SEC]"
+            self._bc_report += "All metadata-related checks are deactivated. [SKIP_REP]"
+            return
 
-        self._bc_metadata_valid = True
+        self._bc_report += "Metadata [SECTION]"
+
+        self._bc_metadata_errors = 0
+        self._bc_metadata_warnings = 0
 
         try:
             bf = bag.BAGFile(grid_file)
-            meta = Meta(bf.metadata())
 
-            srs = osr.SpatialReference()
-            srs.ImportFromWkt(meta.wkt_srs)
-            # check if projected coordinates
-            if not srs.IsProjected:
-                self._bc_report += "The spatial reference system does is NOT projected [%s...]" % meta.wkt_srs[:20]
-                self._bc_metadata_valid = False
+            # CHK: presence of metadata
+            self._bc_report += "Check the presence of the Metadata dataset [CHECK]"
+            if not bf.has_metadata():
+                self._bc_metadata_errors += 1
+                self._bc_report += "[ERROR] Missing the Metadata dataset"
+                return
+            else:
+                self._bc_report += "OK"
+
+            bf.populate_metadata()
+
+            if self._bc_noaa_nbs_profile:
+                # CHK: use of projected spatial reference system
+                self._bc_report += "Check that the spatial reference system is projected [CHECK]"
+                srs = osr.SpatialReference()
+                srs.ImportFromWkt(bf.meta.wkt_srs)
+                # check if projected coordinates
+                if not srs.IsProjected:
+                    self._bc_report += "[WARNING] The spatial reference system does is NOT projected [%s...]" % meta.wkt_srs[:20]
+                    self._bc_metadata_warnings += 1
+                else:
+                    self._bc_report += "OK"
+
             # TODO: additional checks on SRS
 
-            # check file creation date
-            if meta.date is None:
-                self._bc_report += "Unable to retrieve the creation date."
-                self._bc_metadata_valid = False
+            if self._bc_noaa_nbs_profile:
+                # CHK: presence of creation date
+                self._bc_report += "Check the presence of the creation date [CHECK]"
+                if bf.meta.date is None:
+                    self._bc_report += "[WARNING] Unable to retrieve the creation date."
+                    self._bc_metadata_warnings += 1
+                else:
+                    self._bc_report += "OK"
 
             # TODO: add checks to retrieve start/end of survey in the BAG library
 
-        except Exception as e:
-            self._bc_metadata_valid = False
-            self._bc_report += "Unknown issue: %s" % e
+            if self._bc_noaa_nbs_profile:
+                # CHK: use of product uncertainty
+                self._bc_report += "Check the selection of Product Uncertainty [CHECK]"
+                if not bf.has_product_uncertainty():
+                    self._bc_metadata_warnings += 1
+                    self._bc_report += "[WARNING] The Uncertainty layer does not contain Product Uncertainty: %s" \
+                                       % bf.meta.unc_type
+                else:
+                    self._bc_report += "OK"
 
-        if self._bc_metadata_valid:
-            self._bc_report += "OK"
+        except Exception as e:
+            traceback.print_exc()
+            self._bc_report += "Other potential issues [CHECK]"
+            self._bc_metadata_errors += 1
+            self._bc_report += "[ERROR] Unexpected issue: %s" % e
 
     def _bag_checks_v1_elevation(self, grid_file: str) -> None:
-        self._bc_report += "Elevation [CHECK]"
+        if self._bc_elevation is False:
+            self._bc_report += "Elevation [SKIP_SEC]"
+            self._bc_report += "All elevation-related checks are deactivated. [SKIP_REP]"
+            return
 
-        self._bc_elevation_valid = True
+        self._bc_report += "Elevation [SECTION]"
+
+        self._bc_elevation_errors = 0
+        self._bc_elevation_warnings = 0
 
         try:
             bf = bag.BAGFile(grid_file)
 
+            # CHK: presence of elevation
+            self._bc_report += "Check the presence of the Elevation dataset [CHECK]"
             if not bf.has_elevation():
-                self._bc_elevation_valid = False
-                self._bc_report += "Missing Elevation layer"
-
+                self._bc_elevation_errors += 1
+                self._bc_report += "[ERROR] Missing the Elevation dataset"
+                return
             else:
-                elevation = bf.elevation()
-                min_elevation = np.nanmin(elevation)
-                max_elevation = np.nanmax(elevation)
-                logger.debug('min/max elevation: %s/%s' % (min_elevation, max_elevation))
+                self._bc_report += "OK"
 
-                if np.isnan(min_elevation):  # all NaN case
-                    self._bc_elevation_valid = False
-                    self._bc_report += "All elevation values are NaN"
+            elevation = bf.elevation()
+            min_elevation = np.nanmin(elevation)
+            max_elevation = np.nanmax(elevation)
+            logger.debug('min/max elevation: %s/%s' % (min_elevation, max_elevation))
+
+            # CHK: all NaN
+            self._bc_report += "Check that all the values are not NaN [CHECK]"
+            if np.isnan(min_elevation):  # all NaN case
+                self._bc_elevation_warnings += 1
+                self._bc_report += "[WARNING] All elevation values are NaN"
+            else:
+                self._bc_report += "OK"
 
         except Exception as e:
-            self._bc_elevation_valid = False
-            self._bc_report += "Unknown issue: %s" % e
-
-        if self._bc_elevation_valid:
-            self._bc_report += "OK"
+            traceback.print_exc()
+            self._bc_report += "Other potential issues [CHECK]"
+            self._bc_elevation_errors += 1
+            self._bc_report += "[ERROR] Unknown issue: %s" % e
 
     def _bag_checks_v1_uncertainty(self, grid_file: str) -> None:
-        self._bc_report += "Uncertainty [CHECK]"
+        if self._bc_uncertainty is False:
+            self._bc_report += "Uncertainty [SKIP_SEC]"
+            self._bc_report += "All uncertainty-related checks are deactivated. [SKIP_REP]"
+            return
 
-        self._bc_uncertainty_valid = True
+        self._bc_report += "Uncertainty [SECTION]"
+
+        self._bc_uncertainty_errors = 0
+        self._bc_uncertainty_warnings = 0
 
         try:
             bf = bag.BAGFile(grid_file)
 
+            # CHK: presence of uncertainty
+            self._bc_report += "Check the presence of the Uncertainty dataset [CHECK]"
             if not bf.has_uncertainty():
-                self._bc_uncertainty_valid = False
-                self._bc_report += "Missing Uncertainty layer"
-
+                self._bc_uncertainty_errors += 1
+                self._bc_report += "[ERROR] Missing the Uncertainty dataset"
+                return
             else:
-                elevation = bf.elevation()
-                med_depth = -np.nanmedian(elevation)
-                if np.isnan(med_depth):
-                    high_unc_threshold = 30.0
-                elif med_depth > 30.0:
-                    high_unc_threshold = 30.0
-                else:
-                    high_unc_threshold = med_depth
-                logger.debug('max uncertainty threshold: %s' % (high_unc_threshold, ))
+                self._bc_report += "OK"
 
-                # logger.debug('min/max elevation: %s/%s' % (min_elevation, max_elevation))
-                uncertainty = bf.uncertainty()
-                min_uncertainty = np.nanmin(uncertainty)
-                max_uncertainty = np.nanmax(uncertainty)
-                logger.debug('min/max uncertainty: %s/%s' % (min_uncertainty, max_uncertainty))
+            elevation = bf.elevation()
+            med_depth = -np.nanmedian(elevation)
+            if np.isnan(med_depth):
+                high_unc_threshold = 30.0
+            elif med_depth > 30.0:
+                high_unc_threshold = 30.0
+            else:
+                high_unc_threshold = med_depth
+            logger.debug('max uncertainty threshold: %s' % (high_unc_threshold, ))
 
+            # logger.debug('min/max elevation: %s/%s' % (min_elevation, max_elevation))
+            uncertainty = bf.uncertainty()
+            min_uncertainty = np.nanmin(uncertainty)
+            max_uncertainty = np.nanmax(uncertainty)
+            logger.debug('min/max uncertainty: %s/%s' % (min_uncertainty, max_uncertainty))
+
+            if self._bc_noaa_nbs_profile:
+                # CHK: all NaN
+                self._bc_report += "Check that all the values are not NaN [CHECK]"
                 if np.isnan(min_uncertainty):  # all NaN case
-                    self._bc_uncertainty_valid = False
-                    self._bc_report += "All uncertainty values are NaN"
+                    self._bc_uncertainty_warnings += 1
+                    self._bc_report += "[WARNING] All uncertainty values are NaN"
+                    return
+                else:
+                    self._bc_report += "OK"
 
-                elif min_uncertainty <= 0.0:
-                    self._bc_uncertainty_valid = False
-                    self._bc_report += "At least one negative or zero value of uncertainty is present (%.3f)" \
-                                       % min_uncertainty
+            # CHK: negative uncertainty
+            self._bc_report += "Check that uncertainty values are only positive [CHECK]"
+            if min_uncertainty <= 0.0:
+                self._bc_uncertainty_errors += 1
+                self._bc_report += "[ERROR] At least one negative or zero value of uncertainty is present (%.3f)" \
+                                   % min_uncertainty
+            else:
+                self._bc_report += "OK"
 
+            if self._bc_noaa_nbs_profile:
+                # CHK: negative uncertainty
+                self._bc_report += "Check that uncertainty values are not too high [CHECK]"
                 if max_uncertainty >= high_unc_threshold:
-                    self._bc_uncertainty_valid = False
-                    self._bc_report += "Too high value for maximum uncertainty: %.2f" % max_uncertainty
+                    self._bc_uncertainty_warnings += 1
+                    self._bc_report += "[WARNING] Too high value for maximum uncertainty: %.2f" % max_uncertainty
+                else:
+                    self._bc_report += "OK"
 
         except Exception as e:
-            self._bc_uncertainty_valid = False
-            self._bc_report += "Unknown issue: %s" % e
-
-        if self._bc_uncertainty_valid:
-            self._bc_report += "OK"
+            traceback.print_exc()
+            self._bc_report += "Other potential issues [CHECK]"
+            self._bc_uncertainty_errors += 1
+            self._bc_report += "[ERROR] Unuspected issue: %s" % e
 
     def _bag_checks_v1_tracking_list(self, grid_file: str) -> None:
-        self._bc_report += "Tracking List [CHECK]"
+        if self._bc_tracking_list is False:
+            self._bc_report += "Tracking List [SKIP_SEC]"
+            self._bc_report += "All tracking-list-related checks are deactivated. [SKIP_REP]"
+            return
 
-        self._bc_tracking_list_valid = True
+        self._bc_report += "Tracking List [SECTION]"
+
+        self._bc_tracking_list_errors = 0
+        self._bc_tracking_list_warnings = 0
 
         try:
-            _ = bag.BAGFile(grid_file)
+            bf = bag.BAGFile(grid_file)
+
+            # CHK: presence of tracking list
+            self._bc_report += "Check the presence of the Tracking List dataset [CHECK]"
+            if not bf.has_tracking_list():
+                self._bc_structure_errors += 1
+                self._bc_report += "[ERROR] Missing the Tracking List dataset"
+                return
+            else:
+                self._bc_report += "OK"
+
+            # CHK validity of row and col columns
+            self._bc_report += "Check the validity of 'row' and 'col' columns [CHECK]"
+            if not bf.has_valid_row_and_col_in_tracking_list():
+                self._bc_structure_errors += 1
+                self._bc_report += "[ERROR] At least 1 invalid value in 'row' and 'col' columns"
+            else:
+                self._bc_report += "OK"
 
         except Exception as e:
-            self._bc_tracking_list_valid = False
-            self._bc_report += "Unknown issue: %s" % e
+            traceback.print_exc()
+            self._bc_report += "Other potential issues [CHECK]"
+            self._bc_tracking_list_errors += 1
+            self._bc_report += "[ERROR] Unexpected issue: %s" % e
 
-        if self._bc_tracking_list_valid:
-            self._bc_report += "OK"
+    def _bag_checks_v1_summary(self) -> None:
+        self._bc_report += "Summary [SECTION]"
+        if self._bc_structure:
+            self._bc_report += "Structure [CHECK]"
+            self._bc_report += "Errors: %d" % self._bc_structure_errors
+            self._bc_report += "Warnings: %d" % self._bc_structure_warnings
+        if self._bc_metadata:
+            self._bc_report += "Metadata [CHECK]"
+            self._bc_report += "Errors: %d" % self._bc_metadata_errors
+            self._bc_report += "Warnings: %d" % self._bc_metadata_warnings
+        if self._bc_elevation:
+            self._bc_report += "Elevation [CHECK]"
+            self._bc_report += "Errors: %d" % self._bc_elevation_errors
+            self._bc_report += "Warnings: %d" % self._bc_elevation_warnings
+        if self._bc_uncertainty:
+            self._bc_report += "Uncertainty [CHECK]"
+            self._bc_report += "Errors: %d" % self._bc_uncertainty_errors
+            self._bc_report += "Warnings: %d" % self._bc_uncertainty_warnings
+        if self._bc_tracking_list:
+            self._bc_report += "Tracking List [CHECK]"
+            self._bc_report += "Errors: %d" % self._bc_tracking_list_errors
+            self._bc_report += "Warnings: %d" % self._bc_tracking_list_warnings
 
     def open_bagchecks_output_folder(self):
         logger.info("open %s" % self.bagchecks_output_folder)
@@ -929,23 +1099,23 @@ class SurveyProject(BaseProject):
     def cur_bag_checks_passed(self) -> bool:
 
         if self._bc_structure:
-            if not self._bc_structure_valid:
+            if (self._bc_structure_errors > 0) or (self._bc_structure_warnings > 0):
                 return False
 
         if self._bc_metadata:
-            if not self._bc_metadata_valid:
+            if (self._bc_metadata_errors > 0) or (self._bc_metadata_warnings > 0):
                 return False
 
         if self._bc_elevation:
-            if not self._bc_elevation_valid:
+            if (self._bc_elevation_errors > 0) or (self._bc_elevation_warnings > 0):
                 return False
 
         if self._bc_uncertainty:
-            if not self._bc_uncertainty_valid:
+            if (self._bc_uncertainty_errors > 0) or (self._bc_uncertainty_warnings > 0):
                 return False
 
         if self._bc_tracking_list:
-            if not self._bc_tracking_list_valid:
+            if (self._bc_tracking_list_errors > 0) or (self._bc_tracking_list_warnings > 0):
                 return False
 
         return True
