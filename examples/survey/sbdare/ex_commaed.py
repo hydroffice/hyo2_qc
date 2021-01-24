@@ -1,5 +1,4 @@
 from hyo2.qc.common import default_logging
-import os
 import logging
 
 default_logging.load()

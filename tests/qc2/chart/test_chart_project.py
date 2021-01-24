@@ -43,8 +43,8 @@ class TestQC2ChartProject(unittest.TestCase):
 
     def test_make_project_survey_label(self):
         prj = ChartProject(output_folder=None)
-        prj.add_to_s57_list(testing.input_test_files(".000")[0])
-        prj.read_feature_file(testing.input_test_files(".000")[0])
+        prj.add_to_s57_list(testing.input_test_files(".000")[-1])
+        prj.read_feature_file(testing.input_test_files(".000")[-1])
         self.assertTrue(len(prj.survey_label) != 0)
         self.assertTrue(len(prj.survey_label) == 6)
         self.assertEqual(prj.survey_label, "tiny__")

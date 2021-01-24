@@ -21,14 +21,14 @@ csar_files = testing.input_test_files(".csar")
 # print("- CSAR files: %d" % len(csar_files))
 
 # add a BAG file
-bag_files = testing.input_test_files(".bag")
+bag_files = testing.download_test_files(".bag")
 # print("- BAG files: %d" % len(bag_files))
 
-prj.add_to_grid_list(csar_files[0])
+# prj.add_to_grid_list(csar_files[0])
 # prj.add_to_grid_list(csar_files[1])
 prj.add_to_grid_list(bag_files[0])
-prj.add_to_grid_list(bag_files[1])
-prj.add_to_grid_list(bag_files[2])
+# prj.add_to_grid_list(bag_files[1])
+# prj.add_to_grid_list(bag_files[2])
 logger.debug("%s" % (prj.grid_list,))
 
 use_nooa_ocs_profile: bool = True
@@ -38,7 +38,7 @@ check_elevation: bool = True
 check_uncertainty: bool = True
 check_tracking_list: bool = True
 
-prj.bag_checks_v1(use_nooa_ocs_profile=use_nooa_ocs_profile,
+prj.bag_checks_v1(use_nooa_nbs_profile=use_nooa_ocs_profile,
                   check_structure=check_structure,
                   check_metadata=check_metadata,
                   check_elevation=check_elevation,

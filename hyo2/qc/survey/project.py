@@ -24,13 +24,10 @@ from hyo2.qc.survey.gridqa.grid_qa_v6 import GridQAV6
 from hyo2.grids.grids_manager import layer_types
 from hyo2.qc.survey.scan.base_scan import scan_algos
 from hyo2.qc.survey.scan.base_scan import survey_areas
-from hyo2.qc.survey.scan.feature_scan_v8 import FeatureScanV8
-from hyo2.qc.survey.scan.feature_scan_v9 import FeatureScanV9
 from hyo2.qc.survey.scan.feature_scan_v10 import FeatureScanV10
 from hyo2.qc.survey.designated.base_designated import designated_algos
 from hyo2.qc.survey.designated.designated_scan_v2 import DesignatedScanV2
 from hyo2.qc.survey.valsou.base_valsou import valsou_algos
-from hyo2.qc.survey.valsou.valsou_check_v6 import ValsouCheckV6
 from hyo2.qc.survey.valsou.valsou_check_v7 import ValsouCheckV7
 from hyo2.qc.survey.sbdare.base_sbdare import sbdare_algos
 from hyo2.qc.survey.sbdare.sbdare_export_v3 import SbdareExportV3
@@ -1103,7 +1100,7 @@ class SurveyProject(BaseProject):
 
         # sanity checks
         # - version
-        if version not in [9, 10]:
+        if version not in [10]:
             raise RuntimeError("passed invalid Feature Scan version: %s" % version)
 
         # - list of grids (although the buttons should be never been enabled without grids)
@@ -1126,7 +1123,7 @@ class SurveyProject(BaseProject):
                     multimedia_folder = None
 
             # switcher between different versions of feature scan
-            if version in [9, 10]:
+            if version in [10]:
                 self._feature_scan(feature_file=s57_file, version=version, specs_version=specs_version,
                                    survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
                                    sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder, use_htd=use_htd,
@@ -1167,18 +1164,6 @@ class SurveyProject(BaseProject):
         self.progress.update(text="Feature Scan v%d [%d/%d]" % (version, idx, total), value=30)
 
         try:
-
-            if version == 8:
-                self._scan_features_v8(specs_version=specs_version,
-                                       survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
-                                       sorind=sorind, sordat=sordat)
-
-            if version == 9:
-                self._scan_features_v9(specs_version=specs_version,
-                                       survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
-                                       sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder,
-                                       use_htd=use_htd)
-
             if version == 10:
                 self._scan_features_v10(specs_version=specs_version,
                                         survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
@@ -1194,50 +1179,6 @@ class SurveyProject(BaseProject):
             raise e
 
         self.progress.end()
-
-    def _scan_features_v8(self, specs_version: str, survey_area: int, use_mhw: bool, mhw_value: float,
-                          sorind: Optional[str], sordat: Optional[str]):
-        """Look for fliers using the passed parameters and the loaded grids"""
-        if not self.has_s57():
-            return
-
-        try:
-
-            self._scan = FeatureScanV8(s57=self.cur_s57, profile=self.active_profile, version=specs_version,
-                                       survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
-                                       sorind=sorind, sordat=sordat)
-
-            start_time = time.time()
-            self._scan.run()
-            logger.info("scan features v8 -> execution time: %.3f s" % (time.time() - start_time))
-
-        except Exception as e:
-            traceback.print_exc()
-            self._scan = None
-            raise e
-
-    def _scan_features_v9(self, specs_version: str, survey_area: int, use_mhw: bool, mhw_value: float,
-                          sorind: Optional[str], sordat: Optional[str], multimedia_folder: Optional[str],
-                          use_htd: bool):
-        """Look for fliers using the passed parameters and the loaded grids"""
-        if not self.has_s57():
-            return
-
-        try:
-
-            self._scan = FeatureScanV9(s57=self.cur_s57, profile=self.active_profile, version=specs_version,
-                                       survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
-                                       sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder,
-                                       use_htd=use_htd)
-
-            start_time = time.time()
-            self._scan.run()
-            logger.info("scan features v9 -> execution time: %.3f s" % (time.time() - start_time))
-
-        except Exception as e:
-            traceback.print_exc()
-            self._scan = None
-            raise e
 
     def _scan_features_v10(self, specs_version: str, survey_area: int, use_mhw: bool, mhw_value: float,
                            sorind: Optional[str], sordat: Optional[str], multimedia_folder: Optional[str],
@@ -1295,49 +1236,7 @@ class SurveyProject(BaseProject):
         if not os.path.exists(output_folder):
             os.makedirs(output_folder)
 
-        if self._scan.type == scan_algos['FEATURE_SCAN_v8']:
-
-            if self._scan.version == '2017':
-                output_pdf = os.path.join(output_folder, "%s.SFSv8.2017.pdf" % self.cur_s57_basename)
-                title_pdf = "Survey Feature Scan v8 - Tests against HSSD 2017"
-
-            elif self._scan.version == '2018':
-                output_pdf = os.path.join(output_folder, "%s.SFSv8.2018.pdf" % self.cur_s57_basename)
-                title_pdf = "Survey Feature Scan v8 - Tests against HSSD 2018"
-
-            elif self._scan.version == '2019':
-                output_pdf = os.path.join(output_folder, "%s.SFSv8.2019.pdf" % self.cur_s57_basename)
-                title_pdf = "Survey Feature Scan v8 - Tests against HSSD 2019"
-
-            elif self._scan.version == '2020':
-                output_pdf = os.path.join(output_folder, "%s.SFSv8.2020.pdf" % self.cur_s57_basename)
-                title_pdf = "Survey Feature Scan v8 - Tests against HSSD 2020"
-
-            else:
-                raise RuntimeError("Not implemented version: %s" % self._scan.version)
-
-        elif self._scan.type == scan_algos['FEATURE_SCAN_v9']:
-
-            if self._scan.version == '2017':
-                output_pdf = os.path.join(output_folder, "%s.SFSv9.2017.pdf" % self.cur_s57_basename)
-                title_pdf = "Survey Feature Scan v9 - Tests against HSSD 2017"
-
-            elif self._scan.version == '2018':
-                output_pdf = os.path.join(output_folder, "%s.SFSv9.2018.pdf" % self.cur_s57_basename)
-                title_pdf = "Survey Feature Scan v9 - Tests against HSSD 2018"
-
-            elif self._scan.version == '2019':
-                output_pdf = os.path.join(output_folder, "%s.SFSv9.2019.pdf" % self.cur_s57_basename)
-                title_pdf = "Survey Feature Scan v9 - Tests against HSSD 2019"
-
-            elif self._scan.version == '2020':
-                output_pdf = os.path.join(output_folder, "%s.SFSv9.2020.pdf" % self.cur_s57_basename)
-                title_pdf = "Survey Feature Scan v9 - Tests against HSSD 2020"
-
-            else:
-                raise RuntimeError("Not implemented version: %s" % self._scan.version)
-
-        elif self._scan.type == scan_algos['FEATURE_SCAN_v10']:
+        if self._scan.type == scan_algos['FEATURE_SCAN_v10']:
 
             if self._scan.version == '2018':
                 output_pdf = os.path.join(output_folder, "%s.SFSv10.2018.pdf" % self.cur_s57_basename)
@@ -1437,38 +1336,6 @@ class SurveyProject(BaseProject):
         if not self._valsou:
             return 0
         return len(self._valsou.flagged_features)
-
-    def valsou_check_v6(self, specs_version="2017", survey_scale=100000, with_laser=True):
-
-        if not self.has_s57():
-            logger.warning("first load some features")
-            return
-
-        if not self.has_grid():
-            logger.warning("first load some grids")
-            return
-
-        self.progress.start(text="Data processing")
-
-        try:
-
-            self._gr.selected_layers_in_current = [layer_types["depth"], ]
-
-            self._valsou = ValsouCheckV6(s57=self.cur_s57, grids=self._gr, version=specs_version,
-                                         scale=survey_scale, with_laser=with_laser)
-
-            start_time = time.time()
-            self._valsou.run()
-            logger.info("VALSOU check v6 -> execution time: %.3f s" % (time.time() - start_time))
-            logger.info("flagged features: %d" % self.number_of_valsou_features())
-
-        except Exception as e:
-            traceback.print_exc()
-            self._valsou = None
-            self.progress.end()
-            raise e
-
-        self.progress.end()
 
     def valsou_check_v7(self, specs_version="2018", survey_scale=100000, with_laser=True, is_target_detection=False):
 

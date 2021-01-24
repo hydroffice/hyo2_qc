@@ -45,7 +45,6 @@ four_gb = 4294967296
 one_mb = 1048576
 
 force_tvu_qc = True
-check_catzoc = True
 
 calc_object_detection = False
 calc_full_coverage = True
@@ -69,8 +68,8 @@ for grid_path in prj.grid_list:
     if len(tvu_qc_layers) > 0:
         prj.set_cur_grid_tvu_qc_name(tvu_qc_layers[0])
 
-    ret = prj.grid_qa_v5(
-        force_tvu_qc=force_tvu_qc, check_catzoc=check_catzoc,
+    ret = prj.grid_qa_v6(
+        force_tvu_qc=force_tvu_qc,
         calc_object_detection=calc_object_detection, calc_full_coverage=calc_full_coverage,
         hist_depth=hist_depth, hist_density=hist_density, hist_tvu_qc=hist_tvu_qc, hist_pct_res=hist_pct_res,
         depth_vs_density=depth_vs_density, depth_vs_tvu_qc=depth_vs_tvu_qc

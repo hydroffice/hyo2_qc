@@ -19,7 +19,7 @@ warnings.simplefilter(action="ignore", category=RuntimeWarning)
 import logging
 
 from hyo2.qc.survey.gridqa.base_qa import BaseGridQA, qa_algos
-from hyo2.qc.survey.gridqa.grid_qa_calc_v4 import calc_tvu_qc_dd, calc_tvu_qc_df, calc_tvu_qc_fd, calc_tvu_qc_ff, \
+from hyo2.qc.survey.gridqa.grid_qa_calc import calc_tvu_qc_dd, calc_tvu_qc_df, calc_tvu_qc_fd, calc_tvu_qc_ff, \
     calc_tvu_qc_a1_dd, calc_tvu_qc_a1_df, calc_tvu_qc_a1_fd, calc_tvu_qc_a1_ff, \
     calc_tvu_qc_a2b_dd, calc_tvu_qc_a2b_df, calc_tvu_qc_a2b_fd, calc_tvu_qc_a2b_ff, \
     calc_tvu_qc_c_dd, calc_tvu_qc_c_df, calc_tvu_qc_c_fd, calc_tvu_qc_c_ff
@@ -1005,7 +1005,7 @@ class GridQAV6(BaseGridQA):
 
         # Resolution percentage layers
         pct_success = tile.calculate_pct_of_allowable_resolution(self.grids.depth_layer_name())
-        logger.debug("is VR -> created resolution pct layers: %s" % pct_success)
+        # logger.debug("is VR -> created resolution pct layers: %s" % pct_success)
 
         # - object detection
         if self.objection_detection:

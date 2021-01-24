@@ -64,13 +64,13 @@ class BAGChecksTab(QtWidgets.QMainWindow):
         validation_profile_gb = QtWidgets.QGroupBox("Validation Profile")
         hbox.addWidget(validation_profile_gb)
         rules_hbox = QtWidgets.QHBoxLayout()
-        validation_profile_gb.setLayout(rules_hbox)
-        self.use_noaa_ocs_rules = QtWidgets.QRadioButton("NOAA OCS", self)
-        self.use_noaa_ocs_rules.setChecked(True)
-        rules_hbox.addSpacing(8)
-        rules_hbox.addWidget(self.use_noaa_ocs_rules)
+        self.use_noaa_nbs_rules = QtWidgets.QRadioButton("NOAA NBS", self)
+        self.use_noaa_nbs_rules.setChecked(True)
+        rules_hbox.addWidget(self.use_noaa_nbs_rules)
         self.use_general_rules = QtWidgets.QRadioButton("General", self)
         rules_hbox.addWidget(self.use_general_rules)
+        rules_hbox.addSpacing(8)
+        validation_profile_gb.setLayout(rules_hbox)
         hbox.addStretch()
 
         vbox.addSpacing(6)
@@ -177,7 +177,7 @@ class BAGChecksTab(QtWidgets.QMainWindow):
         self.parent_win.change_info_url(Helper(lib_info=lib_info).web_url(suffix=url_suffix))
 
         try:
-            self.prj.bag_checks_v1(use_nooa_ocs_profile=self.use_noaa_ocs_rules.isChecked(),
+            self.prj.bag_checks_v1(use_nooa_nbs_profile=self.use_noaa_nbs_rules.isChecked(),
                                    check_structure=self.check_structure.isChecked(),
                                    check_metadata=self.check_metadata.isChecked(),
                                    check_elevation=self.check_elevation.isChecked(),

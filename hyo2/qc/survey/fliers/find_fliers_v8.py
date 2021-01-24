@@ -1,15 +1,18 @@
 import math
-from scipy import ndimage
-from hyo2.abc.lib.gdal_aux import GdalAux
-from osgeo import osr, gdal
-# noinspection PyProtectedMember
-from hyo2.grids._grids import FLOAT as GRIDS_FLOAT, DOUBLE as GRIDS_DOUBLE
-from hyo2.s57.s57 import S57
-import numpy as np
 import os
 import logging
 
-from hyo2.qc.survey.fliers.find_fliers_checks_v8 import \
+import numpy as np
+from osgeo import osr, gdal
+from scipy import ndimage
+
+from hyo2.abc.lib.gdal_aux import GdalAux
+# noinspection PyProtectedMember
+from hyo2.grids._grids import FLOAT as GRIDS_FLOAT, DOUBLE as GRIDS_DOUBLE
+from hyo2.s57.s57 import S57
+
+
+from hyo2.qc.survey.fliers.find_fliers_checks import \
     check_laplacian_operator_float, check_laplacian_operator_double, \
     check_gaussian_curvature_float, check_gaussian_curvature_double, \
     check_adjacent_cells_float, check_adjacent_cells_double, \

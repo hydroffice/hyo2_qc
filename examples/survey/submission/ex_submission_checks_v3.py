@@ -7,12 +7,12 @@ logger = logging.getLogger()
 
 from hyo2.qc.survey.project import SurveyProject
 from hyo2.qc.common import testing
-from PySide import QtGui
-from hyo2.qc.qctools.qt_progress import QtProgress
+from PySide2 import QtWidgets
+from hyo2.abc.app.qt_progress import QtProgress
 
 
-app = QtGui.QApplication([])
-wid = QtGui.QWidget()
+app = QtWidgets.QApplication([])
+wid = QtWidgets.QWidget()
 
 prj = SurveyProject(output_folder=testing.output_data_folder(), progress=QtProgress(parent=wid))
 
@@ -40,6 +40,7 @@ if prj.is_valid_project_folder(path=sub_folders[-1]):
 logger.debug("project > submission folders: %d" % len(prj.submission_list))
 
 version = "2017"
+is_opr = False
 for i, sf in enumerate(prj.submission_list):
-    prj.submission_checks_v3(path=sf, version=version, recursive=True, office=True)
+    prj.submission_checks_v3(path=sf, version=version, recursive=True, office=True, opr=is_opr)
 prj.open_submission_output_folder()

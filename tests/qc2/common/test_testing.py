@@ -25,8 +25,8 @@ class TestQC2CommonTesting(unittest.TestCase):
         self.assertTrue(os.path.exists(testing.download_data_folder()))
 
     def test_download_test_files(self):
-        self.assertEqual(len(testing.download_test_files(".bag")), 1)
-        self.assertEqual(len(testing.download_test_files(".csar")), 1)
+        self.assertGreaterEqual(len(testing.download_test_files(".bag")), 1)
+        self.assertGreaterEqual(len(testing.download_test_files(".csar")), 1)
 
 
 def suite():

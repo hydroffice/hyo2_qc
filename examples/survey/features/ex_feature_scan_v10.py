@@ -26,5 +26,5 @@ prj.add_to_s57_list(s57_files[3])
 print("%s" % (prj.s57_list,))
 logger.debug(prj)
 
-prj.feature_scan(version=8, specs_version='2018', use_mhw=True, mhw_value=4.0,
+prj.feature_scan(version=10, specs_version='2020', use_mhw=True, mhw_value=4.0,
                  survey_area=survey_areas["Pacific Coast"])

@@ -1,5 +1,4 @@
 from hyo2.qc.common import default_logging
-import sys
 import logging
 
 default_logging.load()
@@ -7,12 +6,12 @@ logger = logging.getLogger()
 
 from hyo2.qc.survey.project import SurveyProject
 from hyo2.qc.common import testing
-from PySide import QtGui
-from hyo2.qc.qctools.qt_progress import QtProgress
+from PySide2 import QtWidgets
+from hyo2.abc.app.qt_progress import QtProgress
 
 
-app = QtGui.QApplication([])
-wid = QtGui.QWidget()
+app = QtWidgets.QApplication([])
+wid = QtWidgets.QWidget()
 
 prj = SurveyProject(output_folder=testing.output_data_folder(), progress=QtProgress(parent=wid))
 
