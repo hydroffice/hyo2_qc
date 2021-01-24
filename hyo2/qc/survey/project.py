@@ -18,7 +18,6 @@ from hyo2.qc.common.writers.s57_writer import S57Writer
 from hyo2.qc.common.writers.kml_writer import KmlWriter
 from hyo2.qc.common.writers.shp_writer import ShpWriter
 from hyo2.qc.survey.fliers.find_fliers_v8 import FindFliersV8
-from hyo2.qc.survey.anomaly.anomaly_detector_v1 import AnomalyDetectorV1
 # noinspection PyProtectedMember
 from hyo2.grids import _gappy
 from hyo2.qc.survey.gridqa.grid_qa_v6 import GridQAV6
@@ -80,7 +79,7 @@ class SurveyProject(BaseProject):
         # bag checks
         self._bc = None
         self._bc_msg = str()
-        self._bc_noaa_ocs_profile = False
+        self._bc_noaa_nbs_profile = False
         self._bc_structure = False
         self._bc_metadata = False
         self._bc_elevation = False
@@ -320,159 +319,6 @@ class SurveyProject(BaseProject):
     def fliers_output_folder(self):
         if self.file_fliers_s57:
             return os.path.dirname(self.file_fliers_s57)
-
-        else:
-            logger.warning('unable to define the output folder to open')
-            return str()
-
-    # ________________________________________________________________________________
-    # ############################ ANOMALY-DETECTOR METHODS ##########################
-
-    @property
-    def anomalies(self):
-        if self.number_of_anomalies():
-            return self._anomaly.anomalies
-        else:
-            return list()
-
-    def number_of_anomalies(self):
-        if not self._anomaly:
-            return 0
-        return len(self._anomaly.anomalies)
-
-    def make_anomalies_output_folder(self) -> str:
-        # make up the output folder (creating it if it does not exist)
-        if self.output_project_folder:
-            output_folder = os.path.join(self.output_folder, self._survey)
-        else:
-            output_folder = self.output_folder
-        if self.output_subfolders:
-            output_folder = os.path.join(output_folder, "anomalies")
-        else:
-            output_folder = os.path.join(output_folder)
-        if not os.path.exists(output_folder):
-            os.makedirs(output_folder)
-
-        return output_folder
-
-    def detect_anomalies_v1(self, height, check_laplacian=True, check_curv=True, check_adjacent=True,
-                            check_slivers=True, check_isolated=True, check_edges=True,
-                            filter_fff=False, filter_designated=False,
-                            export_proxies=False, export_heights=False, export_curvatures=False,
-                            progress_bar=None):
-        """Look for anomalies using the passed parameters and the loaded grids"""
-        if not self.has_grid():
-            logger.warning("first load some grids")
-            return
-
-        try:
-            self._gr.select_layers_in_current = [self._gr.depth_layer_name(), ]
-
-            self._anomaly = AnomalyDetectorV1(grid=self._gr,
-                                              height=height,
-                                              # can be None in case of just gaussian curv or isolated nodes
-                                              check_laplacian=check_laplacian,
-                                              check_curv=check_curv,
-                                              check_adjacent=check_adjacent,
-                                              check_slivers=check_slivers,
-                                              check_isolated=check_isolated,
-                                              check_edges=check_edges,
-                                              filter_fff=filter_fff,
-                                              filter_designated=filter_designated,
-                                              save_proxies=export_proxies,
-                                              save_heights=export_heights,
-                                              save_curvatures=export_curvatures,
-                                              output_folder=self.make_anomalies_output_folder(),
-                                              progress_bar=progress_bar)
-
-            start_time = time.time()
-            self._anomaly.run()
-            logger.info("anomaly detector v1 -> execution time: %.3f s" % (time.time() - start_time))
-
-        except Exception as e:
-            traceback.print_exc()
-            self._anomaly = None
-            raise e
-
-    def detect_anomalies_v1_apply_filters(self, distance=1.0, delta_z=0.01):
-        """Look for anomalies using the passed parameters and the loaded grids"""
-        if not self.has_grid():
-            logger.warning("first load some grids")
-            return
-
-        try:
-            self._gr.select_layers_in_current = [self._gr.depth_layer_name(), ]
-
-            start_time = time.time()
-
-            self._anomaly.apply_filters(s57_list=self.s57_list, distance=distance, delta_z=delta_z)
-
-            logger.info("anomaly detector v1 filters -> execution time: %.3f s" % (time.time() - start_time))
-
-        except Exception as e:
-            traceback.print_exc()
-            self._anomaly = None
-            raise e
-
-    # ________________________________________________________________________________
-    #                              ANOMALIES EXPORT METHODS
-
-    def save_anomalies(self):
-        """Save anomalies in S57 format"""
-        plot_algos_dict = False  # for visual debugging
-
-        if not self.number_of_anomalies():
-            logger.warning("no anomalies to save")
-            return False
-
-        output_folder = self._anomaly.output_folder
-        basename = self._anomaly.basename
-        s57_file1 = os.path.join(output_folder, "%s.blue_notes.000" % basename)
-        s57_file2 = os.path.join(output_folder, "%s.soundings.000" % basename)
-
-        # converting floats to strings (required by blue notes)
-        anomalies_for_blue_notes = list()
-
-        algos_dict = defaultdict(int)
-        for anomaly in self._anomaly.anomalies:
-            anomalies_for_blue_notes.append([anomaly[0], anomaly[1], "%.0f" % anomaly[2]])
-            algos_dict[anomaly[2]] += 1
-        S57Writer.write_bluenotes(feature_list=anomalies_for_blue_notes, path=s57_file1, list_of_list=False)
-        logger.debug("flagged per algo: %s" % algos_dict)
-        if plot_algos_dict:
-            from matplotlib import pyplot as plt
-            plt.bar(algos_dict.keys(), algos_dict.values(), 1.0, color='g')
-            plt.show()
-
-        S57Writer.write_soundings(feature_list=self._anomaly.anomalies, path=s57_file2)
-        self.file_anomaly_s57 = s57_file2
-
-        # noinspection PyBroadException
-        try:
-            out_file = s57_file2[:-4]
-            if self.output_kml:
-                KmlWriter().write_soundings(feature_list=self._anomaly.anomalies, path=out_file)
-
-            if self.output_shp:
-                ShpWriter().write_soundings(feature_list=self._anomaly.anomalies, path=out_file)
-
-        except Exception:
-            traceback.print_exc()
-            logger.info("issue in writing shapefile/kml")
-
-        return True
-
-    def open_anomalies_output_folder(self):
-        if self.file_anomaly_s57:
-            Helper.explore_folder(os.path.dirname(self.file_anomaly_s57))
-
-        else:
-            logger.warning('unable to define the output folder to open')
-
-    @property
-    def anomalies_output_folder(self):
-        if self.file_anomaly_s57:
-            return os.path.dirname(self.file_anomaly_s57)
 
         else:
             logger.warning('unable to define the output folder to open')
@@ -788,12 +634,12 @@ class SurveyProject(BaseProject):
     # ________________________________________________________________________________
     # ############################# BAG-CHECKS METHODS ###############################
 
-    def bag_checks_v1(self, use_nooa_ocs_profile: bool = False, check_structure: bool = False,
-                      check_metadata: bool = False, check_elevation: bool = False, 
+    def bag_checks_v1(self, use_nooa_nbs_profile: bool = False, check_structure: bool = False,
+                      check_metadata: bool = False, check_elevation: bool = False,
                       check_uncertainty: bool = False, check_tracking_list: bool = False):
         """Check the input BAG files"""
         
-        self._bc_noaa_ocs_profile = use_nooa_ocs_profile
+        self._bc_noaa_nbs_profile = use_nooa_nbs_profile
         self._bc_structure = check_structure
         self._bc_metadata = check_metadata
         self._bc_elevation = check_elevation
@@ -810,7 +656,7 @@ class SurveyProject(BaseProject):
                     % (self._bc_structure, self._bc_metadata, self._bc_elevation, self._bc_uncertainty,
                        self._bc_tracking_list))
 
-        if self._bc_noaa_ocs_profile:
+        if self._bc_noaa_nbs_profile:
             logger.info('Using the NOAA OCS profile')
         else:
             logger.info('Using the general profile')
@@ -894,14 +740,15 @@ class SurveyProject(BaseProject):
         if self._bc_uncertainty:
             self._bag_checks_v1_uncertainty(grid_file=grid_file)
 
-        self.progress.update(value=cur_quantum + quantum * 0.95, text="[%d/%d] Tracking list checking" % (idx + 1, total))
+        self.progress.update(value=cur_quantum + quantum * 0.95,
+                             text="[%d/%d] Tracking list checking" % (idx + 1, total))
 
         if self._bc_tracking_list:
             self._bag_checks_v1_tracking_list(grid_file=grid_file)
 
         output_pdf = os.path.join(self.bagchecks_output_folder, "%s.BCv1.%s.pdf"
                                   % (self.cur_grid_basename, datetime.now().strftime("%Y%m%d.%H%M%S")))
-        if self._bc_noaa_ocs_profile:
+        if self._bc_noaa_nbs_profile:
             title_pdf = "BAG Checks v1 - Tests against NOAA OCS Profile"
         else:
             title_pdf = "BAG Checks v1 - Tests against General Profile"
@@ -1048,7 +895,7 @@ class SurveyProject(BaseProject):
         self._bc_tracking_list_valid = True
 
         try:
-            bf = bag.BAGFile(grid_file)
+            _ = bag.BAGFile(grid_file)
 
         except Exception as e:
             self._bc_tracking_list_valid = False

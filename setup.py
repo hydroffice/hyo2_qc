@@ -55,6 +55,7 @@ setup(
         "scipy",
         "pillow",
         "piexif",
+        "PySide2",
     ],
     ext_modules=cythonize([
         Extension("hyo2.qc.survey.fliers.find_fliers_checks_v8",

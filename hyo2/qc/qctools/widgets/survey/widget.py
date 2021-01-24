@@ -9,7 +9,6 @@ from hyo2.qc.common.grid_callback.qt_grid_callback import QtGridCallback
 from hyo2.qc.qctools.widgets.widget import AbstractWidget
 from hyo2.qc.qctools.widgets.survey.inputs import InputsTab
 from hyo2.qc.qctools.widgets.survey.fliers import FliersTab
-from hyo2.qc.qctools.widgets.survey.anomaly import AnomalyTab
 from hyo2.qc.qctools.widgets.survey.holes import HolesTab
 from hyo2.qc.qctools.widgets.survey.gridqa import GridQATab
 from hyo2.qc.qctools.widgets.survey.bag_checks import BAGChecksTab
@@ -88,16 +87,6 @@ class SurveyWidget(AbstractWidget):
         self.tabs.setTabToolTip(self.idx_fliers, "Detect fliers")
         self.tabs.setTabEnabled(self.idx_fliers, False)
 
-        # - anomaly detector
-        self.test_anomaly = False
-        self.tab_anomaly = AnomalyTab(parent_win=self, prj=self.prj)
-        # noinspection PyArgumentList
-        self.idx_anomaly = self.tabs.insertTab(2, self.tab_anomaly,
-                                               QtGui.QIcon(os.path.join(self.media, 'anomaly.png')), "")
-        self.tabs.setTabToolTip(self.idx_anomaly, "Anomaly detector")
-        self.tabs.setTabEnabled(self.idx_anomaly, False)
-        self.tab_anomaly.setHidden(True)
-
         # - holiday finder
         self.tab_holes = HolesTab(parent_win=self, prj=self.prj)
         # noinspection PyArgumentList
@@ -172,17 +161,8 @@ class SurveyWidget(AbstractWidget):
     def keyPressEvent(self, event):
         key = event.key()
         # noinspection PyUnresolvedReferences
-        # noinspection PyUnresolvedReferences
         if key in [QtCore.Qt.Key_A, ]:
-
-            if self.test_anomaly:
-                self.test_anomaly = False
-                self.tabs.setTabEnabled(self.idx_anomaly, False)
-            else:
-                self.test_anomaly = True
-                if self.has_grid:
-                    self.tabs.setTabEnabled(self.idx_anomaly, True)
-            logger.debug("anomaly detector: %s" % self.test_anomaly)
+            pass
 
         return super(SurveyWidget, self).keyPressEvent(event)
 
@@ -192,8 +172,6 @@ class SurveyWidget(AbstractWidget):
 
     def grids_loaded(self):
         self.tabs.setTabEnabled(self.idx_fliers, True)
-        if self.test_anomaly:
-            self.tabs.setTabEnabled(self.idx_anomaly, True)
         self.tabs.setTabEnabled(self.idx_holes, True)
         self.tabs.setTabEnabled(self.idx_gridqa, True)
         if self.prj.has_bag_grid():
@@ -210,7 +188,6 @@ class SurveyWidget(AbstractWidget):
 
     def grids_unloaded(self):
         self.tabs.setTabEnabled(self.idx_fliers, False)
-        self.tabs.setTabEnabled(self.idx_anomaly, False)
         self.tabs.setTabEnabled(self.idx_holes, False)
         self.tabs.setTabEnabled(self.idx_gridqa, False)
         self.tabs.setTabEnabled(self.idx_bag_checks, False)
