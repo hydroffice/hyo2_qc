@@ -661,7 +661,7 @@ class SurveyProject(BaseProject):
                        self._bc_tracking_list))
 
         if self._bc_noaa_nbs_profile:
-            logger.info('Using the NOAA OCS profile')
+            logger.info('Using the NOAA NBS profile')
         else:
             logger.info('Using the general profile')
 
@@ -901,8 +901,6 @@ class SurveyProject(BaseProject):
                     self._bc_metadata_warnings += 1
                 else:
                     self._bc_report += "OK"
-
-            # TODO: add checks to retrieve start/end of survey in the BAG library
 
             if self._bc_noaa_nbs_profile:
                 # CHK: use of product uncertainty
