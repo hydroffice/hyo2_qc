@@ -860,6 +860,7 @@ class SurveyProject(BaseProject):
                 self._bc_report += "OK"
 
             bf.populate_metadata()
+            # bf.extract_metadata('test.xml')
 
             if self._bc_noaa_nbs_profile:
                 # CHK: use of projected spatial reference system
@@ -881,6 +882,22 @@ class SurveyProject(BaseProject):
                 self._bc_report += "Check the presence of the creation date [CHECK]"
                 if bf.meta.date is None:
                     self._bc_report += "[WARNING] Unable to retrieve the creation date."
+                    self._bc_metadata_warnings += 1
+                else:
+                    self._bc_report += "OK"
+
+                # CHK: presence of survey start date
+                self._bc_report += "Check the presence of the survey start date [CHECK]"
+                if bf.meta.survey_start_date is None:
+                    self._bc_report += "[WARNING] Unable to retrieve the survey start date."
+                    self._bc_metadata_warnings += 1
+                else:
+                    self._bc_report += "OK"
+
+                # CHK: presence of survey end date
+                self._bc_report += "Check the presence of the survey end date [CHECK]"
+                if bf.meta.survey_end_date is None:
+                    self._bc_report += "[WARNING] Unable to retrieve the survey end date."
                     self._bc_metadata_warnings += 1
                 else:
                     self._bc_report += "OK"
