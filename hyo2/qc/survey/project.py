@@ -94,6 +94,8 @@ class SurveyProject(BaseProject):
         self._bc_tracking_list_warnings = 0  # type: int
         self._bc_report = None
         self._bc_pdf = str()
+        self._bc_cur_min_elevation = None  # type: Optional[float]
+        self._bc_cur_max_elevation = None  # type: Optional[float]
 
         # scan features
         self._scan = None
@@ -680,6 +682,8 @@ class SurveyProject(BaseProject):
             nr_of_files = len(self.grid_list)
             for i, grid_file in enumerate(self.grid_list):
 
+                self._bc_cur_min_elevation = None
+                self._bc_cur_max_elevation = None
                 success = self._bag_checks_v1(grid_file=grid_file, idx=i, total=nr_of_files)
 
                 if success:
@@ -714,12 +718,14 @@ class SurveyProject(BaseProject):
 
         # we want to be sure that the label is based on the name of the new file input
         self.clear_survey_label()
-
         self.set_cur_grid(path=grid_file)
-        self.open_to_read_cur_grid()
-        if not self._gr.is_bag():  # skip CSAR
+
+        # skip CSAR and BAG VR
+        if not bag.BAGFile.is_bag(bag_path=grid_file):  # skip CSAR
+            logger.debug('not a BAG file: %s' % grid_file)
             return False
-        if self._gr.is_vr():  # skip VR BAG
+        if bag.BAGFile.is_vr(bag_path=grid_file):  # skip VR BAG
+            logger.debug('skipping VR BAG file: %s' % grid_file)
             return False
 
         self._bc_report = Report(lib_name=lib_name, lib_version=lib_version)
@@ -862,7 +868,8 @@ class SurveyProject(BaseProject):
                 srs.ImportFromWkt(bf.meta.wkt_srs)
                 # check if projected coordinates
                 if not srs.IsProjected:
-                    self._bc_report += "[WARNING] The spatial reference system does is NOT projected [%s...]" % meta.wkt_srs[:20]
+                    self._bc_report += "[WARNING] The spatial reference system does is NOT projected [%s...]" \
+                                       % bf.meta.wkt_srs[:20]
                     self._bc_metadata_warnings += 1
                 else:
                     self._bc_report += "OK"
@@ -919,14 +926,12 @@ class SurveyProject(BaseProject):
             else:
                 self._bc_report += "OK"
 
-            elevation = bf.elevation()
-            min_elevation = np.nanmin(elevation)
-            max_elevation = np.nanmax(elevation)
-            logger.debug('min/max elevation: %s/%s' % (min_elevation, max_elevation))
+            self._bc_cur_min_elevation, self._bc_cur_max_elevation = bf.elevation_min_max()
+            logger.debug('min/max elevation: %s/%s' % (self._bc_cur_min_elevation, self._bc_cur_max_elevation))
 
             # CHK: all NaN
             self._bc_report += "Check that all the values are not NaN [CHECK]"
-            if np.isnan(min_elevation):  # all NaN case
+            if np.isnan(self._bc_cur_min_elevation):  # all NaN case
                 self._bc_elevation_warnings += 1
                 self._bc_report += "[WARNING] All elevation values are NaN"
             else:
@@ -961,20 +966,23 @@ class SurveyProject(BaseProject):
             else:
                 self._bc_report += "OK"
 
-            elevation = bf.elevation()
-            med_depth = -np.nanmedian(elevation)
-            if np.isnan(med_depth):
+            if self._bc_cur_min_elevation is None:
+                self._bc_cur_min_elevation, self._bc_cur_max_elevation = bf.elevation_min_max()
+            ref_elevation = -(self._bc_cur_min_elevation + self._bc_cur_max_elevation) / 2.0
+            logger.debug('ref elevation: %s -> min/max elevation: %s/%s'
+                         % (ref_elevation, self._bc_cur_min_elevation, self._bc_cur_max_elevation))
+            if np.isnan(ref_elevation):
                 high_unc_threshold = 30.0
-            elif med_depth > 30.0:
+            elif ref_elevation < 0.0:
+                high_unc_threshold = 30.0
+            elif ref_elevation > 30.0:
                 high_unc_threshold = 30.0
             else:
-                high_unc_threshold = med_depth
+                high_unc_threshold = ref_elevation
             logger.debug('max uncertainty threshold: %s' % (high_unc_threshold, ))
 
             # logger.debug('min/max elevation: %s/%s' % (min_elevation, max_elevation))
-            uncertainty = bf.uncertainty()
-            min_uncertainty = np.nanmin(uncertainty)
-            max_uncertainty = np.nanmax(uncertainty)
+            min_uncertainty, max_uncertainty = bf.uncertainty_min_max()
             logger.debug('min/max uncertainty: %s/%s' % (min_uncertainty, max_uncertainty))
 
             if self._bc_noaa_nbs_profile:
