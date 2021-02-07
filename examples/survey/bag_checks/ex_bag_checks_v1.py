@@ -26,10 +26,10 @@ bag_files = testing.download_test_files(".bag")
 
 # prj.add_to_grid_list(csar_files[0])
 # prj.add_to_grid_list(csar_files[1])
-prj.add_to_grid_list(bag_files[0])
+# prj.add_to_grid_list(bag_files[0])
 # prj.add_to_grid_list(bag_files[1])
 # prj.add_to_grid_list(bag_files[2])
-# prj.add_to_grid_list(r"C:\code\hydroffice\hyo2_grids\data\input\vr\tiny.bag")
+prj.add_to_grid_list(r"C:\code\hydroffice\hyo2_grids\data\input\vr\tiny.bag")
 logger.debug("%s" % (prj.grid_list,))
 
 use_noaa_nbs_profile: bool = True
