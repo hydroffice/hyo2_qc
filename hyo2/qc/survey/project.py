@@ -863,17 +863,26 @@ class SurveyProject(BaseProject):
             # bf.extract_metadata('test.xml')
 
             if self._bc_noaa_nbs_profile:
+
                 # CHK: use of projected spatial reference system
                 self._bc_report += "Check that the spatial reference system is projected [CHECK]"
-                srs = osr.SpatialReference()
-                srs.ImportFromWkt(bf.meta.wkt_srs)
-                # check if projected coordinates
-                if not srs.IsProjected:
-                    self._bc_report += "[WARNING] The spatial reference system does is NOT projected [%s...]" \
-                                       % bf.meta.wkt_srs[:20]
-                    self._bc_metadata_warnings += 1
+                if bf.meta.wkt_srs is None:
+                    if b"UTM" not in bf.meta.xml_srs:
+                        self._bc_report += "[WARNING] The spatial reference system might be NOT projected [%s...]" \
+                                           % bf.meta.xml_srs[:20]
+                        self._bc_metadata_warnings += 1
+                    else:
+                        self._bc_report += "OK"
                 else:
-                    self._bc_report += "OK"
+                    srs = osr.SpatialReference()
+                    srs.ImportFromWkt(bf.meta.wkt_srs)
+                    # check if projected coordinates
+                    if not srs.IsProjected:
+                        self._bc_report += "[WARNING] The spatial reference system does is NOT projected [%s...]" \
+                                           % bf.meta.wkt_srs[:20]
+                        self._bc_metadata_warnings += 1
+                    else:
+                        self._bc_report += "OK"
 
             # TODO: additional checks on SRS
 
@@ -990,7 +999,7 @@ class SurveyProject(BaseProject):
                 high_unc_threshold = 30.0
             elif ref_elevation < 0.0:
                 high_unc_threshold = 30.0
-            elif ref_elevation > 30.0:
+            elif ref_elevation < 30.0:
                 high_unc_threshold = 30.0
             else:
                 high_unc_threshold = ref_elevation
