@@ -29,16 +29,17 @@ bag_files = testing.download_test_files(".bag")
 prj.add_to_grid_list(bag_files[0])
 # prj.add_to_grid_list(bag_files[1])
 # prj.add_to_grid_list(bag_files[2])
+# prj.add_to_grid_list(r"C:\code\hydroffice\hyo2_grids\data\input\vr\tiny.bag")
 logger.debug("%s" % (prj.grid_list,))
 
-use_nooa_ocs_profile: bool = True
+use_noaa_nbs_profile: bool = True
 check_structure: bool = True
 check_metadata: bool = True
 check_elevation: bool = True
 check_uncertainty: bool = True
 check_tracking_list: bool = True
 
-prj.bag_checks_v1(use_nooa_nbs_profile=use_nooa_ocs_profile,
+prj.bag_checks_v1(use_nooa_nbs_profile=use_noaa_nbs_profile,
                   check_structure=check_structure,
                   check_metadata=check_metadata,
                   check_elevation=check_elevation,
