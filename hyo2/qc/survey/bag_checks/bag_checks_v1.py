@@ -463,17 +463,12 @@ class BagChecksV1:
 
             if self._cur_min_elevation is None:
                 self._cur_min_elevation, self._cur_max_elevation = bf.elevation_min_max()
-            ref_elevation = -(self._cur_min_elevation + self._cur_max_elevation) / 2.0
-            logger.debug('ref elevation: %s -> min/max elevation: %s/%s'
-                         % (ref_elevation, self._cur_min_elevation, self._cur_max_elevation))
-            if np.isnan(ref_elevation):
-                high_unc_threshold = 30.0
-            elif ref_elevation < 0.0:
-                high_unc_threshold = 30.0
-            elif ref_elevation < 30.0:
-                high_unc_threshold = 30.0
+            logger.debug('min/max elevation: %s/%s'
+                         % (self._cur_min_elevation, self._cur_max_elevation))
+            if np.isnan(self._cur_max_elevation) or (self._cur_max_elevation < 0.0):
+                high_unc_threshold = 2.0
             else:
-                high_unc_threshold = ref_elevation
+                high_unc_threshold = 2.0 + 0.05 * self._cur_max_elevation
             logger.debug('max uncertainty threshold: %s' % (high_unc_threshold, ))
 
             # logger.debug('min/max elevation: %s/%s' % (min_elevation, max_elevation))
@@ -519,18 +514,13 @@ class BagChecksV1:
 
                 if self._cur_vr_min_elevation is None:
                     self._cur_vr_min_elevation, self._cur_vr_max_elevation = bf.vr_elevation_min_max()
-                vr_ref_elevation = -(self._cur_vr_min_elevation + self._cur_vr_max_elevation) / 2.0
-                logger.debug('VR ref elevation: %s -> min/max elevation: %s/%s'
-                             % (vr_ref_elevation, self._cur_vr_min_elevation, self._cur_vr_max_elevation))
-                if np.isnan(ref_elevation):
-                    vr_high_unc_threshold = 30.0
-                elif ref_elevation < 0.0:
-                    vr_high_unc_threshold = 30.0
-                elif ref_elevation < 30.0:
-                    vr_high_unc_threshold = 30.0
+                logger.debug('min/max elevation: %s/%s'
+                             % (self._cur_vr_min_elevation, self._cur_vr_max_elevation))
+                if np.isnan(self._cur_vr_max_elevation) or (self._cur_vr_max_elevation < 0.0):
+                    vr_high_unc_threshold = 2.0
                 else:
-                    vr_high_unc_threshold = vr_ref_elevation
-                logger.debug('max VR uncertainty threshold: %s' % (vr_high_unc_threshold,))
+                    vr_high_unc_threshold = 2.0 + 0.05 * self._cur_vr_max_elevation
+                logger.debug('VR uncertainty threshold: %s' % (vr_high_unc_threshold,))
 
                 vr_min_uncertainty, vr_max_uncertainty = bf.vr_uncertainty_min_max()
                 logger.debug('VR min/max uncertainty: %s/%s' % (vr_min_uncertainty, vr_max_uncertainty))
