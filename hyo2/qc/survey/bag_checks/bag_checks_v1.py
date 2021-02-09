@@ -54,10 +54,10 @@ class BagChecksV1:
         self._bc_tracking_list_warnings = 0  # type: int
         self._bc_report = None
         self._bc_pdf = str()
-        self._cur_min_elevation = None  # type: Optional[float]
-        self._cur_max_elevation = None  # type: Optional[float]
-        self._cur_vr_min_elevation = None  # type: Optional[float]
-        self._cur_vr_max_elevation = None  # type: Optional[float]
+        self._cur_min_depth = None  # type: Optional[float]
+        self._cur_max_depth = None  # type: Optional[float]
+        self._cur_vr_min_depth = None  # type: Optional[float]
+        self._cur_vr_max_depth = None  # type: Optional[float]
 
         self.progress = progress
 
@@ -99,8 +99,10 @@ class BagChecksV1:
             nr_of_files = len(self.grid_list)
             for i, grid_file in enumerate(self.grid_list):
 
-                self._cur_min_elevation = None
-                self._cur_max_elevation = None
+                self._cur_min_depth = None
+                self._cur_max_depth = None
+                self._cur_vr_min_depth = None
+                self._cur_vr_max_depth = None
                 success = self._bag_checks_v1(grid_file=grid_file, idx=i, total=nr_of_files)
 
                 if success:
@@ -401,12 +403,12 @@ class BagChecksV1:
             else:
                 self._bc_report += "OK"
 
-            self._cur_min_elevation, self._cur_max_elevation = bf.elevation_min_max()
-            logger.debug('min/max elevation: %s/%s' % (self._cur_min_elevation, self._cur_max_elevation))
+            self._cur_min_depth, self._cur_max_depth = bf.depth_min_max()
+            logger.debug('min/max depth: %.2f/%.2f' % (self._cur_min_depth, self._cur_max_depth))
 
             # CHK: all NaN
             self._bc_report += "Check that all the values are not NaN [CHECK]"
-            if np.isnan(self._cur_min_elevation):  # all NaN case
+            if np.isnan(self._cur_min_depth):  # all NaN case
                 self._bc_elevation_warnings += 1
                 self._bc_report += "[WARNING] All elevation values are NaN"
             else:
@@ -421,12 +423,12 @@ class BagChecksV1:
                 else:
                     self._bc_report += "OK"
 
-                self._cur_vr_min_elevation, self._cur_vr_max_elevation = bf.vr_elevation_min_max()
-                logger.debug('VR min/max elevation: %s/%s' % (self._cur_vr_min_elevation, self._cur_vr_max_elevation))
+                self._cur_vr_min_depth, self._cur_vr_max_depth = bf.vr_depth_min_max()
+                logger.debug('VR min/max depth: %.2f/%.2f' % (self._cur_vr_min_depth, self._cur_vr_max_depth))
 
                 # CHK: VR depth all NaN
                 self._bc_report += "Check that all the VR depth values are not NaN [CHECK]"
-                if np.isnan(self._cur_vr_min_elevation):  # all NaN case
+                if np.isnan(self._cur_vr_min_depth):  # all NaN case
                     self._bc_elevation_warnings += 1
                     self._bc_report += "[WARNING] All VR elevation values are NaN"
                 else:
@@ -461,19 +463,19 @@ class BagChecksV1:
             else:
                 self._bc_report += "OK"
 
-            if self._cur_min_elevation is None:
-                self._cur_min_elevation, self._cur_max_elevation = bf.elevation_min_max()
-            logger.debug('min/max elevation: %s/%s'
-                         % (self._cur_min_elevation, self._cur_max_elevation))
-            if np.isnan(self._cur_max_elevation) or (self._cur_max_elevation < 0.0):
+            if self._cur_max_depth is None:
+                self._cur_min_depth, self._cur_max_depth = bf.depth_min_max()
+            logger.debug('min/max depth: %.2f/%.2f'
+                         % (self._cur_min_depth, self._cur_max_depth))
+            if np.isnan(self._cur_max_depth) or (self._cur_max_depth < 0.0):
                 high_unc_threshold = 2.0
             else:
-                high_unc_threshold = 2.0 + 0.05 * self._cur_max_elevation
-            logger.debug('max uncertainty threshold: %s' % (high_unc_threshold, ))
+                high_unc_threshold = 2.0 + 0.05 * self._cur_max_depth
+            logger.debug('max uncertainty threshold: %.2f' % (high_unc_threshold, ))
 
             # logger.debug('min/max elevation: %s/%s' % (min_elevation, max_elevation))
             min_uncertainty, max_uncertainty = bf.uncertainty_min_max()
-            logger.debug('min/max uncertainty: %s/%s' % (min_uncertainty, max_uncertainty))
+            logger.debug('min/max uncertainty: %.2f/%.2f' % (min_uncertainty, max_uncertainty))
 
             if self._noaa_nbs_profile:
                 # CHK: all NaN
@@ -496,7 +498,8 @@ class BagChecksV1:
 
             if self._noaa_nbs_profile:
                 # CHK: negative uncertainty
-                self._bc_report += "Check that uncertainty values are not too high [CHECK]"
+                self._bc_report += "Check that uncertainty values are not too high (<%.2fm) [CHECK]" \
+                                   % high_unc_threshold
                 if max_uncertainty >= high_unc_threshold:
                     self._bc_uncertainty_warnings += 1
                     self._bc_report += "[WARNING] Too high value for maximum uncertainty: %.2f" % max_uncertainty
@@ -512,18 +515,18 @@ class BagChecksV1:
                 else:
                     self._bc_report += "OK"
 
-                if self._cur_vr_min_elevation is None:
-                    self._cur_vr_min_elevation, self._cur_vr_max_elevation = bf.vr_elevation_min_max()
-                logger.debug('min/max elevation: %s/%s'
-                             % (self._cur_vr_min_elevation, self._cur_vr_max_elevation))
-                if np.isnan(self._cur_vr_max_elevation) or (self._cur_vr_max_elevation < 0.0):
+                if self._cur_vr_max_depth is None:
+                    self._cur_vr_min_depth, self._cur_vr_max_depth = bf.vr_depth_min_max()
+                logger.debug('min/max elevation: %.2f/%.2f'
+                             % (self._cur_vr_min_depth, self._cur_vr_max_depth))
+                if np.isnan(self._cur_vr_max_depth) or (self._cur_vr_max_depth < 0.0):
                     vr_high_unc_threshold = 2.0
                 else:
-                    vr_high_unc_threshold = 2.0 + 0.05 * self._cur_vr_max_elevation
-                logger.debug('VR uncertainty threshold: %s' % (vr_high_unc_threshold,))
+                    vr_high_unc_threshold = 2.0 + 0.05 * self._cur_vr_max_depth
+                logger.debug('VR uncertainty threshold: %.2f' % (vr_high_unc_threshold,))
 
                 vr_min_uncertainty, vr_max_uncertainty = bf.vr_uncertainty_min_max()
-                logger.debug('VR min/max uncertainty: %s/%s' % (vr_min_uncertainty, vr_max_uncertainty))
+                logger.debug('VR min/max uncertainty: %.2f/%.2f' % (vr_min_uncertainty, vr_max_uncertainty))
 
                 if self._noaa_nbs_profile:
                     # CHK: all NaN
@@ -546,7 +549,8 @@ class BagChecksV1:
 
                 if self._noaa_nbs_profile:
                     # CHK: negative uncertainty
-                    self._bc_report += "Check that VR uncertainty values are not too high [CHECK]"
+                    self._bc_report += "Check that VR uncertainty values are not too high (<%.2fm) [CHECK]" \
+                                       % vr_high_unc_threshold
                     if vr_max_uncertainty >= vr_high_unc_threshold:
                         self._bc_uncertainty_warnings += 1
                         self._bc_report += "[WARNING] Too high value for maximum uncertainty: %.2f" % max_uncertainty
@@ -582,11 +586,19 @@ class BagChecksV1:
             else:
                 self._bc_report += "OK"
 
-            # CHK validity of row and col columns
-            self._bc_report += "Check the validity of 'row' and 'col' columns [CHECK]"
-            if not bf.has_valid_row_and_col_in_tracking_list():
+            # CHK validity of row columns
+            self._bc_report += "Check the validity of 'row' columns [CHECK]"
+            if not bf.has_valid_row_in_tracking_list():
                 self._bc_tracking_list_errors += 1
-                self._bc_report += "[ERROR] At least 1 invalid value in 'row' and 'col' columns"
+                self._bc_report += "[ERROR] At least 1 invalid value in 'row' columns"
+            else:
+                self._bc_report += "OK"
+
+            # CHK validity of col columns
+            self._bc_report += "Check the validity of 'col' columns [CHECK]"
+            if not bf.has_valid_col_in_tracking_list():
+                self._bc_tracking_list_errors += 1
+                self._bc_report += "[ERROR] At least 1 invalid value in 'col' columns"
             else:
                 self._bc_report += "OK"
 
