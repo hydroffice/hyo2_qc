@@ -553,7 +553,7 @@ class BagChecksV1:
                                        % vr_high_unc_threshold
                     if vr_max_uncertainty >= vr_high_unc_threshold:
                         self._bc_uncertainty_warnings += 1
-                        self._bc_report += "[WARNING] Too high value for maximum uncertainty: %.2f" % max_uncertainty
+                        self._bc_report += "[WARNING] Too high value for maximum uncertainty: %.2f" % vr_max_uncertainty
                     else:
                         self._bc_report += "OK"
 
