@@ -27,6 +27,7 @@ class InfoWidget(InfoTab):
                          with_unh_link=True,
                          with_license=True,
                          with_noaa_57=True,
+                         with_ocs_email=True,
                          main_win=main_win)
 
         # RorI
