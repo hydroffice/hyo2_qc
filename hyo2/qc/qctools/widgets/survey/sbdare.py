@@ -166,6 +166,7 @@ class SbdareTab(QtWidgets.QMainWindow):
         self.toggle_htd_v4.setNotchesVisible(True)
         self.toggle_htd_v4.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.toggle_htd_v4.setRange(0, 1)
+        self.toggle_htd_v4.setValue(1)
         self.toggle_htd_v4.setFixedSize(QtCore.QSize(50, 50))
         self.toggle_htd_v4.setInvertedAppearance(False)
         toggle_hbox.addWidget(self.toggle_htd_v4)
@@ -266,7 +267,7 @@ class SbdareTab(QtWidgets.QMainWindow):
             self.set_image_folder_v4.setEnabled(True)
             self.set_exif_tags_v4.setEnabled(True)
 
-        logger.info('activated htd %s' % value)
+        logger.info('activated htd 2018-4: %s' % (value == 1))
 
     def click_sbdare_export_v3(self):
         self._click_sbdare_export(3)
