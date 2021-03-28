@@ -4,7 +4,7 @@
 #
 # To compile, execute the following within the source directory:
 #
-# pyinstaller --clean -y freeze/QCTools.1folder.spec
+# pyinstaller --clean -y freeze/QCTools.CLI.1folder.spec
 #
 # The resulting .exe file is placed in the dist/QCTools folder.
 #
@@ -17,7 +17,7 @@
 # - For PyProj:
 #   . copy Share folder
 #
-# Uploading to BitBucket: curl -s -v -u giumas:password -X POST https://api.bitbucket.org/2.0/repositories/hydroffice/hyo_qctools/downloads -F files=@QCTools.3.2.8.zip
+# Uploading to BitBucket: curl -s -v -u giumas:password -X POST https://api.bitbucket.org/2.0/repositories/hydroffice/hyo_qctools/downloads -F files=@QCTools.CLI.3.2.8.zip
 
 from PyInstaller.building.build_main import Analysis, PYZ, EXE, COLLECT, TOC
 from PyInstaller.utils.hooks import get_package_paths, remove_prefix, PY_IGNORE_EXTENSIONS
@@ -109,7 +109,7 @@ chromedriver_path = os.path.join(os.path.dirname(sys.executable), "Scripts", "ch
 if not os.path.exists(chromedriver_path):
     raise RuntimeError("Unable to locate %s" % chromedriver_path)
 
-a = Analysis(['QCTools.py'],
+a = Analysis(['QCTools.CLI.py'],
              binaries = [(chromedriver_path, '.')],
              pathex=[],
              hiddenimports=["PIL", "scipy.linalg", "hyo2.grids._gappy", "scipy._lib.messagestream",
@@ -124,7 +124,7 @@ pyz = PYZ(a.pure)
 exe = EXE(pyz,
           a.scripts,
           exclude_binaries=True,
-          name='QCTools.%s' % qc_version,
+          name='QCTools.CLI.%s' % qc_version,
           debug=False,
           strip=None,
           upx=True,
@@ -143,4 +143,4 @@ coll = COLLECT(exe,
                pyside2_data,
                strip=None,
                upx=True,
-               name='QCTools.%s' % qc_version)
+               name='QCTools.CLI.%s' % qc_version)
