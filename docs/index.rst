@@ -10,6 +10,7 @@ QC Tools's documentation
 
     in_brief
     user_manual
+    cli
     developer_guide
     license
     credits

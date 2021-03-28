@@ -25,6 +25,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.coverage',
     'sphinx.ext.intersphinx',
+    'sphinxarg.ext',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -50,7 +51,7 @@ copyright = u'2021, CCOM/JHC,UNH'
 # The short X.Y version.
 version = '3.3'
 # The full version, including alpha/beta/rc tags.
-release = '3.3.0'
+release = '3.3.2'
 
 numfig = True
 
