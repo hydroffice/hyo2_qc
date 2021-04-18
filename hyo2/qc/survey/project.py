@@ -20,9 +20,8 @@ from hyo2.qc.survey.fliers.find_fliers_v8 import FindFliersV8
 from hyo2.grids import _gappy
 from hyo2.qc.survey.gridqa.grid_qa_v6 import GridQAV6
 from hyo2.grids.grids_manager import layer_types
-from hyo2.qc.survey.scan.base_scan import scan_algos
-from hyo2.qc.survey.scan.base_scan import survey_areas
-from hyo2.qc.survey.scan.feature_scan_v10 import FeatureScanV10
+from hyo2.qc.survey.scan.checks import Checks
+from hyo2.qc.survey.scan.feature_scan_v11 import FeatureScanV11
 from hyo2.qc.survey.designated.base_designated import designated_algos
 from hyo2.qc.survey.designated.designated_scan_v2 import DesignatedScanV2
 from hyo2.qc.survey.bag_checks.bag_checks_v1 import BagChecksV1
@@ -619,7 +618,7 @@ class SurveyProject(BaseProject):
 
         if not self.has_bag_grid():
             raise RuntimeError("At least one BAG file is required")
-        
+
         self._bc = BagChecksV1(grid_list=self.grid_list, output_folder=self.output_folder,
                                output_project_folder=self.output_project_folder,
                                output_subfolders=self.output_subfolders,
@@ -769,11 +768,11 @@ class SurveyProject(BaseProject):
 
     @classmethod
     def check_sorind(cls, value):
-        return FeatureScanV10.check_sorind(value=value)
+        return Checks.check_sorind(value=value)
 
     @classmethod
     def check_sordat(cls, value):
-        return FeatureScanV10.check_sordat(value=value)
+        return Checks.check_sordat(value=value)
 
     @property
     def flagged_features(self):
@@ -788,15 +787,12 @@ class SurveyProject(BaseProject):
             return 0
         return len(self._scan.flagged_features[0])
 
-    def feature_scan(self, version: int, specs_version: str,
-                     survey_area: int = survey_areas["Pacific Coast"], use_mhw: bool = False, mhw_value: float = 0.0,
-                     sorind: Optional[str] = None, sordat: Optional[str] = None,
+    def feature_scan(self, specs_version: str,
+                     survey_area: int = Checks.survey_areas["Pacific Coast"], use_mhw: bool = False,
+                     mhw_value: float = 0.0, sorind: Optional[str] = None, sordat: Optional[str] = None,
                      multimedia_folder: Optional[str] = None, use_htd: bool = False):
 
         # sanity checks
-        # - version
-        if version not in [10]:
-            raise RuntimeError("passed invalid Feature Scan version: %s" % version)
 
         # - list of grids (although the buttons should be never been enabled without grids)
         if len(self.s57_list) == 0:
@@ -817,15 +813,10 @@ class SurveyProject(BaseProject):
                 if not os.path.exists(multimedia_folder):
                     multimedia_folder = None
 
-            # switcher between different versions of feature scan
-            if version in [10]:
-                self._feature_scan(feature_file=s57_file, version=version, specs_version=specs_version,
-                                   survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
-                                   sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder, use_htd=use_htd,
-                                   idx=(i + 1), total=len(self.s57_list))
-
-            else:  # this case should be never reached after the sanity checks
-                raise RuntimeError("unknown Feature Scan version: %s" % version)
+            self._feature_scan(feature_file=s57_file, specs_version=specs_version,
+                               survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
+                               sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder, use_htd=use_htd,
+                               idx=(i + 1), total=len(self.s57_list))
 
             # export the flagged features
             saved = self._export_feature_scan()
@@ -838,15 +829,14 @@ class SurveyProject(BaseProject):
                     self._open_scan_output_folder()
                     opened_folders.append(self._scan_output_folder)
 
-    def _feature_scan(self, feature_file: str, version: int, specs_version: str,
+    def _feature_scan(self, feature_file: str, specs_version: str,
                       survey_area: int, use_mhw: bool, mhw_value: float, sorind: Optional[str], sordat: Optional[str],
                       multimedia_folder: Optional[str], use_htd: bool,
                       idx: int, total: int) -> None:
         """ feature scan in the loaded s57 features """
-        logger.debug('feature scan v%d ...' % version)
+        logger.debug('feature scan ...')
 
-        self.progress.start(title="Feature scan v.%d" % version,
-                            text="Data loading [%d/%d]" % (idx, total))
+        self.progress.start(title="Feature scan", text="Data loading [%d/%d]" % (idx, total))
 
         try:
             self.read_feature_file(feature_path=feature_file)
@@ -856,17 +846,13 @@ class SurveyProject(BaseProject):
             self.progress.end()
             raise e
 
-        self.progress.update(text="Feature Scan v%d [%d/%d]" % (version, idx, total), value=30)
+        self.progress.update(text="Feature Scan [%d/%d]" % (idx, total), value=30)
 
         try:
-            if version == 10:
-                self._scan_features_v10(specs_version=specs_version,
-                                        survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
-                                        sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder,
-                                        use_htd=use_htd)
-
-            else:
-                RuntimeError("unknown Feature Scan version: %s" % version)
+            self._scan_features(specs_version=specs_version,
+                                survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
+                                sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder,
+                                use_htd=use_htd)
 
         except Exception as e:
             traceback.print_exc()
@@ -875,16 +861,16 @@ class SurveyProject(BaseProject):
 
         self.progress.end()
 
-    def _scan_features_v10(self, specs_version: str, survey_area: int, use_mhw: bool, mhw_value: float,
-                           sorind: Optional[str], sordat: Optional[str], multimedia_folder: Optional[str],
-                           use_htd: bool):
+    def _scan_features(self, specs_version: str, survey_area: int, use_mhw: bool, mhw_value: float,
+                       sorind: Optional[str], sordat: Optional[str], multimedia_folder: Optional[str],
+                       use_htd: bool):
         """Look for fliers using the passed parameters and the loaded grids"""
         if not self.has_s57():
             return
 
         try:
 
-            self._scan = FeatureScanV10(s57=self.cur_s57, profile=self.active_profile, version=specs_version,
+            self._scan = FeatureScanV11(s57=self.cur_s57, profile=self.active_profile, version=specs_version,
                                         survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
                                         sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder,
                                         use_htd=use_htd)
@@ -931,22 +917,22 @@ class SurveyProject(BaseProject):
         if not os.path.exists(output_folder):
             os.makedirs(output_folder)
 
-        if self._scan.type == scan_algos['FEATURE_SCAN_v10']:
+        if self._scan.type == 'FEATURE_SCAN_v11':
 
             if self._scan.version == '2018':
-                output_pdf = os.path.join(output_folder, "%s.SFSv10.2018.pdf" % self.cur_s57_basename)
+                output_pdf = os.path.join(output_folder, "%s.SFSv11.2018.pdf" % self.cur_s57_basename)
                 title_pdf = "Survey Feature Scan v10 - Tests against HSSD 2018"
 
             elif self._scan.version == '2019':
-                output_pdf = os.path.join(output_folder, "%s.SFSv10.2019.pdf" % self.cur_s57_basename)
+                output_pdf = os.path.join(output_folder, "%s.SFSv11.2019.pdf" % self.cur_s57_basename)
                 title_pdf = "Survey Feature Scan v10 - Tests against HSSD 2019"
 
             elif self._scan.version == '2020':
-                output_pdf = os.path.join(output_folder, "%s.SFSv10.2020.pdf" % self.cur_s57_basename)
+                output_pdf = os.path.join(output_folder, "%s.SFSv11.2020.pdf" % self.cur_s57_basename)
                 title_pdf = "Survey Feature Scan v10 - Tests against HSSD 2020"
 
             elif self._scan.version == '2021':
-                output_pdf = os.path.join(output_folder, "%s.SFSv10.2021.pdf" % self.cur_s57_basename)
+                output_pdf = os.path.join(output_folder, "%s.SFSv11.2021.pdf" % self.cur_s57_basename)
                 title_pdf = "Survey Feature Scan v10 - Tests against HSSD 2021"
 
             else:
