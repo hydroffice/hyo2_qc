@@ -44,7 +44,8 @@ class ScanTab(QtWidgets.QMainWindow):
         self.text_atlantic = None  # type: Optional[QtWidgets.QLabel]
         self.text_pacific = None  # type: Optional[QtWidgets.QLabel]
         self.text_lakes = None  # type: Optional[QtWidgets.QLabel]
-        self.toggle_area = None  # type: Optional[QtWidgets.QDial]
+        self.great_lakes = None  # type: Optional[QtWidgets.QCheckBox]
+        self.great_lakes_text = None  # type: Optional[QtWidgets.QLabel]
         self.ask_multimedia_folder = None  # type: Optional[QtWidgets.QCheckBox]
         self.amf_text = None  # type: Optional[QtWidgets.QLabel]
         self.use_htd = None  # type: Optional[QtWidgets.QCheckBox]
@@ -121,16 +122,9 @@ class ScanTab(QtWidgets.QMainWindow):
         # space
         label_up_hbox.addSpacing(15)
         # specs
-        text_2019 = QtWidgets.QLabel("2019")
-        text_2019.setAlignment(QtCore.Qt.AlignCenter)
-        text_2019.setFixedWidth(25)
-        label_up_hbox.addWidget(text_2019)
-        # space
-        label_up_hbox.addSpacing(20)
-        # specs
         text_2020 = QtWidgets.QLabel("2020")
         text_2020.setAlignment(QtCore.Qt.AlignCenter)
-        text_2020.setFixedWidth(25)
+        text_2020.setFixedWidth(70)
         label_up_hbox.addWidget(text_2020)
 
         # stretch
@@ -157,8 +151,8 @@ class ScanTab(QtWidgets.QMainWindow):
         self.toggle_specs = QtWidgets.QDial()
         self.toggle_specs.setNotchesVisible(True)
         self.toggle_specs.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.toggle_specs.setRange(2018, 2021)
-        self.toggle_specs.setValue(2020)
+        self.toggle_specs.setRange(2019, 2021)
+        self.toggle_specs.setValue(2021)
         self.toggle_specs.setFixedSize(QtCore.QSize(50, 50))
         self.toggle_specs.setInvertedAppearance(False)
         toggle_hbox.addWidget(self.toggle_specs)
@@ -183,13 +177,13 @@ class ScanTab(QtWidgets.QMainWindow):
         # space
         label_hbox.addSpacing(20)
         # specs
-        text_2018 = QtWidgets.QLabel("2018")
-        text_2018.setAlignment(QtCore.Qt.AlignCenter)
-        text_2018.setFixedWidth(25)
-        label_hbox.addWidget(text_2018)
-        text_2021 = QtWidgets.QLabel("2021 test")
-        text_2021.setAlignment(QtCore.Qt.AlignRight)
-        text_2021.setFixedWidth(70)
+        text_2019 = QtWidgets.QLabel("2019")
+        text_2019.setAlignment(QtCore.Qt.AlignCenter)
+        text_2019.setFixedWidth(50)
+        label_hbox.addWidget(text_2019)
+        text_2021 = QtWidgets.QLabel("2021")
+        text_2021.setAlignment(QtCore.Qt.AlignCenter)
+        text_2021.setFixedWidth(80)
         text_2021.setStyleSheet("QLabel { color :  rgb(200, 0, 0, 200); }")
         label_hbox.addWidget(text_2021)
         # stretch
@@ -218,60 +212,6 @@ class ScanTab(QtWidgets.QMainWindow):
 
         vbox.addSpacing(12)
 
-        # SECOND ROW OF KNOBS
-
-        label_hbox = QtWidgets.QHBoxLayout()
-        vbox.addLayout(label_hbox)
-        # stretch
-        label_hbox.addStretch()
-        # specs
-        self.text_lakes = QtWidgets.QLabel("Great Lakes")
-        self.text_lakes.setAlignment(QtCore.Qt.AlignCenter)
-        self.text_lakes.setFixedWidth(120)
-        self.text_lakes.setDisabled(True)
-        label_hbox.addWidget(self.text_lakes)
-        # stretch
-        label_hbox.addStretch()
-
-        toggle_hbox = QtWidgets.QHBoxLayout()
-        vbox.addLayout(toggle_hbox)
-        # stretch
-        toggle_hbox.addStretch()
-        # specs
-        self.toggle_area = QtWidgets.QDial()
-        self.toggle_area.setNotchesVisible(True)
-        self.toggle_area.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.toggle_area.setRange(0, 2)
-        self.toggle_area.setValue(0)
-        self.toggle_area.setFixedSize(QtCore.QSize(50, 50))
-        self.toggle_area.setInvertedAppearance(False)
-        self.toggle_area.setDisabled(True)
-        # noinspection PyUnresolvedReferences
-        # self.toggle_area.valueChanged.connect(self.on_settings_changed)
-        toggle_hbox.addWidget(self.toggle_area)
-        # stretch
-        toggle_hbox.addStretch()
-
-        label2_hbox = QtWidgets.QHBoxLayout()
-        vbox.addLayout(label2_hbox)
-        # stretch
-        label2_hbox.addStretch()
-        # specs
-        self.text_pacific = QtWidgets.QLabel("Pacific Coast")
-        self.text_pacific.setAlignment(QtCore.Qt.AlignCenter)
-        self.text_pacific.setFixedWidth(80)
-        self.text_pacific.setDisabled(True)
-        label2_hbox.addWidget(self.text_pacific)
-        self.text_atlantic = QtWidgets.QLabel("Atlantic Coast")
-        self.text_atlantic.setAlignment(QtCore.Qt.AlignCenter)
-        self.text_atlantic.setFixedWidth(80)
-        self.text_atlantic.setDisabled(True)
-        label2_hbox.addWidget(self.text_atlantic)
-        # stretch
-        label2_hbox.addStretch()
-
-        vbox.addSpacing(12)
-
         # THIRD ROW
 
         label_hbox = QtWidgets.QHBoxLayout()
@@ -286,6 +226,19 @@ class ScanTab(QtWidgets.QMainWindow):
         left_spacing = 20
         text_spacing = 260
         editor_spacing = 120
+
+        toggle_hbox = QtWidgets.QHBoxLayout()
+        vbox.addLayout(toggle_hbox)
+        # stretch
+        toggle_hbox.addSpacing(left_spacing)
+        self.great_lakes = QtWidgets.QCheckBox("")
+        self.great_lakes.setChecked(False)
+        toggle_hbox.addWidget(self.great_lakes)
+        self.great_lakes_text = QtWidgets.QLabel("Great Lakes area")
+        self.great_lakes_text.setFixedWidth(text_spacing)
+        toggle_hbox.addWidget(self.great_lakes_text)
+        # stretch
+        toggle_hbox.addStretch()
 
         toggle_hbox = QtWidgets.QHBoxLayout()
         vbox.addLayout(toggle_hbox)
@@ -483,7 +436,7 @@ class ScanTab(QtWidgets.QMainWindow):
         self.text_lakes.setEnabled(enable)
         self.text_atlantic.setEnabled(enable)
         self.text_pacific.setEnabled(enable)
-        self.toggle_area.setEnabled(enable)
+        self.great_lakes.setEnabled(enable)
 
         enable = self.ask_multimedia_folder.isChecked()
         self.ask_multimedia_folder.setEnabled(enable)
@@ -548,15 +501,11 @@ class ScanTab(QtWidgets.QMainWindow):
             else:
                 raise RuntimeError("unknown specs version: %s" % specs_version)
 
-            toggle_survey_area = self.toggle_area.value()
-            if toggle_survey_area == 0:
-                survey_area = Checks.survey_areas["Pacific Coast"]
-            elif toggle_survey_area == 1:
+            checked_great_lakes = self.great_lakes.isChecked()
+            if checked_great_lakes:
                 survey_area = Checks.survey_areas["Great Lakes"]
-            elif toggle_survey_area == 2:
+            else:  # any area different from Great Lakes is fine
                 survey_area = Checks.survey_areas["Atlantic Coast"]
-            else:
-                raise RuntimeError("unknown survey area: %s" % survey_area)
 
             if self.ask_multimedia_folder.isChecked():
                 # ask for images folder

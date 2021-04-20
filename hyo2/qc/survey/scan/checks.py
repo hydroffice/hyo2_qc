@@ -880,7 +880,7 @@ class Checks:
             object_filter=['SBDARE', ])
         sbdare_lines_areas = S57Aux.select_lines_and_areas(sbdare)
 
-        if self.version in ["2018", "2019"]:
+        if self.version in ["2019"]:
 
             # For field profile, checks all images for HSSD compliance, and, if selected, checks against HTDs.
             # If office profile, checks all images for HSSD complaince always.
@@ -1001,7 +1001,7 @@ class Checks:
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
-                if self.version in ["2018", "2019", "2021"]:
+                if self.version in ["2019"]:
                     if len(tokens[2]) != 15:
                         # add to the flagged feature list and to the flagged report
                         self.flags.append(obj.centroid.x, obj.centroid.y, "invalid timestamp in filename")
@@ -1009,7 +1009,7 @@ class Checks:
                                        (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                         flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                         continue
-                if self.version in ["2020"]:
+                if self.version in ["2020", "2021"]:
                     if len(tokens[2]) not in [14, 15]:
                         # add to the flagged feature list and to the flagged report
                         self.flags.append(obj.centroid.x, obj.centroid.y, "invalid timestamp in filename")
@@ -1121,7 +1121,7 @@ class Checks:
                                                                                                         "7", ],
                                                                                         check_attrib_existence=True)
 
-        elif self.version in ["2018", "2019"]:
+        elif self.version in ["2019"]:
             # Ensure new or updated wrecks have watlev
             self.report += "New or Updated WRECKS with empty/missing mandatory attribute WATLEV [CHECK]"
             self.flags.wrecks_watlev = self._flag_features_with_attribute_value(objects=wrecks, attribute='WATLEV',
@@ -1189,7 +1189,7 @@ class Checks:
         rocks_undefined_valsou = S57Aux.filter_by_attribute(rocks, attribute='VALSOU')
 
         # Ensure new or updated rocks have valsou
-        if self.version in ["2018", "2019"]:
+        if self.version in ["2019", ]:
             self.report += "New or Updated UWTROC missing mandatory attribute VALSOU [CHECK]"
             self.flags.uwtroc_valsou = self._check_features_for_attribute(
                 objects=rocks,
@@ -1202,7 +1202,7 @@ class Checks:
                 possible=True)
 
         # Ensure new or updated rocks have watlev
-        if self.version in ["2018", "2019"]:
+        if self.version in ["2019", ]:
             self.report += "New or Updated UWTROC with empty/missing mandatory attribute WATLEV [CHECK]"
             self.flags.uwtroc_watlev = self._flag_features_with_attribute_value(
                 objects=rocks,
@@ -1226,7 +1226,7 @@ class Checks:
                                                                                         check_attrib_existence=True)
 
         # Ensure new or updated rocks have quasou
-        if self.version in ["2018", "2019"]:
+        if self.version in ["2019", ]:
             self.report += "New or Updated UWTROC with empty/missing mandatory attribute QUASOU [CHECK]"
             self.flags.uwtroc_quasou = self._flag_features_with_attribute_value(
                 objects=rocks,
@@ -1249,7 +1249,7 @@ class Checks:
                                                                                                         "9",
                                                                                                         "10", "11"],
                                                                                         check_attrib_existence=True)
-        if self.version in ["2018", "2019"]:
+        if self.version in ["2019", ]:
             # Ensure new or updated rocks have tecsou
             self.report += "New or Updated UWTROC with empty/missing mandatory attribute TECSOU [CHECK]"
             self.flags.uwtroc_tecsou = self._flag_features_with_attribute_value(
@@ -1366,7 +1366,7 @@ class Checks:
                             "4", "5", "6",
                             "7", ])
 
-        if self.version in ["2018", "2019"]:
+        if self.version in ["2019", ]:
 
             self.report += "New or Updated OBSTRN with empty/missing mandatory attribute QUASOU [CHECK]"
             self.flags.obstrn_quasou = self._flag_features_with_attribute_value(
@@ -1420,7 +1420,7 @@ class Checks:
 
         # Isolate line and area foul area obstructions
         obstrns_foul_lines_areas = S57Aux.select_lines_and_areas(obstrns_foul)
-        if self.version in ["2018", "2019"]:
+        if self.version in ["2019", ]:
             # Check line and area foul area obstructions do not have VALSOU
             self.report += "Warning: Foul line and area obstructions should not have VALSOU [CHECK]"
             self.flags.obstrn_foul_valsou = self._check_features_without_attribute(
@@ -1893,6 +1893,7 @@ class Checks:
 
         # Add a summary to the report
         self.report += 'SUMMARY [SECTION]'
+        self.report += 'Summary by section: [CHECK]'
 
         # ### ALL FEATURES ###
 
@@ -1936,7 +1937,7 @@ class Checks:
 
         img_flagged = \
             len(self.flags.images_hssd)
-        if self.version in ["2018", "2019"]:
+        if self.version in ["2019"]:
             if (self.profile == 1 and self.use_htd) or (self.profile == 0):
                 img_flagged += \
                     len(self.flags.images_sbdare_points) + \

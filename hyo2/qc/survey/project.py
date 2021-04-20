@@ -919,11 +919,7 @@ class SurveyProject(BaseProject):
 
         if self._scan.type == 'FEATURE_SCAN_v11':
 
-            if self._scan.version == '2018':
-                output_pdf = os.path.join(output_folder, "%s.SFSv11.2018.pdf" % self.cur_s57_basename)
-                title_pdf = "Survey Feature Scan v10 - Tests against HSSD 2018"
-
-            elif self._scan.version == '2019':
+            if self._scan.version == '2019':
                 output_pdf = os.path.join(output_folder, "%s.SFSv11.2019.pdf" % self.cur_s57_basename)
                 title_pdf = "Survey Feature Scan v10 - Tests against HSSD 2019"
 
