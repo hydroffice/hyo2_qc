@@ -80,3 +80,32 @@ The grid is scanned for features expected to be represented in the grid as per s
 
 .. note::
 	If the input grid files follow the NOAA OCS naming convention (e.g., having "_1m_" in the filename), this information is retrieved and used to only evaluate the features with VALSOU value in the corresponding validity range (e.g., 0 - 20 m).
+
+|
+
+-----------------------------------------------------------
+
+|
+
+What do you get?
+^^^^^^^^^^^^^^^^^
+
+Upon completion of the execution of **VALSOU Checks** you will receive a pop-up verification if your surface contains potential discrepancies with your S-57 features and/or your designated soundings (:numref:`fig_valsou_checks_output`).
+
+.. _fig_valsou_checks_output:
+.. figure:: _static/valsou_checks_output.png
+    :width: 300px
+    :align: center
+    :figclass: align-center
+
+    The output message at the end of **VALSOU Cheks** execution.
+
+The output of this tool is a .000 file that contains $CSYMB features which provides the location of the potential discrepancy. Drag and drop in your GIS of choice. The NINFOM field indicates the reason for the flagged object.
+
+.. _fig_valsou_checks_flagged_output:
+.. figure:: _static/valsou_checks_flagged_output.png
+    :width: 500px
+    :align: center
+    :figclass: align-center
+
+    Example of a flagged depth discrepancy found with scan designated. The orange symbol is the flag.

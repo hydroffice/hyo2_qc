@@ -124,3 +124,34 @@ For example:
 * If desired to flag all unpopulated parts of the grid, regardless of their size, the **Upper limit** would be set at **unlimited**.
 
 * Settings in between are used at the discretion of the user, to identify holidays, while also preventing undue clutter in the output.
+
+|
+
+-----------------------------------------------------------
+
+|
+
+What do you get?
+^^^^^^^^^^^^^^^^^
+
+Upon completion of the execution of **Detect Holidays** you will receive a pop-up verification if your surface contains potential holidays or not (:numref:`fig_detect_holidays_pop_up_results`).
+
+.. _fig_detect_holidays_pop_up_results:
+.. figure:: _static/detect_holidays_pop_up_results.png
+    :width: 300px
+    :align: center
+    :figclass: align-center
+
+    The output message at the end of **Find holiday v4** execution.
+
+**Detect Holidays** produces one .000 files containing the locations of potential holidays represented as soundings. Certain holidays are represented with 1 and possible holidays are represented at 2.
+
+.. _fig_detect_holiday_results:
+.. figure:: _static/detect_holidays_graphic_results.png
+    :width: 700px
+    :align: center
+    :alt: fliers tab
+    :figclass: align-center
+
+    An example of a certain holiday identified with a sounding.
+

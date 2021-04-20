@@ -70,3 +70,36 @@ If **"Set EXIF GPS in JPEG images to S57 position"** is selected, all associated
 SBDARE export translates the **NATSUR** and **NATQUA** to the appropriate Coastal and Marine Ecological Classification Standard June 2012 (**CMECS**) standard. A crosswalk table used for this classification can be found in Appendix E of HTD 2018-4 Bottom Sample Drop Camera Imagery. 
 
 A zip file is created containing the shape file and "Images" folder with the images. If no images are available, a text file is created indication that the image folder is intentionally left empty.
+
+|
+
+-----------------------------------------------------------
+
+|
+
+What do you get?
+^^^^^^^^^^^^^^^^^
+
+Upon completion of the execution of **SBDARE Export** you will receive a pop-up about the number of bottom samples that were exported.
+The number of warnings associated with the output are also provided (:numref:`fig_sbdare_pop_up_results`).
+
+.. _fig_sbdare_pop_up_results:
+.. figure:: _static/sbdare_pop_up_results.png
+    :width: 300px
+    :align: center
+    :figclass: align-center
+
+    The output message at the end of **SBDARE export v4** execution.
+
+Depending on the selection and the data provided, **SBDARE export v4** produces an ASCII file or a zip file, containing a shapefile with bottom sample locations and an images folder with georeferenced images (:numref:`fig_sbdare_export_shapefile`), for NCEI archival.
+Attributes includes NOAA S-57 attribution and CMECS translations.
+
+.. _fig_sbdare_export_shapefile:
+.. figure:: _static/sbdare_export_shapefile.png
+    :width: 700px
+    :align: center
+    :alt: example of sbdare export tool output
+    :figclass: align-center
+
+    Bottom samples shown as red circles with an ENC in the background.
+

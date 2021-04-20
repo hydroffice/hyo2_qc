@@ -374,3 +374,47 @@ It is also possible to modify the above filtering criteria. And, if the user doe
 .. note::
     The *Use designated* filter does not work with CSAR files because of the current CSAR SDK limitations,
     and the designated soundings are currently not written by CARIS applications in VR BAGs.
+
+|
+
+-----------------------------------------------------------
+
+|
+
+What do you get?
+^^^^^^^^^^^^^^^^^
+
+Upon completion of the execution of **Flier Finder** you will receive a pop-up verification if your surface contains potential fliers or not (:numref:`fig_flier_finder_pop_up`).
+
+.. _fig_flier_finder_pop_up:
+.. figure:: _static/flier_finder_pop_up.png
+    :width: 500px
+    :align: center
+    :alt: fliers tab
+    :figclass: align-center
+
+    The **Flier Finder** output message.
+
+**Flier Finder** produces two .000 files containing the locations of potential fliers. These can be loaded into your GIS software of choice for further analysis.
+
+One type of .000 file is called the "blue notes" which is a file containing $CSYMB features. The NINFOM field of the $CSYMB feautres contains the algorithm detected (e.g., "2" for Gaussian Curvature).
+
+.. _fig_filer_finder_blue_notes:
+.. figure:: _static/flier_finder_blue_notes.png
+    :width: 700px
+    :align: center
+    :alt: flier indicated with blue note
+    :figclass: align-center
+
+    An example of a potential flier identified with a blue note ($CSYMB).
+
+The other type of .000 file is a sounding file that contains SOUNDG features. The depth of each SOUNDG feature identifies the algorithm that detected it (e.g., "3" for Adjacent Cells).
+
+.. _fig_flier_finder_soundg:
+.. figure:: _static/flier_finder_soundg.png
+    :width: 700px
+    :align: center
+    :alt: flier indicated with sounding
+    :figclass: align-center
+
+    An example of a potential flier identified with a sounding (SOUNDG).

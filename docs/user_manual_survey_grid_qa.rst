@@ -66,7 +66,7 @@ The Depth, Uncertainty, Density (if available), and a computed Total Vertical Un
 **The following plots are the output of Grid QA:**
     * The Depth layer is plotted as a distribution (plot entitled **"Depth Distribution"**).
     
-    * The Density layer is plotted as a distribution (plot entitled **"Object Detection Coverage"**).
+    * The Density layer is plotted as a distribution (plot entitled **"Data Density"**).
 
         * Percentages of nodes less than 5 soundings per node fall in the red shaded region of the plot and together must be less than 5% of all nodes in order to "pass".
 
@@ -113,3 +113,95 @@ where for:
     *CATZOC A2 and CATZOC B:* :math:`A = 1.0, B = 0.02`
 
     *CATZOC C:* :math:`A = 2.0, B = 0.05`
+
+|
+
+-----------------------------------------------------------
+
+|
+
+What do you get?
+^^^^^^^^^^^^^^^^^
+
+Upon completion of the execution of **Detect Holidays** you will receive a pop-up verification if your statistics are complete (:numref:`fig_grid_qa_pop_up`).
+
+.. _fig_grid_qa_pop_up:
+.. figure:: _static/grid_qa_pop_up.png
+    :width: 300px
+    :align: center
+    :figclass: align-center
+
+    The output message at the end of **Grid QA** execution.
+
+**Grid QA** produces images representing specific statistical analysis:
+
+* Depth Distribution (:numref:`fig_grid_qa_depth`).
+* Data Density (:numref:`fig_grid_qa_density`).
+* Uncertainty Standards - NOAA HSSD (:numref:`fig_grid_qa_uncertainty`) and CATZOC (:numref:`fig_grid_qa_catzoc`).
+* Resolution Requirements *(only for VR grids)* (:numref:`fig_grid_qa_resolution`).
+* Node Depth vs. Sounding Density (:numref:`fig_grid_qa_depth_vs_density`).
+* Node Depth vs. TVU QC (:numref:`fig_grid_qa_depth_vs_tvu`).
+
+.. _fig_grid_qa_depth:
+.. figure:: _static/grid_qa_depth.png
+    :width: 700px
+    :align: center
+    :alt: histogram of percentage of nodes representing the surface.
+    :figclass: align-center
+
+    A histogram of the percentage of total nodes at each depth represented in the surface.
+
+.. _fig_grid_qa_density:
+.. figure:: _static/grid_qa_density.png
+    :width: 700px
+    :align: center
+    :alt: histogram showing percentage of nodes passing density requirements
+    :figclass: align-center
+
+    A histogram of the percentage of total nodes that contain a specific sounding per node. To pass a node must have at least 5 soundings contributing to the population of that node.
+
+.. _fig_grid_qa_uncertainty:
+.. figure:: _static/grid_qa_uncertainty.png
+    :width: 700px
+    :align: center
+    :alt: histogram showing the percentage of nodes passing uncertainty requirements
+    :figclass: align-center
+
+    A histogram of the percentage of total nodes that contain a node uncertainty as a fraction of the IHO TVU. Anything over 1.0 does not pass uncertainty requirements.
+
+.. _fig_grid_qa_resolution:
+.. figure:: _static/grid_qa_resolution.png
+    :width: 700px
+    :align: center
+    :alt: histogram showing the percentage of nodes passing resolution requirements
+    :figclass: align-center
+
+    A histogram, created only for VR surfaces, that shows the percentage of nodes that have a node resolution as a fraction of the allowable resolution at that depth. Anything over 1.0 does not pass uncertainty requirements.
+
+.. _fig_grid_qa_depth_vs_density:
+.. figure:: _static/grid_qa_depth_vs_density.png
+    :width: 700px
+    :align: center
+    :alt: plot representing depth vs. density
+    :figclass: align-center
+
+    A plot of every node represented in the surface in plotted as its depth on the y axis and its density on the x axis.
+
+.. _fig_grid_qa_depth_vs_tvu:
+.. figure:: _static/grid_qa_depth_vs_tvu.png
+    :width: 700px
+    :align: center
+    :alt: plot representing depth vs. tvu
+    :figclass: align-center
+
+    A plot of every node represented in the surface in plotted as its depth on the y axis and its uncertainty as a fraction of the IHO TVU on the x axis.
+
+.. _fig_grid_qa_catzoc:
+.. figure:: _static/grid_qa_catzoc.png
+    :width: 700px
+    :align: center
+    :alt: three plots associated with CATZOC uncertainty
+    :figclass: align-center
+
+    Similar to the uncertainty plot, the CATZOC uncertainty shows a histogram of the percentage of total nodes that contain a node uncertainty as a fraction of the specific CATZOC TVU value. Anything over 1.0 does not pass the requirements.
+
