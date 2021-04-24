@@ -93,7 +93,7 @@ The BAG files are inspected to ensure compliance with NOAA NBS requirements and 
 What do you get?
 ^^^^^^^^^^^^^^^^^
 
-Upon completion of the execution of **BAG Checks** you will receive a pop-up verification if your surface passes or fails the checks (:numref:`fig_bag_checks_output`).
+Upon completion of the execution of **BAG Checks** you will receive a pop-up verification "pass" if your surface passes all the checks, or "fail" if your surface fails any one check (:numref:`fig_bag_checks_output`).
 
 .. _fig_bag_checks_output:
 .. figure:: _static/bag_checks_output.png

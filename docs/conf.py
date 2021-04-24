@@ -195,7 +195,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
   ('index', 'HydrOfficeQCTools.tex', u'HydrOffice QC Tools Manual',
-   u'2020, CCOM/JHC,UNH', 'manual'),
+   u'2021, CCOM/JHC,UNH', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

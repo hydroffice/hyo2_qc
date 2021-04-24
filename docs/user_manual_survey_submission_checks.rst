@@ -147,6 +147,34 @@ The logic for the 2018 QC Tools submission check is shown below. For previous ye
 .. [3] For submissions with CARIS projects.
 .. [4] For submissions without CARIS projects.
 
+|
 
+-----------------------------------------------------------
+
+|
+
+What do you get?
+^^^^^^^^^^^^^^^^^
+
+Upon completion of the execution of **Submission checks** you will receive a pop-up verification that the tool has completed and if there were any errors or warnings associated with the data structure (:numref:`fig_sub_scan_pop_up`).
+
+.. _fig_sub_scan_pop_up:
+.. figure:: _static/sub_scan_pop_up.png
+    :width: 300px
+    :align: center
+    :figclass: align-center
+
+    The output message at the end of **Submission checks** execution.
+
+**Submission checks** produces a PDF document that indicates if there were errors or warnings with specific folders in the data submission structures.
+
+.. _fig_sub_scan_output:
+.. figure:: _static/sub_scan_output.png
+    :width: 700px
+    :align: center
+    :alt: Example of PDF results for submission checks
+    :figclass: align-center
+
+    An excerpt from the **Submission checks** pdf report.
 
 
