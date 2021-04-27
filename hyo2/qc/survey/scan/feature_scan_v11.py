@@ -49,14 +49,14 @@ class FeatureScanV11:
 
     def run(self) -> None:
         """Execute the set of check of the feature scan algorithm"""
-        if self.checks.version not in ["2018", "2019", "2020", "2021"]:
+        if self.checks.version not in ["2019", "2020", "2021"]:
             raise RuntimeError("unsupported specs version: %s" % self.checks.version)
 
         self.info_settings()
 
-        self.checks.all_the_features()
-        self.checks.new_or_updated_features()
+        self.checks.file_consistency()
         self.checks.assigned_features()
+        self.checks.new_or_updated_features()
         self.checks.new_or_deleted_features()
         self.checks.images()
 

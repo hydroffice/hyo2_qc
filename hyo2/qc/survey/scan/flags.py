@@ -4,122 +4,254 @@ logger = logging.getLogger(__name__)
 
 
 class Flags:
-    
+
     def __init__(self):
         self.features = [[], [], []]
 
         # ### ALL FEATURES ###
         self.redundancy = list()
 
-        # ### NEW OR UPDATED FEATURES ###
-        self.sorind = list()
-        self.sorind_invalid = list()
-        self.sordat = list()
-        self.sordat_invalid = list()
-        self.new_valsous_watlev = list()
-        self.new_elevat = list()
-        self.new_valsous_quasou = list()
-
         # ### ASSIGNED FEATURES ###
-        self.description = list()
-        self.remarks = list()
+        class AssignedFeatures:
+            def __init__(self):
+                self.description = list()
+                self.remarks = list()
+
+            def nr_of_flagged(self) -> int:
+                return len(self.description) + len(self.remarks)
+
+        self.ass_fts = AssignedFeatures()
+
+        # ### NEW OR UPDATED FEATURES ###
+        class NewUpdatedFeatures:
+            def __init__(self):
+                self.sorind = list()
+                self.sorind_invalid = list()
+                self.sordat = list()
+                self.sordat_invalid = list()
+                self.valsous_watlev = list()
+                self.elevat = list()
+                self.valsous_quasou = list()
+
+            def nr_of_flagged(self) -> int:
+                return len(self.sorind) + len(self.sorind_invalid) + \
+                       len(self.sordat) + len(self.sordat_invalid) + \
+                       len(self.valsous_watlev) + len(self.elevat) + \
+                       len(self.valsous_quasou)
+
+        self.new_updated_fts = NewUpdatedFeatures()
 
         # ### NEW OR DELETED FEATURES ###
-        self.remarks_features = list()
-        self.recommend_features = list()
+        class NewDeletedFeatures:
+            def __init__(self):
+                self.remarks = list()
+                self.recommend = list()
+
+            def nr_of_flagged(self) -> int:
+                return len(self.remarks) + len(self.recommend)
+
+        self.new_deleted_fts = NewDeletedFeatures()
 
         # ### IMAGES ###
-        self.images_features = list()
-        self.images_hssd = list()
-        self.images_non_sbdare = list()
-        self.images_sbdare_points = list()
-        self.images_sbdare_lines_areas = list()
+        class Images:
+            def __init__(self):
+                self.hssd = list()
+                self.features = list()
+                self.non_sbdare = list()
+                self.sbdare_points = list()
+                self.sbdare_lines_areas = list()
+
+            def nr_of_flagged(self) -> int:
+                return len(self.hssd) + len(self.features) + \
+                       len(self.non_sbdare) + len(self.sbdare_points) + \
+                       len(self.sbdare_lines_areas)
+
+        self.images = Images()
 
         # SOUNDINGS
-        self.soundings_tecsou = list()
-        self.soundings_quasou = list()
+        class Soundings:
+            def __init__(self):
+                self.tecsou = list()
+                self.quasou = list()
+
+            def nr_of_flagged(self) -> int:
+                return len(self.tecsou) + len(self.quasou)
+
+        self.soundings = Soundings()
 
         # DTONS
-        self.dtons = list()
+        class Dtons:
+            def __init__(self):
+                self.images = list()
+
+            def nr_of_flagged(self) -> int:
+                return len(self.images)
+
+        self.dtons = Dtons()
 
         # WRECKS
-        self.wrecks_images = list()
-        self.awois_features_1 = list()
-        self.awois_features_2 = list()
-        self.wrecks_catwrk = list()
-        self.wrecks_watlev = list()
-        self.wrecks_unknown_watlev = list()
-        self.wrecks_valsou = list()
-        self.wrecks_tecsou = list()
-        self.wrecks_unknown_tecsou = list()
-        self.wrecks_quasou = list()
-        self.wrecks_unknown_quasou = list()
+        class Wrecks:
+            def __init__(self):
+                self.images = list()
+                self.catwrk = list()
+                self.watlev = list()
+                self.unknown_watlev = list()
+                self.valsou = list()
+                self.tecsou = list()
+                self.unknown_tecsou = list()
+                self.quasou = list()
+                self.unknown_quasou = list()
+
+            def nr_of_flagged(self) -> int:
+                return len(self.images) + len(self.catwrk) + \
+                       len(self.watlev) + len(self.unknown_watlev) + \
+                       len(self.valsou) + len(self.tecsou) + \
+                       len(self.unknown_tecsou) + len(self.quasou) + \
+                       len(self.unknown_quasou)
+
+        self.wrecks = Wrecks()
 
         # ROCKS
-        self.uwtroc_valsou = list()
-        self.uwtroc_watlev = list()
-        self.uwtroc_unknown_watlev = list()
-        self.uwtroc_quasou = list()
-        self.uwtroc_unknown_quasou = list()
-        self.uwtroc_tecsou = list()
-        self.uwtroc_unknown_tecsou = list()
+        class Rocks:
+            def __init__(self):
+                self.valsou = list()
+                self.watlev = list()
+                self.unknown_watlev = list()
+                self.quasou = list()
+                self.unknown_quasou = list()
+                self.tecsou = list()
+                self.unknown_tecsou = list()
+
+            def nr_of_flagged(self) -> int:
+                return len(self.valsou) + len(self.watlev) + \
+                       len(self.quasou) + len(self.tecsou) + \
+                       len(self.unknown_watlev) + len(self.unknown_quasou) + \
+                       len(self.unknown_tecsou)
+
+        self.rocks = Rocks()
 
         # OBSTRUCTIONS
-        self.obstrn_images = list()
-        self.obstrn_points_valsou = list()
-        self.obstrn_points_watlev = list()
-        self.obstrn_lines_areas_watlev = list()
-        self.obstrn_watlev_known = list()
-        self.obstrn_watlev_undefined = list()
-        self.obstrn_quasou = list()
-        self.obstrn_unknown_quasou = list()
-        self.obstrn_tecsou = list()
-        self.obstrn_unknown_tecsou = list()
-        self.obstrn_foul_valsou = list()
-        self.obstrn_unknown_valsou = list()
+        class Obstructions:
+            def __init__(self):
+                self.images = list()
+                self.points_valsou = list()
+                self.points_watlev = list()
+                self.lines_areas_watlev = list()
+                self.watlev_known = list()
+                self.watlev_undefined = list()
+                self.quasou = list()
+                self.unknown_quasou = list()
+                self.tecsou = list()
+                self.unknown_tecsou = list()
+                self.foul_valsou = list()
+                self.unknown_valsou = list()
+
+            def nr_of_flagged(self) -> int:
+                return len(self.images) + len(self.points_valsou) + \
+                       len(self.points_watlev) + len(self.lines_areas_watlev) + \
+                       len(self.watlev_known) + len(self.quasou) + \
+                       len(self.tecsou) + len(self.foul_valsou) + \
+                       len(self.unknown_quasou) + len(self.unknown_tecsou) + \
+                       len(self.unknown_valsou)
+
+        self.obstructions = Obstructions()
 
         # OFFSHORE PLATFORMS
-        self.ofsplf = list()
+        class Platforms:
+            def __init__(self):
+                self.images = list()
+
+            def nr_of_flagged(self) -> int:
+                return len(self.images)
+
+        self.platforms = Platforms()
 
         # SEABED AREAS
-        self.sbdare_natsur = list()
-        self.sbdare_pt_natqua = list()
-        self.sbdare_pt_colour = list()
-        self.sbdare_pt_allowable_combo = list()
-        self.sbdare_2 = list()
-        self.sbdare_watlev = list()
+        class Sbdares:
+            def __init__(self):
+                self.natsur = list()
+                self.pt_natqua = list()
+                self.pt_colour = list()
+                self.pt_allowable_combo = list()
+                self.watlev = list()
+
+            def nr_of_flagged(self) -> int:
+                return len(self.natsur) + len(self.pt_natqua) + \
+                       len(self.pt_colour) + len(self.pt_allowable_combo) + \
+                       len(self.watlev)
+
+        self.sbdares = Sbdares()
 
         # MOORINGS
-        self.morfac = list()
+        class Moorings:
+            def __init__(self):
+                self.catmor = list()
+
+            def nr_of_flagged(self) -> int:
+                return len(self.catmor)
+
+        self.moorings = Moorings()
 
         # COASTLINES
-        self.coalne = list()
-        self.slcons = list()
+        class Coastlines:
+            def __init__(self):
+                self.coalne = list()
+                self.slcons = list()
+
+            def nr_of_flagged(self) -> int:
+                return len(self.coalne) + len(self.slcons)
+
+        self.coastlines = Coastlines()
 
         # LANDS
-        self.lndelv = list()
+        class Lands:
+            def __init__(self):
+                self.elevat = list()
+
+            def nr_of_flagged(self) -> int:
+                return len(self.elevat)
+
+        self.lands = Lands()
 
         # META COVERAGES
+        class Coverages:
+            def __init__(self):
+                self.m_covr_catcov = list()
+                self.m_covr_inform = list()
+                self.m_covr_ninfom = list()
 
-        self.m_covr_catcov = list()
-        self.m_covr_inform = list()
-        self.m_covr_ninfom = list()
+            def nr_of_flagged(self) -> int:
+                return len(self.m_covr_catcov) + len(self.m_covr_inform) + \
+                       len(self.m_covr_ninfom)
+
+        self.coverages = Coverages()
 
         # OFFICE ONLY
+        class Office:
+            def __init__(self):
+                self.without_onotes = list()
+                self.hsdrec_empty = list()
+                self.prohibited_kwds = list()
+                self.fish_haven_kwds = list()
+                self.mooring_buoy_kwds = list()
+                self.m_qual_catzoc = list()
+                self.m_qual_sursta = list()
+                self.m_qual_surend = list()
+                self.m_qual_surend_sordat = list()
+                self.m_qual_tecsou = list()
+                self.mcd_description = list()
+                self.mcd_remarks = list()
+                self.character_limit = list()
 
-        self.without_onotes = list()
-        self.hsdrec_empty = list()
-        self.prohibited_kwds = list()
-        self.fish_haven_kwds = list()
-        self.mooring_buoy_kwds = list()
-        self.m_qual_catzoc = list()
-        self.m_qual_sursta = list()
-        self.m_qual_surend = list()
-        self.m_qual_surend_sordat = list()
-        self.m_qual_tecsou = list()
-        self.mcd_description = list()
-        self.mcd_remarks = list()
-        self.character_limit = list()
+            def nr_of_flagged(self) -> int:
+                return len(self.without_onotes) + len(self.hsdrec_empty) + \
+                       len(self.prohibited_kwds) + len(self.fish_haven_kwds) + \
+                       len(self.mooring_buoy_kwds) + len(self.m_qual_catzoc) + \
+                       len(self.m_qual_sursta) + len(self.m_qual_surend) + \
+                       len(self.m_qual_tecsou) + len(self.mcd_description) + \
+                       len(self.mcd_remarks) + len(self.character_limit)
+
+        self.office = Office()
 
     def append(self, x: float, y: float, note: str) -> None:
         """S57Aux function that append the note (if the feature position was already flagged) or add a new one"""

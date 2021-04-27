@@ -141,10 +141,10 @@ class ScanTab(QtWidgets.QMainWindow):
         self.toggle_profile.setRange(0, 1)
         self.toggle_profile.setFixedSize(QtCore.QSize(50, 50))
         self.toggle_profile.setInvertedAppearance(False)
-        self.toggle_profile.setSliderPosition(self.settings.value("survey/scan_v10", 0))
+        self.toggle_profile.setSliderPosition(self.settings.value("survey/scan", 0))
         toggle_hbox.addWidget(self.toggle_profile)
         # noinspection PyUnresolvedReferences
-        self.toggle_profile.valueChanged.connect(self.click_set_profile_v10)
+        self.toggle_profile.valueChanged.connect(self.click_set_profile)
         # space
         toggle_hbox.addSpacing(35)
         # specs
@@ -157,7 +157,7 @@ class ScanTab(QtWidgets.QMainWindow):
         self.toggle_specs.setInvertedAppearance(False)
         toggle_hbox.addWidget(self.toggle_specs)
         # noinspection PyUnresolvedReferences
-        self.toggle_specs.valueChanged.connect(self.click_set_specs_v10)
+        self.toggle_specs.valueChanged.connect(self.click_set_specs)
         # stretch
         toggle_hbox.addStretch()
 
@@ -168,7 +168,7 @@ class ScanTab(QtWidgets.QMainWindow):
         # profile
         text_office = QtWidgets.QLabel("Office")
         text_office.setAlignment(QtCore.Qt.AlignRight)
-        text_office.setFixedWidth(45)
+        text_office.setFixedWidth(60)
         label_hbox.addWidget(text_office)
         text_field = QtWidgets.QLabel("Field")
         text_field.setAlignment(QtCore.Qt.AlignRight)
@@ -179,11 +179,11 @@ class ScanTab(QtWidgets.QMainWindow):
         # specs
         text_2019 = QtWidgets.QLabel("2019")
         text_2019.setAlignment(QtCore.Qt.AlignCenter)
-        text_2019.setFixedWidth(50)
+        text_2019.setFixedWidth(25)
         label_hbox.addWidget(text_2019)
         text_2021 = QtWidgets.QLabel("2021")
         text_2021.setAlignment(QtCore.Qt.AlignCenter)
-        text_2021.setFixedWidth(80)
+        text_2021.setFixedWidth(75)
         text_2021.setStyleSheet("QLabel { color :  rgb(200, 0, 0, 200); }")
         label_hbox.addWidget(text_2021)
         # stretch
@@ -201,7 +201,7 @@ class ScanTab(QtWidgets.QMainWindow):
             self.text_office = QtWidgets.QLabel("")
         else:
             self.text_office = QtWidgets.QLabel(self.text_office_note)
-        # self.text_office_v10.stateChanged.connect(self.click_set_profile_v10)
+        # self.text_office.stateChanged.connect(self.click_set_profile)
         self.text_office.setAlignment(QtCore.Qt.AlignCenter)
         self.text_office.setFixedWidth(300)
         self.text_office.setDisabled(False)
@@ -260,7 +260,7 @@ class ScanTab(QtWidgets.QMainWindow):
         self.use_htd = QtWidgets.QCheckBox("")
         self.use_htd.setChecked(True)
         # noinspection PyUnresolvedReferences
-        self.use_htd.stateChanged.connect(self.change_use_htd_v10)
+        self.use_htd.stateChanged.connect(self.change_use_htd)
         toggle_hbox.addWidget(self.use_htd)
         self.htd_text = QtWidgets.QLabel('Check Image Names per HSSD')
         self.htd_text.setFixedWidth(text_spacing)
@@ -280,7 +280,7 @@ class ScanTab(QtWidgets.QMainWindow):
         self.use_mhw = QtWidgets.QCheckBox("")
         self.use_mhw.setChecked(True)
         # noinspection PyUnresolvedReferences
-        self.use_mhw.stateChanged.connect(self.change_use_mhw_v10)
+        self.use_mhw.stateChanged.connect(self.change_use_mhw)
         toggle_hbox.addWidget(self.use_mhw)
         self.mhw_text = QtWidgets.QLabel("MHW [m] for WATLEV check: ")
         self.mhw_text.setFixedWidth(text_spacing)
@@ -303,7 +303,7 @@ class ScanTab(QtWidgets.QMainWindow):
         self.check_sorind = QtWidgets.QCheckBox("")
         self.check_sorind.setChecked(False)
         # noinspection PyUnresolvedReferences
-        self.check_sorind.stateChanged.connect(self.change_check_sorind_v10)
+        self.check_sorind.stateChanged.connect(self.change_check_sorind)
         toggle_hbox.addWidget(self.check_sorind)
         self.sorind_text = QtWidgets.QLabel("SORIND (US,US,graph,HXXXXX): ")
         self.sorind_text.setDisabled(True)
@@ -311,7 +311,7 @@ class ScanTab(QtWidgets.QMainWindow):
         toggle_hbox.addWidget(self.sorind_text)
         self.sorind_value = QtWidgets.QLineEdit()
         self.sorind_value.setFixedWidth(editor_spacing)
-        # self.sorind_value_v10.setValidator(QtGui.QDoubleValidator(-9999, 9999, 5, self.mhw_value_v10))
+        # self.sorind_value.setValidator(QtGui.QDoubleValidator(-9999, 9999, 5, self.mhw_value))
         self.sorind_value.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
         self.sorind_value.setText("")
         self.sorind_value.setDisabled(True)
@@ -326,7 +326,7 @@ class ScanTab(QtWidgets.QMainWindow):
         self.check_sordat = QtWidgets.QCheckBox("")
         self.check_sordat.setChecked(False)
         # noinspection PyUnresolvedReferences
-        self.check_sordat.stateChanged.connect(self.change_check_sordat_v10)
+        self.check_sordat.stateChanged.connect(self.change_check_sordat)
         toggle_hbox.addWidget(self.check_sordat)
         self.sordat_text = QtWidgets.QLabel("SORDAT (YYYYMMDD): ")
         self.sordat_text.setDisabled(True)
@@ -334,7 +334,7 @@ class ScanTab(QtWidgets.QMainWindow):
         toggle_hbox.addWidget(self.sordat_text)
         self.sordat_value = QtWidgets.QLineEdit()
         self.sordat_value.setFixedWidth(editor_spacing)
-        # self.sordat_value_v10.setValidator(QtGui.QDoubleValidator(-9999, 9999, 5, self.mhw_value_v10))
+        # self.sordat_value.setValidator(QtGui.QDoubleValidator(-9999, 9999, 5, self.mhw_value))
         self.sordat_value.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
         self.sordat_value.setText("")
         self.sordat_value.setDisabled(True)
@@ -386,11 +386,11 @@ class ScanTab(QtWidgets.QMainWindow):
 
         hbox.addStretch()
 
-    def click_set_profile_v10(self, value):
+    def click_set_profile(self, value):
         """ Change the profile in use """
         self.prj.active_profile = value
         self.toggle_profile.setValue(value)
-        self.settings.setValue("survey/scan_v10", value)
+        self.settings.setValue("survey/scan", value)
         logger.info('activated profile #%s' % value)
 
         # take care to activate/deactivate the HTD items
@@ -405,37 +405,34 @@ class ScanTab(QtWidgets.QMainWindow):
             self.text_office.setText(self.text_office_note)
             self.use_htd.setChecked(True)
 
-    def change_use_htd_v10(self):
+    def change_use_htd(self):
         logger.info('use HTD check: %s' % self.use_htd.isChecked())
         enable = self.use_htd.isChecked()
         self.htd_text.setEnabled(enable)
 
-    def change_use_mhw_v10(self):
+    def change_use_mhw(self):
         logger.info('use mhw: %s' % self.use_mhw.isChecked())
         enable = self.use_mhw.isChecked()
         self.mhw_text.setEnabled(enable)
         self.mhw_value.setEnabled(enable)
 
-    def change_check_sorind_v10(self):
+    def change_check_sorind(self):
         logger.info('check SORIND: %s' % self.check_sorind.isChecked())
         enable = self.check_sorind.isChecked()
         self.sorind_text.setEnabled(enable)
         self.sorind_value.setEnabled(enable)
 
-    def change_check_sordat_v10(self):
+    def change_check_sordat(self):
         logger.info('check SORDAT: %s' % self.check_sordat.isChecked())
         enable = self.check_sordat.isChecked()
         self.sordat_text.setEnabled(enable)
         self.sordat_value.setEnabled(enable)
 
-    def click_set_specs_v10(self, value):
+    def click_set_specs(self, value):
         """ Change the specs in use """
         logger.info('selected specs %d' % value)
 
         enable = value in [2018, ]
-        self.text_lakes.setEnabled(enable)
-        self.text_atlantic.setEnabled(enable)
-        self.text_pacific.setEnabled(enable)
         self.great_lakes.setEnabled(enable)
 
         enable = self.ask_multimedia_folder.isChecked()
