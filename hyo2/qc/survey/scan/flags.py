@@ -9,7 +9,15 @@ class Flags:
         self.features = [[], [], []]
 
         # ### ALL FEATURES ###
-        self.redundancy = list()
+        class AllFeatures:
+            def __init__(self):
+                self.redundancy = list()
+                self.chars_limit = list()
+
+            def nr_of_flagged(self) -> int:
+                return len(self.redundancy) + len(self.chars_limit)
+
+        self.all_fts = AllFeatures()
 
         # ### ASSIGNED FEATURES ###
         class AssignedFeatures:
@@ -135,24 +143,23 @@ class Flags:
             def __init__(self):
                 self.images = list()
                 self.points_valsou = list()
-                self.points_watlev = list()
-                self.lines_areas_watlev = list()
-                self.watlev_known = list()
-                self.watlev_undefined = list()
+                self.watlev = list()
+                self.unknown_watlev = list()
                 self.quasou = list()
                 self.unknown_quasou = list()
                 self.tecsou = list()
                 self.unknown_tecsou = list()
                 self.foul_valsou = list()
-                self.unknown_valsou = list()
+                self.foul_ground_valsou = list()
+                self.foul_ground_watlev = list()
+                self.foul_ground_quasou = list()
+                self.foul_ground_tecsou = list()
 
             def nr_of_flagged(self) -> int:
-                return len(self.images) + len(self.points_valsou) + \
-                       len(self.points_watlev) + len(self.lines_areas_watlev) + \
-                       len(self.watlev_known) + len(self.quasou) + \
-                       len(self.tecsou) + len(self.foul_valsou) + \
-                       len(self.unknown_quasou) + len(self.unknown_tecsou) + \
-                       len(self.unknown_valsou)
+                return len(self.images) + len(self.points_valsou) + len(self.watlev) + len(self.unknown_watlev) + \
+                       len(self.quasou) + + len(self.unknown_quasou) + len(self.tecsou) + len(self.unknown_tecsou) + \
+                       len(self.foul_valsou) + len(self.foul_ground_valsou) + len(self.foul_ground_watlev) + \
+                       len(self.foul_ground_quasou) + len(self.foul_ground_tecsou)
 
         self.obstructions = Obstructions()
 
@@ -241,7 +248,7 @@ class Flags:
                 self.m_qual_tecsou = list()
                 self.mcd_description = list()
                 self.mcd_remarks = list()
-                self.character_limit = list()
+                self.chars_limit = list()
 
             def nr_of_flagged(self) -> int:
                 return len(self.without_onotes) + len(self.hsdrec_empty) + \
@@ -249,7 +256,7 @@ class Flags:
                        len(self.mooring_buoy_kwds) + len(self.m_qual_catzoc) + \
                        len(self.m_qual_sursta) + len(self.m_qual_surend) + \
                        len(self.m_qual_tecsou) + len(self.mcd_description) + \
-                       len(self.mcd_remarks) + len(self.character_limit)
+                       len(self.mcd_remarks) + len(self.chars_limit)
 
         self.office = Office()
 
