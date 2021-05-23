@@ -93,7 +93,7 @@ class ScanTab(QtWidgets.QMainWindow):
             # return True
         return super().keyPressEvent(event)
 
-    # ----------- FEATURE SCAN V10 ------------- #
+    # -----------  FEATURE SCAN   ------------- #
 
     def _ui_parameters_fs(self):
         hbox = QtWidgets.QHBoxLayout()
@@ -367,7 +367,7 @@ class ScanTab(QtWidgets.QMainWindow):
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
         button.setFixedWidth(GuiSettings.text_button_width())
-        button.setText("Feature scan v10")
+        button.setText("Feature scan v11")
         button.setToolTip('Scan features in the loaded file checking their validity')
         # noinspection PyUnresolvedReferences
         button.clicked.connect(self.click_feature_scan)

@@ -629,7 +629,7 @@ class Checks:
         # logger.debug("checking for invalid QUASOU ...")
 
         # list the allowable combinations of tecsous and quasous
-        allowable = [['1', ''], ['10', ''], ['7', ''], ['3', '6'], ['4', '6'], ['5', '6'], ['12', '6'], ['2', '9']]
+        allowable = [['3', '6'], ['4', '6'], ['5', '6'], ['12', '6'], ['2', '9']]
 
         flagged = list()
         for obj in objects:
@@ -654,6 +654,18 @@ class Checks:
                 # self.report += 'could not verify QUASOU found %s at (%s, %s) is missing TECSOU' \
                 #                % (obj.acronym, obj.centroid.x, obj.centroid.y)
                 # flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
+                continue
+
+            elif tecsou in ['1', '7', '10']:  # VBES, Lidar, Structure from Motion
+                if quasou is not None:
+                    # add to the flagged feature list
+                    self.flags.append(obj.centroid.x, obj.centroid.y,
+                                      "warning: TECSOU requires blank QUASOU: %s" % (tecsou,))
+
+                    # add to the flagged report
+                    self.report += "warning: found %s at (%s, %s) has TECSOU '%s' without blank QUASOU" \
+                                   % (obj.acronym, obj.centroid.x, obj.centroid.y, tecsou)
+                    flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                 continue
 
             # if QUASOU is not available?
