@@ -16,7 +16,7 @@ class FeatureScanV11:
     def __init__(self, s57: S57File, profile: int = 0, version: str = "2021",
                  survey_area: int = Checks.survey_areas["Pacific Coast"], use_mhw: bool = False, mhw_value: float = 0.0,
                  sorind: Optional[str] = None, sordat: Optional[str] = None, multimedia_folder: Optional[str] = None,
-                 use_htd: bool = False):
+                 check_image_names: bool = False):
         self.type = 'FEATURE_SCAN_v11'
         self.s57 = s57
         
@@ -25,7 +25,7 @@ class FeatureScanV11:
         self.checks = Checks(flags=self.flags, report=self.report, all_features=self.s57.rec10s,
                              survey_area=survey_area, version=version,
                              sorind=sorind, sordat=sordat, profile=profile,
-                             use_mhw=use_mhw, mhw_value=mhw_value, use_htd=use_htd, multimedia_folder=multimedia_folder)
+                             use_mhw=use_mhw, mhw_value=mhw_value, check_image_names=check_image_names, multimedia_folder=multimedia_folder)
 
     @property
     def version(self) -> str:
@@ -44,7 +44,7 @@ class FeatureScanV11:
         msg += "- use MHW: %s [%s]\n" % (self.checks.use_mhw, self.checks.mhw_value)
         msg += "- check SORIND: %s\n" % (self.checks.sorind,)
         msg += "- check SORDAT: %s\n" % (self.checks.sordat,)
-        msg += "- use HTD: %s \n" % (self.checks.use_htd,)
+        msg += "- use HTD: %s \n" % (self.checks.check_image_names,)
         logger.info(msg)
 
     def run(self) -> None:

@@ -524,7 +524,7 @@ class ScanTab(QtWidgets.QMainWindow):
                 else:
                     mhw_value = float(mhw_str)
 
-            htd_check = self.check_image_names.isChecked()
+            image_names_check = self.check_image_names.isChecked()
 
             if self.check_sorind.isChecked():
                 sorind = self.sorind_value.text()
@@ -550,7 +550,7 @@ class ScanTab(QtWidgets.QMainWindow):
             self.prj.feature_scan(specs_version=specs_version,
                                   survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
                                   sorind=sorind, sordat=sordat, multimedia_folder=images_folder,
-                                  use_htd=htd_check)
+                                  check_image_names=image_names_check)
 
             # noinspection PyCallByClass,PyArgumentList
             QtWidgets.QMessageBox.information(self, "Feature scan [%s]" % (specs_version,),

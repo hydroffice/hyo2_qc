@@ -24,7 +24,7 @@ class Checks:
                  survey_area: int, version: str,
                  sorind: Optional[str], sordat: Optional[str],
                  profile: int, use_mhw: bool, mhw_value: float,
-                 use_htd: bool, multimedia_folder: Optional[str]):
+                 check_image_names: bool, multimedia_folder: Optional[str]):
         self.flags = flags
         self.report = report
 
@@ -41,7 +41,7 @@ class Checks:
         self.profile = profile
         self.use_mhw = use_mhw
         self.mhw_value = mhw_value
-        self.use_htd = use_htd
+        self.check_image_names = check_image_names
         self.multimedia_folder = multimedia_folder
 
         self.character_limit = 255
@@ -647,13 +647,13 @@ class Checks:
                 if (tecsou is not None) and (quasou is not None):
                     break
 
-            # if TECSOU is not available?
+            # TODO: if TECSOU is not available?
             if tecsou is None:
                 # logger.debug("checking for TECSOU...")
-                # self.flags.append(obj.centroid.x, obj.centroid.y, 'missing TECSOU')
-                # self.report += 'could not verify QUASOU found %s at (%s, %s) is missing TECSOU' \
-                #                % (obj.acronym, obj.centroid.x, obj.centroid.y)
-                # flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
+                self.flags.append(obj.centroid.x, obj.centroid.y, 'missing TECSOU')
+                self.report += 'Could not verify QUASOU found %s at (%s, %s) because is missing TECSOU' \
+                               % (obj.acronym, obj.centroid.x, obj.centroid.y)
+                flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                 continue
 
             elif tecsou in ['1', '7', '10']:  # VBES, Lidar, Structure from Motion
@@ -663,18 +663,18 @@ class Checks:
                                       "warning: TECSOU requires blank QUASOU: %s" % (tecsou,))
 
                     # add to the flagged report
-                    self.report += "warning: found %s at (%s, %s) has TECSOU '%s' without blank QUASOU" \
+                    self.report += "Warning: found %s at (%s, %s) has TECSOU '%s' without blank QUASOU" \
                                    % (obj.acronym, obj.centroid.x, obj.centroid.y, tecsou)
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                 continue
 
             # if QUASOU is not available?
             if quasou is None:
-                # logger.debug("Checking for QUASOU...")
-                # self.flags.append(obj.centroid.x, obj.centroid.y, 'missing QUASOU')
-                # self.report += 'Found %s at (%s, %s) is missing QUASOU' \
-                #                % (obj.acronym, obj.centroid.x, obj.centroid.y)
-                # flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
+                logger.debug("Checking for QUASOU...")
+                self.flags.append(obj.centroid.x, obj.centroid.y, 'missing QUASOU required for TECSOU')
+                self.report += 'Found %s at (%s, %s) is missing QUASOU required for TECSOU' \
+                               % (obj.acronym, obj.centroid.x, obj.centroid.y)
+                flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                 continue
 
             # splitting using ','
@@ -685,7 +685,7 @@ class Checks:
             if len(tecsou) != len(quasou):
                 self.flags.append(obj.centroid.x, obj.centroid.y, 'warning: mismatch in the number of TECSOU and '
                                                                   'QUASOU attributes')
-                self.report += 'warning: found %s at (%s, %s) contains mismatch in the number of TECSOU and QUASOU ' \
+                self.report += 'Warning: found %s at (%s, %s) contains mismatch in the number of TECSOU and QUASOU ' \
                                'attributes' % (obj.acronym, obj.centroid.x, obj.centroid.y)
                 flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                 continue
@@ -701,7 +701,7 @@ class Checks:
                                   "warning: TECSOU and QUASOU combination is not allowed %s" % (check,))
 
                 # add to the flagged report
-                self.report += 'warning: found %s at (%s, %s) has prohibited TECSOU/QUASOU combination %s' \
+                self.report += 'Warning: found %s at (%s, %s) has prohibited TECSOU/QUASOU combination %s' \
                                % (obj.acronym, obj.centroid.x, obj.centroid.y, check)
                 flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                 break
@@ -737,36 +737,37 @@ class Checks:
 
         self.report += "Checks for features with images [SECTION]"
 
-        if self.multimedia_folder:  # because it is required to have the multimedia folder
-            # Ensure all features for valid paths
-            self.flags.images.invalid_paths = self._check_features_for_images_path(objects=self.all_fts)
+        # Ensure all features for valid paths
+        self.flags.images.invalid_paths = self._check_features_for_images_path(objects=self.all_fts)
 
-        # # Isolate new or updated seabed areas
-        # sbdare = S57Aux.select_by_object(objects=self.new_updated_fts, object_filter=['SBDARE', ])
-        #
-        # # Isolate new or updated point seabed areas
-        # sbdare_points = S57Aux.select_only_points(sbdare)
-        # non_sbdare_features = S57Aux.filter_by_object(objects=self.all_fts, object_filter=['SBDARE', ])
-        # sbdare_lines_areas = S57Aux.select_lines_and_areas(sbdare)
-        #
-        # if self.version in ["2019", "2020"]:
-        #     self.report += "Invalid IMAGE name per HTD 2018-4 or 2020 HSSD [CHECK]"
-        #     self.flags.images.sbdare_points = self._check_sbdare_images_per_htd(objects=sbdare_points)
-        #
-        #     self.report += "Invalid IMAGE name per HTD 2018-5 or 2020 HSSD [CHECK]"
-        #     self.flags.images.non_sbdare = self._check_nonsbdare_images_per_htd(objects=non_sbdare_features)
-        #
-        #     # Isolate new or update line and area seabed areas
-        #     self.report += "SBDARE IMAGE name per HTD 2018-5 or 2020 HSSD [CHECK]"
-        #     self.flags.images.sbdare_lines_areas = self._check_nonsbdare_images_per_htd(objects=sbdare_lines_areas)
-        #
-        # elif self.version in ["2021"]:
-        #
-        #     self.report += "Invalid bottom sample IMAGE name per HSSD [CHECK]"
-        #     self.flags.images.sbdare_points = self._check_sbdare_images_per_hssd(sbdare_points)
-        #
-        #     self.report += "Invalid feature IMAGE name per HSSD [CHECK]"
-        #     self.flags.images.features = self._check_nonsbdare_images_per_hssd(non_sbdare_features + sbdare_lines_areas)
+        if not self.check_image_names:
+            return
+
+        # Isolate new or updated seabed areas (points + lines & areas)
+        sbdare = S57Aux.select_by_object(objects=self.new_updated_fts, object_filter=['SBDARE', ])
+        sbdare_points = S57Aux.select_only_points(sbdare)
+        sbdare_lines_areas = S57Aux.select_lines_and_areas(sbdare)
+        non_sbdare_features = S57Aux.filter_by_object(objects=self.all_fts, object_filter=['SBDARE', ])
+
+        if self.version in ["2019", ]:
+            self.report += "Invalid IMAGE name per HTD 2018-4/5 [CHECK]"
+            self.flags.images.invalid_names = \
+                self._check_sbdare_images_per_htd_2018_4(objects=sbdare_points) + \
+                self._check_nonsbdare_images_per_htd_2018_5(objects=sbdare_lines_areas + non_sbdare_features)
+
+        elif self.version in ["2020", ]:
+            self.report += "Invalid IMAGE name per HSSD 2020 [CHECK]"
+            self.flags.images.invalid_names = \
+                self._check_sbdare_images_per_htd_2018_4(objects=sbdare_points) + \
+                self._check_nonsbdare_images_per_htd_2018_5(objects=sbdare_lines_areas + non_sbdare_features)
+
+        elif self.version in ["2021"]:
+
+            self.report += "Invalid bottom sample IMAGE name per HSSD [CHECK]"
+            self.flags.images.invalid_names = \
+                self._check_sbdare_images_per_hssd_2021(objects=sbdare_points) + \
+                self._check_nonsbdare_images_per_hssd_2021(
+                    objects=sbdare_points + non_sbdare_features + sbdare_lines_areas)
 
     def _check_features_for_images_path(self, objects: List['S57Record10']) -> List[list]:
         # Checked if passed images have correct separator per HSSD and are found in the multimedia folder
@@ -785,7 +786,7 @@ class Checks:
             if images is None:
                 continue
 
-            images_list = images.split(";")
+            images_list = [image.lower() for image in images.split(";")]
 
             for image_filename in images_list:
 
@@ -828,7 +829,7 @@ class Checks:
 
         return flagged
 
-    def _check_nonsbdare_images_per_htd(self, objects: List['S57Record10']) -> List[list]:
+    def _check_nonsbdare_images_per_htd_2018_5(self, objects: List['S57Record10']) -> List[list]:
         """"Check if the passed features have valid image name per HTD 2018-5"""
         # logger.debug("checking for invalid IMAGE NAMES per HTD 2018-5...")
 
@@ -847,7 +848,9 @@ class Checks:
 
             for image_filename in images_list:
 
+                image_filename = os.path.splitext(image_filename)[0]
                 tokens = image_filename.split("_")
+
                 if len(tokens) not in [2, 3]:
                     # add to the flagged feature list and to the flagged report
                     self.flags.append(obj.centroid.x, obj.centroid.y, "invalid filenaming")
@@ -879,7 +882,7 @@ class Checks:
 
         return flagged
 
-    def _check_sbdare_images_per_htd(self, objects: List['S57Record10']) -> List[list]:
+    def _check_sbdare_images_per_htd_2018_4(self, objects: List['S57Record10']) -> List[list]:
         """"Check if the passed features have valid image name per HTD 2018-4"""
         # logger.debug("checking for invalid IMAGE NAMES per HTD 2018-4...")
 
@@ -925,7 +928,7 @@ class Checks:
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
-                if self.version in ["2019"]:
+                if self.version in ["2019", ]:
                     if len(tokens[2]) != 15:
                         # add to the flagged feature list and to the flagged report
                         self.flags.append(obj.centroid.x, obj.centroid.y, "invalid timestamp in filename")
@@ -933,7 +936,7 @@ class Checks:
                                        (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                         flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                         continue
-                if self.version in ["2020", "2021"]:
+                if self.version in ["2020", ]:
                     if len(tokens[2]) not in [14, 15]:
                         # add to the flagged feature list and to the flagged report
                         self.flags.append(obj.centroid.x, obj.centroid.y, "invalid timestamp in filename")
@@ -949,7 +952,7 @@ class Checks:
 
         return flagged
 
-    def _check_sbdare_images_per_hssd(self, objects: List['S57Record10']) -> List[list]:
+    def _check_sbdare_images_per_hssd_2021(self, objects: List['S57Record10']) -> List[list]:
         """"Check if the passed features have valid image name per HSSD"""
         # logger.debug("checking for invalid IMAGE NAMES per HSSD...")
 
@@ -964,7 +967,7 @@ class Checks:
             if images is None:
                 continue
 
-            images_list = images.split(";")
+            images_list = [image.lower() for image in images.split(";")]
 
             for image_filename in images_list:
 
@@ -996,7 +999,7 @@ class Checks:
                     continue
 
                 try:
-                    int(tokens[2]) == int
+                    _ = int(tokens[2])
                 except ValueError:
                     # add to the flagged feature list and to the flagged report
                     self.flags.append(obj.centroid.x, obj.centroid.y, "no numeric identifier in filename")
@@ -1008,15 +1011,47 @@ class Checks:
         if len(flagged) == 0:
             self.report += "OK"
 
-        # logger.debug("checking for invalid image names per HTD 2018-4 -> flagged: %d" % len(flagged))
+        # logger.debug("checking for invalid image names per HSSD -> flagged: %d" % len(flagged))
 
         return flagged
 
-    def _check_nonsbdare_images_per_hssd(self, objects: List['S57Record10']) -> List[list]:
+    def _check_nonsbdare_images_per_hssd_2021(self, objects: List['S57Record10']) -> List[list]:
         """"Check if the passed features have valid image name per HSSD"""
-        # logger.debug("checking for invalid IMAGE NAMES per HSSD...")
         # create check that makes sure that the image naming convention is just a unique name.
-        pass
+
+        flagged = list()
+        names = set()
+
+        for obj in objects:
+            images = None
+            for attr in obj.attributes:
+                if attr.acronym == "images":
+                    images = attr.value
+
+            if images is None:
+                continue
+
+            images_list = [image.lower() for image in images.split(";")]
+
+            for image_filename in images_list:
+
+                image_filename = os.path.splitext(image_filename)[0]
+                if image_filename in names:
+                    # add to the flagged feature list and to the flagged report
+                    self.flags.append(obj.centroid.x, obj.centroid.y, "duplicated filename")
+                    self.report += 'Found %s at (%s, %s) with duplicated filename: %s ' % \
+                                   (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
+                    flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
+                else:
+                    names.add(image_filename)
+
+        if len(flagged) == 0:
+            self.report += "OK"
+
+        # logger.debug("checking for invalid image names per HSSD 2021 -> flagged: %d" % len(flagged))
+
+        return flagged
+
 
     # SOUNDINGS
 

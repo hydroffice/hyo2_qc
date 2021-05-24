@@ -790,7 +790,7 @@ class SurveyProject(BaseProject):
     def feature_scan(self, specs_version: str,
                      survey_area: int = Checks.survey_areas["Pacific Coast"], use_mhw: bool = False,
                      mhw_value: float = 0.0, sorind: Optional[str] = None, sordat: Optional[str] = None,
-                     multimedia_folder: Optional[str] = None, use_htd: bool = False):
+                     multimedia_folder: Optional[str] = None, check_image_names: bool = False):
 
         # sanity checks
 
@@ -815,7 +815,8 @@ class SurveyProject(BaseProject):
 
             self._feature_scan(feature_file=s57_file, specs_version=specs_version,
                                survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
-                               sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder, use_htd=use_htd,
+                               sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder,
+                               check_image_names=check_image_names,
                                idx=(i + 1), total=len(self.s57_list))
 
             # export the flagged features
@@ -831,7 +832,7 @@ class SurveyProject(BaseProject):
 
     def _feature_scan(self, feature_file: str, specs_version: str,
                       survey_area: int, use_mhw: bool, mhw_value: float, sorind: Optional[str], sordat: Optional[str],
-                      multimedia_folder: Optional[str], use_htd: bool,
+                      multimedia_folder: Optional[str], check_image_names: bool,
                       idx: int, total: int) -> None:
         """ feature scan in the loaded s57 features """
         logger.debug('feature scan ...')
@@ -852,7 +853,7 @@ class SurveyProject(BaseProject):
             self._scan_features(specs_version=specs_version,
                                 survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
                                 sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder,
-                                use_htd=use_htd)
+                                check_image_names=check_image_names)
 
         except Exception as e:
             traceback.print_exc()
@@ -863,7 +864,7 @@ class SurveyProject(BaseProject):
 
     def _scan_features(self, specs_version: str, survey_area: int, use_mhw: bool, mhw_value: float,
                        sorind: Optional[str], sordat: Optional[str], multimedia_folder: Optional[str],
-                       use_htd: bool):
+                       check_image_names: bool):
         """Look for fliers using the passed parameters and the loaded grids"""
         if not self.has_s57():
             return
@@ -873,7 +874,7 @@ class SurveyProject(BaseProject):
             self._scan = FeatureScanV11(s57=self.cur_s57, profile=self.active_profile, version=specs_version,
                                         survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
                                         sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder,
-                                        use_htd=use_htd)
+                                        check_image_names=check_image_names)
 
             start_time = time.time()
             self._scan.run()
