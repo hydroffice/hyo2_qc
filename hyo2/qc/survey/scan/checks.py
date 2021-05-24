@@ -177,7 +177,7 @@ class Checks:
     def file_consistency(self):
         self.report += "Checks for feature file consistency [SECTION]"
 
-        self._all_features_redundancy_and_geometry()
+        self._check_all_features_for_redundancy_and_geometry()
 
         if self.version in ["2021"]:
             # New Requirement in 2021 HSSD character limit for all fields with free text strings
@@ -187,7 +187,7 @@ class Checks:
                                                                                      'onotes', 'recomd', 'remrks'],
                                                                          character_limit=self.character_limit)
 
-    def _all_features_redundancy_and_geometry(self) -> None:
+    def _check_all_features_for_redundancy_and_geometry(self) -> None:
         """Function that identifies the presence of duplicated feature looking at their geometries"""
         logger.debug('Checking for feature redundancy...')
         self.report += "Redundant features [CHECK]"
@@ -737,8 +737,9 @@ class Checks:
 
         self.report += "Checks for features with images [SECTION]"
 
-        # Ensure all features with images comply with HSSD requirements.
-        self.flags.images.hssd = self._check_features_for_images(objects=self.all_fts)
+        if self.multimedia_folder:  # because it is required to have the multimedia folder
+            # Ensure all features for valid paths
+            self.flags.images.invalid_paths = self._check_features_for_images_path(objects=self.all_fts)
 
         # # Isolate new or updated seabed areas
         # sbdare = S57Aux.select_by_object(objects=self.new_updated_fts, object_filter=['SBDARE', ])
@@ -767,7 +768,7 @@ class Checks:
         #     self.report += "Invalid feature IMAGE name per HSSD [CHECK]"
         #     self.flags.images.features = self._check_nonsbdare_images_per_hssd(non_sbdare_features + sbdare_lines_areas)
 
-    def _check_features_for_images(self, objects: List['S57Record10']) -> List[list]:
+    def _check_features_for_images_path(self, objects: List['S57Record10']) -> List[list]:
         # Checked if passed images have correct separator per HSSD and are found in the multimedia folder
         # logger.debug("checking for invalid IMAGES ...")
 
@@ -806,8 +807,8 @@ class Checks:
 
                 if images_list.count(image_filename) > 1:
                     # add to the flagged feature list and to the flagged report
-                    self.flags.append(obj.centroid.x, obj.centroid.y, "image names not unique")
-                    self.report += 'Found %s at (%s, %s) with images without unique name: %s' % \
+                    self.flags.append(obj.centroid.x, obj.centroid.y, "listed image names not unique")
+                    self.report += 'Found %s at (%s, %s) with a list of images without unique name: %s' % \
                                    (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue

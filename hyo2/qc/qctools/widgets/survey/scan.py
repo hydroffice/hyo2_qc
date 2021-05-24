@@ -46,10 +46,10 @@ class ScanTab(QtWidgets.QMainWindow):
         self.text_lakes = None  # type: Optional[QtWidgets.QLabel]
         self.great_lakes = None  # type: Optional[QtWidgets.QCheckBox]
         self.great_lakes_text = None  # type: Optional[QtWidgets.QLabel]
-        self.ask_multimedia_folder = None  # type: Optional[QtWidgets.QCheckBox]
-        self.amf_text = None  # type: Optional[QtWidgets.QLabel]
-        self.use_htd = None  # type: Optional[QtWidgets.QCheckBox]
-        self.htd_text = None  # type: Optional[QtWidgets.QLabel]
+        self.set_images_folder = None  # type: Optional[QtWidgets.QCheckBox]
+        self.set_images_folder_text = None  # type: Optional[QtWidgets.QLabel]
+        self.check_image_names = None  # type: Optional[QtWidgets.QCheckBox]
+        self.check_image_names_text = None  # type: Optional[QtWidgets.QLabel]
         self.use_mhw = None  # type: Optional[QtWidgets.QCheckBox]
         self.mhw_text = None  # type: Optional[QtWidgets.QLabel]
         self.mhw_value = None  # type: Optional[QtWidgets.QLineEdit]
@@ -184,7 +184,7 @@ class ScanTab(QtWidgets.QMainWindow):
         text_2021 = QtWidgets.QLabel("2021")
         text_2021.setAlignment(QtCore.Qt.AlignCenter)
         text_2021.setFixedWidth(75)
-        text_2021.setStyleSheet("QLabel { color :  rgb(200, 0, 0, 200); }")
+        # text_2021.setStyleSheet("QLabel { color :  rgb(200, 0, 0, 200); }")
         label_hbox.addWidget(text_2021)
         # stretch
         label_hbox.addStretch()
@@ -233,9 +233,12 @@ class ScanTab(QtWidgets.QMainWindow):
         toggle_hbox.addSpacing(left_spacing)
         self.great_lakes = QtWidgets.QCheckBox("")
         self.great_lakes.setChecked(False)
+        # noinspection PyUnresolvedReferences
+        self.great_lakes.stateChanged.connect(self.change_great_lakes)
         toggle_hbox.addWidget(self.great_lakes)
-        self.great_lakes_text = QtWidgets.QLabel("Great Lakes area")
+        self.great_lakes_text = QtWidgets.QLabel("Use settings for Great Lakes area")
         self.great_lakes_text.setFixedWidth(text_spacing)
+        self.great_lakes_text.setDisabled(True)
         toggle_hbox.addWidget(self.great_lakes_text)
         # stretch
         toggle_hbox.addStretch()
@@ -244,12 +247,17 @@ class ScanTab(QtWidgets.QMainWindow):
         vbox.addLayout(toggle_hbox)
         # stretch
         toggle_hbox.addSpacing(left_spacing)
-        self.ask_multimedia_folder = QtWidgets.QCheckBox("")
-        self.ask_multimedia_folder.setChecked(True)
-        toggle_hbox.addWidget(self.ask_multimedia_folder)
-        self.amf_text = QtWidgets.QLabel("Select the path to the images folder")
-        self.amf_text.setFixedWidth(text_spacing)
-        toggle_hbox.addWidget(self.amf_text)
+        self.check_image_names = QtWidgets.QCheckBox("")
+        self.check_image_names.setChecked(True)
+        # noinspection PyUnresolvedReferences
+        self.check_image_names.stateChanged.connect(self.change_check_image_names)
+        toggle_hbox.addWidget(self.check_image_names)
+        self.check_image_names_text = QtWidgets.QLabel("Check image names (HSSD 2021)")
+        self.check_image_names_text.setFixedWidth(text_spacing)
+        toggle_hbox.addWidget(self.check_image_names_text)
+        self.check_image_names.setChecked(True)
+        self.check_image_names.setEnabled(False)
+        self.check_image_names_text.setEnabled(True)
         # stretch
         toggle_hbox.addStretch()
 
@@ -257,19 +265,14 @@ class ScanTab(QtWidgets.QMainWindow):
         vbox.addLayout(toggle_hbox)
         # stretch
         toggle_hbox.addSpacing(left_spacing)
-        self.use_htd = QtWidgets.QCheckBox("")
-        self.use_htd.setChecked(True)
+        self.set_images_folder = QtWidgets.QCheckBox("")
+        self.set_images_folder.setChecked(True)
         # noinspection PyUnresolvedReferences
-        self.use_htd.stateChanged.connect(self.change_use_htd)
-        toggle_hbox.addWidget(self.use_htd)
-        self.htd_text = QtWidgets.QLabel('Check Image Names per HSSD')
-        self.htd_text.setFixedWidth(text_spacing)
-        toggle_hbox.addWidget(self.htd_text)
-        # take care to activate/deactivate the HTD items at the GUI initialization
-        enable = self.toggle_specs.value() in [2018, 2019] and self.prj.active_profile in [1, ]
-        self.use_htd.setChecked(True)
-        self.use_htd.setEnabled(enable)
-        self.htd_text.setEnabled(enable)
+        self.set_images_folder.stateChanged.connect(self.change_check_image_paths)
+        toggle_hbox.addWidget(self.set_images_folder)
+        self.set_images_folder_text = QtWidgets.QLabel("Set folder for checking image paths")
+        self.set_images_folder_text.setFixedWidth(text_spacing)
+        toggle_hbox.addWidget(self.set_images_folder_text)
         # stretch
         toggle_hbox.addStretch()
 
@@ -393,22 +396,32 @@ class ScanTab(QtWidgets.QMainWindow):
         self.settings.setValue("survey/scan", value)
         logger.info('activated profile #%s' % value)
 
-        # take care to activate/deactivate the HTD items
-        enable = self.toggle_specs.value() in [2018, 2019] and (value == 1)
-        self.use_htd.setEnabled(enable)
-        self.htd_text.setEnabled(enable)
+        # check images was optional in 2019 for NOAA contractors
+        enable = self.toggle_specs.value() in [2019, ] and (value == 1)
+        self.check_image_names.setEnabled(enable)
+        self.check_image_names_text.setEnabled(enable)
 
         # make office text visible
         if value == 1:
             self.text_office.setText("")
         else:
             self.text_office.setText(self.text_office_note)
-            self.use_htd.setChecked(True)
+            self.check_image_names.setChecked(True)
 
-    def change_use_htd(self):
-        logger.info('use HTD check: %s' % self.use_htd.isChecked())
-        enable = self.use_htd.isChecked()
-        self.htd_text.setEnabled(enable)
+    def change_great_lakes(self):
+        logger.info('use Great Lakes: %s' % self.great_lakes.isChecked())
+        enable = self.great_lakes.isChecked()
+        self.great_lakes_text.setEnabled(enable)
+
+    def change_check_image_names(self):
+        logger.info('check image names: %s' % self.check_image_names.isChecked())
+        enable = self.check_image_names.isChecked()
+        self.check_image_names_text.setEnabled(enable)
+
+    def change_check_image_paths(self):
+        logger.info('check image paths: %s' % self.set_images_folder.isChecked())
+        enable = self.set_images_folder.isChecked()
+        self.set_images_folder_text.setEnabled(enable)
 
     def change_use_mhw(self):
         logger.info('use mhw: %s' % self.use_mhw.isChecked())
@@ -432,37 +445,21 @@ class ScanTab(QtWidgets.QMainWindow):
         """ Change the specs in use """
         logger.info('selected specs %d' % value)
 
-        enable = value in [2018, ]
-        self.great_lakes.setEnabled(enable)
-
-        enable = self.ask_multimedia_folder.isChecked()
-        self.ask_multimedia_folder.setEnabled(enable)
-        self.amf_text.setEnabled(enable)
-
-        enable2 = value in [2018, 2019] and self.prj.active_profile in [1, ]
-        self.use_htd.setEnabled(enable2)
-        self.htd_text.setEnabled(enable2)
-
-        if value in [2020, 2021]:
-            self.htd_text.setText('Check Image Names per HSSD')
-            self.use_htd.setChecked(True)
+        # check images was optional in 2019 for NOAA contractors
+        check_images_enabled = value in [2019, ] and self.prj.active_profile in [1, ]
+        self.check_image_names.setEnabled(check_images_enabled)
+        self.check_image_names_text.setEnabled(check_images_enabled)
+        if value in [2020, ]:
+            self.check_image_names_text.setText('Check image names (HSSD 2020)')
+            self.check_image_names.setChecked(True)
+        elif value in [2021, ]:
+            self.check_image_names_text.setText('Check image names (HSSD 2021)')
+            self.check_image_names.setChecked(True)
         else:
-            self.htd_text.setText('Check Image Names per HTDs (NOAA only)')
+            self.check_image_names_text.setText('Check image names (HTDs 2018-4/5, NOAA only)')
 
-        self.use_mhw.setEnabled(enable)
-        enable3 = enable and self.use_mhw.isChecked()
-        self.mhw_text.setEnabled(enable3)
-        self.mhw_value.setEnabled(enable3)
-
-        self.check_sorind.setEnabled(enable)
-        enable3 = enable and self.check_sorind.isChecked()
-        self.sorind_text.setEnabled(enable3)
-        self.sorind_value.setEnabled(enable3)
-
-        self.check_sordat.setEnabled(enable)
-        enable3 = enable and self.check_sordat.isChecked()
-        self.sordat_text.setEnabled(enable3)
-        self.sordat_value.setEnabled(enable3)
+        if self.check_image_names.isChecked():
+            self.check_image_names_text.setEnabled(True)
 
     # ------------- COMMON PART --------------- #
 
@@ -479,18 +476,13 @@ class ScanTab(QtWidgets.QMainWindow):
         # library takes care of progress bar
 
         try:
-            survey_area = 0
             sorind = None
             sordat = None
             images_folder = None
 
             specs_version = self.toggle_specs.value()
-            if specs_version == 2018:
-                specs_version = "2018"
-            elif specs_version == 2019:
+            if specs_version == 2019:
                 specs_version = "2019"
-            elif specs_version == 2020:
-                specs_version = "2020"
             elif specs_version == 2020:
                 specs_version = "2020"
             elif specs_version == 2021:
@@ -504,7 +496,7 @@ class ScanTab(QtWidgets.QMainWindow):
             else:  # any area different from Great Lakes is fine
                 survey_area = Checks.survey_areas["Atlantic Coast"]
 
-            if self.ask_multimedia_folder.isChecked():
+            if self.set_images_folder.isChecked():
                 # ask for images folder
                 # noinspection PyCallByClass
                 images_folder = QtWidgets.QFileDialog.getExistingDirectory(self,
@@ -514,11 +506,10 @@ class ScanTab(QtWidgets.QMainWindow):
                                                                            )
                 if images_folder == "":
                     logger.debug('selecting multimedia folder: aborted')
-                    images_folder = None
+                    return
 
-                else:
-                    logger.debug("selected images folder: %s" % images_folder)
-                    QtCore.QSettings().setValue("feature_scan_images_folder", images_folder)
+                logger.debug("selected images folder: %s" % images_folder)
+                QtCore.QSettings().setValue("feature_scan_images_folder", images_folder)
 
             use_mhw = self.use_mhw.isChecked()
             mhw_value = 0.0
@@ -533,7 +524,7 @@ class ScanTab(QtWidgets.QMainWindow):
                 else:
                     mhw_value = float(mhw_str)
 
-            htd_check = self.use_htd.isChecked()
+            htd_check = self.check_image_names.isChecked()
 
             if self.check_sorind.isChecked():
                 sorind = self.sorind_value.text()

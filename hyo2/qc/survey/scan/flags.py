@@ -63,14 +63,16 @@ class Flags:
         # ### IMAGES ###
         class Images:
             def __init__(self):
-                self.hssd = list()
+                self.invalid_values = list()
+                self.invalid_paths = list()
                 self.features = list()
                 self.non_sbdare = list()
                 self.sbdare_points = list()
                 self.sbdare_lines_areas = list()
 
             def nr_of_flagged(self) -> int:
-                return len(self.hssd) + len(self.features) + \
+                return len(self.invalid_paths) + len(self.invalid_paths) + \
+                       len(self.features) + \
                        len(self.non_sbdare) + len(self.sbdare_points) + \
                        len(self.sbdare_lines_areas)
 
