@@ -1671,15 +1671,16 @@ class Checks:
         self.report += "Features missing mandatory attribute remarks [CHECK]"
         self.flags.office.mcd_remarks = self._check_features_for_attribute(objects=self.all_fts, attribute='remrks')
 
-        # New Requirement from mcd in 2020 - character limit for all fields with free text strings
-        self.report += "Features with text input fields exceeding %d characters [CHECK]" % self.character_limit
-        self.flags.office.chars_limit = self._check_character_limit(objects=self.all_fts, attributes=['images',
-                                                                                                      'invreq',
-                                                                                                      'keywrd',
-                                                                                                      'onotes',
-                                                                                                      'recomd',
-                                                                                                      'remrks'],
-                                                                    character_limit=self.character_limit)
+        if self.version in ["2019", "2020"]:
+            # Requirement only for the office, then also for the field
+            self.report += "Features with text input fields exceeding %d characters [CHECK]" % self.character_limit
+            self.flags.office.chars_limit = self._check_character_limit(objects=self.all_fts, attributes=['images',
+                                                                                                          'invreq',
+                                                                                                          'keywrd',
+                                                                                                          'onotes',
+                                                                                                          'recomd',
+                                                                                                          'remrks'],
+                                                                        character_limit=self.character_limit)
 
     def _check_for_missing_keywords(self, objects: List['S57Record10'], attr_acronym: str, keywords: List[str]) \
             -> List[list]:
