@@ -21,11 +21,11 @@ In order to access this tool, load an S-57 file into the **Data Inputs** tab.
 
   #. Turn the knob to select the applicable year as pertaining to required HSSD.
 
-  #. Turn the knob to select the applicable location. (This effects the definition of WATLEV per the 2018 HSSD.)
+  #. Select **Use settings for Great Lakes area** if your survey is located in the Great Lakes region. This functionality is used when analyzing the WATLEV of features.  
 
-  #. When **Select the path to the images folder** is set, the user can navigate to their multimedia or images folder upon execution of the tool. When this is unchecked, Feature scan will search in the relative path that the feature file is located. 
-
-  #. When **Check Image Names per HTDs** is set, the tool will check image names for compliance with the HSSD and with HTD 2018-4 (SBDARE features) and HTD 2018-5 (non-SBDARE features). This check is available in Field mode. In Office mode, the HTD checks automatically run. These HTDs do not apply to 2020 and beyond as they have been incorporated into the 2020 HSSD. Therefore, **Check Image Names per HSSD** will perform image name checks for 2020 automatically.
+  #. When **Check Image Names** is set, the tool will check image names for compliance with the HSSD or with HTD 2018-4 (SBDARE features) and HTD 2018-5 (non-SBDARE features), depending on the year selected. This check can only be disabled in the Field mode for 2019. In Office mode, the HTD or HSSD checks automatically run. 
+  
+  #. When **Select the path to the images folder** is set, the user can navigate to their multimedia or images folder upon execution of the tool. When this is unchecked, Feature scan will search in the relative path that the feature file is located.
 
   #. **MHW** value is required to check proper attribution of WATLEV per the HSSD. Enter MHW value as a positive number.
 
@@ -34,8 +34,7 @@ In order to access this tool, load an S-57 file into the **Data Inputs** tab.
 .. index::
     single: feature scan
 
-* In **Execution**, click **Feature scan v10** (note that the '2021 test' option is used to experiment with future
-  requirements).
+* In **Execution**, click **Feature scan v11**.
 
 .. _fig_feature_scan:
 .. figure:: _static/feature_scan_interface.png
@@ -70,58 +69,114 @@ How Does It Work?
 
 The S-57 features are scanned to ensure proper attribution per the required year of HSSD.
 
-The logic for the 2020 QC Tools feature scan is shown below. For previous years, refer to the HSSD for that year.
+The logic for the 2021 QC Tools feature scan is shown below. For previous years, refer to the HSSD for that year.
 
-* Check to ensure no feature redundancy.
-* All new and updated features except **"$AREAS", "$LINES", "$CSYMB", "$COMPS",** and **"$TEXTS"**.
-    * Must have **"SORIND"** and **"SORDAT"** and that they are in the proper formats.
-    * Check for agreement of **"SORIND"** and **"SORDAT"** values when entered in the Parameters.
-* Assigned features = all features with **"asgnmt"** = 2.
-    * All Assigned features must have **"descrp"** and **"remrks".**
-* New or Deleted features = all features with **"descrp"** = 1 or 3.
-    * All New or Deleted features must have **"remrks"** and **"recomd".**
+* Checks for feature file consistancy:
+	* Check to ensure no feature redundancy.
+	* No features with text input fields exceeds 255 characters.
+* Assigned features = all features with **asgnmt = 2**:
+    * All Assigned features must have **descrp** and **remrks.**	
+* All new and updated features except **$AREAS, $LINES, $CSYMB, $COMPS,** and **$TEXTS**:
+    * Must have **SORIND** and **SORDAT** and that they are in the proper formats.
+    * Check for agreement of **SORIND** and **SORDAT** values when entered in the Parameters.
+	* If MHW flag is set, features with **VALSOU** are checked for valid value and proper **WATLEV** attribution. [1]_
+	* All new or updated features with a VALSOU have a correct **QUASOU** per the HSSD. [2]_
+	* All features with **ELEVAT** are checked for valid value.
+* New or Deleted features = all features with **descrp = 1 or 3**:
+    * All New or Deleted features must have **remrks** and **recomd.**
+* All features with images:
+	* All **images** contain the correct naming convention and they have a corresponding image in the multimedia folder.
 * Sounding features = all **SOUNDG.**
-    * All Sounding features must have **"TECSOU"** and **"QUASOU".**
-* DTONs = all features with **"descrp"** = 1 or 2, **"sftype"** = 3.
-    * All DTONs must have **"images".**
-* Wrecks = all **WRECKS** with **"descrp"** = 1 or 2.
-    * All Wrecks must have **"images", "CATWRK", "WATLEV", "VALSOU", "TECSOU",** and **"QUASOU".**
-* Rocks = all **UWTROC** with **"descrp"** = 1 or 2.
-    * All Rocks must have **"WATLEV", "VALSOU", "QUASOU",** and **"TECSOU".** [1]_
-* Obstructions = all **OBSTRN** with **"descrp"** = 1 or 2.
-    * All Obstructions must have **"images", "WATLEV", "VALSOU", "QUASOU",** and **"TECSOU".** [2]_
-* Offshore platforms = all **OFSPLF** with **"descrp"** = 1 or 2.
-    * All Offshore platforms must have **"images".**
-* Seabed area points = all **SBDARE** with **point** geometry.
-    * All Seabed area points must have **"NATSUR".**
-    * All Seabed area points must have as many **"NATSUR"** attributes as **"NATQUA"** and/or **"COLOUR".**
-    * All Seabed area points must have an allowable combination of **"NATSUR"** and **"NATQUA".** [3]_
-* Seabed area lines and areas = all **SBDARE** with **line** or **area** geometry.
-    * All Seabed area lines and areas must have **"NATSUR"** and **"WATLEV".**
-* Additional:
-    * All **MORFAC** must have **"CATMOR".**
-    * All **COALNE** must have **"CATCOA".**
-    * All **SLCONS** must have **"CATSLC".**
-    * All **LNDELV** must have **"ELEVAT".**
-* Additionally, if MHW flag is set, all features with **"VALSOU"** are checked for valid value and proper **"WATLEV"** attribution. [4]_
-* All features with **"ELEVAT"** are checked for valid value.
-* All **M_COVR** must have **"CATCOV", "INFORM",** and **"NINFOM".**
-* All **"images"** contain the correct naming convention and they have a corresponding image in the multimedia folder.
-* All new or updated features with a VALSOU have a correct **QUASOU** per the HSSD. [5]_
-* If **VALSOU** is blank, **WATLEV**, **TECSOU**, and **QUASOU** shall be "unknown".
+    * All Sounding features must have **TECSOU** and **QUASOU.**
+* DTONs = all features with **descrp = 1 or 2**, **sftype = 3**:
+    * All DTONs must have **images.**
+* Wrecks = all **WRECKS** with **descrp = 1 or 2**:
+    * All Wrecks must have **images, CATWRK**, and **VALSOU**. [3]_
+	* If Wreck has **VALSOU**:
+		* Must have **WATLEV**, **QUASOU**, and **TECSOU**.
+	* If Wreck does not have **VALSOU**:
+		* Must have **QUASOU** and **TECSOU** of null/undefined.
+		* Recieve a warning if **WATLEV** is not "unknown".
+* Rocks = all **UWTROC** with **descrp = 1 or 2**:
+    * All Rocks must have **VALSOU**. [3]_
+	* If Rock has **VALSOU**:
+		* Must have **WATLEV**, **QUASOU**, and **TECSOU**.
+	* If Rock does not have **VALSOU**:
+		* Must have **QUASOU** and **TECSOU** of null/undefined.
+		* Recieve a warning if **WATLEV** is not "unknown".
+* Obstructions = all **OBSTRN** with **descrp = 1 or 2**:
+	* All Obstructions (excluding foul areas) must have **images**.
+	* All obsructions (excluding foul ground and foul areas) must have **VALSOU**. [3]_
+	* Foul areas shall not have **VALSOU**.
+	* If obstruction has **VALSOU**:
+		* Obstruction must have **WATLEV**, **QUASOU**, and **TECSOU**.
+	* If obstruction does not have **VALSOU**:
+		* Must have **QUASOU** and **TECSOU** of null/undefined.
+		* Recieve a warning if **WATLEV** is not "unknown".
+	* If obstruction is foul ground:
+		* Must have **VALSOU**, WATLEV, QUASOU**, and **TECSOU**.
+* Offshore platforms = all **OFSPLF** with **descrp = 1 or 2**:
+    * All Offshore platforms must have **images.**
+* Seabed areas:
+	* Seabed area lines and areas = all **SBDARE** with **line** or **area** geometry.
+		* All Seabed area lines and areas must have **NATSUR** and **WATLEV.**
+	* Seabed area points = all **SBDARE** with **point** geometry.
+		* All Seabed area points must have **NATSUR.**
+		* All Seabed area points must have as many **NATSUR** attributes as **NATQUA** and/or **COLOUR.**
+		* All Seabed area points must have an allowable combination of **NATSUR** and **NATQUA.** [4]_
+* Mooring Facilities
+	* All MORFAC must have **CATMOR**.
+* Coast lines and shorelines:
+	* All **COALNE** must have **CATCOA.**
+	* All **SLCONS** must have **CATSLC.**
+* Land elevations:
+	* All **LNDELV** must have **ELEVAT.**
+* Metadata coverages:
+	* All **M_COVR** must have **CATCOV, INFORM,** and **NINFOM.**
 * Specific for the Office Profile:
-    * All features must have **"onotes".**
-    * All features must have **"hsdrec".**
-    * Checks for features that are prohibited by MCD (**"DRGARE", "LOGPON", "PIPARE", "PIPOHD", "PIPSOL", "DMPGRD" "LIGHTS", "BOYLAT", "BOYSAW", "BOYSPP", "DAYMAR", "FOGSIG", "CBLSUB", "CBLARE", "FAIRWY", "RTPBCN", "BOYISD", "BOYINB", "BOYCAR", "CBLOHD", "BCNSPP", "BCNLAT", "BRIDGE", "OBSTRN"** with **"CATOBS"** = 5, **MORFAC** with **CATMOR** = 7.
-    * All **M_QUAL** features must have **"CATZOC", "SURSTA", "SUREND",** and **"TECSOU".**
-    * All features must have **"descrp"** and **remrks"**.
-    * All free text strings have a character limit of 255.
+    * All features must have **onotes.**
+    * All features must have **hsdrec.**
+    * Checks for features that are prohibited by MCD (**DRGARE, LOGPON, PIPARE, PIPOHD, PIPSOL, DMPGRD LIGHTS, BOYLAT, BOYSAW, BOYSPP, DAYMAR, FOGSIG, CBLSUB, CBLARE, FAIRWY, RTPBCN, BOYISD, BOYINB, BOYCAR, CBLOHD, BCNSPP, BCNLAT, BRIDGE, OBSTRN with CATOBS = 5**, and **MORFAC** with **CATMOR = 7**.
+    * All **M_QUAL** features must have **CATZOC, SURSTA, SUREND,** and **TECSOU.**
+    * All features must have **descrp** and **remrks**.
 
 .. rubric:: Footnotes
 
-.. [1] **VALSOU** is optional for rocks. If missing a warning flag is issued.
-.. [2] Obstructions of **"CATOBS"** = 6 (foul area) do not require **"images".** **VALSOU** is optional for line and area obstructions. Line and area obstructions of **"CATOBS"** = 6 (foul area) and **"CATOBS"** = 7 (foul ground) shall not have **"VALSOU"**.
-.. [3] Allowable combinations of **"NATSUR"** and **"NATQUA"** are shown below.
+.. [1] Allowable combinations of **WATLEV** per **VALSOU** depending on location are shown below as stated in Appendix E in the 2021 Hydrographic Specifications and Deliverables.
+
+.. _fig_WATLEV_attribution:
+.. figure:: _static/watlev_table.png
+    :width: 600px
+    :align: center
+    :figclass: align-center
+	
+.. [2] Allowable combinations of **TECSOU** and **QUASOU** are shown below.
+
++------------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+|**TECSOU**  | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10| 11| 12| 13| 14|
++-----+------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+|     |   1  |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
++**Q**+------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+|     |   2  |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
++**U**+------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+|     |   6  |   |   | o | o |   | o |   |   |   |   |   | o |   |   |
++**A**+------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+|     |   7  |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
++**S**+------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+|     |   8  |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
++**O**+------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+|     |   9  |   | o |   |   |   |   |   |   |   |   |   |   |   |   |
++**U**+------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+|     | NULL | o |   |   |   |   |   | o |   |   | o |   |   |   |   |
++-----+------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+**TECSOU**: found by echosounder (1), found by side scan sonar (2), found by multibeam (3), found by diver (4), found by leadline (5), swept by wire-drag (6), found by laser (7), swept by vertical acoustic system (8), found by electromagnetic sensor (9), photogrammetry (10), satellite imagery (11), found by levelling (12), swept by side-scan sonar (13), and computer generated (14).
+
+**QUASOU**: depth known (1), depth or least depth "unknown" (2), least depth known (6), least depth "unknown", safe clearance at value shown (7), value reported (not surveyed) (8), value reported (not confirmed) (9), and NULL (undefined/blank).
+
+.. [3] **VALSOU** is optional for rocks, wrecks, and obstructions if it is unsafe to obtain the least depth. If missing a warning flag is issued.
+
+.. [4] Allowable combinations of **NATSUR** and **NATQUA** are shown below.
 
 +----------+---+---+---+---+---+---+---+---+---+---+
 |**NATQUA**| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10|
@@ -157,32 +212,53 @@ The logic for the 2020 QC Tools feature scan is shown below. For previous years,
 
 **NATSUR**: mud (1), clay (2), silt (3), sand (4), stone (5), gravel (6), pebbles (7), cobbles (8), rock (9), lava (11), coral (14), shells (17), boulder (18)
 
-.. [4] Allowable combinations of **"WATLEV"** per **"VALSOU"** depending on location are shown below as stated in Appendix E in the 2020 Hydrographic Specifications and Deliverables.
+-----------------------------------------------------------
 
-.. _fig_WATLEV_attribution:
-.. figure:: _static/watlev_table.png
-    :width: 600px
+|
+
+What do you get?
+^^^^^^^^^^^^^^^^^
+
+Upon completion of the execution of **Feature Scan** you will receive a pop-up verification if your surface contains potential fliers or not (:numref:`fig_feature_scan_pop_up`).
+
+.. _fig_feature_scan_pop_up:
+.. figure:: _static/feature_scan_results.png
+    :width: 240px
     :align: center
     :figclass: align-center
 
-.. [5] Allowable combinations of **"TECSOU"** and **"QUASOU"** are shown below.
+    The **Feature Scan** output message.
 
-+----------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-|**TECSOU**| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10| 11| 12| 13| 14|
-+-----+----+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-|**Q**|  1 | o |   |   |   |   |   | o |   |   | o |   |   |   |   |
-+     +----+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-|**U**|  2 |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-+     +----+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-|**A**|  6 |   |   | o | o |   | o |   |   |   |   |   | o |   |   |
-+     +----+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-|**S**|  7 |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-+     +----+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-|**O**|  8 |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-+     +----+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-|**U**|  9 |   | o |   |   |   |   |   |   |   |   |   |   |   |   |
-+-----+----+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+**Feature Scan** produces a .000 files containing "blue notes" which helps the user identify the locations flagged features. The **NINFOM** field is used to identify the warning or error associated with the feature. These can be loaded into your GIS software of choice for further analysis.
 
-**TECSOU**: found by echosounder (1), found by side scan sonar (2), found by multibeam (3), found by diver (4), found by leadline (5), swept by wire-drag (6), found by laser (7), swept by vertical acoustic system (8), found by electromagnetic sensor (9), photogrammetry (10), satellite imagery (11), found by levelling (12), swept by side-scan sonar (13), and computer generated (14).
 
-**QUASOU**: depth known (1), depth or least depth unknown (2), least depth known (6), least depth unknown, safe clearance at value shown (7), value reported (not surveyed) (8), and value reported (not confirmed) (9).
+.. _fig_feature_scan_bluenotes:
+.. figure:: _static/feature_scan_bluenotes.png
+    :width: 700px
+    :align: center
+    :alt: flier indicated with blue note
+    :figclass: align-center
+
+    An example of a warning associated with a rock identified with a blue note ($CSYMB).
+
+**Feature Scan** produces a PDF report that indicates what checks were performed and the results of the checks (:numref:`fig_feature_scan_pdf_results`). At the end of the report, a summary indicates how many warnings and errors were identified grouped by type (:numref:`fig_feature_scan_summary`).
+
+.. _fig_feature_scan_pdf_results:
+.. figure:: _static/feature_scan_pdfresults.png
+    :width: 700px
+    :align: center
+    :alt: fliers tab
+    :figclass: align-center
+
+    An example of a **Feature Scan** PDF report.
+
+.. _fig_feature_scan_summary:
+.. figure:: _static/feature_scan_summary.png
+    :width: 500px
+    :align: center
+    :alt: fliers tab
+    :figclass: align-center
+
+    An example of the **Feature Scan** summary.
+
+
