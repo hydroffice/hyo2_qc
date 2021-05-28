@@ -763,11 +763,14 @@ class Checks:
 
         elif self.version in ["2021"]:
 
-            self.report += "Invalid bottom sample IMAGE name per HSSD [CHECK]"
+            self.report += "Invalid IMAGE name per HSSD 2021 [CHECK]"
             self.flags.images.invalid_names = \
                 self._check_sbdare_images_per_hssd_2021(objects=sbdare_points) + \
                 self._check_nonsbdare_images_per_hssd_2021(
                     objects=sbdare_points + non_sbdare_features + sbdare_lines_areas)
+
+        if len(self.flags.images.invalid_names) == 0:
+            self.report += "OK"
 
     def _check_features_for_images_path(self, objects: List['S57Record10']) -> List[list]:
         # Checked if passed images have correct separator per HSSD and are found in the multimedia folder
@@ -786,7 +789,7 @@ class Checks:
             if images is None:
                 continue
 
-            images_list = [image.lower() for image in images.split(";")]
+            images_list = [image.upper() for image in images.split(";")]
 
             for image_filename in images_list:
 
@@ -844,7 +847,7 @@ class Checks:
             if images is None:
                 continue
 
-            images_list = images.split(";")
+            images_list = [image.upper() for image in images.split(";")]
 
             for image_filename in images_list:
 
@@ -875,9 +878,6 @@ class Checks:
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
-        if len(flagged) == 0:
-            self.report += "OK"
-
         # logger.debug("checking for invalid image names per HTD 2018-5 -> flagged %d" % len(flagged))
 
         return flagged
@@ -897,7 +897,7 @@ class Checks:
             if images is None:
                 continue
 
-            images_list = images.split(";")
+            images_list = [image.upper() for image in images.split(";")]
 
             for image_filename in images_list:
 
@@ -945,9 +945,6 @@ class Checks:
                         flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                         continue
 
-        if len(flagged) == 0:
-            self.report += "OK"
-
         # logger.debug("checking for invalid image names per HTD 2018-4 -> flagged: %d" % len(flagged))
 
         return flagged
@@ -967,7 +964,7 @@ class Checks:
             if images is None:
                 continue
 
-            images_list = [image.lower() for image in images.split(";")]
+            images_list = [image.upper() for image in images.split(";")]
 
             for image_filename in images_list:
 
@@ -1008,9 +1005,6 @@ class Checks:
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
-        if len(flagged) == 0:
-            self.report += "OK"
-
         # logger.debug("checking for invalid image names per HSSD -> flagged: %d" % len(flagged))
 
         return flagged
@@ -1045,13 +1039,9 @@ class Checks:
                 else:
                     names.add(image_filename)
 
-        if len(flagged) == 0:
-            self.report += "OK"
-
         # logger.debug("checking for invalid image names per HSSD 2021 -> flagged: %d" % len(flagged))
 
         return flagged
-
 
     # SOUNDINGS
 
