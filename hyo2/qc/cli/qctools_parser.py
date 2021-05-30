@@ -1,12 +1,10 @@
 import argparse
 import logging
 import os
-import time
-
-from selenium import webdriver
 from urllib.request import urlopen
 
 from hyo2.abc.lib.helper import Helper
+from hyo2.abc.app.web_renderer import WebRenderer
 from hyo2.qc import __version__
 from hyo2.qc.qctools import app_info
 from hyo2.qc.common import lib_info
@@ -24,7 +22,7 @@ class QCToolsParser:
         self.parser.add_argument('--version', action='version', version=__version__)
         subparsers = self.parser.add_subparsers()
 
-        ff_parser = subparsers.add_parser('FindFliers', help='Test',
+        ff_parser = subparsers.add_parser('FindFliers', help='Identify potential fliers in gridded bathymetry',
                                           formatter_class=argparse.ArgumentDefaultsHelpFormatter)
         ff_parser.add_argument('input_dtm', type=str,
                                help='The input DTM file to be searched for potential fliers.')
@@ -53,6 +51,9 @@ class QCToolsParser:
                                help="Path to the S57 file used by '-filter_fff True'.")
         ff_parser.set_defaults(func=self.run_find_fliers)
 
+        self._loading = False
+        self._web = WebRenderer(make_app=True)
+
     def run(self):
         args = self.parser.parse_args()
         try:
@@ -63,18 +64,14 @@ class QCToolsParser:
             self.parser.print_help()
             self.parser.exit()
 
-    @classmethod
-    def _check_web_page(cls, token: str = ""):
+    def _check_web_page(self, token: str = ""):
         try:
             if len(token) > 0:
                 url = "%s_cli_%s" % (Helper(lib_info=lib_info).web_url(), token)
             else:
                 url = "%s_cli" % Helper(lib_info=lib_info).web_url()
-            options = webdriver.ChromeOptions()
-            options.headless = True
-            options.add_experimental_option('excludeSwitches', ['enable-logging'])
-            driver = webdriver.Chrome(options=options)
-            driver.get(url)
+            self._web.open(url=url)
+            logger.debug('check %s' % url)
 
         except Exception as e:
             logger.warning(e)
@@ -82,7 +79,7 @@ class QCToolsParser:
     @classmethod
     def _check_latest_release(cls):
         try:
-            url = "https://www.hydroffice.org/latest/qctools.cli.txt"
+            url = "https://www.hydroffice.org/latest/qctools.txt"
             response = urlopen(url, timeout=1)
             latest_version = response.read().split()[0].decode()
             cur_maj, cur_min, cur_fix = app_info.app_version.split('.')
@@ -100,8 +97,7 @@ class QCToolsParser:
         except Exception as e:
             logger.warning(e)
 
-    @classmethod
-    def run_find_fliers(cls, args):
+    def run_find_fliers(self, args):
 
         if not os.path.exists(args.output_folder):
             raise RuntimeError('Unable to locate output folder: %s' % args.output_folder)
@@ -139,9 +135,9 @@ class QCToolsParser:
         filter_designated = args.filter_designated
         filter_fff = args.filter_fff
 
-        cls._check_web_page(token='FFv8_%d%d%d%d%d%d_%d%d' % (check_laplacian, check_curv, check_adjacent,
-                                                              check_slivers, check_isolated, check_edges,
-                                                              filter_designated, filter_fff))
+        self._check_web_page(token='FFv8_%d%d%d%d%d%d_%d%d' % (check_laplacian, check_curv, check_adjacent,
+                                                               check_slivers, check_isolated, check_edges,
+                                                               filter_designated, filter_fff))
 
         # actual execution
         for i, grid_path in enumerate(prj.grid_list):
