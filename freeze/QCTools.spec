@@ -29,6 +29,8 @@ sys.modules['FixTk'] = None
 
 from hyo2.qc import __version__ as qc_version
 
+sys.setrecursionlimit(20000)
+
 
 def collect_pkg_data(package, include_py_files=False, subdir=None):
 
@@ -106,7 +108,7 @@ if is_darwin:
     icon_file = os.path.normpath(os.path.join(os.getcwd(), 'freeze', 'QCTools.icns'))
 
 a = Analysis(['QCTools.py'],
-             binaries = [('.')],
+             binaries = [],
              pathex=[],
              hiddenimports=["PIL", "scipy.linalg", "hyo2.grids._gappy", "scipy._lib.messagestream",
              "PySide2.QtPrintSupport", "pkg_resources.py2_warn"],
