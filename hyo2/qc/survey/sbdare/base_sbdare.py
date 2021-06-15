@@ -8,6 +8,7 @@ sbdare_algos = {
     "BASE": 0,
     "SBDARE_EXPORT_v3": 1,
     "SBDARE_EXPORT_v4": 2,
+    "SBDARE_EXPORT_v5": 3,
 }
 
 

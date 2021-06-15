@@ -52,9 +52,10 @@ class QCToolsParser:
         ff_parser.set_defaults(func=self.run_find_fliers)
 
         self._loading = False
-        self._web = WebRenderer(make_app=True)
+        self._web = None 
 
     def run(self):
+        self._web = WebRenderer(make_app=True)
         args = self.parser.parse_args()
         try:
             args.func(args)

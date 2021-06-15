@@ -28,8 +28,7 @@ from hyo2.qc.survey.bag_checks.bag_checks_v1 import BagChecksV1
 from hyo2.qc.survey.valsou.base_valsou import valsou_algos
 from hyo2.qc.survey.valsou.valsou_check_v7 import ValsouCheckV7
 from hyo2.qc.survey.sbdare.base_sbdare import sbdare_algos
-from hyo2.qc.survey.sbdare.sbdare_export_v3 import SbdareExportV3
-from hyo2.qc.survey.sbdare.sbdare_export_v4 import SbdareExportV4
+from hyo2.qc.survey.sbdare.sbdare_export_v5 import SbdareExportV5
 from hyo2.qc.survey.submission.base_submission import BaseSubmission, submission_algos
 from hyo2.qc.survey.submission.submission_checks_v3 import SubmissionChecksV3
 # noinspection PyProtectedMember
@@ -1318,7 +1317,7 @@ class SurveyProject(BaseProject):
             self._sbdare = None
             raise e
 
-    def sbdare_export_v4(self, exif=False, images_folder=None):
+    def sbdare_export_v5(self, exif=True, images_folder=None):
         """Export S57 SBDARE values"""
         if not self.has_s57():
             logger.warning("first load some features")
@@ -1326,7 +1325,7 @@ class SurveyProject(BaseProject):
 
         try:
 
-            self._sbdare = SbdareExportV4(s57=self.cur_s57, s57_path=self.cur_s57_path,
+            self._sbdare = SbdareExportV5(s57=self.cur_s57, s57_path=self.cur_s57_path,
                                           do_exif=exif, images_folder=images_folder)
 
             self._sbdare.run()
@@ -1362,15 +1361,7 @@ class SurveyProject(BaseProject):
             os.makedirs(output_folder)
 
         success = True
-        if self._sbdare.type == sbdare_algos['SBDARE_EXPORT_v3']:
-
-            output_ascii = os.path.join(output_folder, "%s_BottomSamples.ascii" % self._survey)
-            if self._sbdare.generate_ascii(output_ascii):
-                self.file_sbdare_ascii = output_ascii
-            else:
-                success = False
-
-        elif self._sbdare.type == sbdare_algos['SBDARE_EXPORT_v4']:
+        if self._sbdare.type == sbdare_algos['SBDARE_EXPORT_v5']:
 
             start_time = time.time()
 
@@ -1380,7 +1371,7 @@ class SurveyProject(BaseProject):
                 self.file_sbdare_ascii = self._sbdare.output_ascii
                 self.file_sbdare_shp = self._sbdare.output_shp
 
-            logger.info("SBDARE export v4 -> execution time: %.3f s" % (time.time() - start_time))
+            logger.info("SBDARE export v5 -> execution time: %.3f s" % (time.time() - start_time))
 
         return success
 
