@@ -16,5 +16,3 @@ Feel free to contact us for comments and suggestions:
 * `Tyanne Faulkes <mailto:tyanne.faulkes@noaa.gov>`_
 * `Julia Wallace <mailto:julia.wallace@noaa.gov>`_
 * `Matt Wilson <mailto:matthew.wilson@noaa.gov>`_
-* `Brian R. Calder <mailto:brc@ccom.unh.edu>`_
-

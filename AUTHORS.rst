@@ -13,14 +13,14 @@ HydrOffice QC Tools is written and maintained by:
 
 - `Julia Wallace <mailto:julia.wallace@noaa.gov>`_
 
-- `Brian R. Calder <mailto:brc@ccom.unh.edu>`_
-
-- Matthew J. Wilson (2015-2017)
+- `Matthew J. Wilson <mailto:matthew.wilson@noaa.gov>`_
 
 Contributors
 ~~~~~~~~~~~~
 
 The following wonderful people contributed directly or indirectly to this project:
+
+- `Brian R. Calder <mailto:brc@ccom.unh.edu>`_
 
 - `Jack Riley <mailto:jack.riley@noaa.gov>`_
 

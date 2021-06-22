@@ -9,9 +9,9 @@ lib_info = LibInfo()
 lib_info.lib_name = name
 lib_info.lib_version = __version__
 lib_info.lib_author = "Giuseppe Masetti(UNH,CCOM); Tyanne Faulkes(NOAA,OCS); Julia Wallace(NOAA,OCS); " \
-                      "Matthew Wilson(NOAA,OCS); Brian Calder(UNH,CCOM)"
+                      "Matthew Wilson(NOAA,OCS)"
 lib_info.lib_author_email = "gmasetti@ccom.unh.edu; tyanne.faulkes@noaa.gov; julia.wallace@noaa.gov; " \
-                            "matthew.wilson@noaa.gov; brc@ccom.unh.edu"
+                            "matthew.wilson@noaa.gov"
 
 lib_info.lib_license = "LGPL v3"
 lib_info.lib_license_url = "https://www.hydroffice.org/license/"

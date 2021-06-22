@@ -27,14 +27,7 @@ How to Use?
 
     SBDARE exports interface.
 
-* After computing, the output window opens automatically, and the results are shown. Any errors that occur while processing will appear in the output message. (:numref:`sbdare_results`):
-
-.. _sbdare_results:
-.. figure:: _static/sbdare_export_results.png
-    :align: center
-    :alt: logo
-
-    SBDARE exports output message.
+* After computing, the output window opens automatically, and the results are shown. Any errors that occur while processing will appear in the output message.
 
 * The output positions are in **WGS84 coordinates**.
 
