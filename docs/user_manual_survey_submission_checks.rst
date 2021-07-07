@@ -26,23 +26,16 @@ Ensures the required directory structure and completeness of survey deliverables
     * Turn the knob to select the applicable year as pertaining to required Hydrographic Survey Specifications.
     * Flag the **HXXXXX_GSF (NOAA only)** check if the submission is from a NOAA field unit.
 
-* In **Execution** (:numref:`submission_check_interface`, rigth side), click **Submission checks v3**.
+* In **Execution** (:numref:`submission_check_interface`, rigth side), click **Submission checks v4**.
 
 .. _submission_check_interface:
 .. figure:: _static/submission_check_interface.png
     :align: center
-    :alt: logo
+    :alt: submission check interface
 
     The **Submission check** interface.
 
-* After computing, the output window opens automatically, and the results are shown (:numref:`submission_check_results`).
-
-.. _submission_check_results:
-.. figure:: _static/submission_check_results.png
-    :align: center
-    :alt: logo
-
-    The **Submission check** output message.
+* After computing, the output window opens automatically, and the results are shown.
 
 * Note that the project level (**"OPR-X###-XX-##"**) contains all the results from the surveys (**"X#####"**) contained within; thus the number of errors and warnings is equivalent to the sum of the individual components.
 
@@ -50,7 +43,7 @@ Ensures the required directory structure and completeness of survey deliverables
 
 * The output names adopt the following convention:
 
-    * [project].SCv3.["project" | "X#####" | "report"].[HSSD].[profile].["rec" for recursive | "exh" for exhaustive]
+    * [project].SCv4.["project" | "X#####" | "report"].[HSSD].[profile].["rec" for recursive | "exh" for exhaustive]
 
 * The output will be exported under a subfolder (**H#####**) in the output location defined on the data import tab.
   If "sub-folders" is selected in the import tab, the file will be placed in an additional "submissions" sub-folder
@@ -75,7 +68,7 @@ Root folders have the following requirements:
 
 The ensuing submission check will scan the directories of the root folders to ensure compliance with Appendix J of the HSSD.
 
-The logic for the 2018 QC Tools submission check is shown below. For previous years, refer to the HSSD for that year.
+The logic for the 2021 QC Tools submission check is shown below. For previous years, refer to the HSSD for that year.
 
 * OPR-X###-XX-##
      * X##### [1]_
@@ -105,14 +98,8 @@ The logic for the 2018 QC Tools submission check is shown below. For previous ye
                     * Descriptive_Report
                         * Appendices
                             * I_Water_Levels
-                            * II_Supplimental_Survey_Records_Correspondence
+                            * II_Supplimental_Records
                     * Public_Relations_Constituent_Products
-                    * Separates
-                        * I_Acquisition_Processing_Logs
-                            * Detached_Positions
-                        * Digital_Data
-                            * Crossline_Comparisons
-                            * Sound_Speed_Data_Summary
             * S-57_Files
                 * Final_Feature_File
                 * Side_Scan_Sonar_Contacts
@@ -156,10 +143,10 @@ The logic for the 2018 QC Tools submission check is shown below. For previous ye
 What do you get?
 ^^^^^^^^^^^^^^^^^
 
-Upon completion of the execution of **Submission checks** you will receive a pop-up verification that the tool has completed and if there were any errors or warnings associated with the data structure (:numref:`fig_sub_scan_pop_up`).
+Upon completion of the execution of **Submission checks** you will receive a pop-up verification that the tool has completed and if there were any errors or warnings associated with the data structure (:numref:`fig_submission_check_results`).
 
-.. _fig_sub_scan_pop_up:
-.. figure:: _static/sub_scan_pop_up.png
+.. _fig_submission_check_results:
+.. figure:: _static/submission_check_results.png
     :width: 300px
     :align: center
     :figclass: align-center
@@ -168,8 +155,8 @@ Upon completion of the execution of **Submission checks** you will receive a pop
 
 **Submission checks** produces a PDF document that indicates if there were errors or warnings with specific folders in the data submission structures.
 
-.. _fig_sub_scan_output:
-.. figure:: _static/sub_scan_output.png
+.. _fig_submission_check_output:
+.. figure:: _static/submission_check_output.png
     :width: 700px
     :align: center
     :alt: Example of PDF results for submission checks
