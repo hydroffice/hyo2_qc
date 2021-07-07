@@ -321,9 +321,13 @@ class SubmissionChecksV4(BaseSubmission):
         issues = False
 
         msg = "Check all path lengths < %s characters" % max_len
+        logger.debug(msg)
         self.report += "%s [CHECK]" % msg
 
         for root, dirs, files in os.walk(self.root):
+
+            msg = "Check all path lengths -> %s" % root
+            logger.debug(msg)
 
             for f in files:
 
