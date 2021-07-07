@@ -922,8 +922,8 @@ class Checks:
 
                 if tokens[1] != "SBDARE":
                     # add to the flagged feature list and to the flagged report
-                    self.flags.append(obj.centroid.x, obj.centroid.y, "'SBDARE' not stated in filename")
-                    self.report += 'Found %s at (%s, %s) with "SBDARE" not stated in filename: %s ' % \
+                    self.flags.append(obj.centroid.x, obj.centroid.y, "'_SBDARE_' not present in filename")
+                    self.report += 'Found %s at (%s, %s) with "_SBDARE_" not present in filename: %s ' % \
                                    (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
