@@ -68,9 +68,9 @@ class SubmissionTab(QtWidgets.QMainWindow):
         hbox.addWidget(text_non_opr)
         text_non_opr.setFixedHeight(GuiSettings.single_line_height())
         text_non_opr.setMinimumWidth(80)
-        self.set_non_opr_v3 = QtWidgets.QCheckBox(self)
-        hbox.addWidget(self.set_non_opr_v3)
-        self.set_non_opr_v3.setChecked(False)
+        self.set_non_opr_v4 = QtWidgets.QCheckBox(self)
+        hbox.addWidget(self.set_non_opr_v4)
+        self.set_non_opr_v4.setChecked(False)
         hbox.addStretch()
 
         hbox = QtWidgets.QHBoxLayout()
@@ -102,27 +102,27 @@ class SubmissionTab(QtWidgets.QMainWindow):
         # self.vbox.addStretch()
         self.vbox.addSpacing(10)
 
-        # - Submission checks v3
-        self.toggle_profiles_v3 = None
-        self.toggle_behaviors_v3 = None
-        self.toggle_specs_v3 = None
-        self.recursive_behavior_v3 = None
-        self.set_gsf_noaa_only_v3 = None
-        self.submissionChecksV3 = QtWidgets.QGroupBox("Submission Checks v3")
-        self.submissionChecksV3.setStyleSheet("QGroupBox::title { color: rgb(155, 155, 155); }")
-        self.vbox.addWidget(self.submissionChecksV3)
-        scv3_hbox = QtWidgets.QHBoxLayout()
-        self.submissionChecksV3.setLayout(scv3_hbox)
+        # - Submission checks v4
+        self.toggle_profiles_v4 = None
+        self.toggle_behaviors_v4 = None
+        self.toggle_specs_v4 = None
+        self.recursive_behavior_v4 = None
+        self.set_gsf_noaa_only_v4 = None
+        self.submissionChecksv4 = QtWidgets.QGroupBox("Submission Checks v4")
+        self.submissionChecksv4.setStyleSheet("QGroupBox::title { color: rgb(155, 155, 155); }")
+        self.vbox.addWidget(self.submissionChecksv4)
+        scv4_hbox = QtWidgets.QHBoxLayout()
+        self.submissionChecksv4.setLayout(scv4_hbox)
         # -- parameters
-        self.setParametersSCv3 = QtWidgets.QGroupBox("Parameters")
-        self.setParametersSCv3.setStyleSheet("QGroupBox::title { color: rgb(155, 155, 155); }")
-        scv3_hbox.addWidget(self.setParametersSCv3)
-        self._ui_parameters_scv3()
+        self.setParametersSCv4 = QtWidgets.QGroupBox("Parameters")
+        self.setParametersSCv4.setStyleSheet("QGroupBox::title { color: rgb(155, 155, 155); }")
+        scv4_hbox.addWidget(self.setParametersSCv4)
+        self._ui_parameters_scv4()
         # -- execution
-        self.executeSCv3 = QtWidgets.QGroupBox("Execution")
-        self.executeSCv3.setStyleSheet("QGroupBox::title { color: rgb(155, 155, 155); }")
-        scv3_hbox.addWidget(self.executeSCv3)
-        self._ui_execute_scv3()
+        self.executeSCv4 = QtWidgets.QGroupBox("Execution")
+        self.executeSCv4.setStyleSheet("QGroupBox::title { color: rgb(155, 155, 155); }")
+        scv4_hbox.addWidget(self.executeSCv4)
+        self._ui_execute_scv4()
 
     def dragEnterEvent(self, e):
         if e.mimeData().hasUrls:
@@ -182,12 +182,12 @@ class SubmissionTab(QtWidgets.QMainWindow):
 
         valid_folder = False
 
-        is_opr = not self.set_non_opr_v3.isChecked()
-        specs_version = self.toggle_specs_v3.value()
-        if specs_version == 2017:
-            specs_version = "2017"
-        elif specs_version == 2018:
-            specs_version = "2018"
+        is_opr = not self.set_non_opr_v4.isChecked()
+        specs_version = self.toggle_specs_v4.value()
+        if specs_version == 2020:
+            specs_version = "2020"
+        elif specs_version == 2021:
+            specs_version = "2021"
 
         valid, err = self.parent_win.prj.is_valid_project_folder(selection, version=specs_version, opr=is_opr)
         if valid:
@@ -301,11 +301,11 @@ class SubmissionTab(QtWidgets.QMainWindow):
         logger.debug('open output folder')
         self.prj.open_output_folder()
 
-    # ------- v3 --------
+    # ------- v4 --------
 
-    def _ui_parameters_scv3(self):
+    def _ui_parameters_scv4(self):
         params_vbox = QtWidgets.QVBoxLayout()
-        self.setParametersSCv3.setLayout(params_vbox)
+        self.setParametersSCv4.setLayout(params_vbox)
         params_vbox.addStretch()
 
         # knobs
@@ -325,38 +325,38 @@ class SubmissionTab(QtWidgets.QMainWindow):
         # stretch
         toggle_hbox.addStretch()
         # profiles
-        self.toggle_profiles_v3 = QtWidgets.QDial()
-        self.toggle_profiles_v3.setNotchesVisible(True)
-        self.toggle_profiles_v3.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.toggle_profiles_v3.setRange(0, 1)
-        self.toggle_profiles_v3.setValue(0)
-        self.toggle_profiles_v3.setFixedSize(QtCore.QSize(48, 48))
-        self.toggle_profiles_v3.setInvertedAppearance(False)
-        toggle_hbox.addWidget(self.toggle_profiles_v3)
+        self.toggle_profiles_v4 = QtWidgets.QDial()
+        self.toggle_profiles_v4.setNotchesVisible(True)
+        self.toggle_profiles_v4.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.toggle_profiles_v4.setRange(0, 1)
+        self.toggle_profiles_v4.setValue(0)
+        self.toggle_profiles_v4.setFixedSize(QtCore.QSize(48, 48))
+        self.toggle_profiles_v4.setInvertedAppearance(False)
+        toggle_hbox.addWidget(self.toggle_profiles_v4)
         # spacing
         toggle_hbox.addSpacing(70)
         # behaviors
-        self.toggle_behaviors_v3 = QtWidgets.QDial()
-        self.toggle_behaviors_v3.setNotchesVisible(True)
-        self.toggle_behaviors_v3.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.toggle_behaviors_v3.setRange(0, 1)
-        self.toggle_behaviors_v3.setValue(0)
-        self.toggle_behaviors_v3.setFixedSize(QtCore.QSize(48, 48))
-        self.toggle_behaviors_v3.setInvertedAppearance(False)
-        toggle_hbox.addWidget(self.toggle_behaviors_v3)
+        self.toggle_behaviors_v4 = QtWidgets.QDial()
+        self.toggle_behaviors_v4.setNotchesVisible(True)
+        self.toggle_behaviors_v4.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.toggle_behaviors_v4.setRange(0, 1)
+        self.toggle_behaviors_v4.setValue(0)
+        self.toggle_behaviors_v4.setFixedSize(QtCore.QSize(48, 48))
+        self.toggle_behaviors_v4.setInvertedAppearance(False)
+        toggle_hbox.addWidget(self.toggle_behaviors_v4)
         # spacing
         toggle_hbox.addSpacing(70)
         # specs
-        self.toggle_specs_v3 = QtWidgets.QDial()
-        self.toggle_specs_v3.setNotchesVisible(True)
-        self.toggle_specs_v3.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.toggle_specs_v3.setRange(2017, 2018)
-        self.toggle_specs_v3.setValue(2018)
-        self.toggle_specs_v3.setFixedSize(QtCore.QSize(48, 48))
-        self.toggle_specs_v3.setInvertedAppearance(False)
-        toggle_hbox.addWidget(self.toggle_specs_v3)
+        self.toggle_specs_v4 = QtWidgets.QDial()
+        self.toggle_specs_v4.setNotchesVisible(True)
+        self.toggle_specs_v4.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.toggle_specs_v4.setRange(2020, 2021)
+        self.toggle_specs_v4.setValue(2021)
+        self.toggle_specs_v4.setFixedSize(QtCore.QSize(48, 48))
+        self.toggle_specs_v4.setInvertedAppearance(False)
+        toggle_hbox.addWidget(self.toggle_specs_v4)
         # noinspection PyUnresolvedReferences
-        self.toggle_specs_v3.valueChanged.connect(self.changed_toggle_specs)
+        self.toggle_specs_v4.valueChanged.connect(self.changed_toggle_specs)
         # stretch
         toggle_hbox.addStretch()
 
@@ -392,11 +392,11 @@ class SubmissionTab(QtWidgets.QMainWindow):
         label_hbox.addSpacing(1)
         # specs
         label_hbox.addSpacing(20)
-        text_0 = QtWidgets.QLabel("2017")
+        text_0 = QtWidgets.QLabel("2020")
         text_0.setAlignment(QtCore.Qt.AlignLeft)
         text_0.setFixedWidth(35)
         label_hbox.addWidget(text_0)
-        text_1 = QtWidgets.QLabel("2018+")
+        text_1 = QtWidgets.QLabel("2021+")
         text_1.setAlignment(QtCore.Qt.AlignRight)
         text_1.setFixedWidth(40)
         # text_1.setStyleSheet("QLabel { color :  rgb(200, 0, 0, 200); }")
@@ -410,16 +410,16 @@ class SubmissionTab(QtWidgets.QMainWindow):
         hbox = QtWidgets.QHBoxLayout()
         params_vbox.addLayout(hbox)
         hbox.addStretch()
-        self.set_gsf_noaa_only_v3 = QtWidgets.QCheckBox("HXXXXX_GSF (NOAA only)")
-        hbox.addWidget(self.set_gsf_noaa_only_v3)
-        self.set_gsf_noaa_only_v3.setChecked(True)
+        self.set_gsf_noaa_only_v4 = QtWidgets.QCheckBox("HXXXXX_GSF (NOAA only)")
+        hbox.addWidget(self.set_gsf_noaa_only_v4)
+        self.set_gsf_noaa_only_v4.setChecked(True)
         hbox.addStretch()
 
         params_vbox.addStretch()
 
-    def _ui_execute_scv3(self):
+    def _ui_execute_scv4(self):
         vbox = QtWidgets.QVBoxLayout()
-        self.executeSCv3.setLayout(vbox)
+        self.executeSCv4.setLayout(vbox)
 
         hbox = QtWidgets.QHBoxLayout()
         vbox.addLayout(hbox)
@@ -430,10 +430,10 @@ class SubmissionTab(QtWidgets.QMainWindow):
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
         button.setFixedWidth(GuiSettings.text_button_width() + 24)
-        button.setText("Submission checks v3")
+        button.setText("Submission checks v4")
         button.setToolTip('Check the submission data directory')
         # noinspection PyUnresolvedReferences
-        button.clicked.connect(self.click_submission_checks_v3)
+        button.clicked.connect(self.click_submission_checks_v4)
 
         button = QtWidgets.QPushButton()
         hbox.addWidget(button)
@@ -445,24 +445,21 @@ class SubmissionTab(QtWidgets.QMainWindow):
         button.setStyleSheet("QPushButton { background-color: rgba(255, 255, 255, 0); }\n"
                              "QPushButton:hover { background-color: rgba(230, 230, 230, 100); }\n")
         # noinspection PyUnresolvedReferences
-        button.clicked.connect(self.click_open_manual_v3)
+        button.clicked.connect(self.click_open_manual_v4)
 
         hbox.addStretch()
 
     def changed_toggle_specs(self):
-        if self.toggle_specs_v3.value() == 2017:
-            self.set_gsf_noaa_only_v3.setDisabled(True)
-        else:
-            self.set_gsf_noaa_only_v3.setEnabled(True)
+        self.set_gsf_noaa_only_v4.setEnabled(True)
 
     @classmethod
-    def click_open_manual_v3(cls):
+    def click_open_manual_v4(cls):
         logger.debug("open manual")
         Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/user_manual_survey_submission_checks.html")
 
-    def click_submission_checks_v3(self):
-        """trigger the submission checks v3"""
-        self._click_submission_checks(3)
+    def click_submission_checks_v4(self):
+        """trigger the submission checks v4"""
+        self._click_submission_checks(4)
 
     def _click_submission_checks(self, version):
         """abstract the calling mechanism"""
@@ -471,7 +468,7 @@ class SubmissionTab(QtWidgets.QMainWindow):
         # - version
         if not isinstance(version, int):
             raise RuntimeError("passed invalid type for version: %s" % type(version))
-        if version not in [3, ]:
+        if version not in [4, ]:
             raise RuntimeError("passed invalid version: %s" % version)
         # - list of folders (although the buttons should be never been enabled without a folder)
         if len(self.prj.submission_list) == 0:
@@ -492,7 +489,7 @@ class SubmissionTab(QtWidgets.QMainWindow):
             logger.debug("submission folder: %s" % path)
 
             # switcher between different versions of find fliers
-            if version == 3:
+            if version == 4:
 
                 saved = self._submission_checks(path=path, version=version, idx=i, total=len(self.prj.submission_list))
 
@@ -535,20 +532,20 @@ class SubmissionTab(QtWidgets.QMainWindow):
 
         try:
 
-            if version == 3:
+            if version == 4:
 
-                is_opr = not self.set_non_opr_v3.isChecked()
-                specs_version = self.toggle_specs_v3.value()
-                recursive = self.toggle_behaviors_v3.value() == 0
-                office = self.toggle_profiles_v3.value() == 1
-                if specs_version == 2017:
-                    saved = self.prj.submission_checks_v3(path=path, version="2017", recursive=recursive, office=office,
-                                                          opr=is_opr)
+                is_opr = not self.set_non_opr_v4.isChecked()
+                specs_version = self.toggle_specs_v4.value()
+                recursive = self.toggle_behaviors_v4.value() == 0
+                office = self.toggle_profiles_v4.value() == 1
+                noaa_only = self.set_gsf_noaa_only_v4.isChecked()
+                if specs_version == 2020:
+                    saved = self.prj.submission_checks_v4(path=path, version="2020", recursive=recursive, office=office,
+                                                          opr=is_opr, noaa_only=noaa_only)
 
-                elif specs_version == 2018:
-                    saved = self.prj.submission_checks_v3(path=path, version="2018", recursive=recursive, office=office,
-                                                          opr=is_opr,
-                                                          noaa_only=self.set_gsf_noaa_only_v3.isChecked())
+                elif specs_version == 2021:
+                    saved = self.prj.submission_checks_v4(path=path, version="2021", recursive=recursive, office=office,
+                                                          opr=is_opr, noaa_only=noaa_only)
 
                 else:
                     raise RuntimeError("unknown specs version: %s" % specs_version)

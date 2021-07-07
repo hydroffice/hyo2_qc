@@ -9,14 +9,13 @@ logger = logging.getLogger(__name__)
 
 submission_algos = {
     "BASE": 0,
-    "SUBMISSION_CHECKS_v3": 3,
+    "SUBMISSION_CHECKS_v4": 4,
 }
 
 specs_vers = {
     "BASE": 0,
-    "2016": 1,
-    "2017": 2,
-    "2018": 3,
+    "2020": 1,
+    "2021": 2,
 }
 
 
@@ -75,7 +74,7 @@ class BaseSubmission:
         self.report = Report(lib_name=lib_info.lib_name, lib_version=lib_info.lib_version)
 
     @classmethod
-    def is_valid_project_folder(cls, path, version="2016", opr=True):
+    def is_valid_project_folder(cls, path, version="2020", opr=True):
         if version not in specs_vers.keys():
             return False, "passed invalid or unsupported version: %s" % version
 
@@ -149,7 +148,7 @@ class BaseSubmission:
         return True, str()
 
     @classmethod
-    def is_valid_survey_folder(cls, path, version="2016", check_parent=True, opr=True):
+    def is_valid_survey_folder(cls, path, version="2020", check_parent=True, opr=True):
         if version not in specs_vers.keys():
             return False, "passed invalid or unsupported version: %s" % version
 
@@ -176,7 +175,7 @@ class BaseSubmission:
         return True, str()
 
     @classmethod
-    def is_valid_report_folder(cls, path, version="2016", opr=True):
+    def is_valid_report_folder(cls, path, version="2020", opr=True):
         if version not in specs_vers.keys():
             return False, "passed invalid or unsupported version: %s" % version
 

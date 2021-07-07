@@ -30,7 +30,7 @@ from hyo2.qc.survey.valsou.valsou_check_v7 import ValsouCheckV7
 from hyo2.qc.survey.sbdare.base_sbdare import sbdare_algos
 from hyo2.qc.survey.sbdare.sbdare_export_v5 import SbdareExportV5
 from hyo2.qc.survey.submission.base_submission import BaseSubmission, submission_algos
-from hyo2.qc.survey.submission.submission_checks_v3 import SubmissionChecksV3
+from hyo2.qc.survey.submission.submission_checks_v4 import SubmissionChecksV4
 # noinspection PyProtectedMember
 from hyo2.grids._grids import FLOAT as GRIDS_FLOAT, DOUBLE as GRIDS_DOUBLE
 
@@ -1459,15 +1459,15 @@ class SurveyProject(BaseProject):
         self._submissions = list()
 
     @classmethod
-    def is_valid_project_folder(cls, path, version="2017", opr=True):
+    def is_valid_project_folder(cls, path, version="2020", opr=True):
         return BaseSubmission.is_valid_project_folder(path=path, version=version, opr=opr)
 
     @classmethod
-    def is_valid_survey_folder(cls, path, version="2017", opr=True):
+    def is_valid_survey_folder(cls, path, version="2020", opr=True):
         return BaseSubmission.is_valid_survey_folder(path=path, version=version, opr=opr)
 
     @classmethod
-    def is_valid_report_folder(cls, path, version="2017", opr=True):
+    def is_valid_report_folder(cls, path, version="2020", opr=True):
         return BaseSubmission.is_valid_report_folder(path=path, version=version, opr=opr)
 
     @property
@@ -1513,16 +1513,16 @@ class SurveyProject(BaseProject):
     # ________________________________________________________________________________
     #                           SUBMISSION CHECKS METHODS
 
-    def submission_checks_v3(self, path, version, recursive, office, opr, noaa_only=False):
+    def submission_checks_v4(self, path, version, recursive, office, opr, noaa_only=False):
 
         try:
 
-            self._submission = SubmissionChecksV3(root=path, version=version, recursive=recursive, office=office,
+            self._submission = SubmissionChecksV4(root=path, version=version, recursive=recursive, office=office,
                                                   opr=opr, noaa_only=noaa_only)
 
             start_time = time.time()
             self._submission.run()
-            logger.info("Submission checks v3 -> execution time: %.3f s" % (time.time() - start_time))
+            logger.info("Submission checks v4 -> execution time: %.3f s" % (time.time() - start_time))
 
             return self._submission_checks_report()
 
@@ -1541,7 +1541,7 @@ class SurveyProject(BaseProject):
             logger.warning('no Submission Checks records to write')
             return False
 
-        if self._submission.type == submission_algos['SUBMISSION_CHECKS_v3']:
+        if self._submission.type == submission_algos['SUBMISSION_CHECKS_v4']:
 
             if self._submission.root_is_project:
                 level = "project"
@@ -1560,9 +1560,9 @@ class SurveyProject(BaseProject):
                 behavior = "exhaustive"
                 beh_file = "exh"
 
-            output_pdf = os.path.join(self.submission_output_folder, "%s.SCv3.%s.%s.%s.%s.pdf"
+            output_pdf = os.path.join(self.submission_output_folder, "%s.SCv4.%s.%s.%s.%s.pdf"
                                       % (self.cur_project_name, level, self.cur_submission_hssd, profile, beh_file))
-            title_pdf = "Submission Checks v3 - %s [%s, %s, %s]" \
+            title_pdf = "Submission Checks v4 - %s [%s, %s, %s]" \
                         % (self.cur_submission_hssd, level, profile, behavior)
 
         else:

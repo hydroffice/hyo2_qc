@@ -66,6 +66,7 @@ class Flags:
                 self.invalid_paths = list()
                 self.invalid_names = list()
 
+
             def nr_of_flagged(self) -> int:
                 return len(self.invalid_paths) + len(self.invalid_names)
 

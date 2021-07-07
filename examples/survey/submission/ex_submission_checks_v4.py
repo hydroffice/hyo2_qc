@@ -17,30 +17,30 @@ wid = QtWidgets.QWidget()
 prj = SurveyProject(output_folder=testing.output_data_folder(), progress=QtProgress(parent=wid))
 
 # submission folders
-sub_folders = testing.input_submission_folders()
+sub_folders = [r"C:\code\hyo2\processing\hyo2_qc\data\download\2021\ALL_OK\CARIS-GSF\OPR-A123-RA-20", ]
 logger.debug("testing > submission folders: %d" % len(sub_folders))
 
-# # add folders
-# for i, sf in enumerate(sub_folders):
-#
-#     logger.debug("- %d: %s" % (i, sf))
-#
-#     try:
-#         if prj.is_valid_project_folder(path=sf):
-#             prj.add_to_submission_list(sf)
-#
-#     except Exception as e:
-#         logger.warning("Invalid submission folder, %s" % e)
+# add folders
+for i, sf in enumerate(sub_folders):
 
-# add 2017 test folder
-if prj.is_valid_project_folder(path=sub_folders[-1]):
-    prj.add_to_submission_list(sub_folders[-1])
+    logger.debug("- %d: %s" % (i, sf))
+
+    try:
+        if prj.is_valid_project_folder(path=sf):
+            prj.add_to_submission_list(sf)
+
+    except Exception as e:
+        logger.warning("Invalid submission folder, %s" % e)
 
 # check folders
 logger.debug("project > submission folders: %d" % len(prj.submission_list))
 
-version = "2017"
-is_opr = False
+version = "2021"
+is_opr = True
+office = False
+recursive = False
+noaa_only = True
 for i, sf in enumerate(prj.submission_list):
-    prj.submission_checks_v3(path=sf, version=version, recursive=True, office=True, opr=is_opr)
+    prj.submission_checks_v4(path=sf, version=version, recursive=recursive, office=office, opr=is_opr,
+                             noaa_only=noaa_only)
 prj.open_submission_output_folder()
