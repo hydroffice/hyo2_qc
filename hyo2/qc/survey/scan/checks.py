@@ -1239,10 +1239,14 @@ class Checks:
 
         obstrn_valsou = S57Aux.select_by_attribute(objects=obstrns, attribute='VALSOU')
 
-        # select all obstructions without valsous excluding foul ground
-        obstrns_no_foul_ground = S57Aux.filter_by_attribute_value(objects=obstrns, attribute='CATOBS',
-                                                                  value_filter=['7', ])
-        obstrn_undefined_valsou = S57Aux.filter_by_attribute(obstrns_no_foul_ground, attribute='VALSOU')
+        # Exclude foul area and ground area obstructions
+        obstrns_no_foul_area_ground = S57Aux.filter_by_attribute_value(objects=obstrns, attribute='CATOBS',
+                                                                       value_filter=['6', '7', ])
+
+
+        # select all obstructions without valsous excluding foul ground and area
+
+        obstrn_undefined_valsou = S57Aux.filter_by_attribute(obstrns_no_foul_area_ground, attribute='VALSOU')
 
         # filter out obstructions with tecsou vbes, lidar, photogrammetry
         obstrn_filtered_tecsou = S57Aux.filter_by_attribute_value(objects=obstrn_valsou, attribute='TECSOU',
@@ -1257,10 +1261,6 @@ class Checks:
 
         # Include only foul obstructions
         obstrns_foul = S57Aux.select_by_attribute_value(objects=obstrns, attribute='CATOBS', value_filter=['6', ])
-
-        # Exclude foul area and ground area obstructions
-        obstrns_no_foul_area_ground = S57Aux.filter_by_attribute_value(objects=obstrns, attribute='CATOBS',
-                                                                       value_filter=['6', '7', ])
 
         # Ensure new or updated obstructions (not foul area) have images
         # Ensure new or updated wrecks have images
@@ -1344,7 +1344,8 @@ class Checks:
             attribute='WATLEV',
             values_to_flag=['', ],
             check_attrib_existence=True)
-        # Ensure new or updated foul obstructions have quasou
+
+        # Ensure new or updated foul ground obstructions have quasou
         self.report += "New or Updated foul ground OBSTRN with missing mandatory attribute QUASOU [CHECK]"
         self.flags.obstructions.foul_ground_quasou = self._flag_features_with_attribute_value(
             objects=obstrns_foul_ground,
@@ -1359,6 +1360,40 @@ class Checks:
             attribute='TECSOU',
             values_to_flag=['', ],
             check_attrib_existence=True)
+
+        # Foul area checks....
+        # Warning: Ensure foul area obstructions have watlev unknown
+        self.report += "Warning: New or Updated foul area OBSTRN shall have WATLEV of 'unknown' [CHECK]"
+        self.flags.obstructions.foul_unknown_watlev = self._flag_features_with_attribute_value(obstrns_foul,
+                                                                                          attribute='WATLEV',
+                                                                                          values_to_flag=["1", "2", "3",
+                                                                                                          "4", "5", "6",
+                                                                                                          "7", ],
+                                                                                          check_attrib_existence=True,
+                                                                                          possible=True)
+
+        # Ensure foul area obstructions have tecsou "unknown"
+        self.report += "New or Updated foul area OBSTRN shall have TECSOU of 'unknown' [CHECK]"
+        self.flags.obstructions.foul_unknown_tecsou = self._flag_features_with_attribute_value(obstrns_foul,
+                                                                                          attribute='TECSOU',
+                                                                                          values_to_flag=["1", "2", "3",
+                                                                                                          "4", "5", "6",
+                                                                                                          "7", "8", "9",
+                                                                                                          "10", "11",
+                                                                                                          "12", "13",
+                                                                                                          "14", ],
+                                                                                          check_attrib_existence=True)
+
+        # Ensure foul area obstructions have quasou "unknown"
+        self.report += "New or Updated foul area OBSTRN  shall have QUASOU of 'depth unknown' [CHECK]"
+        self.flags.obstructions.foul_unknown_quasou = self._flag_features_with_attribute_value(obstrns_foul,
+                                                                                          attribute='QUASOU',
+                                                                                          values_to_flag=["1", "3",
+                                                                                                          "4", "5", "6",
+                                                                                                          "7", "8", "9",
+                                                                                                          "10", "11"],
+                                                                                          check_attrib_existence=True)
+
 
     # OFFSHORE PLATFORMS
 
