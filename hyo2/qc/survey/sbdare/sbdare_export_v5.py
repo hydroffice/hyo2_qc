@@ -98,7 +98,7 @@ class SbdareExportV5(BaseSbdare):
         # create ascii file
         self.output_ascii = os.path.join(output_folder, "%s.ascii" % output_name)
         ascii_fod = open(self.output_ascii, 'w')
-        ascii_fod.write('Latitude;Longitude; Colour;Nature of surface - qualifying terms;'
+        ascii_fod.write('Latitude;Longitude;Colour;Nature of surface - qualifying terms;'
                         'Nature of surface;Remarks;Source date;Source indication;Images;'
                         'CMECS Substrate Name;CMECS Substrate Code;'
                         'CMECS Co-occurring Element 1 Name;CMECS Co-occurring Element 1 Code;'
