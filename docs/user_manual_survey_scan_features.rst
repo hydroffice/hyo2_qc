@@ -96,25 +96,29 @@ The logic for the 2021 QC Tools feature scan is shown below. For previous years,
 		* Must have **WATLEV**, **QUASOU**, and **TECSOU**.
 	* If Wreck does not have **VALSOU**:
 		* Must have **QUASOU** and **TECSOU** of null/undefined.
-		* Recieve a warning if **WATLEV** is not "unknown".
+		* Receive a warning if **WATLEV** is not "unknown".
 * Rocks = all **UWTROC** with **descrp = 1 or 2**:
     * All Rocks must have **VALSOU**. [3]_
 	* If Rock has **VALSOU**:
 		* Must have **WATLEV**, **QUASOU**, and **TECSOU**.
 	* If Rock does not have **VALSOU**:
 		* Must have **QUASOU** and **TECSOU** of null/undefined.
-		* Recieve a warning if **WATLEV** is not "unknown".
+		* Receive a warning if **WATLEV** is not "unknown".
 * Obstructions = all **OBSTRN** with **descrp = 1 or 2**:
-	* All Obstructions (excluding foul areas) must have **images**.
-	* All obsructions (excluding foul ground and foul areas) must have **VALSOU**. [3]_
-	* Foul areas shall not have **VALSOU**.
-	* If obstruction has **VALSOU**:
-		* Obstruction must have **WATLEV**, **QUASOU**, and **TECSOU**.
-	* If obstruction does not have **VALSOU**:
-		* Must have **QUASOU** and **TECSOU** of null/undefined.
-		* Recieve a warning if **WATLEV** is not "unknown".
-	* If obstruction is foul ground:
-		* Must have **VALSOU**, WATLEV, QUASOU**, and **TECSOU**.
+    * All Obstructions (excluding foul areas) must have **images**.
+    * All obsructions (excluding foul ground and foul areas) must have **VALSOU**. [3]_
+    * If obstruction has **VALSOU**:
+        * Obstruction must have **WATLEV**, **QUASOU**, and **TECSOU**.
+    * If obstruction does not have **VALSOU**:
+        * Must have **QUASOU** and **TECSOU** of null/undefined.
+        * Receive a warning if **WATLEV** is not "unknown".
+    * If obstruction is foul ground:
+        * Must have **VALSOU**, **WATLEV**, **QUASOU**, and **TECSOU**.
+    * If obstruction is a foul area:
+        * Must not have **VALSOU** populated.
+        * Receive a warning if **WATLEV** is not "unknown".
+        * **QUASOU** must be "depth unknown".
+        * Must have **TECSOU** of "unknown".
 * Offshore platforms = all **OFSPLF** with **descrp = 1 or 2**:
     * All Offshore platforms must have **images.**
 * Seabed areas:
