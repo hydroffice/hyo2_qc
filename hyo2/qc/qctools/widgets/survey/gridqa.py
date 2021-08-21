@@ -544,5 +544,6 @@ class GridQATab(QtWidgets.QMainWindow):
             self.prj.progress.end()
             return False
 
+        self.prj.close_cur_grid()
         self.prj.progress.end()
         return True
