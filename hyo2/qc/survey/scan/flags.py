@@ -138,7 +138,7 @@ class Flags:
         class Obstructions:
             def __init__(self):
                 self.images = list()
-                self.points_valsou = list()
+                self.valsou = list()
                 self.watlev = list()
                 self.unknown_watlev = list()
                 self.quasou = list()
@@ -150,12 +150,16 @@ class Flags:
                 self.foul_ground_watlev = list()
                 self.foul_ground_quasou = list()
                 self.foul_ground_tecsou = list()
+                self.foul_unknown_watlev = list()
+                self.foul_unknown_tecsou = list()
+                self.foul_unknown_quasou = list()
 
             def nr_of_flagged(self) -> int:
-                return len(self.images) + len(self.points_valsou) + len(self.watlev) + len(self.unknown_watlev) + \
+                return len(self.images) + len(self.valsou) + len(self.watlev) + len(self.unknown_watlev) + \
                        len(self.quasou) + + len(self.unknown_quasou) + len(self.tecsou) + len(self.unknown_tecsou) + \
                        len(self.foul_valsou) + len(self.foul_ground_valsou) + len(self.foul_ground_watlev) + \
-                       len(self.foul_ground_quasou) + len(self.foul_ground_tecsou)
+                       len(self.foul_ground_quasou) + len(self.foul_ground_tecsou) + len(self.foul_unknown_watlev) + \
+                       len(self.foul_unknown_tecsou) + len(self.foul_unknown_quasou)
 
         self.obstructions = Obstructions()
 
