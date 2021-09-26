@@ -35,16 +35,16 @@ wid = QtWidgets.QWidget()
 # create the project
 prj = SurveyProject(output_folder=testing.output_data_folder(), progress=QtProgress(parent=wid))
 
-csar_files = testing.input_test_files(".csar")
-logger.debug("test CSAR files: %d" % len(csar_files))
-bag_files = testing.input_test_files(".bag")
-logger.debug("test BAG files: %d" % len(bag_files))
-
+# csar_files = testing.input_test_files(".csar")
+# logger.debug("test CSAR files: %d" % len(csar_files))
 # prj.add_to_grid_list(csar_files[0])
+
+# bag_files = testing.input_test_files(".bag")
+# logger.debug("test BAG files: %d" % len(bag_files))
 # prj.add_to_grid_list(bag_files[0])
-prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\v8_filters\test_finalized.csar")
-prj.add_to_grid_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\v8_filters\test_finalized.bag")
-prj.add_to_s57_list(r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\v8_filters\v8_filters.000")
+
+kluster_file = r"C:\Users\gmasetti\Documents\kluster\test\srgrid_mean_auto_20210926_145921"
+prj.add_to_grid_list(kluster_file)
 
 logger.debug("grid list: %s" % (prj.grid_list,))
 

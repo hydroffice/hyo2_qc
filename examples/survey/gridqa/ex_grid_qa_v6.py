@@ -22,19 +22,17 @@ wid = QtWidgets.QWidget()
 prj = SurveyProject(output_folder=testing.output_data_folder(), progress=QtProgress(parent=wid))
 
 # add a CSAR file
-csar_files = testing.input_test_files(".csar")
+# csar_files = testing.input_test_files(".csar")
 # print("- CSAR files: %d" % len(csar_files))
 
 # # add a BAG file
 # bag_files = testing.input_test_files(".bag")
 # print("- BAG files: %d" % len(bag_files))
-# csar_file = "C:/Users/giumas/Google Drive/Testing_Datasets/ObjectDetection_H12676/H12676_10_2_2_Ranges_ObjectDetection_Holidays_finalized.csar"
-# csar_file = "C:/Users/giumas/Google Drive/Testing_Datasets/ObjectDetection_H12676/H12676_10_2_2_Ranges_ObjectDetection_Holidays.csar"
-# csar_file = "C:\\Users\\giumas\\Google Drive\\QC Tools\\test data\\H12924\\H12924_MB_1m_MLLW_Final.csar"
-# csar_file = "C:\\Users\\gmasetti\\Google Drive\\QC Tools\\test data\\W00341\\W00341_MB_VR_MLLW_Final.csar"
 
-prj.add_to_grid_list(csar_files[0])
-prj.add_to_grid_list(csar_files[1])
+
+
+# prj.add_to_grid_list(csar_files[0])
+# prj.add_to_grid_list(csar_files[1])
 # prj.add_to_grid_list(bag_files[0])
 # prj.add_to_grid_list(bag_files[1])
 # prj.add_to_grid_list(bag_files[2])

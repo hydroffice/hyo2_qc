@@ -546,16 +546,24 @@ class FindFliersV8(BaseFliers):
             if len(self.bathy_values) == 0:
                 raise RuntimeError("No bathy values")
 
+        elif depth_type == "KLUSTER_FLOAT32":
+
+            self.bathy_is_double = False
+            self.bathy_values = tile.layers[depth_idx]
+            if len(self.bathy_values) == 0:
+                raise RuntimeError("No bathy values")
+
         else:
-            raise RuntimeError("Unsupported data type for bathy")
+            raise RuntimeError("Unsupported data type for bathy: %s" % depth_type)
 
         if self.bathy_hrs is None:
             self.bathy_hrs = tile.bbox.hrs
+        logger.info(self.bathy_hrs)
         self.bathy_transform = [tile.bbox.transform[0], tile.bbox.transform[1], tile.bbox.transform[2],
                                 tile.bbox.transform[3], tile.bbox.transform[4], tile.bbox.transform[5],]
-        # logger.debug("transform: [%s, %s, %s, %s, %s, %s]"
-        #              % (self.bathy_transform[0], self.bathy_transform[1], self.bathy_transform[2],
-        #                 self.bathy_transform[3], self.bathy_transform[4], self.bathy_transform[5],))
+        logger.debug("transform: [%s, %s, %s, %s, %s, %s]"
+                     % (self.bathy_transform[0], self.bathy_transform[1], self.bathy_transform[2],
+                        self.bathy_transform[3], self.bathy_transform[4], self.bathy_transform[5],))
 
         # mask to avoid nan issues
         self.dtm_mask = np.ma.masked_invalid(self.bathy_values)
@@ -659,6 +667,10 @@ class FindFliersV8(BaseFliers):
 
     def _retrieve_designated(self) -> bool:
         logger.debug("retrieving designated soundings ...")
+
+        if self.grids.is_kluster_grid():
+            logger.debug("retrieving designated soundings: Kluster grid -> skipped")
+            return False
 
         if self.grids.is_csar():
             logger.debug("retrieving designated soundings: CSAR -> skipped")
