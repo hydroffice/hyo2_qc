@@ -70,7 +70,7 @@ class MainWin(QtWidgets.QMainWindow):
             # set icons
             icon_info = QtCore.QFileInfo(os.path.join(self.media, 'unccalc.png'))
             self.setWindowIcon(QtGui.QIcon(icon_info.absoluteFilePath()))
-            if (sys.platform == 'win32') or (os.name is "nt"):  # is_windows()
+            if (sys.platform == 'win32') or (os.name == "nt"):  # is_windows()
 
                 try:
                     # This is needed to display the app icon on the taskbar on Windows 7
@@ -414,7 +414,7 @@ class MainWin(QtWidgets.QMainWindow):
     @classmethod
     def is_windows(cls):
         """ Check if the current OS is Windows """
-        return (sys.platform == 'win32') or (os.name is "nt")
+        return (sys.platform == 'win32') or (os.name == "nt")
 
     @classmethod
     def explore_folder(cls, path):

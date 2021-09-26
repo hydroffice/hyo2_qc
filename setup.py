@@ -55,7 +55,7 @@ setup(
         "scipy",
         "pillow",
         "piexif",
-        "PySide2",
+        # "PySide2",
     ],
     ext_modules=cythonize([
         Extension("hyo2.qc.survey.fliers.find_fliers_checks",
@@ -82,11 +82,7 @@ setup(
     test_suite="tests",
 
     description="A package to quality control hydrographic data.",
-    long_description=(read("README.rst") + "\n\n\"\"\"\"\"\"\"\n\n" +
-                      read("HISTORY.rst") + "\n\n\"\"\"\"\"\"\"\n\n" +
-                      read("AUTHORS.rst") + "\n\n\"\"\"\"\"\"\"\n\n" +
-                      read(os.path.join("docs", "developer_guide_how_to_contribute.rst")))
-,
+    long_description="A package to quality control hydrographic data.", #(read("README.rst")),
     url="https://github.com/hydroffice/hyo2_qc",
     classifiers=[  # https://pypi.python.org/pypi?%3Aaction=list_classifiers
         'Development Status :: 5 - Production/Stable',
@@ -102,6 +98,6 @@ setup(
         'Topic :: Office/Business :: Office Suites',
     ],
     keywords="hydrography ocean mapping survey data quality",
-    author="Giuseppe Masetti(UNH,CCOM); Tyanne Faulkes(NOAA,OCS); Julia Wallace(NOAA,OCS); Matthew Wilson(NOAA,OCS)",
-    author_email="gmasetti@ccom.unh.edu; tyanne.faulkes@noaa.gov; julia.wallace@noaa.gov; matthew.wilson@noaa.gov"
+    author="Giuseppe Masetti(UNH,CCOM), Tyanne Faulkes(NOAA,OCS), Julia Wallace(NOAA,OCS), Matthew Wilson(NOAA,OCS)",
+    author_email="gmasetti@ccom.unh.edu, tyanne.faulkes@noaa.gov, julia.wallace@noaa.gov, matthew.wilson@noaa.gov"
 )

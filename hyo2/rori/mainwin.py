@@ -66,7 +66,7 @@ class MainWin(QtWidgets.QMainWindow):
             # set icons
             icon_info = QtCore.QFileInfo(os.path.join(self.media, 'rori.png'))
             self.setWindowIcon(QtGui.QIcon(icon_info.absoluteFilePath()))
-            if (sys.platform == 'win32') or (os.name is "nt"):  # is_windows()
+            if (sys.platform == 'win32') or (os.name == "nt"):  # is_windows()
 
                 try:
                     # This is needed to display the app icon on the taskbar on Windows 7

@@ -1,4 +1,3 @@
-import ogr
 import os
 import shutil
 import piexif
@@ -10,13 +9,14 @@ from hyo2.qc.common.s57_aux import S57Aux
 from hyo2.qc.common.geodesy import Geodesy
 from hyo2.abc.lib.gdal_aux import GdalAux
 
+from osgeo import ogr
+
 logger = logging.getLogger(__name__)
 
 
 class SbdareInfo:
 
     def __init__(self):
-
         self.colour = str()
         self.natqua = str()
         self.natsur = str()
@@ -87,7 +87,7 @@ class SbdareExportV5(BaseSbdare):
         self.sbdare_features = S57Aux.select_only_points(self.sbdare_features)
         # only export new and updated bottom samples per chief's meeting in October 2020
         self.sbdare_features = S57Aux.select_by_attribute_value(self.sbdare_features, attribute='descrp',
-                                                               value_filter=['1', '2', ])
+                                                                value_filter=['1', '2', ])
 
         logger.debug("identified %d SBDARE features" % len(self.sbdare_features))
 
@@ -244,7 +244,7 @@ class SbdareExportV5(BaseSbdare):
                     info.natsur_list = info.natsur_list[:3]
 
             elif attribute.acronym == 'remrks':
-                info.remrks = self._commaed_str(attribute.value.replace(";", "--")).replace(",","-")
+                info.remrks = self._commaed_str(attribute.value.replace(";", "--")).replace(",", "-")
 
             elif attribute.acronym == 'SORDAT':
                 info.sordat = attribute.value.strip()
@@ -340,7 +340,7 @@ class SbdareExportV5(BaseSbdare):
             exif_dict["GPS"][piexif.GPSIFD.GPSLatitudeRef] = "S"
         exif_dict["GPS"][piexif.GPSIFD.GPSLatitude] = ((abs(int(lat[0])), 1),
                                                        (int(lat[1]), 1),
-                                                       (int(lat[2]*base), base))
+                                                       (int(lat[2] * base), base))
 
         if lon[0] > 0:
             exif_dict["GPS"][piexif.GPSIFD.GPSLongitudeRef] = "E"
@@ -348,7 +348,7 @@ class SbdareExportV5(BaseSbdare):
             exif_dict["GPS"][piexif.GPSIFD.GPSLongitudeRef] = "W"
         exif_dict["GPS"][piexif.GPSIFD.GPSLongitude] = ((abs(int(lon[0])), 1),
                                                         (int(lon[1]), 1),
-                                                        (int(lon[2]*base), base))
+                                                        (int(lon[2] * base), base))
 
         exif_dict["GPS"][piexif.GPSIFD.GPSMapDatum] = "WGS-84"
 
@@ -412,7 +412,6 @@ class SbdareExportV5(BaseSbdare):
     def _calc_cmecs(self, info, feature_idx):
 
         if len(info.natsur_list) == 0:
-
             logger.error("feature #%d has not NATSUR")
             return info
 
@@ -432,7 +431,7 @@ class SbdareExportV5(BaseSbdare):
             logger.debug("- subs %s -> %s, %s" % (subs, info.c_subn, info.c_subc))
 
         except KeyError:
-            logger.error("- subs %s -> invalid pair for CMECS look-up" % (subs, ))
+            logger.error("- subs %s -> invalid pair for CMECS look-up" % (subs,))
             return info
 
         # retrieve co-occurring element #1
@@ -478,7 +477,7 @@ class SbdareExportV5(BaseSbdare):
                 logger.debug("- coe2 %s -> %s, %s" % (subs, info.c_cen2, info.c_cec2))
 
             except KeyError:
-                logger.error("- coe2 %s -> invalid pair for CMECS look-up" % (subs, ))
+                logger.error("- coe2 %s -> invalid pair for CMECS look-up" % (subs,))
                 return info
 
         return info
