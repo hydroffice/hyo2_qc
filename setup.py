@@ -51,6 +51,7 @@ setup(
         "hyo2.abc",
         "hyo2.grids",
         "hyo2.enc",
+        "hyo2.bag",
         "matplotlib",
         "scipy",
         "pillow",
