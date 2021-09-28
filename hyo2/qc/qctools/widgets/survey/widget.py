@@ -172,7 +172,10 @@ class SurveyWidget(AbstractWidget):
 
     def grids_loaded(self):
         self.tabs.setTabEnabled(self.idx_fliers, True)
-        self.tabs.setTabEnabled(self.idx_holes, True)
+        if self.prj.has_kluster_grid():
+            self.tabs.setTabEnabled(self.idx_holes, False)
+        else:
+            self.tabs.setTabEnabled(self.idx_holes, True)
         self.tabs.setTabEnabled(self.idx_gridqa, True)
         if self.prj.has_bag_grid():
             self.tabs.setTabEnabled(self.idx_bag_checks, True)

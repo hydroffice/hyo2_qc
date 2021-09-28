@@ -348,6 +348,9 @@ class BaseProject:
     def has_csar_grid(self):
         return self._gr.has_csar
 
+    def has_kluster_grid(self):
+        return self._gr.has_kluster
+
     @property
     def selected_layers_in_cur_grid(self):
         return self._gr.selected_layers_in_current

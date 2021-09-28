@@ -4,6 +4,7 @@ import os
 import logging
 
 from hyo2.qc.qctools.gui_settings import GuiSettings
+from hyo2.grids.grids_manager import GridsManager
 
 logger = logging.getLogger(__name__)
 
@@ -235,7 +236,10 @@ class InputsTab(QtWidgets.QMainWindow):
 
                 logger.debug("dropped path: %s" % dropped_path)
                 if os.path.isdir(dropped_path):
-                    self._add_folder(selection=dropped_path)
+                    if GridsManager.is_kluster_path(dropped_path):
+                        self._add_grids(selection=dropped_path)
+                    else:
+                        self._add_folder(selection=dropped_path)
 
                 elif os.path.splitext(dropped_path)[-1] in (".bag", ".csar"):
                     self._add_grids(selection=dropped_path)
@@ -304,6 +308,8 @@ class InputsTab(QtWidgets.QMainWindow):
                 new_item.setIcon(QtGui.QIcon(os.path.join(self.parent_win.media, 'bag.png')))
             elif os.path.splitext(grid)[-1] == ".csar":
                 new_item.setIcon(QtGui.QIcon(os.path.join(self.parent_win.media, 'csar.png')))
+            elif GridsManager.is_kluster_path(grid):
+                new_item.setIcon(QtGui.QIcon(os.path.join(self.parent_win.media, 'kluster.png')))
             new_item.setText(grid)
             new_item.setFont(GuiSettings.console_font())
             new_item.setForeground(GuiSettings.console_fg_color())
