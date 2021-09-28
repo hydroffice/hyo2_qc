@@ -18,16 +18,16 @@ logger = logging.getLogger()
 four_gb = 4294967296
 one_mb = 1048576
 
-height_value = 0.5
-check_laplacian = True
-check_curv = True
+height_value = None
+check_laplacian = False
+check_curv = False
 check_adjacent = True
 check_slivers = True
 check_isolated = True
-check_edges = True
+check_edges = False
 
-filter_designated = True
-filter_fff = True
+filter_designated = False
+filter_fff = False
 
 app = QtWidgets.QApplication([])
 wid = QtWidgets.QWidget()
@@ -42,6 +42,9 @@ prj = SurveyProject(output_folder=testing.output_data_folder(), progress=QtProgr
 # bag_files = testing.input_test_files(".bag")
 # logger.debug("test BAG files: %d" % len(bag_files))
 # prj.add_to_grid_list(bag_files[0])
+
+# bag_file = r"C:\Users\gmasetti\Documents\kluster\test\srgrid_mean_auto_20210926_145921\export_8.0_1.bag"
+# prj.add_to_grid_list(bag_file)
 
 kluster_file = r"C:\Users\gmasetti\Documents\kluster\test\srgrid_mean_auto_20210926_145921"
 prj.add_to_grid_list(kluster_file)
@@ -64,7 +67,8 @@ for i, grid_path in enumerate(prj.grid_list):
                        check_isolated=check_isolated,
                        check_edges=check_edges,
                        filter_fff=filter_fff,
-                       filter_designated=filter_designated)
+                       filter_designated=filter_designated,
+                       export_proxies=False)
     prj.close_cur_grid()
 
     prj.set_cur_grid(path=grid_path)

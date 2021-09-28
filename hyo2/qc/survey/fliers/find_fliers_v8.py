@@ -550,6 +550,7 @@ class FindFliersV8(BaseFliers):
 
             self.bathy_is_double = False
             self.bathy_values = tile.layers[depth_idx]
+            self.bathy_values[np.isnan(tile.layers[depth_idx])] = np.nan
             if len(self.bathy_values) == 0:
                 raise RuntimeError("No bathy values")
 
@@ -567,9 +568,13 @@ class FindFliersV8(BaseFliers):
 
         # mask to avoid nan issues
         self.dtm_mask = np.ma.masked_invalid(self.bathy_values)
-
         # logger.debug('dtm: %s (valid: %d, masked: %d)'
         #              % (self.bathy_values.shape, self.dtm_mask.count(), np.ma.count_masked(self.dtm_mask)))
+        dtm_mask_path = os.path.join(self.output_folder,
+                                     '%s_dtm_mask.%d_%d.txt' % (self.basename, self.dtm_mask.shape[0],
+                                                                self.dtm_mask.shape[1]))
+        np.savetxt(dtm_mask_path, self.dtm_mask, fmt='%7.3f')
+        logger.debug('saved DTM mask: %s' % dtm_mask_path)
 
     def _georef_fliers(self):
         """Helper function that looks at the flagged array and store the node != 0 as feature fliers"""
@@ -612,11 +617,15 @@ class FindFliersV8(BaseFliers):
         flagged_zs = list()
         flagged_cks = list()
         for i, x in enumerate(fliers_x):
-            flagged_xs.append(tile.convert_easting(int(x)))
-            flagged_ys.append(tile.convert_northing(int(fliers_y[i])))
-            flagged_zs.append(fliers_z[i])
-            flagged_cks.append(fliers_ck[i])
-            # logger.debug("#%d: %f %f %d" % (i, xs[i], ys[i], zs[i]))
+            e = tile.convert_easting(int(x))
+            n = tile.convert_northing(int(fliers_y[i]))
+            z = fliers_z[i]
+            c = fliers_ck[i]
+            logger.debug("#%d: %.0f, %.0f -> %.2f %.2f %.2f : %d" % (i, x, fliers_y[i], e, n, z, c))
+            flagged_xs.append(e)
+            flagged_ys.append(n)
+            flagged_zs.append(z)
+            flagged_cks.append(c)
 
         logger.info("Initial lists length: %s, %s, %s, %s"
                     % (len(self.flagged_xs), len(self.flagged_ys), len(self.flagged_zs), len(self.flagged_cks)))
@@ -628,10 +637,14 @@ class FindFliersV8(BaseFliers):
             cks = np.array(flagged_cks)
             # logger.debug("xs: %s" % xs)
             # logger.debug("ys: %s" % ys)
-            # logger.debug("zs: %s" % zs)
 
             # convert to geographic
-            lonlat = np.array(loc2geo.TransformPoints(np.vstack((xs, ys)).transpose()), np.float64)
+            if gdal.__version__[0] == '3':
+                lonlat = np.array(loc2geo.TransformPoints(np.vstack((xs, ys)).transpose()), np.float64)
+                lonlat.T[[0, 1]] = lonlat.T[[1, 0]]
+                # print(lonlat)
+            else:
+                lonlat = np.array(loc2geo.TransformPoints(np.vstack((xs, ys)).transpose()), np.float64)
 
             # add checks
             lonlat[:, 2] = cks
@@ -645,7 +658,7 @@ class FindFliersV8(BaseFliers):
             logger.info("Detected %s possible fliers" % len(self.flagged_fliers))
             logger.info("Resulting lists lengths: %s, %s, %s, %s"
                         % (len(self.flagged_xs), len(self.flagged_ys), len(self.flagged_zs), len(self.flagged_cks)))
-            # logger.debug(f"Flagged fliers: {self.flagged_fliers}")
+            logger.debug(f"Flagged fliers: {self.flagged_fliers}")
 
         except Exception as e:
             raise RuntimeError("Unable to perform conversion of the flagged fliers to geographic: %s" % e)

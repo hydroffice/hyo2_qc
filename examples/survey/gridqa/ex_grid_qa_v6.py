@@ -8,12 +8,12 @@ from PySide2 import QtWidgets
 from hyo2.qc.common import default_logging
 import logging
 
-default_logging.load()
-logger = logging.getLogger()
-
 from hyo2.abc.app.qt_progress import QtProgress
 from hyo2.qc.survey.project import SurveyProject
 from hyo2.qc.common import testing
+
+default_logging.load()
+logger = logging.getLogger(__name__)
 
 app = QtWidgets.QApplication([])
 wid = QtWidgets.QWidget()
@@ -25,11 +25,12 @@ prj = SurveyProject(output_folder=testing.output_data_folder(), progress=QtProgr
 # csar_files = testing.input_test_files(".csar")
 # print("- CSAR files: %d" % len(csar_files))
 
-# # add a BAG file
-# bag_files = testing.input_test_files(".bag")
-# print("- BAG files: %d" % len(bag_files))
+# add a BAG file
+bag_files = testing.input_test_files(".bag")
+print("- BAG files: %d" % len(bag_files))
 
-
+kluster_file = r"C:\Users\gmasetti\Documents\kluster\test\srgrid_mean_auto_20210926_145921"
+prj.add_to_grid_list(kluster_file)
 
 # prj.add_to_grid_list(csar_files[0])
 # prj.add_to_grid_list(csar_files[1])
@@ -53,7 +54,7 @@ hist_tvu_qc = True
 hist_pct_res = True
 
 depth_vs_density = False
-depth_vs_tvu_qc = False
+depth_vs_tvu_qc = True
 
 
 for grid_path in prj.grid_list:

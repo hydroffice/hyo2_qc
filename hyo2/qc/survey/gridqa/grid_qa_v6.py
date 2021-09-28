@@ -796,9 +796,12 @@ class GridQAV6(BaseGridQA):
         elif depth_type == GRIDS_FLOAT:
             self.bathy_values = -tile.floats[depth_idx][tile.floats[depth_idx] != tile.floats_nodata[depth_idx]]
 
+        elif depth_type == "KLUSTER_FLOAT32":
+            self.bathy_values = tile.layers[depth_idx][~np.isnan(tile.layers[depth_idx])]
+
         else:
-            raise RuntimeError("Unsupported data type for bathy")
-        # logger.debug('depth values: %s' % len(self.bathy_values))
+            raise RuntimeError("Unsupported data type for bathy: %s" % depth_type)
+        logger.debug('depth values: %s [%s]' % (self.bathy_values.shape, self.bathy_values.dtype))
 
         # - density layer
 
@@ -892,8 +895,15 @@ class GridQAV6(BaseGridQA):
                                        tile.floats_nodata[uncertainty_idx],
                                        self.grids.tvu_qc)
 
+                elif uncertainty_type == "KLUSTER_FLOAT32":
+                    self.grids.tvu_qc = np.empty_like(tile.layers[depth_idx])
+                    calc_tvu_qc_ff(-tile.layers[depth_idx],
+                                   tile.layers[uncertainty_idx],
+                                   np.nan,
+                                   self.grids.tvu_qc)
+
                 else:
-                    raise RuntimeError("Unsupported data type for uncertainty")
+                    raise RuntimeError("Unsupported data type for uncertainty: %s" % uncertainty_type)
                 # logger.debug(self.grids.tvu_qc)
 
                 self.tvu_qc_values = np.fabs(self.grids.tvu_qc[~np.isnan(self.grids.tvu_qc)])
@@ -986,8 +996,25 @@ class GridQAV6(BaseGridQA):
                                      tile.floats_nodata[uncertainty_idx],
                                      self.grids.tvu_qc_c)
 
+            elif uncertainty_type == "KLUSTER_FLOAT32":
+                self.grids.tvu_qc_a1 = np.empty_like(tile.layers[depth_idx])
+                calc_tvu_qc_a1_ff(-tile.layers[depth_idx],
+                                  tile.layers[uncertainty_idx],
+                                  np.nan,
+                                  self.grids.tvu_qc_a1)
+                self.grids.tvu_qc_a2b = np.empty_like(tile.layers[depth_idx])
+                calc_tvu_qc_a2b_ff(-tile.layers[depth_idx],
+                                   tile.layers[uncertainty_idx],
+                                   np.nan,
+                                   self.grids.tvu_qc_a2b)
+                self.grids.tvu_qc_c = np.empty_like(tile.layers[depth_idx])
+                calc_tvu_qc_c_ff(-tile.layers[depth_idx],
+                                 tile.layers[uncertainty_idx],
+                                 np.nan,
+                                 self.grids.tvu_qc_c)
+
             else:
-                raise RuntimeError("Unsupported data type for uncertainty")
+                raise RuntimeError("Unsupported data type for uncertainty: %s" % uncertainty_type)
             # logger.debug(self.grids.tvu_qc)
 
             self.catzoc_a1_values = np.fabs(self.grids.tvu_qc_a1[~np.isnan(self.grids.tvu_qc_a1)])

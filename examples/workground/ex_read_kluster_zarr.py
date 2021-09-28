@@ -29,6 +29,7 @@ print("resolutions: %s" % bg.resolutions)
 print("name: %s" % bg.name)
 print("grid algorithm: %s" % bg.grid_algorithm)
 print("grid resolution: %s" % bg.grid_resolution)
+print("geotransform: %s" % bg.get_geotransform(bg.resolutions[0]))
 print("layer names: %s" % bg.layer_names)
 
 for tile in bg.tiles.flat:
@@ -38,8 +39,8 @@ for tile in bg.tiles.flat:
     print("cell count: %s" % tile.cell_count)
 
 dl = bg.get_layers_by_name()
-print(dl)
-print(type(dl))
+print(dl[0].shape)
+print(type(dl[0]))
 
 plt.figure()
 bg.plot()
