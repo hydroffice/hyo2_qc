@@ -40,7 +40,7 @@ setup(
     namespace_packages=["hyo2"],
     packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests", "*.test*", ]),
     package_data={
-        "": ["media/*.png", "media/*.ico", "media/*.icns", "media/*.txt",],
+        "": ["media/*.*", "media/LICENSE", "rc/*.*", "stylesheet/*.stylesheet", "styles/*.stylesheet"],
     },
     zip_safe=False,
     setup_requires=[
