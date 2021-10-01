@@ -48,14 +48,26 @@ class InputsTab(QtWidgets.QMainWindow):
         # noinspection PyUnresolvedReferences
         self.input_grids.customContextMenuRequested.connect(self.make_grids_context_menu)
         self.input_grids.setAlternatingRowColors(True)
-        button_add_grids = QtWidgets.QPushButton()
-        hbox.addWidget(button_add_grids)
-        button_add_grids.setFixedHeight(GuiSettings.single_line_height())
-        button_add_grids.setFixedWidth(GuiSettings.single_line_height())
-        button_add_grids.setText(" + ")
-        button_add_grids.setToolTip('Add (or drag-and-drop) BAG and CSAR files')
+        vbox_buttons = QtWidgets.QVBoxLayout()
+        hbox.addLayout(vbox_buttons)
+        vbox_buttons.addStretch()
+        button_add_file_grids = QtWidgets.QPushButton()
+        vbox_buttons.addWidget(button_add_file_grids)
+        button_add_file_grids.setFixedHeight(36)
+        button_add_file_grids.setFixedWidth(36)
+        button_add_file_grids.setIcon(QtGui.QIcon(os.path.join(self.parent_win.media, 'add_files.png')))
+        button_add_file_grids.setToolTip('Add (or drag-and-drop) BAG and CSAR files')
         # noinspection PyUnresolvedReferences
-        button_add_grids.clicked.connect(self.click_add_grids)
+        button_add_file_grids.clicked.connect(self.click_add_file_grids)
+        button_add_folder_grids = QtWidgets.QPushButton()
+        vbox_buttons.addWidget(button_add_folder_grids)
+        button_add_folder_grids.setFixedHeight(36)
+        button_add_folder_grids.setFixedWidth(36)
+        button_add_folder_grids.setIcon(QtGui.QIcon(os.path.join(self.parent_win.media, 'add_folder.png')))
+        button_add_folder_grids.setToolTip('Add (or drag-and-drop) a Kluster Grid folder')
+        # noinspection PyUnresolvedReferences
+        button_add_folder_grids.clicked.connect(self.click_add_folder_grids)
+        vbox_buttons.addStretch()
 
         # add s57
         hbox = QtWidgets.QHBoxLayout()
@@ -75,7 +87,9 @@ class InputsTab(QtWidgets.QMainWindow):
         hbox.addWidget(button_add_s57)
         button_add_s57.setFixedHeight(GuiSettings.single_line_height())
         button_add_s57.setFixedWidth(GuiSettings.single_line_height())
-        button_add_s57.setText(" + ")
+        button_add_s57.setFixedHeight(36)
+        button_add_s57.setFixedWidth(36)
+        button_add_s57.setIcon(QtGui.QIcon(os.path.join(self.parent_win.media, 'add_files.png')))
         button_add_s57.setToolTip('Add (or drag-and-drop) S57 feature files')
         # noinspection PyUnresolvedReferences
         button_add_s57.clicked.connect(self.click_add_s57)
@@ -179,9 +193,9 @@ class InputsTab(QtWidgets.QMainWindow):
         self.output_folder.addItem(new_item)
         button_add_folder = QtWidgets.QPushButton()
         hbox.addWidget(button_add_folder)
-        button_add_folder.setFixedHeight(GuiSettings.single_line_height())
-        button_add_folder.setFixedWidth(GuiSettings.single_line_height())
-        button_add_folder.setText(" .. ")
+        button_add_folder.setFixedHeight(36)
+        button_add_folder.setFixedWidth(36)
+        button_add_folder.setText(" ... ")
         button_add_folder.setToolTip('Add (or drag-and-drop) output folder')
         # noinspection PyUnresolvedReferences
         button_add_folder.clicked.connect(self.click_add_folder)
@@ -258,7 +272,7 @@ class InputsTab(QtWidgets.QMainWindow):
         else:
             e.ignore()
 
-    def click_add_grids(self):
+    def click_add_file_grids(self):
         """ Read the grids provided by the user"""
         logger.debug('adding grids from file ...')
 
@@ -280,6 +294,31 @@ class InputsTab(QtWidgets.QMainWindow):
 
         for selection in selections:
             self._add_grids(selection=os.path.abspath(selection).replace("\\", "/"))
+
+    def click_add_folder_grids(self):
+        """ Read the grids provided by the user"""
+        logger.debug('adding grids from folder ...')
+
+        # ask the folder path to the user
+        # noinspection PyCallByClass
+        selection = QtWidgets.QFileDialog.getExistingDirectory(self, "Add Kluster Grid folder",
+                                                                   QtCore.QSettings().value("survey_import_folder"),
+                                                                   QtWidgets.QFileDialog.ShowDirsOnly)
+        if selection == str():
+            logger.debug('adding grids: aborted')
+            return
+
+        if not GridsManager.is_kluster_path(selection):
+            msg = "The folder %s is not a Kluster Grid" % selection
+            # noinspection PyCallByClass
+            QtWidgets.QMessageBox.critical(self, "Data Reading Error", msg, QtWidgets.QMessageBox.Ok)
+            logger.debug('folder NOT added: %s' % selection)
+
+        last_open_folder = os.path.dirname(selection)
+        if os.path.exists(last_open_folder):
+            QtCore.QSettings().setValue("survey_import_folder", last_open_folder)
+
+        self._add_grids(selection=os.path.abspath(selection).replace("\\", "/"))
 
     def _add_grids(self, selection):
 
