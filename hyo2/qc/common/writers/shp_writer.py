@@ -124,11 +124,16 @@ class ShpWriter:
             tmp_list = feature_list
             feature_list = list()
             for i, x in enumerate(tmp_list[0]):
-                feature_list.append([x, tmp_list[1][i], tmp_list[2][i]])
+                if len(tmp_list) >= 4:
+                    feature_list.append([x, tmp_list[1][i], tmp_list[2][i], tmp_list[3][i]])
+                else:
+                    feature_list.append([x, tmp_list[1][i], tmp_list[2][i]])
 
         for feature in feature_list:
             ft = ogr.Feature(lyr.GetLayerDefn())
             ft.SetField('note', feature[2])
+            if len(feature) >= 4:
+                ft.SetField('info', feature[3])
 
             pt = ogr.Geometry(ogr.wkbPoint25D)
             pt.SetPoint(0, feature[0], feature[1])

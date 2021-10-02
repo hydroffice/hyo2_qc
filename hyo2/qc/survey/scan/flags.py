@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 class Flags:
 
     def __init__(self):
-        self.features = [[], [], []]
+        self.features = [[], [], [], []]
 
         # ### ALL FEATURES ###
         class AllFeatures:
@@ -260,15 +260,17 @@ class Flags:
 
         self.office = Office()
 
-    def append(self, x: float, y: float, note: str) -> None:
-        """S57Aux function that append the note (if the feature position was already flagged) or add a new one"""
+    def append(self, x: float, y: float, note: str, info: str) -> None:
+        """S57Aux function that append the note & info (if the feature position was already flagged) or add a new one"""
         # check if the point was already flagged
         for i in range(len(self.features[0])):
             if (self.features[0][i] == x) and (self.features[1][i] == y):
                 self.features[2][i] = "%s, %s" % (self.features[2][i], note)
+                self.features[3][i] = "%s, %s" % (self.features[3][i], info)
                 return
 
         # if not flagged, just append the new flagged position
         self.features[0].append(x)
         self.features[1].append(y)
         self.features[2].append(note)
+        self.features[3].append(info)
