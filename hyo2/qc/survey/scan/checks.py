@@ -28,7 +28,7 @@ class Checks:
         self.flags = flags
         self.report = report
 
-        self.all_fts = all_features
+        self.all_fts = all_features  # type: List['S57Record10']
         self.no_carto_fts = list()  # type: List['S57Record10']
         self.new_updated_fts = list()  # type: List['S57Record10']
         self.assigned_fts = list()  # type: List['S57Record10']
@@ -68,7 +68,8 @@ class Checks:
                 # add to the flagged feature list
                 self.flags.append(obj.centroid.x, obj.centroid.y, "warning: missing %s" % attribute)
                 # add to the flagged report
-                self.report += 'Warning: Found missing %s at (%.7f, %.7f)' % (obj.acronym, obj.centroid.x, obj.centroid.y)
+                self.report += 'Warning: Found missing %s at (%.7f, %.7f)' % (
+                    obj.acronym, obj.centroid.x, obj.centroid.y)
             else:
                 # add to the flagged feature list
                 self.flags.append(obj.centroid.x, obj.centroid.y, "missing %s" % attribute)
@@ -202,6 +203,11 @@ class Checks:
 
             tmp_features.append(ft)
 
+            # get the attributes as a long string
+            attrs_str = str()
+            for attr in ft.attributes:
+                attrs_str += "%s=%s;" % (attr.acronym.strip(), attr.value)
+
             # get the point positions as sorted list of string
             geo2x = list()
             geo2y = list()
@@ -217,7 +223,8 @@ class Checks:
             geo2y.sort()
 
             # test for redundancy
-            i = features.count([ft.acronym, geo2x, geo2y])
+            # logger.info("key: %s" % [ft.acronym, attrs_str, geo2x, geo2y])
+            i = features.count([ft.acronym, attrs_str, geo2x, geo2y])
             if i > 0:  # we have a redundancy
                 if ft.acronym in ["LIGHTS", ]:
                     # add to the flagged feature list
@@ -232,7 +239,7 @@ class Checks:
                 self.flags.all_fts.redundancy.append([ft.acronym, geo2x, geo2y])
             else:
                 # populated the feature list
-                features.append([ft.acronym, geo2x, geo2y])
+                features.append([ft.acronym, attrs_str, geo2x, geo2y])
 
         if len(self.flags.all_fts.redundancy) == 0:
             self.report += "OK"
@@ -409,7 +416,8 @@ class Checks:
             # add to the flagged feature list
             self.flags.append(obj.centroid.x, obj.centroid.y, "invalid SORIND")
             # add to the flagged report
-            self.report += 'Found %s at (%.7f, %.7f) with invalid SORIND' % (obj.acronym, obj.centroid.x, obj.centroid.y)
+            self.report += 'Found %s at (%.7f, %.7f) with invalid SORIND' % (
+                obj.acronym, obj.centroid.x, obj.centroid.y)
             flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
 
         if len(flagged) == 0:
@@ -469,7 +477,8 @@ class Checks:
             # add to the flagged feature list
             self.flags.append(obj.centroid.x, obj.centroid.y, "invalid SORDAT")
             # add to the flagged report
-            self.report += 'Found %s at (%.7f, %.7f) with invalid SORDAT' % (obj.acronym, obj.centroid.x, obj.centroid.y)
+            self.report += 'Found %s at (%.7f, %.7f) with invalid SORDAT' % (
+                obj.acronym, obj.centroid.x, obj.centroid.y)
             flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
 
         if len(flagged) == 0:
@@ -496,7 +505,8 @@ class Checks:
             # add to the flagged feature list
             self.flags.append(obj.centroid.x, obj.centroid.y, "invalid SORDAT")
             # add to the flagged report
-            self.report += 'Found %s at (%.7f, %.7f) with invalid SORDAT' % (obj.acronym, obj.centroid.x, obj.centroid.y)
+            self.report += 'Found %s at (%.7f, %.7f) with invalid SORDAT' % (
+                obj.acronym, obj.centroid.x, obj.centroid.y)
             flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
 
         if len(flagged) == 0:
@@ -614,7 +624,8 @@ class Checks:
 
             # add to the flagged feature list and to the flagged report
             self.flags.append(obj.centroid.x, obj.centroid.y, "invalid ELEVAT")
-            self.report += 'Found %s at (%.7f, %.7f) with invalid ELEVAT' % (obj.acronym, obj.centroid.x, obj.centroid.y)
+            self.report += 'Found %s at (%.7f, %.7f) with invalid ELEVAT' % (
+                obj.acronym, obj.centroid.x, obj.centroid.y)
             flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
 
         if len(flagged) == 0:
@@ -685,8 +696,8 @@ class Checks:
             if len(tecsou) != len(quasou):
                 self.flags.append(obj.centroid.x, obj.centroid.y, 'warning: mismatch in the number of TECSOU and '
                                                                   'QUASOU attributes')
-                self.report += 'Warning: found %s at (%.7f, %.7f) contains mismatch in the number of TECSOU and QUASOU ' \
-                               'attributes' % (obj.acronym, obj.centroid.x, obj.centroid.y)
+                self.report += 'Warning: found %s at (%.7f, %.7f) contains mismatch in the number of TECSOU and ' \
+                               'QUASOU attributes' % (obj.acronym, obj.centroid.x, obj.centroid.y)
                 flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                 continue
 
@@ -932,16 +943,16 @@ class Checks:
                     if len(tokens[2]) != 15:
                         # add to the flagged feature list and to the flagged report
                         self.flags.append(obj.centroid.x, obj.centroid.y, "invalid timestamp in filename")
-                        self.report += 'Found %s at (%.7f, %.7f) with image having invalid timestamp in filename: %s ' % \
-                                       (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
+                        self.report += 'Found %s at (%.7f, %.7f) with image having invalid timestamp in filename: ' \
+                                       '%s ' % (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                         flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                         continue
                 if self.version in ["2020", ]:
                     if len(tokens[2]) not in [14, 15]:
                         # add to the flagged feature list and to the flagged report
                         self.flags.append(obj.centroid.x, obj.centroid.y, "invalid timestamp in filename")
-                        self.report += 'Found %s at (%.7f, %.7f) with image having invalid timestamp in filename: %s ' % \
-                                       (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
+                        self.report += 'Found %s at (%.7f, %.7f) with image having invalid timestamp in filename: ' \
+                                       '%s ' % (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                         flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                         continue
 
@@ -974,8 +985,8 @@ class Checks:
                 if len(tokens) != 3:
                     # add to the flagged feature list and to the flagged report
                     self.flags.append(obj.centroid.x, obj.centroid.y, "invalid filenaming")
-                    self.report += 'Found %s at (%.7f, %.7f) with image having invalid filenaming (nr. of "_"): %s ' % \
-                                   (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
+                    self.report += 'Found %s at (%.7f, %.7f) with image having invalid filenaming (nr. of "_"): ' \
+                                   '%s ' % (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
@@ -1000,8 +1011,8 @@ class Checks:
                 except ValueError:
                     # add to the flagged feature list and to the flagged report
                     self.flags.append(obj.centroid.x, obj.centroid.y, "no numeric identifier in filename")
-                    self.report += 'Found %s at (%.7f, %.7f) with image not having numeric identifier in filename: %s ' % \
-                                   (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
+                    self.report += 'Found %s at (%.7f, %.7f) with image not having numeric identifier in filename: ' \
+                                   '%s ' % (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
@@ -1243,7 +1254,6 @@ class Checks:
         obstrns_no_foul_area_ground = S57Aux.filter_by_attribute_value(objects=obstrns, attribute='CATOBS',
                                                                        value_filter=['6', '7', ])
 
-
         # select all obstructions without valsous excluding foul ground and area
 
         obstrn_undefined_valsou = S57Aux.filter_by_attribute(obstrns_no_foul_area_ground, attribute='VALSOU')
@@ -1364,36 +1374,30 @@ class Checks:
         # Foul area checks....
         # Warning: Ensure foul area obstructions have watlev unknown
         self.report += "Warning: New or Updated foul area OBSTRN shall have WATLEV of 'unknown' [CHECK]"
-        self.flags.obstructions.foul_unknown_watlev = self._flag_features_with_attribute_value(obstrns_foul,
-                                                                                          attribute='WATLEV',
-                                                                                          values_to_flag=["1", "2", "3",
-                                                                                                          "4", "5", "6",
-                                                                                                          "7", ],
-                                                                                          check_attrib_existence=True,
-                                                                                          possible=True)
+        self.flags.obstructions.foul_unknown_watlev = \
+            self._flag_features_with_attribute_value(obstrns_foul,
+                                                     attribute='WATLEV',
+                                                     values_to_flag=["1", "2", "3", "4", "5", "6", "7"],
+                                                     check_attrib_existence=True,
+                                                     possible=True)
 
         # Ensure foul area obstructions have tecsou "unknown"
         self.report += "New or Updated foul area OBSTRN shall have TECSOU of 'unknown' [CHECK]"
-        self.flags.obstructions.foul_unknown_tecsou = self._flag_features_with_attribute_value(obstrns_foul,
-                                                                                          attribute='TECSOU',
-                                                                                          values_to_flag=["1", "2", "3",
-                                                                                                          "4", "5", "6",
-                                                                                                          "7", "8", "9",
-                                                                                                          "10", "11",
-                                                                                                          "12", "13",
-                                                                                                          "14", ],
-                                                                                          check_attrib_existence=True)
+        self.flags.obstructions.foul_unknown_tecsou = \
+            self._flag_features_with_attribute_value(obstrns_foul,
+                                                     attribute='TECSOU',
+                                                     values_to_flag=["1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+                                                                     "11", "12", "13", "14"],
+                                                     check_attrib_existence=True)
 
         # Ensure foul area obstructions have quasou "unknown"
         self.report += "New or Updated foul area OBSTRN  shall have QUASOU of 'depth unknown' [CHECK]"
-        self.flags.obstructions.foul_unknown_quasou = self._flag_features_with_attribute_value(obstrns_foul,
-                                                                                          attribute='QUASOU',
-                                                                                          values_to_flag=["1", "3",
-                                                                                                          "4", "5", "6",
-                                                                                                          "7", "8", "9",
-                                                                                                          "10", "11"],
-                                                                                          check_attrib_existence=True)
-
+        self.flags.obstructions.foul_unknown_quasou = \
+            self._flag_features_with_attribute_value(obstrns_foul,
+                                                     attribute='QUASOU',
+                                                     values_to_flag=["1", "3", "4", "5", "6", "7", "8", "9", "10",
+                                                                     "11"],
+                                                     check_attrib_existence=True)
 
     # OFFSHORE PLATFORMS
 
