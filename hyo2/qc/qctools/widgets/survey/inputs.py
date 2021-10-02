@@ -65,6 +65,7 @@ class InputsTab(QtWidgets.QMainWindow):
         button_add_folder_grids.setFixedWidth(36)
         button_add_folder_grids.setIcon(QtGui.QIcon(os.path.join(self.parent_win.media, 'add_folder.png')))
         button_add_folder_grids.setToolTip('Add (or drag-and-drop) a Kluster Grid folder')
+        button_add_folder_grids.setEnabled(GridsManager.kluster_grid_supported())
         # noinspection PyUnresolvedReferences
         button_add_folder_grids.clicked.connect(self.click_add_folder_grids)
         vbox_buttons.addStretch()
@@ -251,7 +252,12 @@ class InputsTab(QtWidgets.QMainWindow):
                 logger.debug("dropped path: %s" % dropped_path)
                 if os.path.isdir(dropped_path):
                     if GridsManager.is_kluster_path(dropped_path):
-                        self._add_grids(selection=dropped_path)
+                        if not GridsManager.kluster_grid_supported():
+                            msg = "Kluster Grid folders are currently unsupported in this Python environment."
+                            # noinspection PyCallByClass
+                            QtWidgets.QMessageBox.critical(self, "Drag-and-drop Error", msg, QtWidgets.QMessageBox.Ok)
+                        else:
+                            self._add_grids(selection=dropped_path)
                     else:
                         self._add_folder(selection=dropped_path)
 
@@ -313,6 +319,7 @@ class InputsTab(QtWidgets.QMainWindow):
             # noinspection PyCallByClass
             QtWidgets.QMessageBox.critical(self, "Data Reading Error", msg, QtWidgets.QMessageBox.Ok)
             logger.debug('folder NOT added: %s' % selection)
+            return
 
         last_open_folder = os.path.dirname(selection)
         if os.path.exists(last_open_folder):
