@@ -1,22 +1,21 @@
-import os
 import logging
+import os
 
 from PySide2 import QtWidgets, QtGui, QtCore
-
 from hyo2.abc.app.qt_progress import QtProgress
-from hyo2.qc.survey.project import SurveyProject
 from hyo2.qc.common.grid_callback.qt_grid_callback import QtGridCallback
-from hyo2.qc.qctools.widgets.widget import AbstractWidget
-from hyo2.qc.qctools.widgets.survey.inputs import InputsTab
-from hyo2.qc.qctools.widgets.survey.fliers import FliersTab
-from hyo2.qc.qctools.widgets.survey.holes import HolesTab
-from hyo2.qc.qctools.widgets.survey.gridqa import GridQATab
 from hyo2.qc.qctools.widgets.survey.bag_checks import BAGChecksTab
-from hyo2.qc.qctools.widgets.survey.scan import ScanTab
 from hyo2.qc.qctools.widgets.survey.designated import DesignatedTab
-from hyo2.qc.qctools.widgets.survey.valsou import ValsouTab
+from hyo2.qc.qctools.widgets.survey.fliers import FliersTab
+from hyo2.qc.qctools.widgets.survey.gridqa import GridQATab
+from hyo2.qc.qctools.widgets.survey.holes import HolesTab
+from hyo2.qc.qctools.widgets.survey.inputs import InputsTab
 from hyo2.qc.qctools.widgets.survey.sbdare import SbdareTab
+from hyo2.qc.qctools.widgets.survey.scan import ScanTab
 from hyo2.qc.qctools.widgets.survey.submission import SubmissionTab
+from hyo2.qc.qctools.widgets.survey.valsou import ValsouTab
+from hyo2.qc.qctools.widgets.widget import AbstractWidget
+from hyo2.qc.survey.project import SurveyProject
 
 logger = logging.getLogger(__name__)
 

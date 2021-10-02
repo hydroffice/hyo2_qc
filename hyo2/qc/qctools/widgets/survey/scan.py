@@ -1,14 +1,14 @@
-from PySide2 import QtCore, QtGui, QtWidgets
-
+import logging
 import os
 import traceback
-import logging
 from typing import Optional, TYPE_CHECKING
 
-from hyo2.qc.qctools.gui_settings import GuiSettings
-from hyo2.qc.common import lib_info
+from PySide2 import QtCore, QtGui, QtWidgets
 from hyo2.abc.lib.helper import Helper
+from hyo2.qc.common import lib_info
+from hyo2.qc.qctools.gui_settings import GuiSettings
 from hyo2.qc.survey.scan.checks import Checks
+
 if TYPE_CHECKING:
     from hyo2.qc.qctools.widgets.survey.widget import SurveyWidget
     from hyo2.qc.survey.project import SurveyProject

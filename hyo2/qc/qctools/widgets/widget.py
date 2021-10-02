@@ -2,7 +2,6 @@ import logging
 import os
 
 from PySide2 import QtCore, QtWidgets
-
 from hyo2.abc.app.qt_progress import QtProgress
 
 logger = logging.getLogger(__name__)

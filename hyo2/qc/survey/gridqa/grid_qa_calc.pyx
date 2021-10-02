@@ -1,6 +1,9 @@
-import numpy as np
-cimport numpy as np
 import warnings
+
+cimport
+numpy as np
+import numpy as np
+
 warnings.simplefilter(action="ignore", category=RuntimeWarning)
 import logging
 logger = logging.getLogger(__name__)

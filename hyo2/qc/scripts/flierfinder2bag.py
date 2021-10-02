@@ -12,14 +12,16 @@ This method contians a series of methods for updating bags based on the output
 of flier finder and the associated feature files.
 """
 
-import sys, os
-from shutil import copyfile
+import os
+import sys
 from glob import glob
-from osgeo import gdal, osr
-import numpy as np
+from shutil import copyfile
+
 import matplotlib.pyplot as plt
+import numpy as np
 import tables as tbl
 from hyo2.grids.grids import _grids
+from osgeo import gdal, osr
 
 plt.ion()
 

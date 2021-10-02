@@ -1,19 +1,17 @@
-import os
-import sys
-import subprocess
 import logging
+import os
+import subprocess
+import sys
 
-from PySide2 import QtCore, QtGui, QtWidgets
 import matplotlib
+from PySide2 import QtCore, QtGui, QtWidgets
+from hyo2.rori import __doc__ as rori_name
+from hyo2.rori import __version__ as rori_version
+from hyo2.rori.gui_settings import GuiSettings
+from matplotlib import rc_context
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavToolbar
 from matplotlib.figure import Figure
-from matplotlib import rc_context
-
-from hyo2.rori import __version__ as rori_version
-from hyo2.rori import __doc__ as rori_name
-from hyo2.rori.gui_settings import GuiSettings
-
 
 matplotlib.use('Qt5Agg')
 logger = logging.getLogger(__name__)

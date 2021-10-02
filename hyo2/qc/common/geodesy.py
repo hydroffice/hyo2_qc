@@ -1,8 +1,9 @@
+import logging
 import math
+
 import numpy as np
 from pyproj import Geod
 
-import logging
 logger = logging.getLogger(__name__)
 
 

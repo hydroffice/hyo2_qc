@@ -1,12 +1,11 @@
-from PySide2 import QtCore, QtGui, QtWidgets
-
-import os
 import logging
+import os
 
-from hyo2.qc.qctools.gui_settings import GuiSettings
+from PySide2 import QtCore, QtGui, QtWidgets
+from hyo2.abc.lib.helper import Helper
 from hyo2.qc.chart.triangle.base_triangle import sounding_units
 from hyo2.qc.common import lib_info
-from hyo2.abc.lib.helper import Helper
+from hyo2.qc.qctools.gui_settings import GuiSettings
 
 logger = logging.getLogger(__name__)
 

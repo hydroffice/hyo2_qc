@@ -1,6 +1,7 @@
 from __future__ import print_function, absolute_import
-import subprocess
+
 import os
+import subprocess
 
 try:
     from PySide2 import QtCore, QtWidgets

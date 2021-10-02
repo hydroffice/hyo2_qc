@@ -1,11 +1,10 @@
-from PySide2 import QtCore, QtGui, QtWidgets
-
-import os
 import logging
+import os
 
-from hyo2.qc.qctools.gui_settings import GuiSettings
-from hyo2.qc.common import lib_info
+from PySide2 import QtCore, QtGui, QtWidgets
 from hyo2.abc.lib.helper import Helper
+from hyo2.qc.common import lib_info
+from hyo2.qc.qctools.gui_settings import GuiSettings
 from hyo2.qc.survey.fliers.find_fliers_v8 import FindFliersV8
 
 logger = logging.getLogger(__name__)

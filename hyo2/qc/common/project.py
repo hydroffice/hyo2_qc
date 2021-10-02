@@ -1,10 +1,10 @@
-import re
-import os
 import logging
+import os
+import re
 
+from hyo2.abc.lib.helper import Helper
 from hyo2.abc.lib.progress.abstract_progress import AbstractProgress
 from hyo2.abc.lib.progress.cli_progress import CliProgress
-from hyo2.abc.lib.helper import Helper
 from hyo2.grids.grids_manager import GridsManager
 from hyo2.qc.common import lib_info
 from hyo2.qc.common.features import Features

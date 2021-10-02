@@ -1,10 +1,8 @@
 import ftplib
-import socket
-
-import sys
-import os
-
 import logging
+import os
+import socket
+import sys
 
 log = logging.getLogger(__name__)
 

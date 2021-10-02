@@ -1,7 +1,7 @@
 import datetime
+import logging
 import sys
 from collections import defaultdict
-import logging
 
 logger = logging.getLogger(__name__)
 

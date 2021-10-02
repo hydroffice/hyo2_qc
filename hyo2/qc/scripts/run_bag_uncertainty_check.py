@@ -1,11 +1,10 @@
-import os
 import logging
+import os
 
 from PySide2 import QtCore, QtWidgets
-
+from hyo2.abc.lib.helper import Helper
 from hyo2.qc.common import default_logging
 from hyo2.qc.survey.project import SurveyProject
-from hyo2.abc.lib.helper import Helper
 
 default_logging.load()
 logger = logging.getLogger()

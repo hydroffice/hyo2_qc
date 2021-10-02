@@ -1,6 +1,6 @@
-import platform
-import os
 import logging
+import os
+import platform
 
 from hyo2.abc.lib.helper import Helper
 

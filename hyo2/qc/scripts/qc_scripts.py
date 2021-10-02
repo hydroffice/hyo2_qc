@@ -1,10 +1,10 @@
-import sys
-import os
 import argparse
-import win32api
-
-from hyo2.abc.lib.logging import set_logging
 import logging
+import os
+import sys
+
+import win32api
+from hyo2.abc.lib.logging import set_logging
 
 set_logging(ns_list=["hyo2.qc",])
 logger = logging.getLogger()

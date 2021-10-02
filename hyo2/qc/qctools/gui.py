@@ -1,9 +1,8 @@
+import logging
 import sys
 import traceback
+
 from PySide2 import QtCore, QtWidgets
-
-import logging
-
 from hyo2.abc.app.app_style import AppStyle
 from hyo2.qc.qctools.mainwin import MainWin
 

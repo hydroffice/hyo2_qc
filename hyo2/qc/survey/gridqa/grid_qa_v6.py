@@ -1,12 +1,12 @@
 import os
 import sys
 from collections import OrderedDict, defaultdict
+
+import matplotlib
 import numpy as np
 # noinspection PyProtectedMember
 from hyo2.grids._grids import FLOAT as GRIDS_FLOAT, DOUBLE as GRIDS_DOUBLE, \
     UINT32 as GRIDS_UINT32, UINT64 as GRIDS_UINT64, INT32 as GRIDS_INT32, INT64 as GRIDS_INT64
-
-import matplotlib
 
 matplotlib.use('Qt5Agg')
 import matplotlib.pyplot as plt

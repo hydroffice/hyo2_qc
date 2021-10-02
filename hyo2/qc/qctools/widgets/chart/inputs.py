@@ -1,8 +1,7 @@
-from PySide2 import QtCore, QtGui, QtWidgets
-
-import os
 import logging
+import os
 
+from PySide2 import QtCore, QtGui, QtWidgets
 from hyo2.qc.qctools.gui_settings import GuiSettings
 
 logger = logging.getLogger(__name__)

@@ -1,9 +1,8 @@
+import logging
 import sys
 import traceback
+
 from PySide2 import QtCore, QtWidgets
-
-import logging
-
 from hyo2.unccalc.mainwin import MainWin
 from hyo2.unccalc.stylesheet import stylesheet
 

@@ -1,6 +1,6 @@
-from PySide2 import QtGui
-
 import logging
+
+from PySide2 import QtGui
 
 logger = logging.getLogger(__name__)
 

@@ -1,22 +1,20 @@
 import logging
 import os
+import socket
 import ssl
 import sys
 import traceback
-from urllib.request import urlopen
 from urllib.error import URLError
-import socket
+from urllib.request import urlopen
 
 from PySide2 import QtCore, QtGui, QtWidgets
-
-from hyo2.abc.lib.helper import Helper
 from hyo2.abc.app.dialogs.exception.exception_dialog import ExceptionDialog
-
+from hyo2.abc.lib.helper import Helper
 from hyo2.qc.common import lib_info
 from hyo2.qc.qctools import app_info
-from hyo2.qc.qctools.widgets.survey.widget import SurveyWidget
 from hyo2.qc.qctools.widgets.chart.widget import ChartWidget
 from hyo2.qc.qctools.widgets.info import InfoWidget
+from hyo2.qc.qctools.widgets.survey.widget import SurveyWidget
 
 logger = logging.getLogger(__name__)
 

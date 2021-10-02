@@ -1,4 +1,5 @@
 import logging
+
 from hyo2.qc.qctools import gui
 
 logger = logging.getLogger()

@@ -1,6 +1,6 @@
 import numpy as np
-from scipy.spatial import Delaunay
 from matplotlib import rcParams
+from scipy.spatial import Delaunay
 
 rcParams['ytick.labelsize'] = 8
 rcParams['xtick.labelsize'] = 8

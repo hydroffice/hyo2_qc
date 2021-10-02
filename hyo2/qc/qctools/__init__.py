@@ -1,8 +1,8 @@
 import os
-from hyo2.abc.app.app_info import AppInfo
-from hyo2.qc import name
-from hyo2.qc import __version__
 
+from hyo2.abc.app.app_info import AppInfo
+from hyo2.qc import __version__
+from hyo2.qc import name
 
 app_info = AppInfo()
 

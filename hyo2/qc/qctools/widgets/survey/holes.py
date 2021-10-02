@@ -1,13 +1,13 @@
-from PySide2 import QtCore, QtGui, QtWidgets
-# noinspection PyProtectedMember
-from hyo2.grids import _gappy
+import logging
 import os
 import traceback
-import logging
 
-from hyo2.qc.qctools.gui_settings import GuiSettings
-from hyo2.qc.common import lib_info
+from PySide2 import QtCore, QtGui, QtWidgets
 from hyo2.abc.lib.helper import Helper
+# noinspection PyProtectedMember
+from hyo2.grids import _gappy
+from hyo2.qc.common import lib_info
+from hyo2.qc.qctools.gui_settings import GuiSettings
 
 logger = logging.getLogger(__name__)
 

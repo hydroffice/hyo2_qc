@@ -1,9 +1,9 @@
-from osgeo import ogr
-import os
 import logging
+import os
 
 from hyo2.abc.lib.gdal_aux import GdalAux
 from hyo2.abc.lib.helper import Helper
+from osgeo import ogr
 
 logger = logging.getLogger(__name__)
 

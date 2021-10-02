@@ -1,38 +1,37 @@
-from collections import defaultdict
-import time
-import os
-import traceback
 import logging
+import os
+import time
+import traceback
+from collections import defaultdict
 from typing import Optional
 
 import numpy as np
-from osgeo import osr
-
-from hyo2.abc.lib.progress.cli_progress import CliProgress
 from hyo2.abc.lib.gdal_aux import GdalAux
 from hyo2.abc.lib.helper import Helper
-from hyo2.qc.common.project import BaseProject
-from hyo2.qc.common.writers.s57_writer import S57Writer
-from hyo2.qc.common.writers.kml_writer import KmlWriter
-from hyo2.qc.common.writers.shp_writer import ShpWriter
-from hyo2.qc.survey.fliers.find_fliers_v8 import FindFliersV8
+from hyo2.abc.lib.progress.cli_progress import CliProgress
 # noinspection PyProtectedMember
 from hyo2.grids import _gappy
-from hyo2.qc.survey.gridqa.grid_qa_v6 import GridQAV6
-from hyo2.grids.grids_manager import layer_types
-from hyo2.qc.survey.scan.checks import Checks
-from hyo2.qc.survey.scan.feature_scan_v11 import FeatureScanV11
-from hyo2.qc.survey.designated.base_designated import designated_algos
-from hyo2.qc.survey.designated.designated_scan_v2 import DesignatedScanV2
-from hyo2.qc.survey.bag_checks.bag_checks_v1 import BagChecksV1
-from hyo2.qc.survey.valsou.base_valsou import valsou_algos
-from hyo2.qc.survey.valsou.valsou_check_v7 import ValsouCheckV7
-from hyo2.qc.survey.sbdare.base_sbdare import sbdare_algos
-from hyo2.qc.survey.sbdare.sbdare_export_v5 import SbdareExportV5
-from hyo2.qc.survey.submission.base_submission import BaseSubmission, submission_algos
-from hyo2.qc.survey.submission.submission_checks_v4 import SubmissionChecksV4
 # noinspection PyProtectedMember
 from hyo2.grids._grids import FLOAT as GRIDS_FLOAT, DOUBLE as GRIDS_DOUBLE
+from hyo2.grids.grids_manager import layer_types
+from hyo2.qc.common.project import BaseProject
+from hyo2.qc.common.writers.kml_writer import KmlWriter
+from hyo2.qc.common.writers.s57_writer import S57Writer
+from hyo2.qc.common.writers.shp_writer import ShpWriter
+from hyo2.qc.survey.bag_checks.bag_checks_v1 import BagChecksV1
+from hyo2.qc.survey.designated.base_designated import designated_algos
+from hyo2.qc.survey.designated.designated_scan_v2 import DesignatedScanV2
+from hyo2.qc.survey.fliers.find_fliers_v8 import FindFliersV8
+from hyo2.qc.survey.gridqa.grid_qa_v6 import GridQAV6
+from hyo2.qc.survey.sbdare.base_sbdare import sbdare_algos
+from hyo2.qc.survey.sbdare.sbdare_export_v5 import SbdareExportV5
+from hyo2.qc.survey.scan.checks import Checks
+from hyo2.qc.survey.scan.feature_scan_v11 import FeatureScanV11
+from hyo2.qc.survey.submission.base_submission import BaseSubmission, submission_algos
+from hyo2.qc.survey.submission.submission_checks_v4 import SubmissionChecksV4
+from hyo2.qc.survey.valsou.base_valsou import valsou_algos
+from hyo2.qc.survey.valsou.valsou_check_v7 import ValsouCheckV7
+from osgeo import osr
 
 logger = logging.getLogger(__name__)
 

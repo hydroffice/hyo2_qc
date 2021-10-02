@@ -1,7 +1,10 @@
-import numpy as np
-cimport numpy as np
-from scipy import ndimage
 import warnings
+
+cimport
+numpy as np
+import numpy as np
+from scipy import ndimage
+
 warnings.simplefilter(action="ignore", category=RuntimeWarning)
 import logging
 logger = logging.getLogger(__name__)

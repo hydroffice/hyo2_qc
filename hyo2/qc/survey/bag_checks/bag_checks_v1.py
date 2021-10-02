@@ -6,16 +6,14 @@ from datetime import datetime
 from typing import Optional, List
 
 import numpy as np
-from osgeo import osr
-
-from hyo2.bag import bag
-
+from hyo2.abc.app.report import Report
 from hyo2.abc.lib.helper import Helper
 from hyo2.abc.lib.progress.abstract_progress import AbstractProgress
-from hyo2.abc.app.report import Report
 from hyo2.abc.lib.progress.cli_progress import CliProgress
+from hyo2.bag import bag
 from hyo2.qc import name as lib_name, __version__ as lib_version
 from hyo2.qc.common.project import BaseProject
+from osgeo import osr
 
 logger = logging.getLogger(__name__)
 

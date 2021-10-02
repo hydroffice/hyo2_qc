@@ -3,9 +3,9 @@ import logging
 import os
 from typing import List, Optional
 
-from hyo2.qc.survey.scan.base_scan import BaseScan, scan_algos, survey_areas
-from hyo2.qc.common.s57_aux import S57Aux
 from hyo2.abc.lib.helper import Helper
+from hyo2.qc.common.s57_aux import S57Aux
+from hyo2.qc.survey.scan.base_scan import BaseScan, scan_algos, survey_areas
 from hyo2.s57.s57 import S57File, S57Record10
 
 logger = logging.getLogger(__name__)

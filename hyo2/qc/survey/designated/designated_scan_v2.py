@@ -1,7 +1,9 @@
-import os
-import math
 import numpy as np
 import warnings
+import warnings
+
+import numpy as np
+
 warnings.simplefilter(action="ignore", category=RuntimeWarning)
 from osgeo import osr
 import logging

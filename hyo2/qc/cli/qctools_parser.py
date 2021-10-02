@@ -3,11 +3,11 @@ import logging
 import os
 from urllib.request import urlopen
 
-from hyo2.abc.lib.helper import Helper
 from hyo2.abc.app.web_renderer import WebRenderer
+from hyo2.abc.lib.helper import Helper
 from hyo2.qc import __version__
-from hyo2.qc.qctools import app_info
 from hyo2.qc.common import lib_info
+from hyo2.qc.qctools import app_info
 from hyo2.qc.survey.project import SurveyProject
 
 logger = logging.getLogger(__name__)

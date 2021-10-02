@@ -1,14 +1,13 @@
-import math
-import locale
-import numpy as np
-from osgeo import osr
 import logging
+import math
 
-from hyo2.qc.survey.valsou.base_valsou import BaseValsou, valsou_algos
-from hyo2.qc.common.s57_aux import S57Aux
+import numpy as np
 from hyo2.abc.lib.gdal_aux import GdalAux
 # noinspection PyProtectedMember
 from hyo2.grids._grids import FLOAT as GRIDS_FLOAT, DOUBLE as GRIDS_DOUBLE
+from hyo2.qc.common.s57_aux import S57Aux
+from hyo2.qc.survey.valsou.base_valsou import BaseValsou, valsou_algos
+from osgeo import osr
 
 logger = logging.getLogger(__name__)
 

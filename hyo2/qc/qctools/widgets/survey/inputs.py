@@ -1,10 +1,9 @@
-from PySide2 import QtWidgets, QtGui, QtCore
-
-import os
 import logging
+import os
 
-from hyo2.qc.qctools.gui_settings import GuiSettings
+from PySide2 import QtWidgets, QtGui, QtCore
 from hyo2.grids.grids_manager import GridsManager
+from hyo2.qc.qctools.gui_settings import GuiSettings
 
 logger = logging.getLogger(__name__)
 

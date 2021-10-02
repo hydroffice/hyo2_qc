@@ -1,9 +1,9 @@
-from hyo2.s57.s57 import S57, S57File
-
+import logging
 import os
 import traceback
-import logging
 from typing import List, Optional
+
+from hyo2.s57.s57 import S57, S57File
 
 logger = logging.getLogger(__name__)
 

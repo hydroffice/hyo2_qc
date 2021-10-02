@@ -1,8 +1,8 @@
 import os
-from hyo2.abc.lib.lib_info import LibInfo
-from hyo2.qc import name
-from hyo2.qc import __version__
 
+from hyo2.abc.lib.lib_info import LibInfo
+from hyo2.qc import __version__
+from hyo2.qc import name
 
 lib_info = LibInfo()
 

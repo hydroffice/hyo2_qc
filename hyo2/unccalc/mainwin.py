@@ -1,12 +1,12 @@
-import os
-import sys
-import numpy as np
 import math
+import os
 import subprocess
-
-from PySide2 import QtCore, QtGui, QtWidgets
+import sys
 
 import matplotlib
+import numpy as np
+from PySide2 import QtCore, QtGui, QtWidgets
+
 matplotlib.use('Qt5Agg')
 
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
