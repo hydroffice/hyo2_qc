@@ -163,7 +163,7 @@ class BAGChecksTab(QtWidgets.QMainWindow):
     @classmethod
     def click_open_manual(cls):
         logger.debug("open manual")
-        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/user_manual_survey_bag_checks.html")
+        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_survey_bag_checks.html")
 
     def _click_bag_checks(self, version: int):
         """abstract the BAG checks calling mechanism"""

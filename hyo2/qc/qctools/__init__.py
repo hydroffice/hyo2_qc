@@ -19,7 +19,7 @@ app_info.app_license_url = "https://www.hydroffice.org/license/"
 app_info.app_path = os.path.abspath(os.path.dirname(__file__))
 
 app_info.app_url = "https://www.hydroffice.org/qctools/"
-app_info.app_manual_url = "https://www.hydroffice.org/manuals/qctools/index.html"
+app_info.app_manual_url = "https://www.hydroffice.org/manuals/qctools/stable/index.html"
 app_info.app_support_email = "qctools@hydroffice.org"
 app_info.app_latest_url = "https://www.hydroffice.org/latest/qctools.txt"
 

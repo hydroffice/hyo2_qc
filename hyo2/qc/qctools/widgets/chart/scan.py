@@ -146,7 +146,7 @@ class ScanTab(QtWidgets.QMainWindow):
     @classmethod
     def click_open_manual(cls):
         logger.debug("open manual")
-        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/user_manual_chart_scan_features.html")
+        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_chart_scan_features.html")
 
     def _click_feature_scan(self, version):
         """abstract the feature scan calling mechanism"""

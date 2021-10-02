@@ -593,7 +593,7 @@ class HolesTab(QtWidgets.QMainWindow):
     @classmethod
     def click_open_manual(cls):
         logger.debug("open manual")
-        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/user_manual_survey_detect_holidays.html")
+        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_survey_detect_holidays.html")
 
     def _click_find_holes(self, version):
         """abstract the find holes calling mechanism"""

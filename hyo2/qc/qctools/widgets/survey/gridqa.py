@@ -368,7 +368,7 @@ class GridQATab(QtWidgets.QMainWindow):
     @classmethod
     def click_open_manual(cls):
         logger.debug("open manual")
-        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/user_manual_survey_grid_qa.html")
+        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_survey_grid_qa.html")
 
     def _click_grid_qa(self, version):
         """abstract the grid qa calling mechanism"""

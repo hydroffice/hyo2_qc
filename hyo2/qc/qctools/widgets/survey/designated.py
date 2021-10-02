@@ -184,7 +184,7 @@ class DesignatedTab(QtWidgets.QMainWindow):
     @classmethod
     def click_open_manual_v2(cls):
         logger.debug("open manual")
-        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/user_manual_survey_scan_designated.html")
+        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_survey_scan_designated.html")
 
     def click_scan_designated_v2(self):
         """trigger the scan designated v1"""

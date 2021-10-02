@@ -97,7 +97,7 @@ class SbdareTab(QtWidgets.QMainWindow):
     @classmethod
     def click_open_manual(cls):
         logger.debug("open manual")
-        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/user_manual_survey_sbdare_export.html")
+        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_survey_sbdare_export.html")
 
     def click_sbdare_export_v5(self):
 

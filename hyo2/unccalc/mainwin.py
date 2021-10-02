@@ -448,7 +448,7 @@ class MainWin(QtWidgets.QMainWindow):
     @classmethod
     def click_open_manual(cls):
         logger.debug("open manual")
-        cls.explore_folder("https://www.hydroffice.org/manuals/qctools/user_manual_info.html#uncertainty-calculator")
+        cls.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_info.html#uncertainty-calculator")
 
     @classmethod
     def calc_tvu(cls, a2, b, d):

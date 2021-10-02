@@ -109,7 +109,7 @@ class GridTruncateTab(QtWidgets.QMainWindow):
     @classmethod
     def click_open_manual(cls):
         logger.debug("open manual")
-        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/user_manual_chart_grid_truncate.html")
+        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_chart_grid_truncate.html")
 
     def click_truncate(self):
         # library takes care of progress bar

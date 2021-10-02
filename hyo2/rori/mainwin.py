@@ -456,7 +456,7 @@ class MainWin(QtWidgets.QMainWindow):
     def click_open_manual(cls):
         logger.debug("open manual")
         cls.explore_folder(
-            "https://www.hydroffice.org/manuals/qctools/user_manual_info.html#rori-your-rock-or-islet-oracle")
+            "https://www.hydroffice.org/manuals/qctools/stable/user_manual_info.html#rori-your-rock-or-islet-oracle")
 
     def _draw_grid(self):
         for a in self.f.get_axes():

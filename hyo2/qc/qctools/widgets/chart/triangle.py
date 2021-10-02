@@ -242,7 +242,7 @@ class TriangleTab(QtWidgets.QMainWindow):
     @classmethod
     def click_open_manual(cls):
         logger.debug("open manual")
-        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/user_manual_chart_triangle_rule.html")
+        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_chart_triangle_rule.html")
 
     def click_triangle_rule(self):
 

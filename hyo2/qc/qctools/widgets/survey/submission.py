@@ -454,7 +454,7 @@ class SubmissionTab(QtWidgets.QMainWindow):
     @classmethod
     def click_open_manual_v4(cls):
         logger.debug("open manual")
-        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/user_manual_survey_submission_checks.html")
+        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_survey_submission_checks.html")
 
     def click_submission_checks_v4(self):
         """trigger the submission checks v4"""

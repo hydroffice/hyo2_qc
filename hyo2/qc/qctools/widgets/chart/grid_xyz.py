@@ -214,7 +214,7 @@ class GridXyzTab(QtWidgets.QMainWindow):
     @classmethod
     def click_open_manual(cls):
         logger.debug("open manual")
-        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/user_manual_chart_grid_xyz.html")
+        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_chart_grid_xyz.html")
 
     def click_truncate(self):
         # library takes care of progress bar

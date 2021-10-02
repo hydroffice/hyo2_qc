@@ -265,7 +265,7 @@ class ValsouTab(QtWidgets.QMainWindow):
     @classmethod
     def click_open_manual(cls):
         logger.debug("open manual")
-        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/user_manual_survey_valsou_checks.html")
+        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_survey_valsou_checks.html")
 
     def _click_valsou_check(self, version):
         """abstract the feature scan calling mechanism"""

@@ -19,7 +19,7 @@ lib_info.lib_license_url = "https://www.hydroffice.org/license/"
 lib_info.lib_path = os.path.abspath(os.path.dirname(__file__))
 
 lib_info.lib_url = "https://www.hydroffice.org/qctools/"
-lib_info.lib_manual_url = "https://www.hydroffice.org/manuals/qctools/index.html"
+lib_info.lib_manual_url = "https://www.hydroffice.org/manuals/qctools/stable/index.html"
 lib_info.lib_support_email = "qctools@hydroffice.org"
 lib_info.lib_latest_url = "https://www.hydroffice.org/latest/qctools.txt"
 

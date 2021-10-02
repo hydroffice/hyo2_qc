@@ -108,7 +108,7 @@ class S57TruncateTab(QtWidgets.QMainWindow):
     @classmethod
     def click_open_manual(cls):
         logger.debug("open manual")
-        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/user_manual_chart_s57_truncate.html")
+        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_chart_s57_truncate.html")
 
     def click_truncate_to_decimeters(self):
         # library takes care of progress bar
