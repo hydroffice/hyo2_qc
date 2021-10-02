@@ -8,6 +8,7 @@ from typing import Optional
 import numpy as np
 from hyo2.abc.lib.gdal_aux import GdalAux
 from hyo2.abc.lib.helper import Helper
+from hyo2.abc.lib.progress.abstract_progress import AbstractProgress
 from hyo2.abc.lib.progress.cli_progress import CliProgress
 # noinspection PyProtectedMember
 from hyo2.grids import _gappy
@@ -38,7 +39,8 @@ logger = logging.getLogger(__name__)
 
 class SurveyProject(BaseProject):
 
-    def __init__(self, output_folder=None, profile=BaseProject.project_profiles['office'], progress=CliProgress()):
+    def __init__(self, output_folder: Optional[str] = None, profile: int = BaseProject.project_profiles['office'],
+                 progress: AbstractProgress = CliProgress()):
 
         super().__init__(projects_folder=output_folder, profile=profile, progress=progress)
 
@@ -173,13 +175,14 @@ class SurveyProject(BaseProject):
 
         return output_folder
 
-    def find_fliers_v8(self, height,
-                       check_laplacian=False, check_curv=True, check_adjacent=True,
-                       check_slivers=True, check_isolated=True, check_edges=False,
-                       edges_distance=3, edges_pct_tvu=0.9,
-                       filter_fff=False, filter_designated=False,
-                       export_proxies=False, export_heights=False, export_curvatures=False,
-                       progress_bar=None):
+    def find_fliers_v8(self, height: Optional[float],
+                       check_laplacian: bool = False, check_curv: bool = True, check_adjacent: bool = True,
+                       check_slivers: bool = True, check_isolated: bool = True, check_edges: bool = False,
+                       edges_distance: int = 3, edges_pct_tvu: float = 0.9,
+                       filter_fff: bool = False, filter_designated: bool = False,
+                       export_bathy: bool = False, export_proxies: bool = False,
+                       export_heights: bool = False, export_curvatures: bool = False,
+                       progress_bar: Optional[AbstractProgress] = None):
         """Look for fliers using the passed parameters and the loaded grids"""
         if not self.has_grid():
             logger.warning("first load some grids")
@@ -200,6 +203,7 @@ class SurveyProject(BaseProject):
                                         edges_pct_tvu=edges_pct_tvu,
                                         filter_fff=filter_fff,
                                         filter_designated=filter_designated,
+                                        save_bathy=export_bathy,
                                         save_proxies=export_proxies,
                                         save_heights=export_heights,
                                         save_curvatures=export_curvatures,

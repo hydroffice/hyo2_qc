@@ -1,8 +1,10 @@
 import logging
 import math
 import os
+from typing import Optional
 
 import numpy as np
+from hyo2.abc.lib.progress.abstract_progress import AbstractProgress
 from hyo2.abc.lib.gdal_aux import GdalAux
 # noinspection PyProtectedMember
 from hyo2.grids._grids import FLOAT as GRIDS_FLOAT, DOUBLE as GRIDS_DOUBLE
@@ -13,7 +15,7 @@ from hyo2.qc.survey.fliers.find_fliers_checks import \
     check_adjacent_cells_float, check_adjacent_cells_double, \
     check_small_groups_float, check_small_groups_double, \
     check_noisy_edges_float, check_noisy_edges_double
-from hyo2.s57.s57 import S57
+from hyo2.s57.s57 import S57, S57Record10
 from osgeo import osr, gdal
 from scipy import ndimage
 
@@ -21,54 +23,54 @@ logger = logging.getLogger(__name__)
 
 
 class FindFliersV8(BaseFliers):
+    default_filter_distance = 1.0  # type: float
+    default_filter_delta_z = 0.01  # type: float
 
-    default_filter_distance = 1.0
-    default_filter_delta_z = 0.01
-
-    def __init__(self, grids, height=None,
-                 check_laplacian=True, check_curv=True, check_adjacent=True, check_slivers=True,
-                 check_isolated=True, check_edges=True,
-                 edges_distance=3, edges_pct_tvu=0.9,
-                 filter_fff=False, filter_designated=False,
-                 save_proxies=False, save_heights=False, save_curvatures=False,
-                 output_folder=None, progress_bar=None):
+    def __init__(self, grids, height: Optional[float] = None,
+                 check_laplacian: bool = True, check_curv: bool = True, check_adjacent: bool = True,
+                 check_slivers: bool = True, check_isolated: bool = True, check_edges: bool = True,
+                 edges_distance: int = 3, edges_pct_tvu: float = 0.9,
+                 filter_fff: bool = False, filter_designated: bool = False, save_bathy: bool = False,
+                 save_proxies: bool = False, save_heights: bool = False, save_curvatures: bool = False,
+                 output_folder: Optional[str] = None, progress_bar: Optional[AbstractProgress] = None):
 
         super().__init__(grids=grids)
-        self.type = fliers_algos["FIND_FLIERS_v8"]
+        self.type = fliers_algos["FIND_FLIERS_v8"]  # type: int
 
-        self.save_proxies = save_proxies
-        self.save_heights = save_heights
-        self.save_curvatures = save_curvatures
+        self.save_bathy = save_bathy  # type: bool
+        self.save_proxies = save_proxies  # type: bool
+        self.save_heights = save_heights  # type: bool
+        self.save_curvatures = save_curvatures  # type: bool
 
         if output_folder is None:
             raise RuntimeError("missing output folder")
-        self.output_folder = output_folder
+        self.output_folder = output_folder  # type: Optional[str]
 
         # inputs
-        self.flier_height = height
-        self.cur_height = None
-        self.cur_curv_th = None
-        self.check_laplacian = check_laplacian  # 1
-        self.check_curv = check_curv  # 2
-        self.check_adjacent = check_adjacent  # 3
-        self.check_slivers = check_slivers  # 4
-        self.check_isolated = check_isolated  # 5
-        self.check_edges = check_edges  # 6
-        self.edges_distance = edges_distance
-        self.edges_pct_tvu = edges_pct_tvu
-        self.filter_fff = filter_fff
-        self.filter_designated = filter_designated
-        self.progress = progress_bar
+        self.flier_height = height  # type: Optional[float]
+        self.cur_height = None  # type: Optional[float]
+        self.cur_curv_th = None  # type: Optional[float]
+        self.check_laplacian = check_laplacian  # type: bool # 1
+        self.check_curv = check_curv  # type: bool # 2
+        self.check_adjacent = check_adjacent  # type: bool # 3
+        self.check_slivers = check_slivers  # type: bool # 4
+        self.check_isolated = check_isolated  # type: bool # 5
+        self.check_edges = check_edges  # type: bool # 6
+        self.edges_distance = edges_distance  # type: int
+        self.edges_pct_tvu = edges_pct_tvu  # type: float
+        self.filter_fff = filter_fff  # type: bool
+        self.filter_designated = filter_designated  # type: bool
+        self.progress = progress_bar  # type: Optional[AbstractProgress]
 
         # dtm
         self.bathy_values = None
-        self.bathy_is_double = False
+        self.bathy_is_double = False  # type: bool
         self.bathy_hrs = None
         self.bathy_transform = None
-        self.bathy_tile = 0
+        self.bathy_tile = 0  # type: int
 
         # designated
-        self.designated_soundings = list()
+        self.designated_soundings = list()  # type: list
 
         # intermediate
         self.dtm_mask = None
@@ -122,7 +124,7 @@ class FindFliersV8(BaseFliers):
             basename += "5"
         if self.check_edges:
             if not dot_chk_added:
-                dot_chk_added = True
+                # dot_chk_added = True
                 basename += ".chk"
             basename += "6"
 
@@ -134,13 +136,137 @@ class FindFliersV8(BaseFliers):
             basename += "1"
         if self.filter_designated:
             if not dot_flt_added:
-                dot_flt_added = True
+                # dot_flt_added = True
                 basename += ".flt"
             basename += "2"
 
         return basename
 
-    # ######## common helpers ########
+    # ######## find flier ########
+
+    def run(self):
+        logger.info("flier height: %s " % (self.flier_height,))
+        logger.info("active checks: laplacian: %s, curv: %s, adjacent: %s, slivers: %s, isolated: %s, edges: %s"
+                    % (self.check_laplacian, self.check_curv, self.check_adjacent, self.check_slivers,
+                       self.check_isolated, self.check_edges))
+        logger.debug("noisy edges -> distance: %d, pct tvu: %.1f"
+                     % (self.edges_distance, self.edges_pct_tvu * 100))
+        logger.info("active filters: FFF: %s, designated: %s"
+                    % (self.filter_fff, self.filter_designated))
+        logger.debug("save: bathy %s, heights %s, proxies %s, curvatures %s"
+                     % (self.save_bathy, self.save_heights, self.save_proxies, self.save_curvatures))
+
+        self.bathy_tile = 0
+        while self.grids.read_next_tile(layers=[self.grids.depth_layer_name(), ]):
+            self._run_slice()
+            self.grids.clear_tiles()
+            self.bathy_tile += 1
+            logger.debug("new tile: %s" % self.bathy_tile)
+
+    def _run_slice(self):
+
+        # load depths
+        self._load_depths()
+
+        if (self.dtm_mask.shape[0] < 3) or (self.dtm_mask.shape[1] < 3):
+            logger.info('Skipping too small tile: %d, %d' % (self.dtm_mask.shape[0], self.dtm_mask.shape[1]))
+            return
+
+        # to force recalculation
+        self.gy = None
+        self.gx = None
+
+        self.cur_height = self.flier_height
+        self.estimate_height_and_curv_th()
+        if self.cur_height == 0:
+            raise RuntimeError("unable to estimate height, and one of the selected algorithms "
+                               "needs the estimated height")
+
+        # create a 0 grid of the same size as input grid to be used to store the flagged node
+        self.flag_grid = np.zeros(self.bathy_values.shape, dtype=np.int)
+
+        if self.check_laplacian:
+            self._check_laplacian_operator()
+
+        if self.check_curv:
+            self._check_gaussian_curvature()
+
+        if self.check_adjacent:
+            self._check_adjacent_cells()
+
+        if self.check_isolated or self.check_slivers:
+            self._check_small_groups()
+
+        if self.check_edges:
+            self._check_edges()
+
+        self._georef_fliers()
+
+    # ###  INPUTS  ###
+
+    def _load_depths(self):
+        """Helper function that loads the depths values"""
+        # logger.debug("depth layer: %s" % self.grids.depth_layer_name())
+
+        tile = self.grids.tiles[0]
+        # logger.debug("types: %s" % (list(tile.types),))
+
+        depth_type = tile.type(self.grids.depth_layer_name())
+        depth_idx = tile.band_index(self.grids.depth_layer_name())
+        # logger.debug("depth layer: %s [idx: %s]" % (self.grids.grid_data_type(depth_type), depth_idx))
+
+        if depth_type == GRIDS_DOUBLE:
+
+            self.bathy_is_double = True
+            self.bathy_values = tile.doubles[depth_idx]
+            self.bathy_values[tile.doubles[depth_idx] == tile.doubles_nodata[depth_idx]] = np.nan
+            if len(self.bathy_values) == 0:
+                raise RuntimeError("No bathy values")
+
+        elif depth_type == GRIDS_FLOAT:
+
+            self.bathy_is_double = False
+            self.bathy_values = tile.floats[depth_idx]
+            self.bathy_values[tile.floats[depth_idx] == tile.floats_nodata[depth_idx]] = np.nan
+            if len(self.bathy_values) == 0:
+                raise RuntimeError("No bathy values")
+
+        elif depth_type == "KLUSTER_FLOAT32":
+
+            self.bathy_is_double = False
+            self.bathy_values = tile.layers[depth_idx]
+            self.bathy_values[np.isnan(tile.layers[depth_idx])] = np.nan
+            if len(self.bathy_values) == 0:
+                raise RuntimeError("No bathy values")
+
+        else:
+            raise RuntimeError("Unsupported data type for bathy: %s" % depth_type)
+
+        if self.bathy_hrs is None:
+            self.bathy_hrs = tile.bbox.hrs
+        # logger.info(self.bathy_hrs)
+        self.bathy_transform = [tile.bbox.transform[0], tile.bbox.transform[1], tile.bbox.transform[2],
+                                tile.bbox.transform[3], tile.bbox.transform[4], tile.bbox.transform[5], ]
+        # logger.debug("transform: [%s, %s, %s, %s, %s, %s]"
+        #              % (self.bathy_transform[0], self.bathy_transform[1], self.bathy_transform[2],
+        #                 self.bathy_transform[3], self.bathy_transform[4], self.bathy_transform[5],))
+
+        # mask to avoid nan issues
+        self.dtm_mask = np.ma.masked_invalid(self.bathy_values)
+        # logger.debug('dtm: %s (valid: %d, masked: %d)'
+        #              % (self.bathy_values.shape, self.dtm_mask.count(), np.ma.count_masked(self.dtm_mask)))
+
+        if self.save_bathy:
+            try:
+                self._save_bathys_as_geotiff()
+            except Exception as e:
+                logger.info("unable to save bathy geotiff: %s" % e)
+            try:
+                self._save_bathys_as_xyz()
+            except Exception as e:
+                logger.info("unable to save bathy xyz: %s" % e)
+
+    # ### HEIGHT ESTIMATION ###
 
     def _calc_gradients(self):
         self.gy, self.gx = np.gradient(self.dtm_mask)
@@ -177,12 +303,9 @@ class FindFliersV8(BaseFliers):
         # logger.info("gauss curv: %s" % self.gauss_curv)
         # logger.info("std gauss curv: %s" % self.std_gauss_curv)
 
-    # ######## height estimation ########
-
     def estimate_height_and_curv_th(self):
         # logger.info("estimation of flier heights ...")
 
-        estimated_height = 1.0
         estimated_curv_th = 6.0
 
         self.gy = None
@@ -266,153 +389,7 @@ class FindFliersV8(BaseFliers):
             except Exception as e:
                 logger.info("unable to save curvatures geotiff: %s" % e)
 
-    def _save_proxies_as_geotiff(self) -> None:
-        # logger.debug("saving geotiff for heights")
-
-        # median
-
-        geotiff_path = os.path.join(self.output_folder, "%s.t%05d.medians.tif" % (self.basename, self.bathy_tile))
-        # logger.debug("heights output: %s" % geotiff_path)
-
-        nodata = -9999.0
-        array = np.empty_like(self.dtm_mask, dtype=np.float32)
-        array[self.dtm_mask.mask] = nodata
-        array[~self.dtm_mask.mask] = self.median
-
-        self._save_array_as_geotiff(geotiff_path=geotiff_path, array=array, nodata=nodata)
-
-        # nmad
-
-        geotiff_path = os.path.join(self.output_folder, "%s.t%05d.nmads.tif" % (self.basename, self.bathy_tile))
-        # logger.debug("heights output: %s" % geotiff_path)
-
-        nodata = -9999.0
-        array = np.empty_like(self.dtm_mask, dtype=np.float32)
-        array[self.dtm_mask.mask] = nodata
-        array[~self.dtm_mask.mask] = self.nmad
-
-        self._save_array_as_geotiff(geotiff_path=geotiff_path, array=array, nodata=nodata)
-
-        # std gauss curv
-
-        geotiff_path = os.path.join(self.output_folder, "%s.t%05d.std_gauss_curvs.tif" % (self.basename, self.bathy_tile))
-        # logger.debug("heights output: %s" % geotiff_path)
-
-        nodata = -9999.0
-        array = np.empty_like(self.dtm_mask, dtype=np.float32)
-        array[self.dtm_mask.mask] = nodata
-        array[~self.dtm_mask.mask] = self.std_gauss_curv
-
-        self._save_array_as_geotiff(geotiff_path=geotiff_path, array=array, nodata=nodata)
-
-        # gauss curv
-
-        geotiff_path = os.path.join(self.output_folder, "%s.t%05d.gauss_curvs.tif" % (self.basename, self.bathy_tile))
-        # logger.debug("heights output: %s" % geotiff_path)
-
-        nodata = -9999.0
-        array = np.empty_like(self.dtm_mask, dtype=np.float32)
-        array[self.dtm_mask.mask] = nodata
-        array[~self.dtm_mask.mask] = self.gauss_curv[~self.dtm_mask.mask]
-
-        self._save_array_as_geotiff(geotiff_path=geotiff_path, array=array, nodata=nodata)
-
-    def _save_heights_as_geotiff(self) -> None:
-        # logger.debug("saving geotiff for heights")
-
-        geotiff_path = os.path.join(self.output_folder, "%s.t%05d.th_heights.tif" % (self.basename, self.bathy_tile))
-        # logger.debug("heights output: %s" % geotiff_path)
-
-        nodata = -9999.0
-        array = np.empty_like(self.dtm_mask, dtype=np.float32)
-        array[self.dtm_mask.mask] = nodata
-        array[~self.dtm_mask.mask] = self.cur_height
-
-        self._save_array_as_geotiff(geotiff_path=geotiff_path, array=array, nodata=nodata)
-
-    def _save_curvatures_as_geotiff(self) -> None:
-        # logger.debug("saving geotiff for curvatures")
-
-        geotiff_path = os.path.join(self.output_folder, "%s.t%05d.th_curvatures.tif" % (self.basename, self.bathy_tile))
-        # logger.debug("heights output: %s" % geotiff_path)
-
-        nodata = -9999.0
-        array = np.empty_like(self.dtm_mask, dtype=np.float32)
-        array[self.dtm_mask.mask] = nodata
-        array[~self.dtm_mask.mask] = self.cur_curv_th
-
-        self._save_array_as_geotiff(geotiff_path=geotiff_path, array=array, nodata=nodata)
-
-    def _save_array_as_geotiff(self, geotiff_path: str, array: np.ndarray, nodata: float) -> None:
-        driver = gdal.GetDriverByName('GTiff')
-        ds = driver.Create(geotiff_path, array.shape[1], array.shape[0], 1, gdal.GDT_Float32, )
-        ds.SetProjection(self.bathy_hrs)
-        # logger.debug("transform: [%s, %s, %s, %s, %s, %s]"
-        #              % (self.bathy_transform[0], self.bathy_transform[1], self.bathy_transform[2],
-        #                 self.bathy_transform[3], self.bathy_transform[4], self.bathy_transform[5],))
-        ds.SetGeoTransform((self.bathy_transform[0] - self.bathy_transform[1]*0.5,
-                            self.bathy_transform[1],
-                            self.bathy_transform[2],
-                            self.bathy_transform[3] - self.bathy_transform[5]*0.5,
-                            self.bathy_transform[4],
-                            self.bathy_transform[5],))
-        ds.GetRasterBand(1).SetNoDataValue(nodata)
-        ds.GetRasterBand(1).WriteArray(array)
-        ds.FlushCache()
-
-    # ######## find flier ########
-
-    def run(self):
-        logger.info("flier height: %s " % (self.flier_height,))
-        logger.debug("save heights: %s" % self.save_heights)
-        logger.info("active checks: laplacian: %s, curv: %s, adjacent: %s, slivers: %s, isolated: %s, edges: %s"
-                    % (self.check_laplacian, self.check_curv, self.check_adjacent, self.check_slivers,
-                       self.check_isolated, self.check_edges))
-        logger.debug("noisy edges -> distance: %d, pct tvu: %.1f" % (self.edges_distance, self.edges_pct_tvu * 100))
-        logger.info("active filters: FFF: %s, Designated: %s" % (self.filter_fff, self.filter_designated))
-
-        self.bathy_tile = 0
-        while self.grids.read_next_tile(layers=[self.grids.depth_layer_name(), ]):
-
-            self._run_slice()
-            self.grids.clear_tiles()
-            self.bathy_tile += 1
-            logger.debug("new tile: %s" % self.bathy_tile)
-
-    def _run_slice(self):
-
-        # load depths
-        self._load_depths()
-
-        # to force recalculation
-        self.gy = None
-        self.gx = None
-
-        self.cur_height = self.flier_height
-        self.estimate_height_and_curv_th()
-        if self.cur_height == 0:
-            raise RuntimeError("unable to estimate height, and one of the selected algorithms "
-                               "needs the estimated height")
-
-        # create a 0 grid of the same size as input grid to be used to store the flagged node
-        self.flag_grid = np.zeros(self.bathy_values.shape, dtype=np.int)
-
-        if self.check_laplacian:
-            self._check_laplacian_operator()
-
-        if self.check_curv:
-            self._check_gaussian_curvature()
-
-        if self.check_adjacent:
-            self._check_adjacent_cells()
-
-        if self.check_isolated or self.check_slivers:
-            self._check_small_groups()
-
-        if self.check_edges:
-            self._check_edges()
-
-        self._georef_fliers()
+    # ###  CHECKS  ###
 
     def _check_laplacian_operator(self):
         """Check the grid for fliers using the Laplacian operator"""
@@ -515,150 +492,6 @@ class FindFliersV8(BaseFliers):
                                      self.check_isolated)
         # logging.debug("*** CHECKS #4/5: END ***")
 
-    def _load_depths(self):
-        """Helper function that loads the depths values"""
-        # logger.debug("depth layer: %s" % self.grids.depth_layer_name())
-
-        tile = self.grids.tiles[0]
-        # logger.debug("types: %s" % (list(tile.types),))
-
-        depth_type = tile.type(self.grids.depth_layer_name())
-        depth_idx = tile.band_index(self.grids.depth_layer_name())
-        # logger.debug("depth layer: %s [idx: %s]" % (self.grids.grid_data_type(depth_type), depth_idx))
-
-        if depth_type == GRIDS_DOUBLE:
-
-            self.bathy_is_double = True
-            self.bathy_values = tile.doubles[depth_idx]
-            self.bathy_values[tile.doubles[depth_idx] == tile.doubles_nodata[depth_idx]] = np.nan
-            if len(self.bathy_values) == 0:
-                raise RuntimeError("No bathy values")
-
-        elif depth_type == GRIDS_FLOAT:
-
-            self.bathy_is_double = False
-            self.bathy_values = tile.floats[depth_idx]
-            self.bathy_values[tile.floats[depth_idx] == tile.floats_nodata[depth_idx]] = np.nan
-            if len(self.bathy_values) == 0:
-                raise RuntimeError("No bathy values")
-
-        elif depth_type == "KLUSTER_FLOAT32":
-
-            self.bathy_is_double = False
-            self.bathy_values = tile.layers[depth_idx]
-            self.bathy_values[np.isnan(tile.layers[depth_idx])] = np.nan
-            if len(self.bathy_values) == 0:
-                raise RuntimeError("No bathy values")
-
-        else:
-            raise RuntimeError("Unsupported data type for bathy: %s" % depth_type)
-
-        if self.bathy_hrs is None:
-            self.bathy_hrs = tile.bbox.hrs
-        logger.info(self.bathy_hrs)
-        self.bathy_transform = [tile.bbox.transform[0], tile.bbox.transform[1], tile.bbox.transform[2],
-                                tile.bbox.transform[3], tile.bbox.transform[4], tile.bbox.transform[5],]
-        logger.debug("transform: [%s, %s, %s, %s, %s, %s]"
-                     % (self.bathy_transform[0], self.bathy_transform[1], self.bathy_transform[2],
-                        self.bathy_transform[3], self.bathy_transform[4], self.bathy_transform[5],))
-
-        # mask to avoid nan issues
-        self.dtm_mask = np.ma.masked_invalid(self.bathy_values)
-        # logger.debug('dtm: %s (valid: %d, masked: %d)'
-        #              % (self.bathy_values.shape, self.dtm_mask.count(), np.ma.count_masked(self.dtm_mask)))
-        dtm_mask_path = os.path.join(self.output_folder,
-                                     '%s_dtm_mask.%d_%d.txt' % (self.basename, self.dtm_mask.shape[0],
-                                                                self.dtm_mask.shape[1]))
-        np.savetxt(dtm_mask_path, self.dtm_mask, fmt='%7.3f')
-        logger.debug('saved DTM mask: %s' % dtm_mask_path)
-
-    def _georef_fliers(self):
-        """Helper function that looks at the flagged array and store the node != 0 as feature fliers"""
-
-        # selected holes
-        fliers_x = list()
-        fliers_y = list()
-        fliers_z = list()
-        fliers_ck = list()
-
-        nz_y, nz_x = self.flag_grid.nonzero()
-        for i, x in enumerate(nz_x):
-            y = nz_y[i]
-            fliers_x.append(x)
-            fliers_y.append(y)
-            fliers_z.append(self.bathy_values[y, x])
-            fliers_ck.append(self.flag_grid[y, x])
-
-        GdalAux.check_gdal_data()
-
-        # logger.debug("crs: %s" % self.bathy_crs)
-        try:
-            osr_csar = osr.SpatialReference()
-            osr_csar.ImportFromWkt(self.bathy_hrs)
-            osr_geo = osr.SpatialReference()
-            osr_geo.ImportFromEPSG(4326)  # geographic WGS84
-            loc2geo = osr.CoordinateTransformation(osr_csar, osr_geo)
-
-        except Exception as e:
-            raise IOError("unable to create a valid coords transform: %s" % e)
-
-        if len(fliers_x) == 0:
-            logger.info("No fliers detected in current slice, total fliers: %s" % len(self.flagged_fliers))
-            return
-
-        tile = self.grids.tiles[0]
-
-        flagged_xs = list()
-        flagged_ys = list()
-        flagged_zs = list()
-        flagged_cks = list()
-        for i, x in enumerate(fliers_x):
-            e = tile.convert_easting(int(x))
-            n = tile.convert_northing(int(fliers_y[i]))
-            z = fliers_z[i]
-            c = fliers_ck[i]
-            logger.debug("#%d: %.0f, %.0f -> %.2f %.2f %.2f : %d" % (i, x, fliers_y[i], e, n, z, c))
-            flagged_xs.append(e)
-            flagged_ys.append(n)
-            flagged_zs.append(z)
-            flagged_cks.append(c)
-
-        logger.info("Initial lists length: %s, %s, %s, %s"
-                    % (len(self.flagged_xs), len(self.flagged_ys), len(self.flagged_zs), len(self.flagged_cks)))
-
-        # convert flagged nodes to geographic coords
-        try:
-            xs = np.array(flagged_xs)
-            ys = np.array(flagged_ys)
-            cks = np.array(flagged_cks)
-            # logger.debug("xs: %s" % xs)
-            # logger.debug("ys: %s" % ys)
-
-            # convert to geographic
-            if gdal.__version__[0] == '3':
-                lonlat = np.array(loc2geo.TransformPoints(np.vstack((xs, ys)).transpose()), np.float64)
-                lonlat.T[[0, 1]] = lonlat.T[[1, 0]]
-                # print(lonlat)
-            else:
-                lonlat = np.array(loc2geo.TransformPoints(np.vstack((xs, ys)).transpose()), np.float64)
-
-            # add checks
-            lonlat[:, 2] = cks
-            # store as list of list
-            self.flagged_fliers += lonlat.tolist()
-            self.flagged_xs += flagged_xs
-            self.flagged_ys += flagged_ys
-            self.flagged_zs += flagged_zs
-            self.flagged_cks += flagged_cks
-
-            logger.info("Detected %s possible fliers" % len(self.flagged_fliers))
-            logger.info("Resulting lists lengths: %s, %s, %s, %s"
-                        % (len(self.flagged_xs), len(self.flagged_ys), len(self.flagged_zs), len(self.flagged_cks)))
-            logger.debug(f"Flagged fliers: {self.flagged_fliers}")
-
-        except Exception as e:
-            raise RuntimeError("Unable to perform conversion of the flagged fliers to geographic: %s" % e)
-
     # ### FILTERING ###
 
     def apply_filters(self, s57_list: list, distance=1.0, delta_z=0.01) -> bool:
@@ -755,7 +588,8 @@ class FindFliersV8(BaseFliers):
         self.flagged_zs = zs
         self.flagged_cks = cks
 
-    def _prepare_fff_list(self, s57_path: str, s57_idx: int):
+    @classmethod
+    def _prepare_fff_list(cls, s57_path: str, s57_idx: int):
         selected_features = list()
 
         # open the file
@@ -897,7 +731,7 @@ class FindFliersV8(BaseFliers):
                             continue
 
                         # append [long, lat, depth]
-                        valsou_geo = [[feature.centroid.x, feature.centroid.y, s57_valsou],]
+                        valsou_geo = [[feature.centroid.x, feature.centroid.y, s57_valsou], ]
                         valsou_utm = np.array(geo2loc.TransformPoints(np.array(valsou_geo, np.float64)),
                                               np.float64)
 
@@ -933,3 +767,210 @@ class FindFliersV8(BaseFliers):
         self.flagged_ys = ys
         self.flagged_zs = zs
         self.flagged_cks = cks
+
+    # ### OUTPUT ###
+
+    # rasters
+
+    def _save_bathy_as_xyz(self) -> None:
+        # logger.debug("saving geotiff for heights")
+
+        dtm_mask_path = os.path.join(self.output_folder, "%s.t%05d.bathy.xyz" % (self.basename, self.bathy_tile))
+        # logger.debug('saved DTM mask: %s' % dtm_mask_path)
+
+        np.savetxt(dtm_mask_path, self.dtm_mask, fmt='%7.3f')
+
+    def _save_bathy_as_geotiff(self) -> None:
+        # logger.debug("saving geotiff for bathys")
+
+        geotiff_path = os.path.join(self.output_folder, "%s.t%05d.bathy.tif" % (self.basename, self.bathy_tile))
+        # logger.debug("bathy output: %s" % bathy_path)
+
+        nodata = -9999.0
+        array = np.empty_like(self.dtm_mask, dtype=np.float32)
+        array[self.dtm_mask.mask] = nodata
+        array[~self.dtm_mask.mask] = self.dtm_mask
+
+        self._save_array_as_geotiff(geotiff_path=geotiff_path, array=array, nodata=nodata)
+
+    def _save_proxies_as_geotiff(self) -> None:
+        # logger.debug("saving geotiff for heights")
+
+        # median
+
+        geotiff_path = os.path.join(self.output_folder, "%s.t%05d.medians.tif" % (self.basename, self.bathy_tile))
+        # logger.debug("heights output: %s" % geotiff_path)
+
+        nodata = -9999.0
+        array = np.empty_like(self.dtm_mask, dtype=np.float32)
+        array[self.dtm_mask.mask] = nodata
+        array[~self.dtm_mask.mask] = self.median
+
+        self._save_array_as_geotiff(geotiff_path=geotiff_path, array=array, nodata=nodata)
+
+        # nmad
+
+        geotiff_path = os.path.join(self.output_folder, "%s.t%05d.nmads.tif" % (self.basename, self.bathy_tile))
+        # logger.debug("heights output: %s" % geotiff_path)
+
+        nodata = -9999.0
+        array = np.empty_like(self.dtm_mask, dtype=np.float32)
+        array[self.dtm_mask.mask] = nodata
+        array[~self.dtm_mask.mask] = self.nmad
+
+        self._save_array_as_geotiff(geotiff_path=geotiff_path, array=array, nodata=nodata)
+
+        # std gauss curv
+
+        geotiff_path = os.path.join(self.output_folder,
+                                    "%s.t%05d.std_gauss_curvs.tif" % (self.basename, self.bathy_tile))
+        # logger.debug("heights output: %s" % geotiff_path)
+
+        nodata = -9999.0
+        array = np.empty_like(self.dtm_mask, dtype=np.float32)
+        array[self.dtm_mask.mask] = nodata
+        array[~self.dtm_mask.mask] = self.std_gauss_curv
+
+        self._save_array_as_geotiff(geotiff_path=geotiff_path, array=array, nodata=nodata)
+
+        # gauss curv
+
+        geotiff_path = os.path.join(self.output_folder, "%s.t%05d.gauss_curvs.tif" % (self.basename, self.bathy_tile))
+        # logger.debug("heights output: %s" % geotiff_path)
+
+        nodata = -9999.0
+        array = np.empty_like(self.dtm_mask, dtype=np.float32)
+        array[self.dtm_mask.mask] = nodata
+        array[~self.dtm_mask.mask] = self.gauss_curv[~self.dtm_mask.mask]
+
+        self._save_array_as_geotiff(geotiff_path=geotiff_path, array=array, nodata=nodata)
+
+    def _save_heights_as_geotiff(self) -> None:
+        # logger.debug("saving geotiff for heights")
+
+        geotiff_path = os.path.join(self.output_folder, "%s.t%05d.th_heights.tif" % (self.basename, self.bathy_tile))
+        # logger.debug("heights output: %s" % geotiff_path)
+
+        nodata = -9999.0
+        array = np.empty_like(self.dtm_mask, dtype=np.float32)
+        array[self.dtm_mask.mask] = nodata
+        array[~self.dtm_mask.mask] = self.cur_height
+
+        self._save_array_as_geotiff(geotiff_path=geotiff_path, array=array, nodata=nodata)
+
+    def _save_curvatures_as_geotiff(self) -> None:
+        # logger.debug("saving geotiff for curvatures")
+
+        geotiff_path = os.path.join(self.output_folder, "%s.t%05d.th_curvatures.tif" % (self.basename, self.bathy_tile))
+        # logger.debug("heights output: %s" % geotiff_path)
+
+        nodata = -9999.0
+        array = np.empty_like(self.dtm_mask, dtype=np.float32)
+        array[self.dtm_mask.mask] = nodata
+        array[~self.dtm_mask.mask] = self.cur_curv_th
+
+        self._save_array_as_geotiff(geotiff_path=geotiff_path, array=array, nodata=nodata)
+
+    def _save_array_as_geotiff(self, geotiff_path: str, array: np.ndarray, nodata: float) -> None:
+        driver = gdal.GetDriverByName('GTiff')
+        ds = driver.Create(geotiff_path, array.shape[1], array.shape[0], 1, gdal.GDT_Float32, )
+        ds.SetProjection(self.bathy_hrs)
+        # logger.debug("transform: [%s, %s, %s, %s, %s, %s]"
+        #              % (self.bathy_transform[0], self.bathy_transform[1], self.bathy_transform[2],
+        #                 self.bathy_transform[3], self.bathy_transform[4], self.bathy_transform[5],))
+        ds.SetGeoTransform((self.bathy_transform[0] - self.bathy_transform[1] * 0.5,
+                            self.bathy_transform[1],
+                            self.bathy_transform[2],
+                            self.bathy_transform[3] - self.bathy_transform[5] * 0.5,
+                            self.bathy_transform[4],
+                            self.bathy_transform[5],))
+        ds.GetRasterBand(1).SetNoDataValue(nodata)
+        ds.GetRasterBand(1).WriteArray(array)
+        ds.FlushCache()
+
+    def _georef_fliers(self):
+        """Helper function that looks at the flagged array and store the node != 0 as feature fliers"""
+
+        # selected holes
+        fliers_x = list()
+        fliers_y = list()
+        fliers_z = list()
+        fliers_ck = list()
+
+        nz_y, nz_x = self.flag_grid.nonzero()
+        for i, x in enumerate(nz_x):
+            y = nz_y[i]
+            fliers_x.append(x)
+            fliers_y.append(y)
+            fliers_z.append(self.bathy_values[y, x])
+            fliers_ck.append(self.flag_grid[y, x])
+
+        GdalAux.check_gdal_data()
+
+        # logger.debug("crs: %s" % self.bathy_crs)
+        try:
+            osr_csar = osr.SpatialReference()
+            osr_csar.ImportFromWkt(self.bathy_hrs)
+            osr_geo = osr.SpatialReference()
+            osr_geo.ImportFromEPSG(4326)  # geographic WGS84
+            loc2geo = osr.CoordinateTransformation(osr_csar, osr_geo)
+
+        except Exception as e:
+            raise IOError("unable to create a valid coords transform: %s" % e)
+
+        if len(fliers_x) == 0:
+            logger.info("No fliers detected in current slice, total fliers: %s" % len(self.flagged_fliers))
+            return
+
+        tile = self.grids.tiles[0]
+
+        flagged_xs = list()
+        flagged_ys = list()
+        flagged_zs = list()
+        flagged_cks = list()
+        for i, x in enumerate(fliers_x):
+            e = tile.convert_easting(int(x))
+            n = tile.convert_northing(int(fliers_y[i]))
+            z = fliers_z[i]
+            c = fliers_ck[i]
+            logger.debug("#%d: %.0f, %.0f -> %.2f %.2f %.2f : %d" % (i, x, fliers_y[i], e, n, z, c))
+            flagged_xs.append(e)
+            flagged_ys.append(n)
+            flagged_zs.append(z)
+            flagged_cks.append(c)
+
+        logger.info("Initial lists length: %s, %s, %s, %s"
+                    % (len(self.flagged_xs), len(self.flagged_ys), len(self.flagged_zs), len(self.flagged_cks)))
+
+        # convert flagged nodes to geographic coords
+        try:
+            xs = np.array(flagged_xs)
+            ys = np.array(flagged_ys)
+            cks = np.array(flagged_cks)
+            # logger.debug("xs: %s" % xs)
+            # logger.debug("ys: %s" % ys)
+
+            # convert to geographic
+            if gdal.__version__[0] == '3':
+                lonlat = np.array(loc2geo.TransformPoints(np.vstack((xs, ys)).transpose()), np.float64)
+                lonlat.T[[0, 1]] = lonlat.T[[1, 0]]
+                # print(lonlat)
+            else:
+                lonlat = np.array(loc2geo.TransformPoints(np.vstack((xs, ys)).transpose()), np.float64)
+
+            # add checks
+            lonlat[:, 2] = cks
+            # store as list of list
+            self.flagged_fliers += lonlat.tolist()
+            self.flagged_xs += flagged_xs
+            self.flagged_ys += flagged_ys
+            self.flagged_zs += flagged_zs
+            self.flagged_cks += flagged_cks
+
+            logger.info("Detected %s possible fliers" % len(self.flagged_fliers))
+            logger.info("Resulting lists lengths: %s, %s, %s, %s"
+                        % (len(self.flagged_xs), len(self.flagged_ys), len(self.flagged_zs), len(self.flagged_cks)))
+            logger.debug(f"Flagged fliers: {self.flagged_fliers}")
+
+        except Exception as e:
+            raise RuntimeError("Unable to perform conversion of the flagged fliers to geographic: %s" % e)
