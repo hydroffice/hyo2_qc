@@ -262,11 +262,15 @@ class Flags:
 
     def append(self, x: float, y: float, note: str, info: str) -> None:
         """S57Aux function that append the note & info (if the feature position was already flagged) or add a new one"""
-        # check if the point was already flagged
+
+        # check if the point was already flagged for the same test
         for i in range(len(self.features[0])):
-            if (self.features[0][i] == x) and (self.features[1][i] == y):
-                self.features[2][i] = "%s, %s" % (self.features[2][i], note)
-                self.features[3][i] = "%s, %s" % (self.features[3][i], info)
+            if (self.features[0][i] == x) and (self.features[1][i] == y) and (info == self.features[3][i]):
+                tokens = self.features[2][i].split('[x')
+                if len(tokens) == 1:
+                    self.features[2][i] = "%s [x2]" % note
+                else:
+                    self.features[2][i] = "%s [x%d]" % (note, int(tokens[1].split("]")[0]) + 1)
                 return
 
         # if not flagged, just append the new flagged position
