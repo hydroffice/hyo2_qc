@@ -71,8 +71,8 @@ The S-57 features are scanned to ensure proper attribution per the required year
 
 The logic for the 2021 QC Tools feature scan is shown below. For previous years, refer to the HSSD for that year.
 
-* Checks for feature file consistancy:
-	* Check to ensure no feature redundancy.
+* Checks for feature file consistency:
+	* Check to ensure no feature redundancy. Features that have the same position, acronym, and attribution are flagged.
 	* No features with text input fields exceeds 255 characters.
 * Assigned features = all features with **asgnmt = 2**:
     * All Assigned features must have **descrp** and **remrks.**	
@@ -86,6 +86,7 @@ The logic for the 2021 QC Tools feature scan is shown below. For previous years,
     * All New or Deleted features must have **remrks** and **recomd.**
 * All features with images:
 	* All **images** contain the correct naming convention and they have a corresponding image in the multimedia folder.
+	* Receive a warning if an image is used on multiple features.
 * Sounding features = all **SOUNDG.**
     * All Sounding features must have **TECSOU** and **QUASOU.**
 * DTONs = all features with **descrp = 1 or 2**, **sftype = 3**:
@@ -233,7 +234,11 @@ Upon completion of the execution of **Feature Scan** you will receive a pop-up v
 
     The **Feature Scan** output message.
 
-**Feature Scan** produces a .000 files containing "blue notes" which helps the user identify the locations flagged features. The **NINFOM** field is used to identify the warning or error associated with the feature. These can be loaded into your GIS software of choice for further analysis.
+**Feature Scan** produces a .000 files containing "blue notes" which helps the user identify the locations flagged features.
+Each test that results in a flag will have a corresponding feature in the output file.
+The **NINFOM** field is used to describe the warning or error associated with the feature.
+The **INFORM** field contains the corresponding test number from the PDF Report (:numref:`fig_feature_scan_bluenotes_fields`).
+These can be loaded into your GIS software of choice for further analysis.
 
 
 .. _fig_feature_scan_bluenotes:
@@ -243,7 +248,17 @@ Upon completion of the execution of **Feature Scan** you will receive a pop-up v
     :alt: flier indicated with blue note
     :figclass: align-center
 
-    An example of a warning associated with a rock identified with a blue note ($CSYMB).
+    An example of a warning associated with an obstruction identified with a blue note ($CSYMB).
+
+.. _fig_feature_scan_bluenotes_fields:
+.. figure:: _static/feature_scan_bluenotes_fields.png
+    :width: 700px
+    :align: center
+    :alt: NINFOM and INFORM shown for one specific feature
+    :figclass: align-center
+
+    An example of one feature with multiple flags. The "Information" field shows the corresponding section from the PDF Report,
+    the "Information in national language" field shows a description of the flag.
 
 **Feature Scan** produces a PDF report that indicates what checks were performed and the results of the checks (:numref:`fig_feature_scan_pdf_results`). At the end of the report, a summary indicates how many warnings and errors were identified grouped by type (:numref:`fig_feature_scan_summary`).
 
