@@ -1,7 +1,6 @@
 import warnings
 
-cimport
-numpy as np
+cimport numpy as np
 import numpy as np
 from scipy import ndimage
 
