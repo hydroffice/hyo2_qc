@@ -329,6 +329,25 @@ class BagChecksV1:
             # TODO: additional checks on SRS
 
             if self._noaa_nbs_profile:
+
+                # CHK: definition of vertical datum
+                self._bc_report += "Check that the vertical datum is defined [CHECK]"
+                if bf.meta.wkt_vertical_datum is None:
+                    if b"Unknown" in bf.meta.xml_vertical_datum:
+                        self._bc_report += "[WARNING] The vertical datum might be unknown [%s...]" \
+                                           % bf.meta.xml_vertical_datum[:20]
+                        self._bc_metadata_warnings += 1
+                    else:
+                        self._bc_report += "OK"
+                else:
+                    if "unknown" in bf.meta.wkt_vertical_datum.lower():
+                        self._bc_report += "[WARNING] The vertical datum is unknown [%s...]" \
+                                           % bf.meta.wkt_vertical_datum[:20]
+                        self._bc_metadata_warnings += 1
+                    else:
+                        self._bc_report += "OK"
+
+            if self._noaa_nbs_profile:
                 # CHK: presence of creation date
                 self._bc_report += "Check the presence of the creation date [CHECK]"
                 if bf.meta.date is None:
