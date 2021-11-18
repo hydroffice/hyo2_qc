@@ -205,7 +205,7 @@ class Checks:
             if (len(ft.geo2s) == 0) and (len(ft.geo3s) == 0):
                 # logger.debug("removing: %s" % ft)
                 continue
-
+            
             tmp_features.append(ft)
 
             # get the attributes as a long string
@@ -1362,12 +1362,6 @@ class Checks:
                                                                                                           "7", "8", "9",
                                                                                                           "10", "11"])
 
-        # Ensure new or updated foul ground obstructions shall have valsou
-        self.report += "New or Updated foul ground OBSTRN missing mandatory attribute VALSOU [CHECK]"
-        self.flags.obstructions.foul_ground_valsou = self._check_features_for_attribute(objects=obstrns_foul_ground,
-                                                                                        attribute='VALSOU',
-                                                                                        possible=False)
-
         # New or updated foul ground obstructions shall have WATLEV
         self.report += "New or Updated foul ground OBSTRN with empty/missing mandatory attribute WATLEV [CHECK]"
         self.flags.obstructions.foul_ground_watlev = self._flag_features_with_attribute_value(
@@ -1376,21 +1370,27 @@ class Checks:
             values_to_flag=['', ],
             check_attrib_existence=True)
 
-        # Ensure new or updated foul ground obstructions have quasou
-        self.report += "New or Updated foul ground OBSTRN with missing mandatory attribute QUASOU [CHECK]"
-        self.flags.obstructions.foul_ground_quasou = self._flag_features_with_attribute_value(
-            objects=obstrns_foul_ground,
-            attribute='QUASOU',
-            values_to_flag=['', ],
-            check_attrib_existence=True)
 
-        # Ensure new or updated obstructions have tecsou
-        self.report += "New or Updated foul ground OBSTRN with missing mandatory attribute TECSOU [CHECK]"
-        self.flags.obstructions.foul_ground_tecsou = self._flag_features_with_attribute_value(
-            objects=obstrns_foul_ground,
-            attribute='TECSOU',
-            values_to_flag=['', ],
-            check_attrib_existence=True)
+        # Ensure new or updated foul ground obstructions do not have valsou 
+        self.report += "New or Updated foul ground OBSTRN must have VALSOU of NULL [CHECK]"
+        self.flags.obstructions.foul_ground_valsou = self._check_features_without_attribute(objects=obstrns_foul_ground,
+                                                                                            attribute='VALSOU',
+                                                                                            possible=False)
+
+
+
+        # Ensure new or updated foul ground obstructions do not have quasou
+        self.report += "New or Updated foul ground OBSTRN must have QUASOU of NULL [CHECK]"
+        self.flags.obstructions.foul_ground_quasou = self._check_features_without_attribute(objects=obstrns_foul_ground,
+                                                                                            attribute='QUASOU',
+                                                                                            possible=False)
+
+
+        # Ensure new or updated foul ground obstructions do not have tecsou
+        self.report += "New or Updated foul ground OBSTRN must have TECSOU of NULL [CHECK]"
+        self.flags.obstructions.foul_ground_tecsou = self._check_features_without_attribute(objects=obstrns_foul_ground,
+                                                                                           attribute='TECSOU',
+                                                                                           possible=False)
 
         # Foul area checks....
         # Warning: Ensure foul area obstructions have watlev unknown
