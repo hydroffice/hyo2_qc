@@ -56,6 +56,7 @@ The BAG files are inspected to ensure compliance with NOAA NBS requirements and 
     * VR Metadata dataset (VR only)
     * For NOAA NBS Profile:
         * Spatial reference system is projected.
+        * Vertical datum is defined.
         * Creation date
         * Survey start date
         * Survey end date
