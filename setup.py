@@ -46,6 +46,7 @@ setup(
     setup_requires=[
         "setuptools",
         "wheel",
+        "numpy"
     ],
     install_requires=[
         "hyo2.abc",
@@ -57,6 +58,7 @@ setup(
         "pillow",
         "piexif",
         # "PySide2",
+        "numpy"
     ],
     ext_modules=cythonize([
         Extension("hyo2.qc.survey.fliers.find_fliers_checks",
