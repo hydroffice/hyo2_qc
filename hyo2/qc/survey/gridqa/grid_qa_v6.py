@@ -830,6 +830,10 @@ class GridQAV6(BaseGridQA):
                     tile.int64s[density_idx][tile.int64s[density_idx] != tile.int64s_nodata[density_idx]]
                 if len(self.density_values) == 0:
                     logger.info("No density values")
+            elif density_type == "KLUSTER_INTEGER32":
+                self.density_values = tile.layers[density_idx][~np.isnan(tile.layers[depth_idx])]
+                if len(self.density_values) == 0:
+                    logger.info("No density values")
             else:
                 raise RuntimeError("Unsupported data type for density: %s" % density_type)
             # logger.debug('density values: %s' % len(self.density_values))

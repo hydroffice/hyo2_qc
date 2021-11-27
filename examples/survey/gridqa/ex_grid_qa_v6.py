@@ -29,7 +29,7 @@ prj = SurveyProject(output_folder=testing.output_data_folder(), progress=QtProgr
 bag_files = testing.input_test_files(".bag")
 print("- BAG files: %d" % len(bag_files))
 
-kluster_file = r"C:\Users\gmasetti\Documents\kluster\test\srgrid_mean_auto_20210926_145921"
+kluster_file = r"C:\code\kluster\kluster\test_data\srgrid_mean_auto_depth_20211127_201258"
 prj.add_to_grid_list(kluster_file)
 
 # prj.add_to_grid_list(csar_files[0])
@@ -53,7 +53,7 @@ hist_density = True
 hist_tvu_qc = True
 hist_pct_res = True
 
-depth_vs_density = False
+depth_vs_density = True
 depth_vs_tvu_qc = True
 
 
