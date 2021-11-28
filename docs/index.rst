@@ -16,8 +16,10 @@ QC Tools's documentation
     credits
 
 
-* :ref:`genindex`
-* :ref:`search`
+.. only:: html
+
+    * :ref:`genindex`
+    * :ref:`search`
 
 
 .. note::

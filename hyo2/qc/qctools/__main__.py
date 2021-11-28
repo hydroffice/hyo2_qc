@@ -1,21 +1,14 @@
 import logging
+import sys
 
-from hyo2.qc.qctools import gui
+from hyo2.abc.lib.logging import set_logging
+from hyo2.qc.qctools.gui import gui
+from hyo2.qc.cli.cli import cli
 
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
+set_logging(ns_list=["hyo2.qc", ])
 
-
-def set_logging(default_logging=logging.WARNING, hyo2_logging=logging.INFO, abc_logging=logging.DEBUG):
-    logging.basicConfig(
-        level=default_logging,
-        format="%(levelname)-9s %(name)s.%(funcName)s:%(lineno)d > %(message)s"
-    )
-    logging.getLogger("hyo2").setLevel(hyo2_logging)
-    logging.getLogger("hyo2.qc").setLevel(abc_logging)
-    logging.getLogger("hyo2.rori").setLevel(abc_logging)
-    logging.getLogger("hyo2.unccalc").setLevel(abc_logging)
-
-
-set_logging()
-
-gui.gui()
+if len(sys.argv) == 1:
+    gui()
+else:
+    cli()
