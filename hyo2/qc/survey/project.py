@@ -615,7 +615,8 @@ class SurveyProject(BaseProject):
 
     def bag_checks_v1(self, use_nooa_nbs_profile: bool = False, check_structure: bool = False,
                       check_metadata: bool = False, check_elevation: bool = False,
-                      check_uncertainty: bool = False, check_tracking_list: bool = False):
+                      check_uncertainty: bool = False, check_tracking_list: bool = False,
+                      open_output_folder: bool = True):
         """Check the input BAG files"""
 
         if not self.has_bag_grid():
@@ -630,7 +631,8 @@ class SurveyProject(BaseProject):
                                check_elevation=check_elevation,
                                check_uncertainty=check_uncertainty,
                                check_tracking_list=check_tracking_list,
-                               progress=self.progress)
+                               progress=self.progress,
+                               open_output_folder=open_output_folder)
 
         self._bc.run()
 

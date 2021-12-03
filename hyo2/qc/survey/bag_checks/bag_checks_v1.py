@@ -25,12 +25,13 @@ class BagChecksV1:
                  use_nooa_nbs_profile: bool = False, check_structure: bool = False,
                  check_metadata: bool = False, check_elevation: bool = False,
                  check_uncertainty: bool = False, check_tracking_list: bool = False,
-                 progress: AbstractProgress = CliProgress()):
+                 progress: AbstractProgress = CliProgress(), open_output_folder: bool = True):
 
         self.grid_list = grid_list
         self.output_folder = output_folder
         self.output_project_folder = output_project_folder
         self.output_subfolders = output_subfolders
+        self.open_output_folder = open_output_folder
 
         self._noaa_nbs_profile = use_nooa_nbs_profile
         self._structure = check_structure
@@ -108,10 +109,12 @@ class BagChecksV1:
                         self._msg += "- %s: pass\n" % self._grid_basename
                     else:
                         self._msg += "- %s: fail\n" % self._grid_basename
-                    # open the output folder (if not already open)
-                    if self.bagchecks_output_folder not in opened_folders:
-                        self.open_bagchecks_output_folder()
-                        opened_folders.append(self.bagchecks_output_folder)
+
+                    if self.open_output_folder:
+                        # open the output folder (if not already open)
+                        if self.bagchecks_output_folder not in opened_folders:
+                            self.open_bagchecks_output_folder()
+                            opened_folders.append(self.bagchecks_output_folder)
                 else:
                     self._msg += "- %s: skip\n" % self._grid_basename
 
