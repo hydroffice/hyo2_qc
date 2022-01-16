@@ -17,8 +17,7 @@ wid = QtWidgets.QWidget()
 use_internal_test_files = False
 use_internal_csar = True
 with_laser = True
-survey_scale = 20000
-specs_version = "2018"
+specs_version = "2021"
 is_target_detection = False
 
 prj = SurveyProject(output_folder=testing.output_data_folder(), progress=QtProgress(parent=wid))
@@ -57,8 +56,7 @@ for s57_file in prj.s57_list:
     for grid_path in prj.grid_list:
         logger.debug("grid: %s" % grid_path)
         prj.open_grid(path=grid_path)
-        prj.valsou_check_v7(with_laser=with_laser, survey_scale=survey_scale, specs_version=specs_version,
-                            is_target_detection=is_target_detection)
+        prj.valsou_check_v8(with_laser=with_laser, specs_version=specs_version, is_target_detection=is_target_detection)
         prj.valsou_check_deconflict()
         saved_s57 = prj.save_valsou_features()
         if saved_s57:

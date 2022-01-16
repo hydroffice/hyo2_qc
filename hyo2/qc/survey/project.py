@@ -32,6 +32,7 @@ from hyo2.qc.survey.submission.base_submission import BaseSubmission, submission
 from hyo2.qc.survey.submission.submission_checks_v4 import SubmissionChecksV4
 from hyo2.qc.survey.valsou.base_valsou import valsou_algos
 from hyo2.qc.survey.valsou.valsou_check_v7 import ValsouCheckV7
+from hyo2.qc.survey.valsou.valsou_check_v8 import ValsouCheckV8
 from osgeo import osr
 
 logger = logging.getLogger(__name__)
@@ -1052,12 +1053,44 @@ class SurveyProject(BaseProject):
 
         self.progress.end()
 
-    def valsou_check_deconflict_v6(self):
+    def valsou_check_v8(self, specs_version="2021", with_laser=True, is_target_detection=False):
+
+        if not self.has_s57():
+            logger.warning("first load some features")
+            return
+
+        if not self.has_grid():
+            logger.warning("first load some grids")
+            return
+
+        self.progress.start(text="Data processing")
+
+        try:
+
+            self._gr.selected_layers_in_current = [layer_types["depth"], ]
+
+            self._valsou = ValsouCheckV8(s57=self.cur_s57, grids=self._gr, version=specs_version,
+                                         with_laser=with_laser, is_target_detection=is_target_detection)
+
+            start_time = time.time()
+            self._valsou.run()
+            logger.info("VALSOU check v8 -> execution time: %.3f s" % (time.time() - start_time))
+            logger.info("flagged features: %d" % self.number_of_valsou_features())
+
+        except Exception as e:
+            traceback.print_exc()
+            self._valsou = None
+            self.progress.end()
+            raise e
+
+        self.progress.end()
+
+    def valsou_check_deconflict(self):
         # turn on the deconflicted flag
         self._valsou.deconflicted = True
 
         if self.number_of_valsou_features() == 0:
-            logger.warning("no flagged valsou features to deconflict")
+            logger.warning("no flagged VALSOU features to deconflict")
             return
 
         grid_file = self._gr.current_path
@@ -1185,9 +1218,6 @@ class SurveyProject(BaseProject):
 
                 self._gr2.clear_tiles()
 
-    def valsou_check_deconflict_v7(self):
-        self.valsou_check_deconflict_v6()
-
     # ________________________________________________________________________________
     # #########################    VALSOU EXPORT METHODS     #########################
 
@@ -1211,26 +1241,7 @@ class SurveyProject(BaseProject):
             os.makedirs(output_folder)
 
         # make the filename for output
-        if self._valsou.type == valsou_algos['VALSOU_CHECK_v6']:
-
-            laser_token = ""
-            if self._valsou.with_laser:
-                laser_token = ".las"
-
-            deconflict_token = ""
-            if self._valsou.deconflicted:
-                deconflict_token = ".dec"
-
-            if self._valsou.version in ["2018", ]:
-                s57_file = os.path.join(output_folder, "%s.%s.VCv6.%s%s%s.000"
-                                        % (self.cur_s57_basename, self.cur_grid_basename, self._valsou.version,
-                                           laser_token, deconflict_token))
-            else:
-                s57_file = os.path.join(output_folder, "%s.%s.VCv6.%s.%s%s%s.000"
-                                        % (self.cur_s57_basename, self.cur_grid_basename, self._valsou.version,
-                                           self._valsou.scale, laser_token, deconflict_token))
-
-        elif self._valsou.type == valsou_algos['VALSOU_CHECK_v7']:
+        if self._valsou.type == valsou_algos['VALSOU_CHECK_v7']:
 
             laser_token = ""
             if self._valsou.with_laser:
@@ -1252,6 +1263,25 @@ class SurveyProject(BaseProject):
                 s57_file = os.path.join(output_folder, "%s.%s.VCv7.%s.%s%s%s%s.000"
                                         % (self.cur_s57_basename, self.cur_grid_basename, self._valsou.version,
                                            self._valsou.scale, laser_token, deconflict_token, mode_token))
+
+        # make the filename for output
+        elif self._valsou.type == valsou_algos['VALSOU_CHECK_v8']:
+
+            laser_token = ""
+            if self._valsou.with_laser:
+                laser_token = ".las"
+
+            deconflict_token = ""
+            if self._valsou.deconflicted:
+                deconflict_token = ".dec"
+
+            mode_token = ".fc"
+            if self._valsou.is_target_detection:
+                mode_token = ".od"
+
+            s57_file = os.path.join(output_folder, "%s.%s.VCv8.%s%s%s.000"
+                                    % (self.cur_s57_basename, self.cur_grid_basename, laser_token, deconflict_token,
+                                       mode_token))
 
         else:
             raise RuntimeError("Not implemented VALSOU check algorithm")
@@ -1302,25 +1332,6 @@ class SurveyProject(BaseProject):
         if not self._sbdare:
             return 0
         return len(self._sbdare.sbdare_features)
-
-    def sbdare_export_v3(self):
-        """Export S57 SBDARE values"""
-        if not self.has_s57():
-            logger.warning("first load some features")
-            return
-
-        try:
-
-            self._sbdare = SbdareExportV3(s57=self.cur_s57)
-
-            start_time = time.time()
-            self._sbdare.run()
-            logger.info("SBDARE export v3 -> execution time: %.3f s" % (time.time() - start_time))
-
-        except Exception as e:
-            traceback.print_exc()
-            self._sbdare = None
-            raise e
 
     def sbdare_export_v5(self, exif=True, images_folder=None):
         """Export S57 SBDARE values"""

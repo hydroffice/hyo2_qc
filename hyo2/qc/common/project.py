@@ -116,7 +116,7 @@ class BaseProject:
         """Make up the survey name from the path"""
 
         if self._survey != str():  # survey name is already present
-            logger.debug('survey label already present: %s' % self._survey)
+            # logger.debug('survey label already present: %s' % self._survey)
             return
 
         # try from S57 path
