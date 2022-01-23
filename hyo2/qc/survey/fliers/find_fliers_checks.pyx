@@ -33,7 +33,7 @@ cpdef check_laplacian_operator_double(double[:, :] lap, int[:, :] flag_grid, flo
         for c in range(lap_cols):
             if (lap[r,c] < th) or (lap[r,c] > -th):
                 flag_grid[r, c] = 1 # check #1
-                logging.info("#1 > @(%d,%d)" % (int(r), int(c)))
+                logger.info("#1 > @(%d,%d)" % (int(r), int(c)))
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(True)
@@ -53,7 +53,7 @@ cpdef check_laplacian_operator_float(float[:, :] lap, int[:, :] flag_grid, float
         for c in range(lap_cols):
             if (lap[r,c] < th) or (lap[r,c] > -th):
                 flag_grid[r, c] = 1 # check #1
-                logging.info("#1 > @(%d,%d)" % (int(r), int(c)))
+                logger.info("#1 > @(%d,%d)" % (int(r), int(c)))
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(True)
@@ -72,7 +72,7 @@ cpdef check_gaussian_curvature_double(double[:, :] gauss_curv, int[:, :] flag_gr
         for c in range(lap_cols):
             if gauss_curv[r,c] > th:
                 flag_grid[r, c] = 2 # check #2
-                logging.info("#2 > @(%d,%d) -> %f > %f" % (int(r), int(c), gauss_curv[r,c], th))
+                logger.info("#2 > @(%d,%d) -> %f > %f" % (int(r), int(c), gauss_curv[r,c], th))
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(True)
@@ -91,7 +91,7 @@ cpdef check_gaussian_curvature_float(float[:, :] gauss_curv, int[:, :] flag_grid
         for c in range(lap_cols):
             if gauss_curv[r,c] > th:
                 flag_grid[r, c] = 2 # check #2
-                logging.info("#2 > @(%d,%d) -> %f > %f" % (int(r), int(c), gauss_curv[r,c], th))
+                logger.info("#2 > @(%d,%d) -> %f > %f" % (int(r), int(c), gauss_curv[r,c], th))
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(True)
@@ -101,11 +101,11 @@ cpdef check_gaussian_curvature_float(float[:, :] gauss_curv, int[:, :] flag_grid
 #@cython.profile(True)
 cpdef check_adjacent_cells_double(double[:, :] bathy, int[:, :] flag_grid, float th, float pct1, float pct2):
 
-    # logging.debug("[check adjacent] double bathy, using flier height: %.2f" % th)
+    # logger.debug("[check adjacent] double bathy, using flier height: %.2f" % th)
 
     cdef np.npy_intp rows = bathy.shape[0]  # number of rows
     cdef np.npy_intp cols = bathy.shape[1]  # number of columns
-    # logging.debug("[check adjacent] rows: %d, cols: %d" % (rows, cols))
+    # logger.debug("[check adjacent] rows: %d, cols: %d" % (rows, cols))
     cdef np.npy_intp r, c
     cdef double dep_node, dep_ngb
     cdef float pos_ratio, neg_ratio, thr
@@ -352,14 +352,14 @@ cpdef check_adjacent_cells_double(double[:, :] bathy, int[:, :] flag_grid, float
             pos_ratio = dif_pos_cnt / float(ngb_cnt)
             if pos_ratio >= thr:
                 flag_grid[r, c] = 3  # check #3
-                logging.info("#3 > + @(%d,%d): %d/%d > node ratio %.2f (threshold: %.2f)"
+                logger.info("#3 > + @(%d,%d): %d/%d > node ratio %.2f (threshold: %.2f)"
                              % (r, c, dif_pos_cnt, ngb_cnt, pos_ratio, thr))
                 continue
 
             neg_ratio = dif_neg_cnt / float(ngb_cnt)
             if neg_ratio >= thr:
                 flag_grid[r, c] = 3  # check #3
-                logging.info("#3 > - @(%d,%d): %d/%d > node ratio %.2f (threshold: %.2f)"
+                logger.info("#3 > - @(%d,%d): %d/%d > node ratio %.2f (threshold: %.2f)"
                              % (r, c, dif_neg_cnt, ngb_cnt, neg_ratio, thr))
                 continue
 
@@ -372,7 +372,7 @@ cpdef check_adjacent_cells_double(double[:, :] bathy, int[:, :] flag_grid, float
 #@cython.profile(True)
 cpdef check_adjacent_cells_float(float[:, :] bathy, int[:, :] flag_grid, float th, float pct1, float pct2):
 
-    # logging.debug("[check adjacent] float bathy, using flier height: %.2f" % th)
+    # logger.debug("[check adjacent] float bathy, using flier height: %.2f" % th)
 
     cdef np.npy_intp rows = bathy.shape[0]  # number of rows
     cdef np.npy_intp cols = bathy.shape[1]  # number of columns
@@ -622,14 +622,14 @@ cpdef check_adjacent_cells_float(float[:, :] bathy, int[:, :] flag_grid, float t
             pos_ratio = dif_pos_cnt / float(ngb_cnt)
             if pos_ratio >= thr:
                 flag_grid[r, c] = 3  # check #3
-                logging.info("#3 > + @(%d,%d): %d/%d > node ratio %.2f (threshold: %.2f)"
+                logger.info("#3 > + @(%d,%d): %d/%d > node ratio %.2f (threshold: %.2f)"
                              % (r, c, dif_pos_cnt, ngb_cnt, pos_ratio, thr))
                 continue
 
             neg_ratio = dif_neg_cnt / float(ngb_cnt)
             if neg_ratio >= thr:
                 flag_grid[r, c] = 3  # check #3
-                logging.info("#3 > - @(%d,%d): %d/%d > node ratio %.2f (threshold: %.2f)"
+                logger.info("#3 > - @(%d,%d): %d/%d > node ratio %.2f (threshold: %.2f)"
                              % (r, c, dif_neg_cnt, ngb_cnt, neg_ratio, thr))
                 continue
 
@@ -707,7 +707,7 @@ cpdef check_small_groups_float(np.ndarray[np.uint8_t, ndim=2, cast=True] grid_bi
                         if (abs(bathy[r, c] - bathy[nb_rs[ni], nb_cs[ni]]) > th) \
                                 and check_slivers:
                             flag_grid[r, c] = 4  # check #4
-                            logging.info("#4 > n%s @(%s, %s)" % (ni + 1, r, c))
+                            logger.info("#4 > n%s @(%s, %s)" % (ni + 1, r, c))
                         break
 
                 if find:
@@ -720,7 +720,7 @@ cpdef check_small_groups_float(np.ndarray[np.uint8_t, ndim=2, cast=True] grid_bi
         if (last_r > 4) and (last_r < rows - 4) and (last_c > 4) and (last_c < cols - 4):
             if (conn_count == 0) and check_isolated:
                 flag_grid[last_r, last_c] = 5  # check #5
-                logging.info("#5 > @(%s, %s)" % (last_r, last_c))
+                logger.info("#5 > @(%s, %s)" % (last_r, last_c))
 
 
 # noinspection PyUnresolvedReferences
@@ -797,7 +797,7 @@ cpdef check_small_groups_double(np.ndarray[np.uint8_t, ndim=2, cast=True] grid_b
                         if (abs(bathy[r, c] - bathy[nb_rs[ni], nb_cs[ni]]) > th) \
                                 and check_slivers:
                             flag_grid[r, c] = 4  # check #4
-                            logging.info("#4 > n%s @(%s, %s)" % (ni + 1, r, c))
+                            logger.info("#4 > n%s @(%s, %s)" % (ni + 1, r, c))
                         break
 
                 if find:
@@ -810,7 +810,7 @@ cpdef check_small_groups_double(np.ndarray[np.uint8_t, ndim=2, cast=True] grid_b
         if (last_r > 4) and (last_r < rows - 4) and (last_c > 4) and (last_c < cols - 4):
             if (conn_count == 0) and check_isolated:
                 flag_grid[last_r, last_c] = 5  # check #5
-                logging.info("#5 > @(%s, %s)" % (last_r, last_c))
+                logger.info("#5 > @(%s, %s)" % (last_r, last_c))
 
 
 # noinspection PyUnresolvedReferences
@@ -821,7 +821,7 @@ cpdef check_small_groups_double(np.ndarray[np.uint8_t, ndim=2, cast=True] grid_b
 #@cython.profile(True)
 cpdef check_noisy_edges_double(double[:, :] bathy, int[:, :] flag_grid, int dist, float cf):
 
-    logging.debug("[noisy edges] double bathy (dist: %d, cf: %.2f)" % (dist, cf))
+    logger.debug("[noisy edges] double bathy (dist: %d, cf: %.2f)" % (dist, cf))
 
     cdef np.npy_intp rows = bathy.shape[0]  # number of rows
     cdef np.npy_intp cols = bathy.shape[1]  # number of columns
@@ -1075,7 +1075,7 @@ cpdef check_noisy_edges_double(double[:, :] bathy, int[:, :] flag_grid, int dist
 #@cython.profile(True)
 cpdef check_noisy_edges_float(float[:, :] bathy, int[:, :] flag_grid, int dist, float cf):
 
-    logging.debug("[noisy edges] float bathy (dist: %d, cf: %.2f)" % (dist, cf))
+    logger.debug("[noisy edges] float bathy (dist: %d, cf: %.2f)" % (dist, cf))
 
     cdef np.npy_intp rows = bathy.shape[0]  # number of rows
     cdef np.npy_intp cols = bathy.shape[1]  # number of columns
@@ -1332,7 +1332,7 @@ cpdef check_noisy_edges_float(float[:, :] bathy, int[:, :] flag_grid, int dist, 
 #@cython.profile(True)
 cpdef check_noisy_margins_double(double[:, :] bathy, int[:, :] flag_grid, int dist, float cf):
 
-    logging.debug("[noisy edges] double bathy (dist: %d, cf: %.2f)" % (dist, cf))
+    logger.debug("[noisy margins] double bathy (dist: %d, cf: %.2f)" % (dist, cf))
 
     cdef np.npy_intp rows = bathy.shape[0]  # number of rows
     cdef np.npy_intp cols = bathy.shape[1]  # number of columns
@@ -1376,13 +1376,16 @@ cpdef check_noisy_margins_double(double[:, :] bathy, int[:, :] flag_grid, int di
                 continue
             dep_ngb = bathy[r, c - 1]
             if npy_isnan(dep_ngb) and c > 1:
-                if flag_grid[r, c - 2] != 0:
-                    continue
                 dep_ngb = bathy[r, c - 2]
             if npy_isnan(dep_ngb) and c > 2 and dist > 2:
+                dep_ngb = bathy[r, c - 3]
+            if c > 3 and dist > 2:
+                if flag_grid[r, c - 2] != 0:
+                    continue
                 if flag_grid[r, c - 3] != 0:
                     continue
-                dep_ngb = bathy[r, c - 3]
+                if flag_grid[r, c - 4] != 0:
+                    continue
 
             # evaluate depth difference
             if not npy_isnan(dep_ngb):
@@ -1407,6 +1410,13 @@ cpdef check_noisy_margins_double(double[:, :] bathy, int[:, :] flag_grid, int di
                 if flag_grid[r, c + 3] != 0:
                     continue
                 dep_ngb = bathy[r, c + 3]
+            if (c < cols - 4) and dist > 2:
+                if flag_grid[r, c + 2] != 0:
+                    continue
+                if flag_grid[r, c + 3] != 0:
+                    continue
+                if flag_grid[r, c + 4] != 0:
+                    continue
 
             # evaluate depth difference
             if not npy_isnan(dep_ngb):
@@ -1431,6 +1441,13 @@ cpdef check_noisy_margins_double(double[:, :] bathy, int[:, :] flag_grid, int di
                 if flag_grid[r - 3, c] != 0:
                     continue
                 dep_ngb = bathy[r - 3, c]
+            if r > 3  and dist > 2:
+                if flag_grid[r - 2, c] != 0:
+                    continue
+                if flag_grid[r - 3, c] != 0:
+                    continue
+                if flag_grid[r - 4, c] != 0:
+                    continue
 
             # evaluate depth difference
             if not npy_isnan(dep_ngb):
@@ -1455,6 +1472,13 @@ cpdef check_noisy_margins_double(double[:, :] bathy, int[:, :] flag_grid, int di
                 if flag_grid[r + 3, c] != 0:
                     continue
                 dep_ngb = bathy[r + 3, c]
+            if (r < rows - 4)  and dist > 2:
+                if flag_grid[r + 2, c] != 0:
+                    continue
+                if flag_grid[r + 3, c] != 0:
+                    continue
+                if flag_grid[r + 4, c] != 0:
+                    continue
 
             # evaluate depth difference
             if not npy_isnan(dep_ngb):
@@ -1471,14 +1495,27 @@ cpdef check_noisy_margins_double(double[:, :] bathy, int[:, :] flag_grid, int di
             if flag_grid[r - 1, c - 1] != 0:
                 continue
             dep_ngb = bathy[r - 1, c - 1]
-            if npy_isnan(dep_ngb) and r > 1 and c > 1  and dist > 2:
+            if npy_isnan(dep_ngb) and r > 1 and c > 1 and dist > 2:
                 if flag_grid[r - 2, c - 2] != 0:
                     continue
                 dep_ngb = bathy[r - 2, c - 2]
-            # if npy_isnan(dep_ngb) and r > 2 and c > 2:
-            #     if flag_grid[r - 3, c - 3] != 0:
-            #         continue
-            #     dep_ngb = bathy[r - 3, c - 3]
+            if r > 2 and c > 2 and dist > 2:
+                if flag_grid[r - 1, c - 3] != 0:
+                    continue
+                if flag_grid[r - 2, c - 3] != 0:
+                    continue
+                if flag_grid[r - 3, c - 3] != 0:
+                    continue
+                if flag_grid[r - 1, c - 2] != 0:
+                    continue
+                if flag_grid[r - 2, c - 2] != 0:
+                    continue
+                if flag_grid[r - 3, c - 2] != 0:
+                    continue
+                if flag_grid[r - 2, c - 1] != 0:
+                    continue
+                if flag_grid[r - 3, c - 1] != 0:
+                    continue
 
             # evaluate depth difference
             if not npy_isnan(dep_ngb):
@@ -1499,10 +1536,23 @@ cpdef check_noisy_margins_double(double[:, :] bathy, int[:, :] flag_grid, int di
                 if flag_grid[r + 2, c + 2] != 0:
                     continue
                 dep_ngb = bathy[r + 2, c + 2]
-            # if npy_isnan(dep_ngb) and (r < rows - 3) and (c < cols - 3):
-            #     if flag_grid[r + 3, c + 3] != 0:
-            #         continue
-            #     dep_ngb = bathy[r + 3, c + 3]
+            if (r < rows - 3) and (c < cols - 3) and dist > 2:
+                if flag_grid[r + 2, c + 1] != 0:
+                    continue
+                if flag_grid[r + 3, c + 1] != 0:
+                    continue
+                if flag_grid[r + 1, c + 2] != 0:
+                    continue
+                if flag_grid[r + 2, c + 2] != 0:
+                    continue
+                if flag_grid[r + 3, c + 2] != 0:
+                    continue
+                if flag_grid[r + 1, c + 3] != 0:
+                    continue
+                if flag_grid[r + 2, c + 3] != 0:
+                    continue
+                if flag_grid[r + 3, c + 3] != 0:
+                    continue
 
             # evaluate depth difference
             if not npy_isnan(dep_ngb):
@@ -1523,10 +1573,23 @@ cpdef check_noisy_margins_double(double[:, :] bathy, int[:, :] flag_grid, int di
                 if flag_grid[r - 2, c + 2] != 0:
                     continue
                 dep_ngb = bathy[r - 2, c + 2]
-            # if npy_isnan(dep_ngb) and r > 2 and c > 2:
-            #     if flag_grid[r - 3, c + 3] != 0:
-            #         continue
-            #     dep_ngb = bathy[r - 3, c + 3]
+            if r > 2 and c > 2 and dist > 2:
+                if flag_grid[r - 2, c + 1] != 0:
+                    continue
+                if flag_grid[r - 3, c + 1] != 0:
+                    continue
+                if flag_grid[r - 1, c + 2] != 0:
+                    continue
+                if flag_grid[r - 2, c + 2] != 0:
+                    continue
+                if flag_grid[r - 3, c + 2] != 0:
+                    continue
+                if flag_grid[r - 1, c + 3] != 0:
+                    continue
+                if flag_grid[r - 2, c + 3] != 0:
+                    continue
+                if flag_grid[r - 3, c + 3] != 0:
+                    continue
 
             # evaluate depth difference
             if not npy_isnan(dep_ngb):
@@ -1544,13 +1607,24 @@ cpdef check_noisy_margins_double(double[:, :] bathy, int[:, :] flag_grid, int di
                 continue
             dep_ngb = bathy[r + 1, c - 1]
             if npy_isnan(dep_ngb) and (r < rows - 2) and c > 1  and dist > 2:
+                dep_ngb = bathy[r + 2, c - 2]
+            if (r < rows - 3) and c > 2 and dist > 2:
+                if flag_grid[r + 2, c - 1] != 0:
+                    continue
+                if flag_grid[r + 3, c - 1] != 0:
+                    continue
+                if flag_grid[r + 1, c - 2] != 0:
+                    continue
                 if flag_grid[r + 2, c - 2] != 0:
                     continue
-                dep_ngb = bathy[r + 2, c - 2]
-            # if npy_isnan(dep_ngb) and (r < rows - 3) and c > 2:
-            #     if flag_grid[r + 3, c - 3] != 0:
-            #         continue
-            #     dep_ngb = bathy[r + 3, c - 3]
+                if flag_grid[r + 3, c - 2] != 0:
+                    continue
+                if flag_grid[r + 1, c - 3] != 0:
+                    continue
+                if flag_grid[r + 2, c - 3] != 0:
+                    continue
+                if flag_grid[r + 3, c - 3] != 0:
+                    continue
 
             # evaluate depth difference
             if not npy_isnan(dep_ngb):
@@ -1564,7 +1638,7 @@ cpdef check_noisy_margins_double(double[:, :] bathy, int[:, :] flag_grid, int di
             if ngb_cnt == 0:
                 continue
 
-            if ngb_cnt > 6:
+            if ngb_cnt >= 6:
                 continue
 
             if min_dep >= -100.0:
@@ -1574,7 +1648,7 @@ cpdef check_noisy_margins_double(double[:, :] bathy, int[:, :] flag_grid, int di
                 th = (1. + (0.023 * -min_dep) ** 2) ** 0.5
 
             if max_diff > cf * th:
-                flag_grid[r, c] = 6  # check #6
+                flag_grid[r, c] = 7  # check #7
                 logger.debug("(%s, %s) count: %s, max diff: %.2f, min z: %.2f -> th: %.2f"
                              % (r, c, ngb_cnt, max_diff, min_dep, th))
 
@@ -1587,7 +1661,7 @@ cpdef check_noisy_margins_double(double[:, :] bathy, int[:, :] flag_grid, int di
 #@cython.profile(True)
 cpdef check_noisy_margins_float(float[:, :] bathy, int[:, :] flag_grid, int dist, float cf):
 
-    logging.debug("[noisy edges] float bathy (dist: %d, cf: %.2f)" % (dist, cf))
+    logger.debug("[noisy margins] float bathy (dist: %d, cf: %.2f)" % (dist, cf))
 
     cdef np.npy_intp rows = bathy.shape[0]  # number of rows
     cdef np.npy_intp cols = bathy.shape[1]  # number of columns
@@ -1631,13 +1705,16 @@ cpdef check_noisy_margins_float(float[:, :] bathy, int[:, :] flag_grid, int dist
                 continue
             dep_ngb = bathy[r, c - 1]
             if npy_isnan(dep_ngb) and c > 1:
+                dep_ngb = bathy[r, c - 2]
+            if npy_isnan(dep_ngb) and c > 2 and dist > 2:
+                dep_ngb = bathy[r, c - 3]
+            if c > 3 and dist > 2:
                 if flag_grid[r, c - 2] != 0:
                     continue
-                dep_ngb = bathy[r, c - 2]
-            if npy_isnan(dep_ngb) and c > 2  and dist > 2:
                 if flag_grid[r, c - 3] != 0:
                     continue
-                dep_ngb = bathy[r, c - 3]
+                if flag_grid[r, c - 4] != 0:
+                    continue
 
             # evaluate depth difference
             if not npy_isnan(dep_ngb):
@@ -1662,6 +1739,13 @@ cpdef check_noisy_margins_float(float[:, :] bathy, int[:, :] flag_grid, int dist
                 if flag_grid[r, c + 3] != 0:
                     continue
                 dep_ngb = bathy[r, c + 3]
+            if (c < cols - 4) and dist > 2:
+                if flag_grid[r, c + 2] != 0:
+                    continue
+                if flag_grid[r, c + 3] != 0:
+                    continue
+                if flag_grid[r, c + 4] != 0:
+                    continue
 
             # evaluate depth difference
             if not npy_isnan(dep_ngb):
@@ -1682,10 +1766,17 @@ cpdef check_noisy_margins_float(float[:, :] bathy, int[:, :] flag_grid, int dist
                 if flag_grid[r - 2, c] != 0:
                     continue
                 dep_ngb = bathy[r - 2, c]
-            if npy_isnan(dep_ngb) and r > 2 and dist > 2:
+            if npy_isnan(dep_ngb) and r > 2  and dist > 2:
                 if flag_grid[r - 3, c] != 0:
                     continue
                 dep_ngb = bathy[r - 3, c]
+            if r > 3  and dist > 2:
+                if flag_grid[r - 2, c] != 0:
+                    continue
+                if flag_grid[r - 3, c] != 0:
+                    continue
+                if flag_grid[r - 4, c] != 0:
+                    continue
 
             # evaluate depth difference
             if not npy_isnan(dep_ngb):
@@ -1706,10 +1797,17 @@ cpdef check_noisy_margins_float(float[:, :] bathy, int[:, :] flag_grid, int dist
                 if flag_grid[r + 2, c] != 0:
                     continue
                 dep_ngb = bathy[r + 2, c]
-            if npy_isnan(dep_ngb) and (r < rows - 3) and dist > 2:
+            if npy_isnan(dep_ngb) and (r < rows - 3)  and dist > 2:
                 if flag_grid[r + 3, c] != 0:
                     continue
                 dep_ngb = bathy[r + 3, c]
+            if (r < rows - 4)  and dist > 2:
+                if flag_grid[r + 2, c] != 0:
+                    continue
+                if flag_grid[r + 3, c] != 0:
+                    continue
+                if flag_grid[r + 4, c] != 0:
+                    continue
 
             # evaluate depth difference
             if not npy_isnan(dep_ngb):
@@ -1730,10 +1828,23 @@ cpdef check_noisy_margins_float(float[:, :] bathy, int[:, :] flag_grid, int dist
                 if flag_grid[r - 2, c - 2] != 0:
                     continue
                 dep_ngb = bathy[r - 2, c - 2]
-            # if npy_isnan(dep_ngb) and r > 2 and c > 2:
-            #     if flag_grid[r - 3, c - 3] != 0:
-            #         continue
-            #     dep_ngb = bathy[r - 3, c - 3]
+            if r > 2 and c > 2 and dist > 2:
+                if flag_grid[r - 1, c - 3] != 0:
+                    continue
+                if flag_grid[r - 2, c - 3] != 0:
+                    continue
+                if flag_grid[r - 3, c - 3] != 0:
+                    continue
+                if flag_grid[r - 1, c - 2] != 0:
+                    continue
+                if flag_grid[r - 2, c - 2] != 0:
+                    continue
+                if flag_grid[r - 3, c - 2] != 0:
+                    continue
+                if flag_grid[r - 2, c - 1] != 0:
+                    continue
+                if flag_grid[r - 3, c - 1] != 0:
+                    continue
 
             # evaluate depth difference
             if not npy_isnan(dep_ngb):
@@ -1754,10 +1865,23 @@ cpdef check_noisy_margins_float(float[:, :] bathy, int[:, :] flag_grid, int dist
                 if flag_grid[r + 2, c + 2] != 0:
                     continue
                 dep_ngb = bathy[r + 2, c + 2]
-            # if npy_isnan(dep_ngb) and (r < rows - 3) and (c < cols - 3):
-            #     if flag_grid[r + 3, c + 3] != 0:
-            #         continue
-            #     dep_ngb = bathy[r + 3, c + 3]
+            if (r < rows - 3) and (c < cols - 3) and dist > 2:
+                if flag_grid[r + 2, c + 1] != 0:
+                    continue
+                if flag_grid[r + 3, c + 1] != 0:
+                    continue
+                if flag_grid[r + 1, c + 2] != 0:
+                    continue
+                if flag_grid[r + 2, c + 2] != 0:
+                    continue
+                if flag_grid[r + 3, c + 2] != 0:
+                    continue
+                if flag_grid[r + 1, c + 3] != 0:
+                    continue
+                if flag_grid[r + 2, c + 3] != 0:
+                    continue
+                if flag_grid[r + 3, c + 3] != 0:
+                    continue
 
             # evaluate depth difference
             if not npy_isnan(dep_ngb):
@@ -1778,10 +1902,23 @@ cpdef check_noisy_margins_float(float[:, :] bathy, int[:, :] flag_grid, int dist
                 if flag_grid[r - 2, c + 2] != 0:
                     continue
                 dep_ngb = bathy[r - 2, c + 2]
-            # if npy_isnan(dep_ngb) and r > 2 and c > 2:
-            #     if flag_grid[r - 3, c + 3] != 0:
-            #         continue
-            #     dep_ngb = bathy[r - 3, c + 3]
+            if r > 2 and c > 2 and dist > 2:
+                if flag_grid[r - 2, c + 1] != 0:
+                    continue
+                if flag_grid[r - 3, c + 1] != 0:
+                    continue
+                if flag_grid[r - 1, c + 2] != 0:
+                    continue
+                if flag_grid[r - 2, c + 2] != 0:
+                    continue
+                if flag_grid[r - 3, c + 2] != 0:
+                    continue
+                if flag_grid[r - 1, c + 3] != 0:
+                    continue
+                if flag_grid[r - 2, c + 3] != 0:
+                    continue
+                if flag_grid[r - 3, c + 3] != 0:
+                    continue
 
             # evaluate depth difference
             if not npy_isnan(dep_ngb):
@@ -1798,14 +1935,25 @@ cpdef check_noisy_margins_float(float[:, :] bathy, int[:, :] flag_grid, int dist
             if flag_grid[r + 1, c - 1] != 0:
                 continue
             dep_ngb = bathy[r + 1, c - 1]
-            if npy_isnan(dep_ngb) and (r < rows - 2) and c > 1 and dist > 2:
+            if npy_isnan(dep_ngb) and (r < rows - 2) and c > 1  and dist > 2:
+                dep_ngb = bathy[r + 2, c - 2]
+            if (r < rows - 3) and c > 2 and dist > 2:
+                if flag_grid[r + 2, c - 1] != 0:
+                    continue
+                if flag_grid[r + 3, c - 1] != 0:
+                    continue
+                if flag_grid[r + 1, c - 2] != 0:
+                    continue
                 if flag_grid[r + 2, c - 2] != 0:
                     continue
-                dep_ngb = bathy[r + 2, c - 2]
-            # if npy_isnan(dep_ngb) and (r < rows - 3) and c > 2:
-            #     if flag_grid[r + 3, c - 3] != 0:
-            #         continue
-            #     dep_ngb = bathy[r + 3, c - 3]
+                if flag_grid[r + 3, c - 2] != 0:
+                    continue
+                if flag_grid[r + 1, c - 3] != 0:
+                    continue
+                if flag_grid[r + 2, c - 3] != 0:
+                    continue
+                if flag_grid[r + 3, c - 3] != 0:
+                    continue
 
             # evaluate depth difference
             if not npy_isnan(dep_ngb):
@@ -1817,11 +1965,9 @@ cpdef check_noisy_margins_float(float[:, :] bathy, int[:, :] flag_grid, int dist
                     max_diff = ngb_diff
 
             if ngb_cnt == 0:
-                # managed by #5
                 continue
 
-            if ngb_cnt > 6:
-                # not an edge
+            if ngb_cnt >= 6:
                 continue
 
             if min_dep >= -100.0:
@@ -1831,6 +1977,6 @@ cpdef check_noisy_margins_float(float[:, :] bathy, int[:, :] flag_grid, int dist
                 th = (1. + (0.023 * -min_dep) ** 2) ** 0.5
 
             if max_diff > cf * th:
-                flag_grid[r, c] = 6  # check #6
+                flag_grid[r, c] = 7  # check #7
                 logger.debug("(%s, %s) count: %s, max diff: %.2f, min z: %.2f -> th: %.2f"
                              % (r, c, ngb_cnt, max_diff, min_dep, th))

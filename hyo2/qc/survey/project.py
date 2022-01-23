@@ -245,6 +245,7 @@ class SurveyProject(BaseProject):
                                         check_slivers=check_slivers,
                                         check_isolated=check_isolated,
                                         check_edges=check_edges,
+                                        check_margins=check_margins,
                                         filter_fff=filter_fff,
                                         filter_designated=filter_designated,
                                         save_bathy=export_bathy,
