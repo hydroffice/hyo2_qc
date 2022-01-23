@@ -2,10 +2,9 @@ import logging
 from PySide2 import QtWidgets
 
 from hyo2.abc.lib.logging import set_logging
+from hyo2.abc.app.qt_progress import QtProgress
 from hyo2.qc.survey.project import SurveyProject
 from hyo2.qc.common import testing
-
-from hyo2.abc.app.qt_progress import QtProgress
 
 logger = logging.getLogger(__name__)
 set_logging(ns_list=["hyo2.qc", ])
@@ -23,8 +22,8 @@ is_target_detection = False
 
 prj = SurveyProject(output_folder=testing.output_data_folder(), progress=QtProgress(parent=wid))
 
-# add a S57 file
 if use_internal_test_files:
+    # add a S57 file
     s57_idx = 0
     s57_files = testing.input_test_files(".000")
     logger.debug("- test S57 files: %d" % len(s57_files))

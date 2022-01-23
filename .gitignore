@@ -68,8 +68,7 @@ data/temp/
 data/output/
 
 hyo2/qc/survey/gridqa/grid_qa_calc_v4.cpp
-hyo2/qc/survey/fliers/find_fliers_checks_v7.cpp
-hyo2/qc/survey/fliers/find_fliers_checks_v8.cpp
+hyo2/qc/survey/fliers/find_fliers_checks.cpp
 
 # resources folder
 resources/~$icons.pptx

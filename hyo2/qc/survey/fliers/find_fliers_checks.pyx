@@ -633,6 +633,186 @@ cpdef check_adjacent_cells_float(float[:, :] bathy, int[:, :] flag_grid, float t
                              % (r, c, dif_neg_cnt, ngb_cnt, neg_ratio, thr))
                 continue
 
+
+# noinspection PyUnresolvedReferences
+@cython.cdivision(True)
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.nonecheck(False)
+#@cython.profile(True)
+cpdef check_small_groups_float(np.ndarray[np.uint8_t, ndim=2, cast=True] grid_bin, float[:, :] bathy, int[:, :] flag_grid, float th, double area_limit,
+                         bint check_slivers, bint check_isolated):
+
+    cdef np.npy_intp last_r, last_c, r, c
+    cdef np.npy_intp rows = grid_bin.shape[0]
+    cdef np.npy_intp cols = grid_bin.shape[1]
+
+    cdef vector[np.npy_intp] nb_cs
+    cdef vector[np.npy_intp] nb_rs
+    cdef np.npy_intp nbs_sz, ni
+
+    cdef int i, j, conn_count
+    cdef int n_labels
+    cdef np.ndarray[np.int32_t, ndim=2] img_labels
+    cdef np.int32_t nl
+
+    img_labels, n_labels = ndimage.label(grid_bin)
+    cdef np.ndarray[np.float64_t, ndim=1] sizes = ndimage.sum(grid_bin, img_labels, range(1, n_labels + 1))
+
+    for i in range(sizes.shape[0]):
+
+        # check only small groups
+        if sizes[i] > area_limit:
+            continue
+
+        i += 1
+        conn_count = 0
+        find = False
+        last_r = 0
+        last_c = 0
+        for r in range(4, rows - 4):  # skip bbox boundaries
+
+            for c in range(4, cols - 4):  # skip bbox boundaries
+
+                # skip if the cell does not belong to the current small group
+                if img_labels[r, c] != i:
+                    continue
+                last_r, last_c = r, c
+
+                nb_rs.clear()
+                nb_cs.clear()
+                # check for a valid connection to a grid body
+                #                n1                      n2                      n3                      n4
+                nb_rs.push_back(r + 1); nb_rs.push_back(r - 1); nb_rs.push_back(r - 1); nb_rs.push_back(r + 1)
+                nb_cs.push_back(c + 1); nb_cs.push_back(c + 1); nb_cs.push_back(c - 1); nb_cs.push_back(c - 1)
+                #                n5                      n6                      n7                      n8                      n9                      n10                     n11                     n12
+                nb_rs.push_back(r + 2); nb_rs.push_back(r + 2); nb_rs.push_back(r + 0); nb_rs.push_back(r - 2); nb_rs.push_back(r - 2); nb_rs.push_back(r - 2); nb_rs.push_back(r + 0); nb_rs.push_back(r + 2)
+                nb_cs.push_back(c + 0); nb_cs.push_back(c + 2); nb_cs.push_back(c + 2); nb_cs.push_back(c + 2); nb_cs.push_back(c + 0); nb_cs.push_back(c - 2); nb_cs.push_back(c - 2); nb_cs.push_back(c - 2)
+                #                n13                     n14                     n15                     n16                     n17                     n18                     n19                     n20
+                nb_rs.push_back(r + 3); nb_rs.push_back(r + 3); nb_rs.push_back(r + 0); nb_rs.push_back(r - 3); nb_rs.push_back(r - 3); nb_rs.push_back(r - 3); nb_rs.push_back(r + 0); nb_rs.push_back(r + 3)
+                nb_cs.push_back(c + 0); nb_cs.push_back(c + 3); nb_cs.push_back(c + 3); nb_cs.push_back(c + 3); nb_cs.push_back(c + 0); nb_cs.push_back(c - 3); nb_cs.push_back(c - 3); nb_cs.push_back(c - 3)
+                #                n21                     n22                     n23                     n24                     n25                     n26                     n27                     n28
+                nb_rs.push_back(r + 4); nb_rs.push_back(r + 4); nb_rs.push_back(r + 0); nb_rs.push_back(r - 4); nb_rs.push_back(r - 4); nb_rs.push_back(r - 4); nb_rs.push_back(r + 0); nb_rs.push_back(r + 4)
+                nb_cs.push_back(c + 0); nb_cs.push_back(c + 4); nb_cs.push_back(c + 4); nb_cs.push_back(c + 4); nb_cs.push_back(c + 0); nb_cs.push_back(c - 4); nb_cs.push_back(c - 4); nb_cs.push_back(c - 4)
+
+                nbs_sz = nb_rs.size()
+
+                for ni in range(nbs_sz):
+
+                    nl = img_labels[nb_rs[ni], nb_cs[ni]]
+                    if (nl != 0) and (nl != i) and (sizes[nl - 1] > area_limit):
+                        conn_count += 1
+                        find = True
+
+                        if (abs(bathy[r, c] - bathy[nb_rs[ni], nb_cs[ni]]) > th) \
+                                and check_slivers:
+                            flag_grid[r, c] = 4  # check #4
+                            logging.info("#4 > n%s @(%s, %s)" % (ni + 1, r, c))
+                        break
+
+                if find:
+                    break
+
+            if find:
+                break
+
+        # it is an isolated group
+        if (last_r > 4) and (last_r < rows - 4) and (last_c > 4) and (last_c < cols - 4):
+            if (conn_count == 0) and check_isolated:
+                flag_grid[last_r, last_c] = 5  # check #5
+                logging.info("#5 > @(%s, %s)" % (last_r, last_c))
+
+
+# noinspection PyUnresolvedReferences
+@cython.cdivision(True)
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.nonecheck(False)
+#@cython.profile(True)
+cpdef check_small_groups_double(np.ndarray[np.uint8_t, ndim=2, cast=True] grid_bin, double[:, :] bathy,
+                                int[:, :] flag_grid, float th, double area_limit,
+                                bint check_slivers, bint check_isolated):
+
+    cdef np.npy_intp last_r, last_c, r, c
+    cdef np.npy_intp rows = grid_bin.shape[0]
+    cdef np.npy_intp cols = grid_bin.shape[1]
+
+    cdef vector[np.npy_intp] nb_cs
+    cdef vector[np.npy_intp] nb_rs
+    cdef np.npy_intp nbs_sz, ni
+
+    cdef int i, j, conn_count
+    cdef int n_labels
+    cdef np.ndarray[np.int32_t, ndim=2] img_labels
+    cdef np.int32_t nl
+
+    img_labels, n_labels = ndimage.label(grid_bin)
+    cdef np.ndarray[np.float64_t, ndim=1] sizes = ndimage.sum(grid_bin, img_labels, range(1, n_labels + 1))
+
+    for i in range(sizes.shape[0]):
+
+        # check only small groups
+        if sizes[i] > area_limit:
+            continue
+
+        i += 1
+        conn_count = 0
+        find = False
+        last_r = 0
+        last_c = 0
+        for r in range(4, rows - 4):  # skip bbox boundaries
+
+            for c in range(4, cols - 4):  # skip bbox boundaries
+
+                # skip if the cell does not belong to the current small group
+                if img_labels[r, c] != i:
+                    continue
+                last_r, last_c = r, c
+
+                nb_rs.clear()
+                nb_cs.clear()
+                # check for a valid connection to a grid body
+                #                n1                      n2                      n3                      n4
+                nb_rs.push_back(r + 1); nb_rs.push_back(r - 1); nb_rs.push_back(r - 1); nb_rs.push_back(r + 1)
+                nb_cs.push_back(c + 1); nb_cs.push_back(c + 1); nb_cs.push_back(c - 1); nb_cs.push_back(c - 1)
+                #                n5                      n6                      n7                      n8                      n9                      n10                     n11                     n12
+                nb_rs.push_back(r + 2); nb_rs.push_back(r + 2); nb_rs.push_back(r + 0); nb_rs.push_back(r - 2); nb_rs.push_back(r - 2); nb_rs.push_back(r - 2); nb_rs.push_back(r + 0); nb_rs.push_back(r + 2)
+                nb_cs.push_back(c + 0); nb_cs.push_back(c + 2); nb_cs.push_back(c + 2); nb_cs.push_back(c + 2); nb_cs.push_back(c + 0); nb_cs.push_back(c - 2); nb_cs.push_back(c - 2); nb_cs.push_back(c - 2)
+                #                n13                     n14                     n15                     n16                     n17                     n18                     n19                     n20
+                nb_rs.push_back(r + 3); nb_rs.push_back(r + 3); nb_rs.push_back(r + 0); nb_rs.push_back(r - 3); nb_rs.push_back(r - 3); nb_rs.push_back(r - 3); nb_rs.push_back(r + 0); nb_rs.push_back(r + 3)
+                nb_cs.push_back(c + 0); nb_cs.push_back(c + 3); nb_cs.push_back(c + 3); nb_cs.push_back(c + 3); nb_cs.push_back(c + 0); nb_cs.push_back(c - 3); nb_cs.push_back(c - 3); nb_cs.push_back(c - 3)
+                #                n21                     n22                     n23                     n24                     n25                     n26                     n27                     n28
+                nb_rs.push_back(r + 4); nb_rs.push_back(r + 4); nb_rs.push_back(r + 0); nb_rs.push_back(r - 4); nb_rs.push_back(r - 4); nb_rs.push_back(r - 4); nb_rs.push_back(r + 0); nb_rs.push_back(r + 4)
+                nb_cs.push_back(c + 0); nb_cs.push_back(c + 4); nb_cs.push_back(c + 4); nb_cs.push_back(c + 4); nb_cs.push_back(c + 0); nb_cs.push_back(c - 4); nb_cs.push_back(c - 4); nb_cs.push_back(c - 4)
+
+                nbs_sz = nb_rs.size()
+
+                for ni in range(nbs_sz):
+
+                    nl = img_labels[nb_rs[ni], nb_cs[ni]]
+                    if (nl != 0) and (nl != i) and (sizes[nl - 1] > area_limit):
+                        conn_count += 1
+                        find = True
+
+                        if (abs(bathy[r, c] - bathy[nb_rs[ni], nb_cs[ni]]) > th) \
+                                and check_slivers:
+                            flag_grid[r, c] = 4  # check #4
+                            logging.info("#4 > n%s @(%s, %s)" % (ni + 1, r, c))
+                        break
+
+                if find:
+                    break
+
+            if find:
+                break
+
+        # it is an isolated group
+        if (last_r > 4) and (last_r < rows - 4) and (last_c > 4) and (last_c < cols - 4):
+            if (conn_count == 0) and check_isolated:
+                flag_grid[last_r, last_c] = 5  # check #5
+                logging.info("#5 > @(%s, %s)" % (last_r, last_c))
+
+
 # noinspection PyUnresolvedReferences
 @cython.cdivision(True)
 @cython.boundscheck(False)
@@ -1150,87 +1330,253 @@ cpdef check_noisy_edges_float(float[:, :] bathy, int[:, :] flag_grid, int dist, 
 @cython.wraparound(False)
 @cython.nonecheck(False)
 #@cython.profile(True)
-cpdef check_small_groups_float(np.ndarray[np.uint8_t, ndim=2, cast=True] grid_bin, float[:, :] bathy, int[:, :] flag_grid, float th, double area_limit,
-                         bint check_slivers, bint check_isolated):
+cpdef check_noisy_margins_double(double[:, :] bathy, int[:, :] flag_grid, int dist, float cf):
 
-    cdef np.npy_intp last_r, last_c, r, c
-    cdef np.npy_intp rows = grid_bin.shape[0]
-    cdef np.npy_intp cols = grid_bin.shape[1]
+    logging.debug("[noisy edges] double bathy (dist: %d, cf: %.2f)" % (dist, cf))
 
-    cdef vector[np.npy_intp] nb_cs
-    cdef vector[np.npy_intp] nb_rs
-    cdef np.npy_intp nbs_sz, ni
+    cdef np.npy_intp rows = bathy.shape[0]  # number of rows
+    cdef np.npy_intp cols = bathy.shape[1]  # number of columns
+    cdef np.npy_intp r, c
+    cdef float dep_node, dep_ngb
+    cdef float pos_ratio, neg_ratio, thr
+    cdef int ngb_cnt
+    cdef float min_dep, max_diff, ngb_diff
 
-    cdef int i, j, conn_count
-    cdef int n_labels
-    cdef np.ndarray[np.int32_t, ndim=2] img_labels
-    cdef np.int32_t nl
+    # the grid is traversed row by row
 
-    img_labels, n_labels = ndimage.label(grid_bin)
-    cdef np.ndarray[np.float64_t, ndim=1] sizes = ndimage.sum(grid_bin, img_labels, range(1, n_labels + 1))
+    for r in range(rows):  # we get the row
 
-    for i in range(sizes.shape[0]):
-
-        # check only small groups
-        if sizes[i] > area_limit:
+        if (r == 0) or (r == rows - 1):
             continue
 
-        i += 1
-        conn_count = 0
-        find = False
-        last_r = 0
-        last_c = 0
-        for r in range(4, rows - 4):  # skip bbox boundaries
+        for c in range(cols):  # we get the column
 
-            for c in range(4, cols - 4):  # skip bbox boundaries
+            if (c == 0) or (c == cols - 1):
+                continue
 
-                # skip if the cell does not belong to the current small group
-                if img_labels[r, c] != i:
+            if flag_grid[r, c] != 0:  # avoid existing flagged nodes
+                continue
+
+            # for each node in the grid, the depth is retrieved
+            dep_node = bathy[r, c]
+
+            # any further calculation is skipped in case of a no-data value
+            if npy_isnan(dep_node):
+                continue
+
+            ngb_cnt = 0  # initialize the number of neighbors
+            ngb_diff = 0.0
+            min_dep = -9999.9
+            max_diff = 0.0
+
+            # - left node
+
+            # attempt to retrieve depth
+            if flag_grid[r, c - 1] != 0:
+                continue
+            dep_ngb = bathy[r, c - 1]
+            if npy_isnan(dep_ngb) and c > 1:
+                if flag_grid[r, c - 2] != 0:
                     continue
-                last_r, last_c = r, c
+                dep_ngb = bathy[r, c - 2]
+            if npy_isnan(dep_ngb) and c > 2 and dist > 2:
+                if flag_grid[r, c - 3] != 0:
+                    continue
+                dep_ngb = bathy[r, c - 3]
 
-                nb_rs.clear()
-                nb_cs.clear()
-                # check for a valid connection to a grid body
-                #                n1                      n2                      n3                      n4
-                nb_rs.push_back(r + 1); nb_rs.push_back(r - 1); nb_rs.push_back(r - 1); nb_rs.push_back(r + 1)
-                nb_cs.push_back(c + 1); nb_cs.push_back(c + 1); nb_cs.push_back(c - 1); nb_cs.push_back(c - 1)
-                #                n5                      n6                      n7                      n8                      n9                      n10                     n11                     n12
-                nb_rs.push_back(r + 2); nb_rs.push_back(r + 2); nb_rs.push_back(r + 0); nb_rs.push_back(r - 2); nb_rs.push_back(r - 2); nb_rs.push_back(r - 2); nb_rs.push_back(r + 0); nb_rs.push_back(r + 2)
-                nb_cs.push_back(c + 0); nb_cs.push_back(c + 2); nb_cs.push_back(c + 2); nb_cs.push_back(c + 2); nb_cs.push_back(c + 0); nb_cs.push_back(c - 2); nb_cs.push_back(c - 2); nb_cs.push_back(c - 2)
-                #                n13                     n14                     n15                     n16                     n17                     n18                     n19                     n20
-                nb_rs.push_back(r + 3); nb_rs.push_back(r + 3); nb_rs.push_back(r + 0); nb_rs.push_back(r - 3); nb_rs.push_back(r - 3); nb_rs.push_back(r - 3); nb_rs.push_back(r + 0); nb_rs.push_back(r + 3)
-                nb_cs.push_back(c + 0); nb_cs.push_back(c + 3); nb_cs.push_back(c + 3); nb_cs.push_back(c + 3); nb_cs.push_back(c + 0); nb_cs.push_back(c - 3); nb_cs.push_back(c - 3); nb_cs.push_back(c - 3)
-                #                n21                     n22                     n23                     n24                     n25                     n26                     n27                     n28
-                nb_rs.push_back(r + 4); nb_rs.push_back(r + 4); nb_rs.push_back(r + 0); nb_rs.push_back(r - 4); nb_rs.push_back(r - 4); nb_rs.push_back(r - 4); nb_rs.push_back(r + 0); nb_rs.push_back(r + 4)
-                nb_cs.push_back(c + 0); nb_cs.push_back(c + 4); nb_cs.push_back(c + 4); nb_cs.push_back(c + 4); nb_cs.push_back(c + 0); nb_cs.push_back(c - 4); nb_cs.push_back(c - 4); nb_cs.push_back(c - 4)
+            # evaluate depth difference
+            if not npy_isnan(dep_ngb):
+                ngb_cnt += 1
+                if dep_ngb > min_dep:
+                    min_dep = dep_ngb
+                ngb_diff = abs(dep_node - dep_ngb)
+                if ngb_diff > max_diff:
+                    max_diff = ngb_diff
 
-                nbs_sz = nb_rs.size()
+            # - right node
 
-                for ni in range(nbs_sz):
+            # attempt to retrieve depth
+            if flag_grid[r, c + 1] != 0:
+                continue
+            dep_ngb = bathy[r, c + 1]
+            if npy_isnan(dep_ngb) and (c < cols - 2):
+                if flag_grid[r, c + 2] != 0:
+                    continue
+                dep_ngb = bathy[r, c + 2]
+            if npy_isnan(dep_ngb) and (c < cols - 3) and dist > 2:
+                if flag_grid[r, c + 3] != 0:
+                    continue
+                dep_ngb = bathy[r, c + 3]
 
-                    nl = img_labels[nb_rs[ni], nb_cs[ni]]
-                    if (nl != 0) and (nl != i) and (sizes[nl - 1] > area_limit):
-                        conn_count += 1
-                        find = True
+            # evaluate depth difference
+            if not npy_isnan(dep_ngb):
+                ngb_cnt += 1
+                if dep_ngb > min_dep:
+                    min_dep = dep_ngb
+                ngb_diff = abs(dep_node - dep_ngb)
+                if ngb_diff > max_diff:
+                    max_diff = ngb_diff
 
-                        if (abs(bathy[r, c] - bathy[nb_rs[ni], nb_cs[ni]]) > th) \
-                                and check_slivers:
-                            flag_grid[r, c] = 4  # check #4
-                            logging.info("#4 > n%s @(%s, %s)" % (ni + 1, r, c))
-                        break
+            # - bottom node
 
-                if find:
-                    break
+            # attempt to retrieve depth
+            if flag_grid[r - 1, c] != 0:
+                continue
+            dep_ngb = bathy[r - 1, c]
+            if npy_isnan(dep_ngb) and r > 1:
+                if flag_grid[r - 2, c] != 0:
+                    continue
+                dep_ngb = bathy[r - 2, c]
+            if npy_isnan(dep_ngb) and r > 2  and dist > 2:
+                if flag_grid[r - 3, c] != 0:
+                    continue
+                dep_ngb = bathy[r - 3, c]
 
-            if find:
-                break
+            # evaluate depth difference
+            if not npy_isnan(dep_ngb):
+                ngb_cnt += 1
+                if dep_ngb > min_dep:
+                    min_dep = dep_ngb
+                ngb_diff = abs(dep_node - dep_ngb)
+                if ngb_diff > max_diff:
+                    max_diff = ngb_diff
 
-        # it is an isolated group
-        if (last_r > 4) and (last_r < rows - 4) and (last_c > 4) and (last_c < cols - 4):
-            if (conn_count == 0) and check_isolated:
-                flag_grid[last_r, last_c] = 5  # check #5
-                logging.info("#5 > @(%s, %s)" % (last_r, last_c))
+            # - top node
+
+            # attempt to retrieve depth
+            if flag_grid[r + 1, c] != 0:
+                continue
+            dep_ngb = bathy[r + 1, c]
+            if npy_isnan(dep_ngb) and (r < rows - 2):
+                if flag_grid[r + 2, c] != 0:
+                    continue
+                dep_ngb = bathy[r + 2, c]
+            if npy_isnan(dep_ngb) and (r < rows - 3)  and dist > 2:
+                if flag_grid[r + 3, c] != 0:
+                    continue
+                dep_ngb = bathy[r + 3, c]
+
+            # evaluate depth difference
+            if not npy_isnan(dep_ngb):
+                ngb_cnt += 1
+                if dep_ngb > min_dep:
+                    min_dep = dep_ngb
+                ngb_diff = abs(dep_node - dep_ngb)
+                if ngb_diff > max_diff:
+                    max_diff = ngb_diff
+
+            # - bottom-left node
+
+            # attempt to retrieve depth
+            if flag_grid[r - 1, c - 1] != 0:
+                continue
+            dep_ngb = bathy[r - 1, c - 1]
+            if npy_isnan(dep_ngb) and r > 1 and c > 1  and dist > 2:
+                if flag_grid[r - 2, c - 2] != 0:
+                    continue
+                dep_ngb = bathy[r - 2, c - 2]
+            # if npy_isnan(dep_ngb) and r > 2 and c > 2:
+            #     if flag_grid[r - 3, c - 3] != 0:
+            #         continue
+            #     dep_ngb = bathy[r - 3, c - 3]
+
+            # evaluate depth difference
+            if not npy_isnan(dep_ngb):
+                ngb_cnt += 1
+                if dep_ngb > min_dep:
+                    min_dep = dep_ngb
+                ngb_diff = abs(dep_node - dep_ngb)
+                if ngb_diff > max_diff:
+                    max_diff = ngb_diff
+
+            # - top-right node
+
+            # attempt to retrieve depth
+            if flag_grid[r + 1, c + 1] != 0:
+                continue
+            dep_ngb = bathy[r + 1, c + 1]
+            if npy_isnan(dep_ngb) and (r < rows - 2) and (c < cols - 2) and dist > 2:
+                if flag_grid[r + 2, c + 2] != 0:
+                    continue
+                dep_ngb = bathy[r + 2, c + 2]
+            # if npy_isnan(dep_ngb) and (r < rows - 3) and (c < cols - 3):
+            #     if flag_grid[r + 3, c + 3] != 0:
+            #         continue
+            #     dep_ngb = bathy[r + 3, c + 3]
+
+            # evaluate depth difference
+            if not npy_isnan(dep_ngb):
+                ngb_cnt += 1
+                if dep_ngb > min_dep:
+                    min_dep = dep_ngb
+                ngb_diff = abs(dep_node - dep_ngb)
+                if ngb_diff > max_diff:
+                    max_diff = ngb_diff
+
+            # - bottom-right node
+
+            # attempt to retrieve depth
+            if flag_grid[r - 1, c + 1] != 0:
+                continue
+            dep_ngb = bathy[r - 1, c + 1]
+            if npy_isnan(dep_ngb) and r > 1 and (c < cols - 2) and dist > 2:
+                if flag_grid[r - 2, c + 2] != 0:
+                    continue
+                dep_ngb = bathy[r - 2, c + 2]
+            # if npy_isnan(dep_ngb) and r > 2 and c > 2:
+            #     if flag_grid[r - 3, c + 3] != 0:
+            #         continue
+            #     dep_ngb = bathy[r - 3, c + 3]
+
+            # evaluate depth difference
+            if not npy_isnan(dep_ngb):
+                ngb_cnt += 1
+                if dep_ngb > min_dep:
+                    min_dep = dep_ngb
+                ngb_diff = abs(dep_node - dep_ngb)
+                if ngb_diff > max_diff:
+                    max_diff = ngb_diff
+
+            # - top-left node
+
+            # attempt to retrieve depth
+            if flag_grid[r + 1, c - 1] != 0:
+                continue
+            dep_ngb = bathy[r + 1, c - 1]
+            if npy_isnan(dep_ngb) and (r < rows - 2) and c > 1  and dist > 2:
+                if flag_grid[r + 2, c - 2] != 0:
+                    continue
+                dep_ngb = bathy[r + 2, c - 2]
+            # if npy_isnan(dep_ngb) and (r < rows - 3) and c > 2:
+            #     if flag_grid[r + 3, c - 3] != 0:
+            #         continue
+            #     dep_ngb = bathy[r + 3, c - 3]
+
+            # evaluate depth difference
+            if not npy_isnan(dep_ngb):
+                ngb_cnt += 1
+                if dep_ngb > min_dep:
+                    min_dep = dep_ngb
+                ngb_diff = abs(dep_node - dep_ngb)
+                if ngb_diff > max_diff:
+                    max_diff = ngb_diff
+
+            if ngb_cnt == 0:
+                continue
+
+            if ngb_cnt > 6:
+                continue
+
+            if min_dep >= -100.0:
+                th = (0.25 + (0.013 * -min_dep) ** 2) ** 0.5
+
+            else:
+                th = (1. + (0.023 * -min_dep) ** 2) ** 0.5
+
+            if max_diff > cf * th:
+                flag_grid[r, c] = 6  # check #6
+                logger.debug("(%s, %s) count: %s, max diff: %.2f, min z: %.2f -> th: %.2f"
+                             % (r, c, ngb_cnt, max_diff, min_dep, th))
 
 
 # noinspection PyUnresolvedReferences
@@ -1239,85 +1585,252 @@ cpdef check_small_groups_float(np.ndarray[np.uint8_t, ndim=2, cast=True] grid_bi
 @cython.wraparound(False)
 @cython.nonecheck(False)
 #@cython.profile(True)
-cpdef check_small_groups_double(np.ndarray[np.uint8_t, ndim=2, cast=True] grid_bin, double[:, :] bathy,
-                                int[:, :] flag_grid, float th, double area_limit,
-                                bint check_slivers, bint check_isolated):
+cpdef check_noisy_margins_float(float[:, :] bathy, int[:, :] flag_grid, int dist, float cf):
 
-    cdef np.npy_intp last_r, last_c, r, c
-    cdef np.npy_intp rows = grid_bin.shape[0]
-    cdef np.npy_intp cols = grid_bin.shape[1]
+    logging.debug("[noisy edges] float bathy (dist: %d, cf: %.2f)" % (dist, cf))
 
-    cdef vector[np.npy_intp] nb_cs
-    cdef vector[np.npy_intp] nb_rs
-    cdef np.npy_intp nbs_sz, ni
+    cdef np.npy_intp rows = bathy.shape[0]  # number of rows
+    cdef np.npy_intp cols = bathy.shape[1]  # number of columns
+    cdef np.npy_intp r, c
+    cdef float dep_node, dep_ngb
+    cdef float pos_ratio, neg_ratio, thr
+    cdef int ngb_cnt
+    cdef float min_dep, max_diff, ngb_diff
 
-    cdef int i, j, conn_count
-    cdef int n_labels
-    cdef np.ndarray[np.int32_t, ndim=2] img_labels
-    cdef np.int32_t nl
+    # the grid is traversed row by row
 
-    img_labels, n_labels = ndimage.label(grid_bin)
-    cdef np.ndarray[np.float64_t, ndim=1] sizes = ndimage.sum(grid_bin, img_labels, range(1, n_labels + 1))
+    for r in range(rows):  # we get the row
 
-    for i in range(sizes.shape[0]):
-
-        # check only small groups
-        if sizes[i] > area_limit:
+        if (r == 0) or (r == rows - 1):
             continue
 
-        i += 1
-        conn_count = 0
-        find = False
-        last_r = 0
-        last_c = 0
-        for r in range(4, rows - 4):  # skip bbox boundaries
+        for c in range(cols):  # we get the column
 
-            for c in range(4, cols - 4):  # skip bbox boundaries
+            if (c == 0) or (c == cols - 1):
+                continue
 
-                # skip if the cell does not belong to the current small group
-                if img_labels[r, c] != i:
+            if flag_grid[r, c] != 0:  # avoid existing flagged nodes
+                continue
+
+            # for each node in the grid, the depth is retrieved
+            dep_node = bathy[r, c]
+
+            # any further calculation is skipped in case of a no-data value
+            if npy_isnan(dep_node):
+                continue
+
+            ngb_cnt = 0  # initialize the number of neighbors
+            ngb_diff = 0.0
+            min_dep = -9999.9
+            max_diff = 0.0
+
+            # - left node
+
+            # attempt to retrieve depth
+            if flag_grid[r, c - 1] != 0:
+                continue
+            dep_ngb = bathy[r, c - 1]
+            if npy_isnan(dep_ngb) and c > 1:
+                if flag_grid[r, c - 2] != 0:
                     continue
-                last_r, last_c = r, c
+                dep_ngb = bathy[r, c - 2]
+            if npy_isnan(dep_ngb) and c > 2  and dist > 2:
+                if flag_grid[r, c - 3] != 0:
+                    continue
+                dep_ngb = bathy[r, c - 3]
 
-                nb_rs.clear()
-                nb_cs.clear()
-                # check for a valid connection to a grid body
-                #                n1                      n2                      n3                      n4
-                nb_rs.push_back(r + 1); nb_rs.push_back(r - 1); nb_rs.push_back(r - 1); nb_rs.push_back(r + 1)
-                nb_cs.push_back(c + 1); nb_cs.push_back(c + 1); nb_cs.push_back(c - 1); nb_cs.push_back(c - 1)
-                #                n5                      n6                      n7                      n8                      n9                      n10                     n11                     n12
-                nb_rs.push_back(r + 2); nb_rs.push_back(r + 2); nb_rs.push_back(r + 0); nb_rs.push_back(r - 2); nb_rs.push_back(r - 2); nb_rs.push_back(r - 2); nb_rs.push_back(r + 0); nb_rs.push_back(r + 2)
-                nb_cs.push_back(c + 0); nb_cs.push_back(c + 2); nb_cs.push_back(c + 2); nb_cs.push_back(c + 2); nb_cs.push_back(c + 0); nb_cs.push_back(c - 2); nb_cs.push_back(c - 2); nb_cs.push_back(c - 2)
-                #                n13                     n14                     n15                     n16                     n17                     n18                     n19                     n20
-                nb_rs.push_back(r + 3); nb_rs.push_back(r + 3); nb_rs.push_back(r + 0); nb_rs.push_back(r - 3); nb_rs.push_back(r - 3); nb_rs.push_back(r - 3); nb_rs.push_back(r + 0); nb_rs.push_back(r + 3)
-                nb_cs.push_back(c + 0); nb_cs.push_back(c + 3); nb_cs.push_back(c + 3); nb_cs.push_back(c + 3); nb_cs.push_back(c + 0); nb_cs.push_back(c - 3); nb_cs.push_back(c - 3); nb_cs.push_back(c - 3)
-                #                n21                     n22                     n23                     n24                     n25                     n26                     n27                     n28
-                nb_rs.push_back(r + 4); nb_rs.push_back(r + 4); nb_rs.push_back(r + 0); nb_rs.push_back(r - 4); nb_rs.push_back(r - 4); nb_rs.push_back(r - 4); nb_rs.push_back(r + 0); nb_rs.push_back(r + 4)
-                nb_cs.push_back(c + 0); nb_cs.push_back(c + 4); nb_cs.push_back(c + 4); nb_cs.push_back(c + 4); nb_cs.push_back(c + 0); nb_cs.push_back(c - 4); nb_cs.push_back(c - 4); nb_cs.push_back(c - 4)
+            # evaluate depth difference
+            if not npy_isnan(dep_ngb):
+                ngb_cnt += 1
+                if dep_ngb > min_dep:
+                    min_dep = dep_ngb
+                ngb_diff = abs(dep_node - dep_ngb)
+                if ngb_diff > max_diff:
+                    max_diff = ngb_diff
 
-                nbs_sz = nb_rs.size()
+            # - right node
 
-                for ni in range(nbs_sz):
+            # attempt to retrieve depth
+            if flag_grid[r, c + 1] != 0:
+                continue
+            dep_ngb = bathy[r, c + 1]
+            if npy_isnan(dep_ngb) and (c < cols - 2):
+                if flag_grid[r, c + 2] != 0:
+                    continue
+                dep_ngb = bathy[r, c + 2]
+            if npy_isnan(dep_ngb) and (c < cols - 3) and dist > 2:
+                if flag_grid[r, c + 3] != 0:
+                    continue
+                dep_ngb = bathy[r, c + 3]
 
-                    nl = img_labels[nb_rs[ni], nb_cs[ni]]
-                    if (nl != 0) and (nl != i) and (sizes[nl - 1] > area_limit):
-                        conn_count += 1
-                        find = True
+            # evaluate depth difference
+            if not npy_isnan(dep_ngb):
+                ngb_cnt += 1
+                if dep_ngb > min_dep:
+                    min_dep = dep_ngb
+                ngb_diff = abs(dep_node - dep_ngb)
+                if ngb_diff > max_diff:
+                    max_diff = ngb_diff
 
-                        if (abs(bathy[r, c] - bathy[nb_rs[ni], nb_cs[ni]]) > th) \
-                                and check_slivers:
-                            flag_grid[r, c] = 4  # check #4
-                            logging.info("#4 > n%s @(%s, %s)" % (ni + 1, r, c))
-                        break
+            # - bottom node
 
-                if find:
-                    break
+            # attempt to retrieve depth
+            if flag_grid[r - 1, c] != 0:
+                continue
+            dep_ngb = bathy[r - 1, c]
+            if npy_isnan(dep_ngb) and r > 1:
+                if flag_grid[r - 2, c] != 0:
+                    continue
+                dep_ngb = bathy[r - 2, c]
+            if npy_isnan(dep_ngb) and r > 2 and dist > 2:
+                if flag_grid[r - 3, c] != 0:
+                    continue
+                dep_ngb = bathy[r - 3, c]
 
-            if find:
-                break
+            # evaluate depth difference
+            if not npy_isnan(dep_ngb):
+                ngb_cnt += 1
+                if dep_ngb > min_dep:
+                    min_dep = dep_ngb
+                ngb_diff = abs(dep_node - dep_ngb)
+                if ngb_diff > max_diff:
+                    max_diff = ngb_diff
 
-        # it is an isolated group
-        if (last_r > 4) and (last_r < rows - 4) and (last_c > 4) and (last_c < cols - 4):
-            if (conn_count == 0) and check_isolated:
-                flag_grid[last_r, last_c] = 5  # check #5
-                logging.info("#5 > @(%s, %s)" % (last_r, last_c))
+            # - top node
+
+            # attempt to retrieve depth
+            if flag_grid[r + 1, c] != 0:
+                continue
+            dep_ngb = bathy[r + 1, c]
+            if npy_isnan(dep_ngb) and (r < rows - 2):
+                if flag_grid[r + 2, c] != 0:
+                    continue
+                dep_ngb = bathy[r + 2, c]
+            if npy_isnan(dep_ngb) and (r < rows - 3) and dist > 2:
+                if flag_grid[r + 3, c] != 0:
+                    continue
+                dep_ngb = bathy[r + 3, c]
+
+            # evaluate depth difference
+            if not npy_isnan(dep_ngb):
+                ngb_cnt += 1
+                if dep_ngb > min_dep:
+                    min_dep = dep_ngb
+                ngb_diff = abs(dep_node - dep_ngb)
+                if ngb_diff > max_diff:
+                    max_diff = ngb_diff
+
+            # - bottom-left node
+
+            # attempt to retrieve depth
+            if flag_grid[r - 1, c - 1] != 0:
+                continue
+            dep_ngb = bathy[r - 1, c - 1]
+            if npy_isnan(dep_ngb) and r > 1 and c > 1 and dist > 2:
+                if flag_grid[r - 2, c - 2] != 0:
+                    continue
+                dep_ngb = bathy[r - 2, c - 2]
+            # if npy_isnan(dep_ngb) and r > 2 and c > 2:
+            #     if flag_grid[r - 3, c - 3] != 0:
+            #         continue
+            #     dep_ngb = bathy[r - 3, c - 3]
+
+            # evaluate depth difference
+            if not npy_isnan(dep_ngb):
+                ngb_cnt += 1
+                if dep_ngb > min_dep:
+                    min_dep = dep_ngb
+                ngb_diff = abs(dep_node - dep_ngb)
+                if ngb_diff > max_diff:
+                    max_diff = ngb_diff
+
+            # - top-right node
+
+            # attempt to retrieve depth
+            if flag_grid[r + 1, c + 1] != 0:
+                continue
+            dep_ngb = bathy[r + 1, c + 1]
+            if npy_isnan(dep_ngb) and (r < rows - 2) and (c < cols - 2) and dist > 2:
+                if flag_grid[r + 2, c + 2] != 0:
+                    continue
+                dep_ngb = bathy[r + 2, c + 2]
+            # if npy_isnan(dep_ngb) and (r < rows - 3) and (c < cols - 3):
+            #     if flag_grid[r + 3, c + 3] != 0:
+            #         continue
+            #     dep_ngb = bathy[r + 3, c + 3]
+
+            # evaluate depth difference
+            if not npy_isnan(dep_ngb):
+                ngb_cnt += 1
+                if dep_ngb > min_dep:
+                    min_dep = dep_ngb
+                ngb_diff = abs(dep_node - dep_ngb)
+                if ngb_diff > max_diff:
+                    max_diff = ngb_diff
+
+            # - bottom-right node
+
+            # attempt to retrieve depth
+            if flag_grid[r - 1, c + 1] != 0:
+                continue
+            dep_ngb = bathy[r - 1, c + 1]
+            if npy_isnan(dep_ngb) and r > 1 and (c < cols - 2) and dist > 2:
+                if flag_grid[r - 2, c + 2] != 0:
+                    continue
+                dep_ngb = bathy[r - 2, c + 2]
+            # if npy_isnan(dep_ngb) and r > 2 and c > 2:
+            #     if flag_grid[r - 3, c + 3] != 0:
+            #         continue
+            #     dep_ngb = bathy[r - 3, c + 3]
+
+            # evaluate depth difference
+            if not npy_isnan(dep_ngb):
+                ngb_cnt += 1
+                if dep_ngb > min_dep:
+                    min_dep = dep_ngb
+                ngb_diff = abs(dep_node - dep_ngb)
+                if ngb_diff > max_diff:
+                    max_diff = ngb_diff
+
+            # - top-left node
+
+            # attempt to retrieve depth
+            if flag_grid[r + 1, c - 1] != 0:
+                continue
+            dep_ngb = bathy[r + 1, c - 1]
+            if npy_isnan(dep_ngb) and (r < rows - 2) and c > 1 and dist > 2:
+                if flag_grid[r + 2, c - 2] != 0:
+                    continue
+                dep_ngb = bathy[r + 2, c - 2]
+            # if npy_isnan(dep_ngb) and (r < rows - 3) and c > 2:
+            #     if flag_grid[r + 3, c - 3] != 0:
+            #         continue
+            #     dep_ngb = bathy[r + 3, c - 3]
+
+            # evaluate depth difference
+            if not npy_isnan(dep_ngb):
+                ngb_cnt += 1
+                if dep_ngb > min_dep:
+                    min_dep = dep_ngb
+                ngb_diff = abs(dep_node - dep_ngb)
+                if ngb_diff > max_diff:
+                    max_diff = ngb_diff
+
+            if ngb_cnt == 0:
+                # managed by #5
+                continue
+
+            if ngb_cnt > 6:
+                # not an edge
+                continue
+
+            if min_dep >= -100.0:
+                th = (0.25 + (0.013 * -min_dep) ** 2) ** 0.5
+
+            else:
+                th = (1. + (0.023 * -min_dep) ** 2) ** 0.5
+
+            if max_diff > cf * th:
+                flag_grid[r, c] = 6  # check #6
+                logger.debug("(%s, %s) count: %s, max diff: %.2f, min z: %.2f -> th: %.2f"
+                             % (r, c, ngb_cnt, max_diff, min_dep, th))

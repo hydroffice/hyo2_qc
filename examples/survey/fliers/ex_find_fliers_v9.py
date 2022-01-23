@@ -26,9 +26,8 @@ check_curv = False
 check_adjacent = False
 check_slivers = False
 check_isolated = False
-check_edges = True
-edges_distance = 3
-edges_pct_tvu = 1.0
+check_edges = False
+check_margins = True
 filter_designated = False
 filter_fff = False
 
@@ -56,15 +55,14 @@ for grid_path in prj.grid_list:
     prj.clear_survey_label()
     prj.open_grid(path=grid_path)
 
-    prj.find_fliers_v8(height=height_value,
+    prj.find_fliers_v9(height=height_value,
                        check_laplacian=check_laplacian,
                        check_curv=check_curv,
                        check_adjacent=check_adjacent,
                        check_slivers=check_slivers,
                        check_isolated=check_isolated,
                        check_edges=check_edges,
-                       edges_distance=edges_distance,
-                       edges_pct_tvu=edges_pct_tvu,
+                       check_margins=check_margins,
                        filter_fff=filter_fff,
                        filter_designated=filter_designated,
                        export_proxies=False)
@@ -72,7 +70,7 @@ for grid_path in prj.grid_list:
 
     prj.set_cur_grid(path=grid_path)
     prj.open_to_read_cur_grid()
-    prj.find_fliers_v8_apply_filters()
+    prj.find_fliers_v9_apply_filters()
 
     saved = prj.save_fliers()
     if saved:

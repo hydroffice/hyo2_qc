@@ -14,7 +14,8 @@ from hyo2.qc.survey.fliers.find_fliers_checks import \
     check_gaussian_curvature_float, check_gaussian_curvature_double, \
     check_adjacent_cells_float, check_adjacent_cells_double, \
     check_small_groups_float, check_small_groups_double, \
-    check_noisy_edges_float, check_noisy_edges_double
+    check_noisy_edges_float, check_noisy_edges_double, \
+    check_noisy_margins_float, check_noisy_margins_double
 from hyo2.s57.s57 import S57
 from osgeo import osr, gdal
 from scipy import ndimage
@@ -22,20 +23,20 @@ from scipy import ndimage
 logger = logging.getLogger(__name__)
 
 
-class FindFliersV8(BaseFliers):
+class FindFliersV9(BaseFliers):
     default_filter_distance = 1.0  # type: float
     default_filter_delta_z = 0.01  # type: float
 
     def __init__(self, grids, height: Optional[float] = None,
                  check_laplacian: bool = True, check_curv: bool = True, check_adjacent: bool = True,
                  check_slivers: bool = True, check_isolated: bool = True, check_edges: bool = True,
-                 edges_distance: int = 3, edges_pct_tvu: float = 0.9,
+                 check_margins: bool = True,
                  filter_fff: bool = False, filter_designated: bool = False, save_bathy: bool = False,
                  save_proxies: bool = False, save_heights: bool = False, save_curvatures: bool = False,
                  output_folder: Optional[str] = None, progress_bar: Optional[AbstractProgress] = None):
 
         super().__init__(grids=grids)
-        self.type = fliers_algos["FIND_FLIERS_v8"]  # type: int
+        self.type = fliers_algos["FIND_FLIERS_v9"]  # type: int
 
         self.save_bathy = save_bathy  # type: bool
         self.save_proxies = save_proxies  # type: bool
@@ -56,8 +57,9 @@ class FindFliersV8(BaseFliers):
         self.check_slivers = check_slivers  # type: bool # 4
         self.check_isolated = check_isolated  # type: bool # 5
         self.check_edges = check_edges  # type: bool # 6
-        self.edges_distance = edges_distance  # type: int
-        self.edges_pct_tvu = edges_pct_tvu  # type: float
+        self.check_margins = check_margins  # type: bool # 7
+        self.edges_distance = 3  # type: int
+        self.edges_pct_tvu = 1.0  # type: float
         self.filter_fff = filter_fff  # type: bool
         self.filter_designated = filter_designated  # type: bool
         self.progress = progress_bar  # type: Optional[AbstractProgress]
@@ -89,7 +91,7 @@ class FindFliersV8(BaseFliers):
 
     @property
     def basename(self) -> str:
-        algo_type = "FFv8"
+        algo_type = "FFv9"
 
         basename = "%s.%s" % (self.grids.current_basename, algo_type)
         if self.flier_height is not None:
@@ -127,6 +129,11 @@ class FindFliersV8(BaseFliers):
                 # dot_chk_added = True
                 basename += ".chk"
             basename += "6"
+        if self.check_margins:
+            if not dot_chk_added:
+                # dot_chk_added = True
+                basename += ".chk"
+            basename += "7"
 
         dot_flt_added = False
         if self.filter_fff:
@@ -199,6 +206,9 @@ class FindFliersV8(BaseFliers):
 
         if self.check_edges:
             self._check_edges()
+
+        if self.check_margins:
+            self._check_margins()
 
         self._georef_fliers()
 
@@ -460,7 +470,7 @@ class FindFliersV8(BaseFliers):
         # logging.debug("*** CHECK #3: END ***")
 
     def _check_edges(self):
-        """Check all the adjacent cells"""
+        """Check the edges"""
 
         logging.debug("*** CHECK #6: START ***")
 
@@ -470,6 +480,18 @@ class FindFliersV8(BaseFliers):
             check_noisy_edges_float(self.bathy_values, self.flag_grid, self.edges_distance, self.edges_pct_tvu)
 
         logging.debug("*** CHECK #6: END ***")
+
+    def _check_margins(self):
+        """Check the margins"""
+
+        logging.debug("*** CHECK #7: START ***")
+
+        if self.bathy_is_double:
+            check_noisy_margins_double(self.bathy_values, self.flag_grid, self.edges_distance, self.edges_pct_tvu)
+        else:
+            check_noisy_margins_float(self.bathy_values, self.flag_grid, self.edges_distance, self.edges_pct_tvu)
+
+        logging.debug("*** CHECK #7: END ***")
 
     def _check_small_groups(self, area_limit=3):
         """Check the grid for isolated cells"""
