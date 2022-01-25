@@ -30,30 +30,31 @@ class BAGChecksTab(QtWidgets.QMainWindow):
         self.vbox = QtWidgets.QVBoxLayout()
         self.panel.setLayout(self.vbox)
 
-        # - bag checks v1
-        self.bag_checks_v1 = QtWidgets.QGroupBox("BAG Checks v1")
-        self.vbox.addWidget(self.bag_checks_v1)
-        bcv1_hbox = QtWidgets.QHBoxLayout()
-        self.bag_checks_v1.setLayout(bcv1_hbox)
+        # - bag checks v2
+        self.bag_checks_v2 = QtWidgets.QGroupBox("BAG Checks v2")
+        self.vbox.addWidget(self.bag_checks_v2)
+        bcv2_hbox = QtWidgets.QHBoxLayout()
+        self.bag_checks_v2.setLayout(bcv2_hbox)
         # -- parameters
-        self.setSettingsBCv1 = QtWidgets.QGroupBox("Settings")
-        bcv1_hbox.addWidget(self.setSettingsBCv1)
+        self.setSettingsBCv2 = QtWidgets.QGroupBox("Settings")
+        bcv2_hbox.addWidget(self.setSettingsBCv2)
         self.check_structure = None
         self.check_metadata = None
         self.check_elevation = None
         self.check_uncertainty = None
         self.check_tracking_list = None
-        self._ui_settings_bcv1()
+        self.check_gdal_compatibility = None
+        self._ui_settings_bcv2()
         # -- execution
-        self.executeBQv1 = QtWidgets.QGroupBox("Execution")
-        bcv1_hbox.addWidget(self.executeBQv1)
-        self._ui_execute_bcv1()
+        self.executeBQv2 = QtWidgets.QGroupBox("Execution")
+        bcv2_hbox.addWidget(self.executeBQv2)
+        self._ui_execute_bcv2()
 
         self.vbox.addStretch()
 
-    def _ui_settings_bcv1(self):
+    def _ui_settings_bcv2(self):
         vbox = QtWidgets.QVBoxLayout()
-        self.setSettingsBCv1.setLayout(vbox)
+        self.setSettingsBCv2.setLayout(vbox)
 
         vbox.addStretch()
 
@@ -120,12 +121,21 @@ class BAGChecksTab(QtWidgets.QMainWindow):
         self.check_tracking_list.setFixedWidth(check_width)
         hbox.addWidget(self.check_tracking_list)
         hbox.addStretch()
+        
+        hbox = QtWidgets.QHBoxLayout()
+        vbox.addLayout(hbox)
+        hbox.addStretch()
+        self.check_gdal_compatibility = QtWidgets.QCheckBox("Check GDAL compatibility", self)
+        self.check_gdal_compatibility.setChecked(True)
+        self.check_gdal_compatibility.setFixedWidth(check_width)
+        hbox.addWidget(self.check_gdal_compatibility)
+        hbox.addStretch()
 
         vbox.addStretch()
 
-    def _ui_execute_bcv1(self):
+    def _ui_execute_bcv2(self):
         vbox = QtWidgets.QVBoxLayout()
-        self.executeBQv1.setLayout(vbox)
+        self.executeBQv2.setLayout(vbox)
 
         vbox.addStretch()
 
@@ -137,10 +147,10 @@ class BAGChecksTab(QtWidgets.QMainWindow):
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
         button.setFixedWidth(GuiSettings.text_button_width() * 1.3)
-        button.setText("BAG Checks v1")
+        button.setText("BAG Checks v2")
         button.setToolTip('Perform checks on BAG files')
         # noinspection PyUnresolvedReferences
-        button.clicked.connect(self.click_bag_checks_v1)
+        button.clicked.connect(self.click_bag_checks_v2)
 
         button = QtWidgets.QPushButton()
         hbox.addWidget(button)
@@ -156,32 +166,25 @@ class BAGChecksTab(QtWidgets.QMainWindow):
 
         vbox.addStretch()
 
-    def click_bag_checks_v1(self):
-        """trigger the bag checks v1"""
-        self._click_bag_checks(1)
-
     @classmethod
     def click_open_manual(cls):
         logger.debug("open manual")
         Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_survey_bag_checks.html")
 
-    def _click_bag_checks(self, version: int):
+    def click_bag_checks_v2(self):
         """abstract the BAG checks calling mechanism"""
 
-        # version check
-        if version not in [1, ]:
-            raise RuntimeError("passed invalid Grid Checks version: %s" % version)
-
-        url_suffix = "survey_bag_checks_%d" % version
+        url_suffix = "survey_bag_checks_v2"
         self.parent_win.change_info_url(Helper(lib_info=lib_info).web_url(suffix=url_suffix))
 
         try:
-            self.prj.bag_checks_v1(use_nooa_nbs_profile=self.use_noaa_nbs_rules.isChecked(),
+            self.prj.bag_checks_v2(use_nooa_nbs_profile=self.use_noaa_nbs_rules.isChecked(),
                                    check_structure=self.check_structure.isChecked(),
                                    check_metadata=self.check_metadata.isChecked(),
                                    check_elevation=self.check_elevation.isChecked(),
                                    check_uncertainty=self.check_uncertainty.isChecked(),
-                                   check_tracking_list=self.check_tracking_list.isChecked())
+                                   check_tracking_list=self.check_tracking_list.isChecked(),
+                                   check_gdal_compatibility=self.check_gdal_compatibility.isChecked())
 
         except Exception as e:
             # noinspection PyCallByClass,PyArgumentList
@@ -190,5 +193,5 @@ class BAGChecksTab(QtWidgets.QMainWindow):
             return
 
         # noinspection PyCallByClass,PyArgumentList
-        QtWidgets.QMessageBox.information(self, "BAG Checks v%d" % version, self.prj.bag_checks_message,
+        QtWidgets.QMessageBox.information(self, "BAG Checks v2", self.prj.bag_checks_message,
                                           QtWidgets.QMessageBox.Ok)

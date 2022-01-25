@@ -473,27 +473,15 @@ class FliersTab(QtWidgets.QMainWindow):
 
     def click_find_fliers_v9(self):
         """trigger the find fliers v9"""
-        self._click_find_fliers(8)
-
-    def _click_find_fliers(self, version):
-        """abstract the find fliers calling mechanism"""
 
         # sanity checks
-        # - version
-        if not isinstance(version, int):
-            raise RuntimeError("passed invalid type for version: %s" % type(version))
-        if version not in [8, ]:
-            raise RuntimeError("passed invalid Find Fliers version: %s" % version)
         # - list of grids (although the buttons should be never been enabled without grids)
         if len(self.prj.grid_list) == 0:
             raise RuntimeError("the grid list is empty")
 
         height_mode = "auto"
-        if version == 8:
-            if self.set_height_ffv9.text() != "":
-                height_mode = self.set_height_ffv9.text()
-        else:
-            raise RuntimeError("unknown Find Fliers' version: %s" % version)
+        if self.set_height_ffv9.text() != "":
+            height_mode = self.set_height_ffv9.text()
 
         ck = "c"
         if self.set_check_laplacian_ffv9.isChecked():
@@ -514,44 +502,42 @@ class FliersTab(QtWidgets.QMainWindow):
         if self.set_filter_designated_ffv9.isChecked():
             ck += "2"
 
-        self.parent_win.change_info_url(Helper(lib_info=lib_info).web_url(suffix="survey_find_fliers_%d_fh_%s_%s"
-                                                                                 % (version, height_mode, ck)))
+        self.parent_win.change_info_url(Helper(lib_info=lib_info).web_url(suffix="survey_find_fliers_9_fh_%s_%s"
+                                                                                 % (height_mode, ck)))
 
-        self._parse_user_height(version=version)
+        self._parse_user_height()
 
         grid_list = self.prj.grid_list
 
         # pre checks
 
-        if version == 8:
+        if self.set_filter_fff_ffv9.isChecked():
 
-            if self.set_filter_fff_ffv9.isChecked():
+            if len(self.prj.s57_list) == 0:
+                msg = "The 'Use Features from S57 File' option is active, but no S57 files have been selected!\n" \
+                      "\n" \
+                      "Do you want to continue with the analysis?"
+                # noinspection PyCallByClass, PyArgumentList
+                ret = QtWidgets.QMessageBox.warning(self, "Find Fliers v9 filters", msg,
+                                                    QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+                if ret == QtWidgets.QMessageBox.No:
+                    return
 
-                if len(self.prj.s57_list) == 0:
-                    msg = "The 'Use Features from S57 File' option is active, but no S57 files have been selected!\n" \
-                          "\n" \
-                          "Do you want to continue with the analysis?"
-                    # noinspection PyCallByClass, PyArgumentList
-                    ret = QtWidgets.QMessageBox.warning(self, "Find Fliers v9 filters", msg,
-                                                        QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
-                    if ret == QtWidgets.QMessageBox.No:
-                        return
+        if self.set_filter_designated_ffv9.isChecked():
+            at_least_one_bag = False
+            for grid_file in grid_list:
+                if os.path.splitext(grid_file)[-1] == ".bag":
+                    at_least_one_bag = True
 
-            if self.set_filter_designated_ffv9.isChecked():
-                at_least_one_bag = False
-                for grid_file in grid_list:
-                    if os.path.splitext(grid_file)[-1] == ".bag":
-                        at_least_one_bag = True
-
-                if not at_least_one_bag:
-                    msg = "The 'Use Designated (SR BAG only)' option is active, " \
-                          "but no BAG files have been selected!\n\n" \
-                          "Do you want to continue with the analysis?"
-                    # noinspection PyCallByClass,PyArgumentList
-                    ret = QtWidgets.QMessageBox.warning(self, "Find Fliers v9 filters", msg,
-                                                        QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
-                    if ret == QtWidgets.QMessageBox.No:
-                        return
+            if not at_least_one_bag:
+                msg = "The 'Use Designated (SR BAG only)' option is active, " \
+                      "but no BAG files have been selected!\n\n" \
+                      "Do you want to continue with the analysis?"
+                # noinspection PyCallByClass,PyArgumentList
+                ret = QtWidgets.QMessageBox.warning(self, "Find Fliers v9 filters", msg,
+                                                    QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+                if ret == QtWidgets.QMessageBox.No:
+                    return
 
         # for each file in the project grid list
         msg = "Potential fliers per input:\n"
@@ -562,11 +548,7 @@ class FliersTab(QtWidgets.QMainWindow):
             self.prj.clear_survey_label()
 
             # switcher between different versions of find fliers
-            if version in [8, ]:
-                self._find_fliers(grid_file=grid_file, version=version, idx=(i + 1), total=len(grid_list))
-
-            else:  # this case should be never reached after the sanity checks
-                raise RuntimeError("unknown Find Fliers v%s" % version)
+            self._find_fliers(grid_file=grid_file, idx=(i + 1), total=len(grid_list))
 
             # export the fliers
             saved = self._export_fliers()
@@ -582,89 +564,85 @@ class FliersTab(QtWidgets.QMainWindow):
             self.prj.close_cur_grid()
 
         # noinspection PyCallByClass,PyArgumentList
-        QtWidgets.QMessageBox.information(self, "Find fliers v%d" % version, msg, QtWidgets.QMessageBox.Ok)
+        QtWidgets.QMessageBox.information(self, "Find fliers v9", msg, QtWidgets.QMessageBox.Ok)
 
-    def _parse_user_height(self, version):
+    def _parse_user_height(self):
 
         # check for user input as flier height
-        if version == 8:
-            str_height = self.set_height_ffv9.text()
+        str_height = self.set_height_ffv9.text()
 
-            if str_height == "":
-                self.float_height_ffv9 = None
+        if str_height == "":
+            self.float_height_ffv9 = None
 
-            else:
+        else:
 
-                fh_tokens = str_height.split(',')
-                logger.debug("tokens: %d" % len(fh_tokens))
+            fh_tokens = str_height.split(',')
+            logger.debug("tokens: %d" % len(fh_tokens))
 
-                # - case of just 1 value
-                if len(fh_tokens) == 1:
+            # - case of just 1 value
+            if len(fh_tokens) == 1:
 
-                    try:
+                try:
 
-                        self.float_height_ffv9 = float(str_height)
+                    self.float_height_ffv9 = float(str_height)
 
-                    except ValueError:
+                except ValueError:
 
-                        msg = "Unable to parse the height value: %s.\n" \
-                              "Defaulting to internal estimation!" % str_height
-                        # noinspection PyCallByClass,PyArgumentList
-                        QtWidgets.QMessageBox.critical(self, "Error", msg, QtWidgets.QMessageBox.Ok)
-                        self.float_height_ffv9 = None
-
-                # - case of 1 input for each grid
-                elif len(fh_tokens) == len(self.prj.grid_list):
-
-                    self.set_height_ffv9.clear()
-
-                    try:
-
-                        self.float_height_ffv9 = list()
-                        for fh_token in fh_tokens:
-
-                            value = float(fh_token)
-                            if value <= 0:
-                                raise ValueError("invalid float input")
-                            self.float_height_ffv9.append(value)
-
-                    except ValueError:
-
-                        msg = "Unable to parse all the height values: %s.\n" \
-                              "Defaulting to internal estimation!" % str_height
-                        # noinspection PyCallByClass,PyArgumentList
-                        QtWidgets.QMessageBox.critical(self, "Error", msg, QtWidgets.QMessageBox.Ok)
-                        self.float_height_ffv9 = None
-
-                # - case of different number of input than the number of grids (this is an ERROR!)
-                else:
-
-                    self.set_height_ffv9.clear()
-                    self.float_height_ffv9 = None
-
-                    msg = "Invalid set of flier heights parsing \"%s\":\n" \
-                          " - input values: %s\n" \
-                          " - loaded grids: %s\n\n" \
-                          "Defaulting to internal estimation!\n" \
-                          % (str_height, len(fh_tokens), len(self.prj.grid_list))
+                    msg = "Unable to parse the height value: %s.\n" \
+                          "Defaulting to internal estimation!" % str_height
                     # noinspection PyCallByClass,PyArgumentList
                     QtWidgets.QMessageBox.critical(self, "Error", msg, QtWidgets.QMessageBox.Ok)
-                    logger.debug('find fliers v%d: invalid set of fliers height: %s != %s'
-                                 % (version, len(fh_tokens), len(self.prj.grid_list)))
+                    self.float_height_ffv9 = None
+
+            # - case of 1 input for each grid
+            elif len(fh_tokens) == len(self.prj.grid_list):
+
+                self.set_height_ffv9.clear()
+
+                try:
+
+                    self.float_height_ffv9 = list()
+                    for fh_token in fh_tokens:
+
+                        value = float(fh_token)
+                        if value <= 0:
+                            raise ValueError("invalid float input")
+                        self.float_height_ffv9.append(value)
+
+                except ValueError:
+
+                    msg = "Unable to parse all the height values: %s.\n" \
+                          "Defaulting to internal estimation!" % str_height
+                    # noinspection PyCallByClass,PyArgumentList
+                    QtWidgets.QMessageBox.critical(self, "Error", msg, QtWidgets.QMessageBox.Ok)
+                    self.float_height_ffv9 = None
+
+            # - case of different number of input than the number of grids (this is an ERROR!)
+            else:
+
+                self.set_height_ffv9.clear()
+                self.float_height_ffv9 = None
+
+                msg = "Invalid set of flier heights parsing \"%s\":\n" \
+                      " - input values: %s\n" \
+                      " - loaded grids: %s\n\n" \
+                      "Defaulting to internal estimation!\n" \
+                      % (str_height, len(fh_tokens), len(self.prj.grid_list))
+                # noinspection PyCallByClass,PyArgumentList
+                QtWidgets.QMessageBox.critical(self, "Error", msg, QtWidgets.QMessageBox.Ok)
+                logger.debug('find fliers v9: invalid set of fliers height: %s != %s'
+                             % (len(fh_tokens), len(self.prj.grid_list)))
 
             logger.info("flier height: %s" % (self.float_height_ffv9,))
 
-        else:  # this case should be never reached after the sanity checks
-            raise RuntimeError("unknown Find Fliers' version: %s" % version)
-
-    def _find_fliers(self, grid_file, version, idx, total):
+    def _find_fliers(self, grid_file, idx, total):
         """ find fliers in the loaded surface using passed height parameter """
 
         # GUI initializes, then passes progress bar
 
-        logger.debug('find fliers v%d ...' % version)
+        logger.debug('find fliers v9 ...')
 
-        self.prj.progress.start(title="Find Fliers v%d" % version,
+        self.prj.progress.start(title="Find Fliers v9",
                                 text="Data loading [%d/%d]" % (idx, total),
                                 init_value=2)
 
@@ -678,78 +656,81 @@ class FliersTab(QtWidgets.QMainWindow):
             self.prj.progress.setValue(100)
             return
 
-        self.prj.progress.update(value=5, text="Find Fliers v%d [%d/%d]" % (version, idx, total))
+        self.prj.progress.update(value=5, text="Find Fliers v9 [%d/%d]" % (idx, total))
 
         settings = QtCore.QSettings()
         try:
-            if version == 8:
+            height = None
+            if type(self.float_height_ffv9) is float:
+                height = self.float_height_ffv9
+            if type(self.float_height_ffv9) is list:
+                height = self.float_height_ffv9[idx - 1]
 
-                height = None
-                if type(self.float_height_ffv9) is float:
-                    height = self.float_height_ffv9
-                if type(self.float_height_ffv9) is list:
-                    height = self.float_height_ffv9[idx - 1]
+            save_proxies = self.check_export_proxies_ffv9.isChecked()
+            save_heights = self.check_export_heights_ffv9.isChecked()
+            save_curvatures = self.check_export_curvatures_ffv9.isChecked()
 
-                save_proxies = self.check_export_proxies_ffv9.isChecked()
-                save_heights = self.check_export_heights_ffv9.isChecked()
-                save_curvatures = self.check_export_curvatures_ffv9.isChecked()
+            if self.set_check_laplacian_ffv9.isChecked():
+                settings.setValue("survey/ff9_laplacian", 1)
+            else:
+                settings.setValue("survey/ff9_laplacian", 0)
+            if self.set_check_curv_ffv9.isChecked():
+                settings.setValue("survey/ff9_gaussian", 1)
+            else:
+                settings.setValue("survey/ff9_gaussian", 0)
+            if self.set_check_adjacent_ffv9.isChecked():
+                settings.setValue("survey/ff9_adjacent", 1)
+            else:
+                settings.setValue("survey/ff9_adjacent", 0)
+            if self.set_check_slivers_ffv9.isChecked():
+                settings.setValue("survey/ff9_slivers", 1)
+            else:
+                settings.setValue("survey/ff9_slivers", 0)
+            if self.set_check_isolated_ffv9.isChecked():
+                settings.setValue("survey/ff9_orphans", 1)
+            else:
+                settings.setValue("survey/ff9_orphans", 0)
+            if self.set_check_edges_ffv9.isChecked():
+                settings.setValue("survey/ff9_edges", 1)
+            else:
+                settings.setValue("survey/ff9_edges", 0)
+            if self.set_check_margins_ffv9.isChecked():
+                settings.setValue("survey/ff9_margins", 1)
+            else:
+                settings.setValue("survey/ff9_margins", 0)
+            if self.set_filter_fff_ffv9.isChecked():
+                settings.setValue("survey/ff9_fff", 1)
+            else:
+                settings.setValue("survey/ff9_fff", 0)
+            if self.set_filter_designated_ffv9.isChecked():
+                settings.setValue("survey/ff9_designated", 1)
+            else:
+                settings.setValue("survey/ff9_designated", 0)
 
-                if self.set_check_laplacian_ffv9.isChecked():
-                    settings.setValue("survey/ff9_laplacian", 1)
-                else:
-                    settings.setValue("survey/ff9_laplacian", 0)
-                if self.set_check_curv_ffv9.isChecked():
-                    settings.setValue("survey/ff9_gaussian", 1)
-                else:
-                    settings.setValue("survey/ff9_gaussian", 0)
-                if self.set_check_adjacent_ffv9.isChecked():
-                    settings.setValue("survey/ff9_adjacent", 1)
-                else:
-                    settings.setValue("survey/ff9_adjacent", 0)
-                if self.set_check_slivers_ffv9.isChecked():
-                    settings.setValue("survey/ff9_slivers", 1)
-                else:
-                    settings.setValue("survey/ff9_slivers", 0)
-                if self.set_check_isolated_ffv9.isChecked():
-                    settings.setValue("survey/ff9_orphans", 1)
-                else:
-                    settings.setValue("survey/ff9_orphans", 0)
-                if self.set_check_edges_ffv9.isChecked():
-                    settings.setValue("survey/ff9_edges", 1)
-                else:
-                    settings.setValue("survey/ff9_edges", 0)
-                if self.set_filter_fff_ffv9.isChecked():
-                    settings.setValue("survey/ff9_fff", 1)
-                else:
-                    settings.setValue("survey/ff9_fff", 0)
-                if self.set_filter_designated_ffv9.isChecked():
-                    settings.setValue("survey/ff9_designated", 1)
-                else:
-                    settings.setValue("survey/ff9_designated", 0)
+            self.prj.find_fliers_v9(height=height,
+                                    check_laplacian=self.set_check_laplacian_ffv9.isChecked(),
+                                    check_curv=self.set_check_curv_ffv9.isChecked(),
+                                    check_adjacent=self.set_check_adjacent_ffv9.isChecked(),
+                                    check_slivers=self.set_check_slivers_ffv9.isChecked(),
+                                    check_isolated=self.set_check_isolated_ffv9.isChecked(),
+                                    check_edges=self.set_check_edges_ffv9.isChecked(),
+                                    check_margins=self.set_check_margins_ffv9.isChecked(),
+                                    filter_fff=self.set_filter_fff_ffv9.isChecked(),
+                                    filter_designated=self.set_filter_designated_ffv9.isChecked(),
+                                    export_proxies=save_proxies,
+                                    export_heights=save_heights,
+                                    export_curvatures=save_curvatures,
+                                    progress_bar=self.prj.progress
+                                    )
 
-                self.prj.find_fliers_v9(height=height,
-                                        check_laplacian=self.set_check_laplacian_ffv9.isChecked(),
-                                        check_curv=self.set_check_curv_ffv9.isChecked(),
-                                        check_adjacent=self.set_check_adjacent_ffv9.isChecked(),
-                                        check_slivers=self.set_check_slivers_ffv9.isChecked(),
-                                        check_isolated=self.set_check_isolated_ffv9.isChecked(),
-                                        check_edges=self.set_check_edges_ffv9.isChecked(),
-                                        filter_fff=self.set_filter_fff_ffv9.isChecked(),
-                                        filter_designated=self.set_filter_designated_ffv9.isChecked(),
-                                        export_proxies=save_proxies,
-                                        export_heights=save_heights,
-                                        export_curvatures=save_curvatures,
-                                        progress_bar=self.prj.progress
-                                        )
+            if self.set_filter_fff_ffv9.isChecked() or self.set_filter_designated_ffv9.isChecked():
+                self.prj.close_cur_grid()
+                self.prj.set_cur_grid(path=grid_file)
+                self.prj.open_to_read_cur_grid()
 
-                if self.set_filter_fff_ffv9.isChecked() or self.set_filter_designated_ffv9.isChecked():
-                    self.prj.close_cur_grid()
-                    self.prj.set_cur_grid(path=grid_file)
-                    self.prj.open_to_read_cur_grid()
-
-                    distance = self._parse_filter_distance_ffv9()
-                    delta_z = self._parse_filter_delta_z_ffv9()
-                    self.prj.find_fliers_v9_apply_filters(distance=distance, delta_z=delta_z)
+                distance = self._parse_filter_distance_ffv9()
+                delta_z = self._parse_filter_delta_z_ffv9()
+                self.prj.find_fliers_v9_apply_filters(distance=distance, delta_z=delta_z)
 
         except MemoryError:
             err_str = "While finding fliers, there was a memory error. Try to close unused applications!"

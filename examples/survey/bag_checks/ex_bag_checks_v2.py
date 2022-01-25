@@ -20,6 +20,7 @@ check_metadata: bool = True
 check_elevation: bool = True
 check_uncertainty: bool = True
 check_tracking_list: bool = True
+check_gdal_compatibility: bool = True
 
 prj = SurveyProject(output_folder=testing.output_data_folder(), progress=QtProgress(parent=wid))
 
@@ -35,11 +36,12 @@ else:
 
 logger.debug(prj)
 
-prj.bag_checks_v1(use_nooa_nbs_profile=use_noaa_nbs_profile,
+prj.bag_checks_v2(use_nooa_nbs_profile=use_noaa_nbs_profile,
                   check_structure=check_structure,
                   check_metadata=check_metadata,
                   check_elevation=check_elevation,
                   check_uncertainty=check_uncertainty,
-                  check_tracking_list=check_tracking_list)
+                  check_tracking_list=check_tracking_list,
+                  check_gdal_compatibility=check_gdal_compatibility)
 
 logger.debug(prj.bag_checks_message)
