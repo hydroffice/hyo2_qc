@@ -1677,12 +1677,8 @@ class Checks:
         self.report += "Features without 'Prohibited feature' keyword [CHECK]"
         prohibited = S57Aux.select_by_object(objects=self.all_fts, object_filter=['DRGARE', 'LOGPON', 'PIPARE',
                                                                                   'PIPOHD', 'PIPSOL', 'DMPGRD',
-                                                                                  'LIGHTS', 'BOYLAT', 'BOYSAW',
-                                                                                  'BOYSPP', 'DAYMAR', 'FOGSIG',
                                                                                   'CBLSUB', 'CBLARE', 'FAIRWY',
-                                                                                  'RTPBCN', 'BOYISD', 'BOYINB',
-                                                                                  'BOYCAR', 'CBLOHD', 'BCNSPP',
-                                                                                  'BCNLAT', 'BRIDGE'])
+                                                                                  'CBLOHD', 'BRIDGE'])
         self.flags.office.prohibited_kwds = self._check_for_missing_keywords(objects=prohibited, attr_acronym='onotes',
                                                                              keywords=['Prohibited feature', ])
 
@@ -1701,6 +1697,23 @@ class Checks:
         self.flags.office.mooring_buoy_kwds = self._check_for_missing_keywords(objects=mooring_buoy,
                                                                                attr_acronym='onotes',
                                                                                keywords=['Prohibited feature', ])
+
+        # For the office profile, ATONS must be removed.
+        atons = S57Aux.select_by_object(objects=self.all_fts, object_filter=['LIGHTS', 'BOYLAT', 'BOYSAW', 'BOYSPP',
+                                                                            'DAYMAR', 'FOGSIG', 'RTPBCN', 'BOYISD',
+                                                                            'BOYINB', 'BOYCAR', 'BCNSPP', 'BCNLAT',
+                                                                            'BCNSAW', 'BCNCAR', 'BCNISD'])
+        self.report += "ATONs present in MCD deliverable [CHECK]"
+        for aton in atons:
+            # add to the flagged report
+            self.report += 'Found ATON %s at (%.7f, %.7f)' % \
+                           (aton.acronym, aton.centroid.x, aton.centroid.y)
+            # add to the flagged feature list
+            self.flags.append(aton.centroid.x, aton.centroid.y, "ATON %s" % (aton.acronym,),
+                              self.report.cur_section())
+            self.flags.office.atons.append([aton.acronym, aton.centroid.x, aton.centroid.y])
+        if len(atons) == 0:
+            self.report += "OK"
 
         # For office profile, check for M_QUAL attribution
         mqual = S57Aux.select_by_object(objects=self.all_fts, object_filter=['M_QUAL', ])
