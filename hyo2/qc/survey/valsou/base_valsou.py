@@ -8,17 +8,11 @@ logger = logging.getLogger(__name__)
 
 valsou_algos = {
     "BASE": 0,
-    "VALSOU_CHECK_v6": 1,
-    "VALSOU_CHECK_v7": 2,
     "VALSOU_CHECK_v8": 3,
 }
 
 specs_vers = {
     "BASE": 0,
-    "2015": 1,
-    "2016": 2,
-    "2017": 3,
-    "2018": 4,
     "2021": 5,
 }
 

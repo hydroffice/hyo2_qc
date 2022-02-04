@@ -33,7 +33,6 @@ from hyo2.qc.survey.scan.feature_scan_v11 import FeatureScanV11
 from hyo2.qc.survey.submission.base_submission import BaseSubmission, submission_algos
 from hyo2.qc.survey.submission.submission_checks_v4 import SubmissionChecksV4
 from hyo2.qc.survey.valsou.base_valsou import valsou_algos
-from hyo2.qc.survey.valsou.valsou_check_v7 import ValsouCheckV7
 from hyo2.qc.survey.valsou.valsou_check_v8 import ValsouCheckV8
 from osgeo import osr
 
@@ -463,12 +462,14 @@ class SurveyProject(BaseProject):
             self.make_survey_label()
 
             if cb:
+                # noinspection PyArgumentList
                 self._holes.set_progress_callback(cb)
 
             if brute_force:
                 logger.debug("brute force: pct of minimum resolution: %.1f" % (pct_min_res * 100.0,))
                 success = self._holes.detect_brute_force(True, pct_min_res)
             else:
+                # noinspection PyArgumentList
                 success = self._holes.detect_per_tile()
             if not success:
                 raise RuntimeError("Unable to analyze %s !\n"
@@ -1092,39 +1093,6 @@ class SurveyProject(BaseProject):
             return 0
         return len(self._valsou.flagged_features)
 
-    def valsou_check_v7(self, specs_version="2018", survey_scale=100000, with_laser=True, is_target_detection=False):
-
-        if not self.has_s57():
-            logger.warning("first load some features")
-            return
-
-        if not self.has_grid():
-            logger.warning("first load some grids")
-            return
-
-        self.progress.start(text="Data processing")
-
-        try:
-
-            self._gr.selected_layers_in_current = [layer_types["depth"], ]
-
-            self._valsou = ValsouCheckV7(s57=self.cur_s57, grids=self._gr, version=specs_version,
-                                         scale=survey_scale, with_laser=with_laser,
-                                         is_target_detection=is_target_detection)
-
-            start_time = time.time()
-            self._valsou.run()
-            logger.info("VALSOU check v7 -> execution time: %.3f s" % (time.time() - start_time))
-            logger.info("flagged features: %d" % self.number_of_valsou_features())
-
-        except Exception as e:
-            traceback.print_exc()
-            self._valsou = None
-            self.progress.end()
-            raise e
-
-        self.progress.end()
-
     def valsou_check_v8(self, specs_version="2021", with_laser=True, is_target_detection=False):
 
         if not self.has_s57():
@@ -1313,31 +1281,7 @@ class SurveyProject(BaseProject):
             os.makedirs(output_folder)
 
         # make the filename for output
-        if self._valsou.type == valsou_algos['VALSOU_CHECK_v7']:
-
-            laser_token = ""
-            if self._valsou.with_laser:
-                laser_token = ".las"
-
-            deconflict_token = ""
-            if self._valsou.deconflicted:
-                deconflict_token = ".dec"
-
-            mode_token = ".fc"
-            if self._valsou.is_target_detection:
-                mode_token = ".od"
-
-            if self._valsou.version in ["2018", ]:
-                s57_file = os.path.join(output_folder, "%s.%s.VCv7.%s%s%s%s.000"
-                                        % (self.cur_s57_basename, self.cur_grid_basename, self._valsou.version,
-                                           laser_token, deconflict_token, mode_token))
-            else:
-                s57_file = os.path.join(output_folder, "%s.%s.VCv7.%s.%s%s%s%s.000"
-                                        % (self.cur_s57_basename, self.cur_grid_basename, self._valsou.version,
-                                           self._valsou.scale, laser_token, deconflict_token, mode_token))
-
-        # make the filename for output
-        elif self._valsou.type == valsou_algos['VALSOU_CHECK_v8']:
+        if self._valsou.type == valsou_algos['VALSOU_CHECK_v8']:
 
             laser_token = ""
             if self._valsou.with_laser:
