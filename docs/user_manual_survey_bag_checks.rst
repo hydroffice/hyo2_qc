@@ -78,7 +78,10 @@ The BAG files are inspected to ensure compliance with NOAA NBS requirements and 
 **Check the tracking list**: Checks to ensure the validity of the tracking list. Checks the following:
     * For the presence of the Tracking List dataset and the VR Tracking List dataset (VR only)
     * Validity of the entries in the 'row' column
-    * Validity of the entries in the 'col' column 
+    * Validity of the entries in the 'col' column
+
+**Check GDAL Compatibility**: Checks to ensure that the surface is compatible with GDAL. Checks the following:
+    * Checks that that the grid does not have more than 10,000,000 refinement grids which will result in a GDAL error
 
 
 .. rubric:: Footnotes

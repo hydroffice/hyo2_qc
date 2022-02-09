@@ -16,13 +16,13 @@ Scan grids for anomalous grid data "fliers".
 .. index::
     single: fliers; height
 
-* For **Flier finder v8**, first consider **Settings:**
+* For **Flier finder v9**, first consider **Settings:**
 
   * The **Flier height** will be determined automatically by the program and does not need to be set, but the user may choose to do so in order to run a specific **Flier height**.
   * The automatic determination of **Flier height** is performed per tile, and is based on the `median`_ depth (characteristic depth), the `MAD`_ (variability in range), and the standard deviation of the `gaussian curvature`_ (roughness).
   * The selected **Checks** are enabled by default. You can enable or disable them in order to run custom analysis (see the "How Does It Work?" section below).
 
-* To change the **Settings** for **Flier finder v8**:
+* To change the **Settings** for **Flier finder v9**:
 
   * Click the **Unlock** button, and click **OK** to the dialogue.
   * If desired, enter a desired Flier search height in meters in the **Force flier heights** box.
@@ -48,9 +48,9 @@ Scan grids for anomalous grid data "fliers".
 .. index::
     single: find fliers
 
-* In **Execution** for **Flier finder v8**:
+* In **Execution** for **Flier finder v9**:
 
-  * Click **Find fliers v8**. After executing, the output window opens automatically (:numref:`fig_detect_fliers_output`), and the results are shown:
+  * Click **Find fliers v9**. After executing, the output window opens automatically (:numref:`fig_detect_fliers_output`), and the results are shown:
 
 .. _fig_detect_fliers_output:
 .. figure:: _static/detect_fliers_output.png
@@ -59,13 +59,13 @@ Scan grids for anomalous grid data "fliers".
     :alt: output message
     :figclass: align-center
 
-    The output message at the end of **Flier finder v8** execution.
+    The output message at the end of **Flier finder v9** execution.
 
 * An output window will open in File Explorer. From the output window, drag-and-drop the desired output file into the processing software to guide the review. Each candidate flier is labeled using the identifier of the algorithm that detected it (e.g., "2" for Gaussian Curvature).
 
 * The output file names adopt the following convention:
 
-  * [grid filename].FFv8.chk[identifier of each selected algorithm].flt[identifier of each selected filter]
+  * [grid filename].FFv9.chk[identifier of each selected algorithm].flt[identifier of each selected filter]
 
 
 |
@@ -77,7 +77,7 @@ Scan grids for anomalous grid data "fliers".
 How Does It Work?
 ^^^^^^^^^^^^^^^^^
 
-**Flier finder v8:**
+**Flier finder v9:**
 
 **Estimate height:**
 
@@ -277,7 +277,7 @@ In the specific, an edge node is identified when 6 or less adjacent valid neighb
 
 Once that an edge node is identified, the least depth and the maximum difference with its neighbors are calculated.
 
-The least depth is used to calculate to local Total Vertical Uncertainty (TVU), and then a flagging threshold is set by the user and by default is set to 100% of the resulting TVU. The TVU is calculated per NOAA specifications:
+The least depth is used to calculate to local Total Vertical Uncertainty (TVU), which is used for the flagging threshold. The TVU is calculated per NOAA specifications:
 
 .. math::
 
@@ -288,33 +288,50 @@ where :math:`A = 0.5, B = 0.013` for Order 1 (depths less than 100 m), and :math
 .. note::
     Since the TVU is based on the local least depth, the algorithm automatically adapts the threshold calculation to the proper Order (1 or 2). For example if the edge node in question is 102m and its neighbors are 99m, the TVU will be calculated at Order 1 specifications.
 
-The Percent TVU option allows you to adjust the threshold height used to flag fliers. In the original implementation of Noisy Edges, the flier height was determined at 90% of the TVU of a node. Now the slider allows the user to adjust that number. The following table shows an example of how the minimum flier height would change for a node with 20m of depth:
-
-+---+---+---+---+---+----+----+----+----+---+---+
-|  Percent of TVU   |  Mimimum Flier Height (m) |
-+===+===+===+===+===+===+===+===+===+===+===+===+
-|        90         |           0.508           |
-+---+---+---+---+---+---+---+---+---+---+---+---+
-|        100        |           0.564           |
-+---+---+---+---+---+---+---+---+---+---+---+---+
-|        125        |           0.705           |
-+---+---+---+---+---+---+---+---+---+---+---+---+
-|        150        |           0.846           |
-+---+---+---+---+---+---+---+---+---+---+---+---+
-|        200        |           1.128           |
-+---+---+---+---+---+---+---+---+---+---+---+---+
-
 Finally, an edge node is flagged when the maximum depth difference with its neighbors is greater than the flagging threshold.
 
-:numref:`noisy_ex` shows an example of a flagged 18.7m edge node. Since the shallowest node in the neighborhood is 17.4m, the flagging threshold developed from 90% of the TVU was 0.490m. The maximum difference between the node and its neighbors is 1.3m, therefore the edge node was flagged.
+:numref:`noisy_ex` shows an example of a flagged 18.7m edge node. Since the shallowest node in the neighborhood is 17.4m, the flagging threshold developed from TVU was 0.549m. The maximum difference between the node and its neighbors is 1.3m, therefore the edge node was flagged.
 
 .. _noisy_ex:
-.. figure:: _static/NoisyEdges.png
+.. figure:: _static/noisy_edge_ex.png
     :width: 360px
     :align: center
     :alt: flagged example
 
     Noisy edges.
+
+----------------------------------------------------------------
+
+**Noisy Margins** *(experimental)*
+
+The Noisy Margins is tailored to identify fliers along noisy swath edges.
+
+The algorithm crawls across empty cells (2 nodes diagonally, and 3 nodes in the cardinal directions) in order to establish a margin. A margin is identified when a node is missing two neighbors in the surrounding 8 directions (N, NW, W, SW, S, SE, E, and NE).
+
+Once that a margin node is identified, the least depth and the maximum difference with its neighbors are calculated.
+
+The least depth is used to calculate to local Total Vertical Uncertainty (TVU), which is used for the flagging threshold. The TVU is calculated per NOAA specifications:
+
+.. math::
+
+    TVU = \sqrt{A^2 + (B * Depth)^2}
+
+where :math:`A = 0.5, B = 0.013` for Order 1 (depths less than 100 m), and :math:`A = 1.0, B = 0.023` for Order 2 (depths greater than 100 m).
+
+.. note::
+    Since the TVU is based on the local least depth, the algorithm automatically adapts the threshold calculation to the proper Order (1 or 2). For example if the edge node in question is 102m and its neighbors are 99m, the TVU will be calculated at Order 1 specifications.
+
+A noisy margin is flagged when the maximum depth difference with its neighbors is greater than the flagging threshold. To prevent too many flags, the algorithm searches the nearest three nodes and if any of those nodes contain a flag, it will not be flagged. If a flag is not present in a three node area, the flier is flagged.
+
+:numref:`margins_ex` shows an example of a flagged 4.5m edge node. Since the shallowest node in the neighborhood is 3.7m, the flagging threshold developed from TVU was 0.502m. The maximum difference between the node and its neighbors is 0.8m, therefore the margin node was flagged.
+
+.. _margins_ex:
+.. figure:: _static/noisy_margin_ex.png
+    :width: 360px
+    :align: center
+    :alt: flagged example
+
+    Noisy margin.
 
 ----------------------------------------------------------------
 
@@ -336,17 +353,17 @@ Finally, an edge node is flagged when the maximum depth difference with its neig
 
 A summary of the checks is shown in the table below, and also see the "How Does It Work?" section to understand how each check works.
 
-+--------------------------+-------------+-------------+-------------+-------------+------------+------------+
-|                          |   Lap #1    |   Gau #2    |   Adj #3    |   Edg #4    |   Iso #5   |   Nsy #6   |
-+==========================+=============+=============+=============+=============+============+============+
-| Flier height estimated   |      x      |             |     x       |     x       |            |            |
-+--------------------------+-------------+-------------+-------------+-------------+------------+------------+
-| Prone to excessive flags |      x      |             |             |             |     x      |     x      |
-+--------------------------+-------------+-------------+-------------+-------------+------------+------------+
-| Enabled by default       |             |     x       |     x       |     x       |     x      |            |
-+--------------------------+-------------+-------------+-------------+-------------+------------+------------+
-| Use on as-needed basis   |      x      |             |             |             |            |     x      |
-+--------------------------+-------------+-------------+-------------+-------------+------------+------------+
++--------------------------+-------------+-------------+-------------+-------------+------------+------------+------------+
+|                          |   Lap #1    |   Gau #2    |   Adj #3    |   Edg #4    |   Iso #5   |   Nsy #6   |   Nsy #7   |
++==========================+=============+=============+=============+=============+============+============+============+
+| Flier height estimated   |      x      |             |     x       |     x       |            |            |            |
++--------------------------+-------------+-------------+-------------+-------------+------------+------------+------------+
+| Prone to excessive flags |      x      |             |             |             |     x      |     x      |     x      |
++--------------------------+-------------+-------------+-------------+-------------+------------+------------+------------+
+| Enabled by default       |             |     x       |     x       |     x       |     x      |            |            |
++--------------------------+-------------+-------------+-------------+-------------+------------+------------+------------+
+| Use on as-needed basis   |      x      |             |             |             |            |     x      |     x      |
++--------------------------+-------------+-------------+-------------+-------------+------------+------------+------------+
 
 .. _median: https://en.wikipedia.org/wiki/Median
 .. _MAD: https://en.wikipedia.org/wiki/Median_absolute_deviation

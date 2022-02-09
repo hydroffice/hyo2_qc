@@ -13,13 +13,6 @@ Ensure surveyed features are properly accounted for in the gridded bathymetry.
 
 In order to access this tool, load a grid and an S-57 file into the **Data Inputs** tab.
 
-.. note::
-	**VR CSAR**: this tool may provide false positives due to current limitations in accessing designated soundings through the CARIS SDK.
-
-.. note::
-	**VR BAG**: this tool may provide false positives because grids created with CARIS apps do not currently contain the location of designated soundings.
-
-
 * Select the **VALSOU check** tab (:numref:`fig_valsou_check`) on the bottom of the QC Tools interface.
 
 .. index::
@@ -27,16 +20,11 @@ In order to access this tool, load a grid and an S-57 file into the **Data Input
 
 * In **Parameters**:
 
-    * Turn the knob to select the applicable year as pertaining to required HSSD.
     * Turn the knob to select the survey mode: **Full coverage** or **Object detection**.
-    * For 2016 and 2017, enter in the applicable survey scale (e.g. 10,000 or 20,000, etc.).
     * The **Deconflict across grids** checkbox may be enabled if the grids that are loaded have overlaps. If a feature has no grid data directly underneath, the nodes of the other grids in memory will be searched to find a valid match.
     * The **Include TECSOU=laser** checkbox may be enabled (in the event of lidar bathymetry wherein we'd expect features to be represented in the grid), or disabled (as in the case of shoreline investigations wherein we'd not have this expectation).
 
-.. note::
-	There are currently not differences between the checks applied for NOAA NOS HSSD 2016 and 2017. Survey scale is no longer needed in 2018 as all VALSOUs must agree with corresponding grids.
-
-* In **Execution**, click **VALSOU check v7**
+* In **Execution**, click **VALSOU check v8**
 
 
 .. _fig_valsou_check:
@@ -58,14 +46,20 @@ In order to access this tool, load a grid and an S-57 file into the **Data Input
     :align: center
     :figclass: align-center
 
-    The output message at the end of **VALSOU check v7** execution.
+    The output message at the end of **VALSOU check v8** execution.
 
 
 * From the output window, drag-and-drop the output into the processing software to guide the review.
 
 * The output names adopt the following convention:
 
-    * [grid].[s57].VCv7.[version].[".las" -> **Include TECSOU=laser**][".dec" -> deconfliction]["od"|"fc" -> mode]
+    * [grid].[s57].VCv8.[version].[".las" -> **Include TECSOU=laser**][".dec" -> deconfliction]["od"|"fc" -> mode]
+
+.. note::
+	**VR CSAR**: this tool may provide false positives due to current limitations in accessing designated soundings through the CARIS SDK.
+
+.. note::
+	**VR BAG**: this tool may provide false positives because grids created with CARIS apps do not currently contain the location of designated soundings.
 
 |
 
@@ -76,7 +70,17 @@ In order to access this tool, load a grid and an S-57 file into the **Data Input
 How Does It Work?
 ^^^^^^^^^^^^^^^^^
 
-The grid is scanned for features expected to be represented in the grid as per specification. These features are new or updated wrecks, rocks, and obstructions, and a grid node should be found that agrees with the feature VALSOU.
+The grid is scanned for features expected to be represented in the grid as per specification. These features are new or updated wrecks, rocks, and obstructions, and a grid node should be found that agrees with the feature VALSOU. 
+
+For each feature, 9 grid node depths are selected: the grid node depth closest in position to the feature, and the 8 grid nodes surrounding it (:numref:`fig_valsou_check_nodes`). The minimum depth is selected from those 9 grid node depths, and that minimum depth must match the feature VALSOU (to centimeter precision). If not, a flag is raised. Note, this check not only ensures parity between feature VALSOUs and the grid, but it will also ensure the VALSOU entered is the most shoal depth among the 9 grid nodes atop the feature.
+
+.. _fig_valsou_check_nodes:
+.. figure:: _static/valsou_check_node_search.png
+    :width: 400px
+    :align: center
+    :figclass: align-center
+
+    The grid node closest in position to the feature and the 8 grid nodes surrounding it are included in the search. The minimum of these nodes must match the feature VALSOU.
 
 .. note::
 	If the input grid files follow the NOAA OCS naming convention (e.g., having "_1m_" in the filename), this information is retrieved and used to only evaluate the features with VALSOU value in the corresponding validity range (e.g., 0 - 20 m).
@@ -98,7 +102,7 @@ Upon completion of the execution of **VALSOU Checks** you will receive a pop-up 
     :align: center
     :figclass: align-center
 
-    The output message at the end of **VALSOU Cheks** execution.
+    The output message at the end of **VALSOU Checks** execution.
 
 The output of this tool is a .000 file that contains $CSYMB features which provides the location of the potential discrepancy. Drag and drop in your GIS of choice. The NINFOM field indicates the reason for the flagged object.
 

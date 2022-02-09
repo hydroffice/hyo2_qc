@@ -114,7 +114,8 @@ The logic for the 2021 QC Tools feature scan is shown below. For previous years,
         * Must have **QUASOU** and **TECSOU** of null/undefined.
         * Receive a warning if **WATLEV** is not "unknown".
     * If obstruction is foul ground:
-        * Must have **VALSOU**, **WATLEV**, **QUASOU**, and **TECSOU**.
+        * Must have **WATLEV**.
+        * Must have **VALSOU**, **QUASOU**, and **TECSOU** of null/undefined.
     * If obstruction is a foul area:
         * Must not have **VALSOU** populated.
         * Receive a warning if **WATLEV** is not "unknown".
@@ -141,7 +142,8 @@ The logic for the 2021 QC Tools feature scan is shown below. For previous years,
 * Specific for the Office Profile:
     * All features must have **onotes.**
     * All features must have **hsdrec.**
-    * Checks for features that are prohibited by MCD (**DRGARE, LOGPON, PIPARE, PIPOHD, PIPSOL, DMPGRD LIGHTS, BOYLAT, BOYSAW, BOYSPP, DAYMAR, FOGSIG, CBLSUB, CBLARE, FAIRWY, RTPBCN, BOYISD, BOYINB, BOYCAR, CBLOHD, BCNSPP, BCNLAT, BRIDGE, OBSTRN with CATOBS = 5**, and **MORFAC** with **CATMOR = 7**.
+    * Checks for features that are prohibited by MCD (**DRGARE, LOGPON, PIPARE, PIPOHD, PIPSOL, DMPGRD, CBLSUB, CBLARE, FAIRWY, CBLOHD, BCNSPP, BRIDGE, OBSTRN with CATOBS = 5**, and **MORFAC** with **CATMOR = 7**.
+    * Flags ATONS if they are found in the file. MCD defines ATONS as: **LIGHTS, BOYLAT, BOYSAW, BOYSPP, DAYMAR, FOGSIG, RTPBCN, BOYISD, BOYINB, BOYCAR, BCNSPP, BCNLAT, BCNSAW, BCNCAR**, and **BCNISD**
     * All **M_QUAL** features must have **CATZOC, SURSTA, SUREND,** and **TECSOU.**
     * All features must have **descrp** and **remrks**.
 
