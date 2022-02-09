@@ -649,7 +649,7 @@ class BagChecksV2:
     def _bag_checks_v2_gdal_compatibility(self, grid_file: str) -> None:
         if self._gdal_compatibility is False:
             self._bc_report += "GDAL Compatibility [SKIP_SEC]"
-            self._bc_report += "All GDAL-compatibilitu-related checks are deactivated. [SKIP_REP]"
+            self._bc_report += "All GDAL-compatibility-related checks are deactivated. [SKIP_REP]"
             return
 
         self._bc_report += "GDAL Compatibility [SECTION]"
