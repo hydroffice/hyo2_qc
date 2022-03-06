@@ -73,11 +73,20 @@ The specifications have different criteria by which holidays are defined based o
 
 * There is also the option to simply flag all unpopulated nodes as holidays, by selecting the **All holes** setting.
 
-The holiday size is calculated in number of nodes based on the minimum allowable resolution and the grid resolution.
+The holiday size is calculated in number of nodes based on the minimum allowable resolution and the grid resolution, per this formula:
+
+floor((minimum allowable resolution X 3) / grid resolution)
 
 Only in the case of a variable resolution input, all the tiles are re-sampled to create a single resolution grid (selecting the highest resolution among all the grid tiles).
 
-The minimum allowable resolution is calculated based on the median value of all the node depths belonging to the holiday perimeter.
+The minimum allowable resolution is determined based on the resolution pairing from the median value of all the node depths belonging to the holiday perimeter per the below tables (:numref:`od_cc`) for Object Detection Coverage and Complete Coverage as defined by NOAA Specifications. 
+
+.. _od_cc:
+.. figure:: _static/od_cc.png
+    :align: center
+    :alt: logo
+
+    NOAA specifications for object detection (left) and complete coverage (right) require multibeam surfaces to have the above grid-resolution thresholds as a function of depth range.
 
 .. note::
     The output of Holiday Finder is a sounding, with a value of "1" for certain holidays, and "2" for possible holidays.
