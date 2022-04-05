@@ -6,8 +6,8 @@ import logging
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-__version__ = '1.1.2'
+__version__ = '1.2.0'
 __doc__ = "RorI: the rock-or-islet oracle"
 __author__ = 'gmasetti@ccom.unh.edu; tyanne.faulkes@noaa.gov'
 __license__ = 'LGPLv3 license'
-__copyright__ = 'Copyright 2021 University of New Hampshire, Center for Coastal and Ocean Mapping'
+__copyright__ = 'Copyright 2022 University of New Hampshire, Center for Coastal and Ocean Mapping'

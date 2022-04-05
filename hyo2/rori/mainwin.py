@@ -421,7 +421,7 @@ class MainWin(QtWidgets.QMainWindow):
     @classmethod
     def is_windows(cls):
         """ Check if the current OS is Windows """
-        return (sys.platform == 'win32') or (os.name is "nt")
+        return (sys.platform == 'win32') or (os.name == "nt")
 
     @classmethod
     def explore_folder(cls, path):
