@@ -97,7 +97,7 @@ The following images illustrate the outcomes of the three algorithms applied to 
 
 .. _all_holes:
 .. figure:: _static/all_holes.png
-    :width: 500px
+    :width: 400px
     :align: center
     :alt: logo
 
@@ -107,7 +107,7 @@ The following images illustrate the outcomes of the three algorithms applied to 
 
 .. _object_detection:
 .. figure:: _static/object_detection.png
-    :width: 500px
+    :width: 400px
     :align: center
     :alt: logo
 
@@ -117,7 +117,7 @@ The following images illustrate the outcomes of the three algorithms applied to 
 
 .. _full_coverage:
 .. figure:: _static/full_coverage.png
-    :width: 500px
+    :width: 400px
     :align: center
     :alt: logo
 
@@ -156,9 +156,9 @@ Upon completion of the execution of **Detect Holidays** you will receive a pop-u
 
     The output message at the end of **Find holiday v4** execution.
 
-**Detect Holidays** produces one .000 files containing the locations of potential holidays represented as soundings. Certain holidays are represented with 1 and possible holidays are represented at 2.
+**Detect Holidays** produces one .000 files containing the locations of potential holidays represented as soundings (:numref:`fig_detect_holidays_results`). Certain holidays are represented with 1 and possible holidays are represented at 2.
 
-.. _fig_detect_holiday_results:
+.. _fig_detect_holidays_results:
 .. figure:: _static/detect_holidays_graphic_results.png
     :width: 500px
     :align: center

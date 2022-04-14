@@ -34,7 +34,7 @@ In **Data inputs:**
 
 .. _fig_survey_inputs:
 .. figure:: _static/survey_inputs.png
-    :width: 700px
+    :width: 500px
     :align: center
     :alt: input tab
     :figclass: align-center
@@ -46,7 +46,7 @@ In **Data inputs:**
 
 .. _fig_survey_inputs_error:
 .. figure:: _static/survey_inputs_error.png
-    :width: 500px
+    :width: 400px
     :align: center
     :alt: input error
     :figclass: align-center
@@ -74,7 +74,7 @@ In **Data outputs:**
 
 .. _survey_folder_structure:
 .. figure:: _static/survey_folder_structure.png
-    :width: 600px
+    :width: 500px
     :align: center
     :alt: output flags
     :figclass: align-center

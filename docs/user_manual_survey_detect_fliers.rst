@@ -38,7 +38,7 @@ Scan grids for anomalous grid data "fliers".
 
 .. _fig_detect_fliers:
 .. figure:: _static/detect_fliers_interface.png
-    :width: 700px
+    :width: 600px
     :align: center
     :alt: fliers tab
     :figclass: align-center
@@ -145,7 +145,7 @@ The example in :numref:`la_place_ex` shows grid nodes (depths in meters) recomme
 
 .. _la_place_ex:
 .. Figure:: _static/laplace_ex.png
-    :width: 600px
+    :width: 500px
     :align: center
     :alt: logo
 
@@ -181,6 +181,7 @@ The example in :numref:`gauss_ex` shows grid nodes (depths in meters) and a deep
 
 .. _gauss_ex:
 .. figure:: _static/gauss_ex.png
+    :width: 500px
     :align: center
     :alt: logo
 
@@ -196,6 +197,7 @@ The algorithm crawls across empty cells (2 nodes diagonally, and 3 nodes in the 
 
 .. _crawl:
 .. figure:: _static/crawl.png
+    :width: 500px
     :align: center
     :alt: logo
 
@@ -223,6 +225,7 @@ The example in :numref:`adj_ex` shows grid nodes (depths in meters) and the type
 
 .. _adj_ex:
 .. figure:: _static/adj_ex.png
+    :width: 500px
     :align: center
     :alt: logo
 
@@ -245,6 +248,7 @@ The example in :numref:`edge_ex` shows grid nodes (depths in meters) and the typ
 
 .. _edge_ex:
 .. figure:: _static/edge_ex.png
+    :width: 500px
     :align: center
     :alt: logo
 
@@ -262,6 +266,7 @@ The example in :numref:`iso_ex`  shows a grid node far detached from the main gr
 
 .. _iso_ex:
 .. figure:: _static/iso_ex.png
+    :width: 500px
     :align: center
     :alt: logo
 

@@ -101,7 +101,7 @@ Upon completion of the execution of **BAG Checks** you will receive a pop-up ver
 
 .. _fig_bag_checks_output:
 .. figure:: _static/bag_checks_output.png
-    :width: 700px
+    :width: 450px
     :align: center
     :alt: fliers tab
     :figclass: align-center
@@ -112,7 +112,7 @@ Upon completion of the execution of **BAG Checks** you will receive a pop-up ver
 
 .. _fig_bag_checks_results:
 .. figure:: _static/bag_checks_results.png
-    :width: 700px
+    :width: 400px
     :align: center
     :alt: fliers tab
     :figclass: align-center
@@ -121,7 +121,7 @@ Upon completion of the execution of **BAG Checks** you will receive a pop-up ver
 
 .. _fig_bag_checks_summary:
 .. figure:: _static/bag_checks_summary.png
-    :width: 500px
+    :width: 300px
     :align: center
     :alt: fliers tab
     :figclass: align-center

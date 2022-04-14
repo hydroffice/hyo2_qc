@@ -36,7 +36,7 @@ Computes grid statistics to ensure compliance with uncertainty and density requi
 
 .. _fig_grid_qa_output:
 .. figure:: _static/grid_qa_results.png
-    :width: 240px
+    :width: 250px
     :align: center
     :alt: fliers tab
     :figclass: align-center
@@ -127,7 +127,7 @@ Upon completion of the execution of **Detect Holidays** you will receive a pop-u
 
 .. _fig_grid_qa_pop_up:
 .. figure:: _static/grid_qa_pop_up.png
-    :width: 300px
+    :width: 250px
     :align: center
     :figclass: align-center
 
@@ -144,7 +144,7 @@ Upon completion of the execution of **Detect Holidays** you will receive a pop-u
 
 .. _fig_grid_qa_depth:
 .. figure:: _static/grid_qa_depth.png
-    :width: 700px
+    :width: 500px
     :align: center
     :alt: histogram of percentage of nodes representing the surface.
     :figclass: align-center
@@ -153,7 +153,7 @@ Upon completion of the execution of **Detect Holidays** you will receive a pop-u
 
 .. _fig_grid_qa_density:
 .. figure:: _static/grid_qa_density.png
-    :width: 700px
+    :width: 500px
     :align: center
     :alt: histogram showing percentage of nodes passing density requirements
     :figclass: align-center
@@ -162,7 +162,7 @@ Upon completion of the execution of **Detect Holidays** you will receive a pop-u
 
 .. _fig_grid_qa_uncertainty:
 .. figure:: _static/grid_qa_uncertainty.png
-    :width: 700px
+    :width: 500px
     :align: center
     :alt: histogram showing the percentage of nodes passing uncertainty requirements
     :figclass: align-center
@@ -171,7 +171,7 @@ Upon completion of the execution of **Detect Holidays** you will receive a pop-u
 
 .. _fig_grid_qa_resolution:
 .. figure:: _static/grid_qa_resolution.png
-    :width: 700px
+    :width: 500px
     :align: center
     :alt: histogram showing the percentage of nodes passing resolution requirements
     :figclass: align-center
@@ -180,7 +180,7 @@ Upon completion of the execution of **Detect Holidays** you will receive a pop-u
 
 .. _fig_grid_qa_depth_vs_density:
 .. figure:: _static/grid_qa_depth_vs_density.png
-    :width: 700px
+    :width: 500px
     :align: center
     :alt: plot representing depth vs. density
     :figclass: align-center
@@ -189,7 +189,7 @@ Upon completion of the execution of **Detect Holidays** you will receive a pop-u
 
 .. _fig_grid_qa_depth_vs_tvu:
 .. figure:: _static/grid_qa_depth_vs_tvu.png
-    :width: 700px
+    :width: 500px
     :align: center
     :alt: plot representing depth vs. tvu
     :figclass: align-center
@@ -198,7 +198,7 @@ Upon completion of the execution of **Detect Holidays** you will receive a pop-u
 
 .. _fig_grid_qa_catzoc:
 .. figure:: _static/grid_qa_catzoc.png
-    :width: 700px
+    :width: 500px
     :align: center
     :alt: three plots associated with CATZOC uncertainty
     :figclass: align-center
