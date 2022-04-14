@@ -145,6 +145,7 @@ The example in :numref:`la_place_ex` shows grid nodes (depths in meters) recomme
 
 .. _la_place_ex:
 .. Figure:: _static/laplace_ex.png
+    :width: 600px
     :align: center
     :alt: logo
 
@@ -414,22 +415,22 @@ Upon completion of the execution of **Flier Finder** you will receive a pop-up v
 
 **Flier Finder** produces two .000 files containing the locations of potential fliers. These can be loaded into your GIS software of choice for further analysis.
 
-One type of .000 file is called the "blue notes" which is a file containing $CSYMB features. The NINFOM field of the $CSYMB feautres contains the algorithm detected (e.g., "2" for Gaussian Curvature).
+One type of .000 file is called the "blue notes" which is a file containing $CSYMB features (:numref:`fig_flier_finder_blue_notes`). The NINFOM field of the $CSYMB feautres contains the algorithm detected (e.g., "2" for Gaussian Curvature).
 
-.. _fig_filer_finder_blue_notes:
+.. _fig_flier_finder_blue_notes:
 .. figure:: _static/flier_finder_blue_notes.png
-    :width: 700px
+    :width: 600px
     :align: center
     :alt: flier indicated with blue note
     :figclass: align-center
 
     An example of a potential flier identified with a blue note ($CSYMB).
 
-The other type of .000 file is a sounding file that contains SOUNDG features. The depth of each SOUNDG feature identifies the algorithm that detected it (e.g., "3" for Adjacent Cells).
+The other type of .000 file is a sounding file that contains SOUNDG features (:numref:`fig_flier_finder_soundg`). The depth of each SOUNDG feature identifies the algorithm that detected it (e.g., "3" for Adjacent Cells).
 
 .. _fig_flier_finder_soundg:
 .. figure:: _static/flier_finder_soundg.png
-    :width: 700px
+    :width: 600px
     :align: center
     :alt: flier indicated with sounding
     :figclass: align-center
