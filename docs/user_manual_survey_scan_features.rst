@@ -146,6 +146,7 @@ The logic for the 2021 QC Tools feature scan is shown below. For previous years,
     * Flags ATONS if they are found in the file. MCD defines ATONS as: **LIGHTS, BOYLAT, BOYSAW, BOYSPP, DAYMAR, FOGSIG, RTPBCN, BOYISD, BOYINB, BOYCAR, BCNSPP, BCNLAT, BCNSAW, BCNCAR**, and **BCNISD**
     * All **M_QUAL** features must have **CATZOC, SURSTA, SUREND,** and **TECSOU.**
     * All features must have **descrp** and **remrks**.
+    * No features with onotes text input field exceeding 250 characters.
 
 .. rubric:: Footnotes
 
