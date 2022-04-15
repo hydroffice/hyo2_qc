@@ -86,7 +86,7 @@ The BAG files are inspected to ensure compliance with NOAA NBS requirements and 
 
 .. rubric:: Footnotes
 
-.. [1] High uncertainty is calculated as 2.0m + 0.05 * maximum depth of the surface.
+.. [1] High uncertainty is calculated as 4.0m + 0.1 * maximum depth of the surface.
 
 |
 

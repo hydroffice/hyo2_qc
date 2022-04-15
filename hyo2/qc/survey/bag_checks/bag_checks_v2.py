@@ -497,9 +497,9 @@ class BagChecksV2:
             logger.debug('min/max depth: %.2f/%.2f'
                          % (self._cur_min_depth, self._cur_max_depth))
             if np.isnan(self._cur_max_depth) or (self._cur_max_depth < 0.0):
-                high_unc_threshold = 2.0
+                high_unc_threshold = 4.0
             else:
-                high_unc_threshold = 2.0 + 0.05 * self._cur_max_depth
+                high_unc_threshold = 4.0 + 0.1 * self._cur_max_depth
             logger.debug('max uncertainty threshold: %.2f' % (high_unc_threshold, ))
 
             # logger.debug('min/max elevation: %s/%s' % (min_elevation, max_elevation))
