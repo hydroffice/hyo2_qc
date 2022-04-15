@@ -45,6 +45,7 @@ class Checks:
         self.multimedia_folder = multimedia_folder
 
         self.character_limit = 255
+        self.onotes_character_limit = 250
 
     # shared functions
 
@@ -1746,16 +1747,11 @@ class Checks:
         self.report += "Features missing mandatory attribute remarks [CHECK]"
         self.flags.office.mcd_remarks = self._check_features_for_attribute(objects=self.all_fts, attribute='remrks')
 
-        if self.version in ["2019", "2020"]:
-            # Requirement only for the office, then also for the field
-            self.report += "Features with text input fields exceeding %d characters [CHECK]" % self.character_limit
-            self.flags.office.chars_limit = self._check_character_limit(objects=self.all_fts, attributes=['images',
-                                                                                                          'invreq',
-                                                                                                          'keywrd',
-                                                                                                          'onotes',
-                                                                                                          'recomd',
-                                                                                                          'remrks'],
-                                                                        character_limit=self.character_limit)
+
+        # Requirement only for the office, onotes may not exceed 250 characters
+        self.report += "Features with onotes field exceeding %d characters [CHECK]" % self.onotes_character_limit
+        self.flags.office.chars_limit = self._check_character_limit(objects=self.all_fts, attributes=['onotes', ],
+                                                                    character_limit=self.onotes_character_limit)
 
     def _check_for_missing_keywords(self, objects: List['S57Record10'], attr_acronym: str, keywords: List[str]) \
             -> List[list]:
