@@ -61,7 +61,7 @@ class ScanTab(QtWidgets.QMainWindow):
         self.sordat_value = None  # type: Optional[QtWidgets.QLineEdit]
 
         # - feature scan
-        self.featureScan = QtWidgets.QGroupBox("Feature scan v11")
+        self.featureScan = QtWidgets.QGroupBox("Feature scan v12")
         self.featureScan.setStyleSheet("QGroupBox::title { color: rgb(155, 155, 155); }")
         self.vbox.addWidget(self.featureScan)
         fs_hbox = QtWidgets.QHBoxLayout()
@@ -117,15 +117,19 @@ class ScanTab(QtWidgets.QMainWindow):
         label_up_hbox.addWidget(text_field_empty)
         text_office_empty = QtWidgets.QLabel("")
         text_office_empty.setAlignment(QtCore.Qt.AlignCenter)
-        text_office_empty.setFixedWidth(35)
+        text_office_empty.setFixedWidth(40)
         label_up_hbox.addWidget(text_office_empty)
         # space
-        label_up_hbox.addSpacing(15)
+        label_up_hbox.addSpacing(40)
         # specs
         text_2020 = QtWidgets.QLabel("2020")
         text_2020.setAlignment(QtCore.Qt.AlignCenter)
-        text_2020.setFixedWidth(70)
+        text_2020.setFixedWidth(25)
         label_up_hbox.addWidget(text_2020)
+        text_2021 = QtWidgets.QLabel("2021")
+        text_2021.setAlignment(QtCore.Qt.AlignCenter)
+        text_2021.setFixedWidth(75)
+        label_up_hbox.addWidget(text_2021)
 
         # stretch
         label_up_hbox.addStretch()
@@ -151,8 +155,8 @@ class ScanTab(QtWidgets.QMainWindow):
         self.toggle_specs = QtWidgets.QDial()
         self.toggle_specs.setNotchesVisible(True)
         self.toggle_specs.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.toggle_specs.setRange(2019, 2021)
-        self.toggle_specs.setValue(2021)
+        self.toggle_specs.setRange(2019, 2022)
+        self.toggle_specs.setValue(2022)
         self.toggle_specs.setFixedSize(QtCore.QSize(50, 50))
         self.toggle_specs.setInvertedAppearance(False)
         toggle_hbox.addWidget(self.toggle_specs)
@@ -181,11 +185,11 @@ class ScanTab(QtWidgets.QMainWindow):
         text_2019.setAlignment(QtCore.Qt.AlignCenter)
         text_2019.setFixedWidth(25)
         label_hbox.addWidget(text_2019)
-        text_2021 = QtWidgets.QLabel("2021")
-        text_2021.setAlignment(QtCore.Qt.AlignCenter)
-        text_2021.setFixedWidth(75)
+        text_2022 = QtWidgets.QLabel("2022")
+        text_2022.setAlignment(QtCore.Qt.AlignCenter)
+        text_2022.setFixedWidth(75)
         # text_2021.setStyleSheet("QLabel { color :  rgb(200, 0, 0, 200); }")
-        label_hbox.addWidget(text_2021)
+        label_hbox.addWidget(text_2022)
         # stretch
         label_hbox.addStretch()
 
@@ -370,7 +374,7 @@ class ScanTab(QtWidgets.QMainWindow):
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
         button.setFixedWidth(GuiSettings.text_button_width())
-        button.setText("Feature scan v11")
+        button.setText("Feature scan v12")
         button.setToolTip('Scan features in the loaded file checking their validity')
         # noinspection PyUnresolvedReferences
         button.clicked.connect(self.click_feature_scan)
@@ -487,6 +491,8 @@ class ScanTab(QtWidgets.QMainWindow):
                 specs_version = "2020"
             elif specs_version == 2021:
                 specs_version = "2021"
+            elif specs_version == 2022:
+                specs_version = "2022"
             else:
                 raise RuntimeError("unknown specs version: %s" % specs_version)
 

@@ -84,6 +84,46 @@ class Checks:
 
         return flagged
 
+    def _check_features_for_list_attribute(self, objects: List['S57Record10'], attribute: List[str],
+                                           possible: bool = False) \
+            -> List[list]:
+        """Check if the passed features have the passed attribute"""
+        flagged = list()
+
+        for obj in objects:
+            # do the test
+            internal_flags = 0
+            has_attribute = False
+            for a in attribute:
+                for attr in obj.attributes:
+                    if attr.acronym == a:
+                        has_attribute = True
+                if not has_attribute:
+                    internal_flags = internal_flags + 1
+
+            # check passed
+            if len(attribute) > internal_flags:
+                continue
+
+            if possible:
+                # add to the flagged report
+                self.report += 'Found missing %s at (%.7f, %.7f)' % (
+                    obj.acronym, obj.centroid.x, obj.centroid.y)
+                # add to the flagged feature list
+                self.flags.append(obj.centroid.x, obj.centroid.y, "Missing one of %s" % attribute,
+                                  self.report.cur_section())
+            else:
+                # add to the flagged report
+                self.report += 'Found missing %s at (%.7f, %.7f)' % (obj.acronym, obj.centroid.x, obj.centroid.y)
+                # add to the flagged feature list
+                self.flags.append(obj.centroid.x, obj.centroid.y, "missing one of %s" % attribute, self.report.cur_section())
+            flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
+
+        if len(flagged) == 0:
+            self.report += "OK"
+
+        return flagged
+
     def _check_features_without_attribute(self, objects: List['S57Record10'], attribute: str, possible: bool = False) \
             -> List[list]:
         """Check if the passed features have the passed attribute"""
@@ -186,7 +226,7 @@ class Checks:
 
         self._check_all_features_for_redundancy_and_geometry()
 
-        if self.version in ["2021"]:
+        if self.version in ["2021", "2022"]:
             # New Requirement in 2021 HSSD character limit for all fields with free text strings
             self.report += "Features with text input fields exceeding %d characters [CHECK]" % self.character_limit
             self.flags.all_fts.chars_limit = self._check_character_limit(objects=self.all_fts,
@@ -746,10 +786,11 @@ class Checks:
         self.flags.new_deleted_fts.remarks = self._check_features_for_attribute(objects=self.new_deleted_fts,
                                                                                 attribute='remrks')
 
-        # Ensure new or deleted features have recomd
-        self.report += "New/Delete features missing mandatory attribute recommendation [CHECK]"
-        self.flags.new_deleted_fts.recommend = self._check_features_for_attribute(objects=self.new_deleted_fts,
-                                                                                  attribute='recomd')
+        if self.version in ["2019", "2020", "2021"]:
+            # Ensure new or deleted features have recomd
+            self.report += "New/Delete features missing mandatory attribute recommendation [CHECK]"
+            self.flags.new_deleted_fts.recommend = self._check_features_for_attribute(objects=self.new_deleted_fts,
+                                                                                      attribute='recomd')
 
     # ### IMAGES ###
 
@@ -781,9 +822,9 @@ class Checks:
                 self._check_sbdare_images_per_htd_2018_4(objects=sbdare_points) + \
                 self._check_nonsbdare_images_per_htd_2018_5(objects=sbdare_lines_areas + non_sbdare_features)
 
-        elif self.version in ["2021"]:
+        elif self.version in ["2021", "2022"]:
 
-            self.report += "Invalid IMAGE name per HSSD 2021 [CHECK]"
+            self.report += "Invalid IMAGE name per HSSD [CHECK]"
             self.flags.images.invalid_names = \
                 self._check_sbdare_images_per_hssd_2021(objects=sbdare_points) + \
                 self._check_nonsbdare_images_per_hssd_2021(
@@ -1133,6 +1174,8 @@ class Checks:
         # filter out wrecks with tecsou vbes, lidar, photogrammetry
         wrecks_filtered_tecsou = S57Aux.filter_by_attribute_value(objects=wrecks_valsou, attribute='TECSOU',
                                                                   value_filter=['1', '7', '10', ])
+        # select wrecks if they have Height
+        wrecks_height = S57Aux.select_by_attribute(objects=wrecks, attribute='HEIGHT')
 
         # Ensure new or updated wrecks have images
         self.report += "New or Updated WRECKS missing images [CHECK]"
@@ -1144,8 +1187,14 @@ class Checks:
                                                                             values_to_flag=['', ],
                                                                             check_attrib_existence=True)
 
-        self.report += "Warning: New or Updated WRECKS missing mandatory attribute VALSOU [CHECK]"
-        self.flags.wrecks.valsou = self._check_features_for_attribute(objects=wrecks, attribute='VALSOU', possible=True)
+        if self.version in ["2019", "2020", "2021"]:
+            self.report += "Warning: New or Updated WRECKS missing mandatory attribute VALSOU [CHECK]"
+            self.flags.wrecks.valsou = self._check_features_for_attribute(objects=wrecks, attribute='VALSOU',
+                                                                          possible=True)
+
+        if self.version in ["2022"]:
+            #Ensure new or updated obstructions (excluding fouls) have valsou or height
+            pass
 
         # If wreck has valsou, must have watlev, quasou, tecsou
         # Ensure wrecks with valsou contain watlev
@@ -1194,6 +1243,17 @@ class Checks:
                                                                                     values_to_flag=["1", "2", "3", "4",
                                                                                                     "5", "6", "7", "8",
                                                                                                     "9", "10", "11"])
+
+        if self.version in ["2022"]:
+            self.report += "Warning: Feature with HEIGHT should not have TECSOU [CHECK]"
+            self.flags.wrecks.height_tecsou = self._check_features_without_attribute(objects=wrecks_height,
+                                                                                     attribute='TECSOU', possible=False)
+
+            self.report += "Warning: Feature with HEIGHT should not have QUASOU [CHECK]"
+            self.flags.wrecks.height_quasou = self._check_features_without_attribute(objects=wrecks_height,
+                                                                                           attribute='QUASOU',
+                                                                                           possible=False)
+        
 
     # ROCKS
 
@@ -1272,6 +1332,8 @@ class Checks:
 
         obstrn_valsou = S57Aux.select_by_attribute(objects=obstrns, attribute='VALSOU')
 
+        obstrn_height = S57Aux.select_by_attribute(objects=obstrns, attribute='HEIGHT')
+
         # Exclude foul area and ground area obstructions
         obstrns_no_foul_area_ground = S57Aux.filter_by_attribute_value(objects=obstrns, attribute='CATOBS',
                                                                        value_filter=['6', '7', ])
@@ -1296,15 +1358,31 @@ class Checks:
 
         # Ensure new or updated obstructions (not foul area) have images
         # Ensure new or updated wrecks have images
-        self.report += "New or Updated OBSTRN (excluding foul areas) missing images [CHECK]"
-        self.flags.obstructions.images = self._check_features_for_attribute(objects=obstrns_no_foul, attribute='images')
+        if self.version in ["2019", "2020", "2021"]:
+            self.report += "New or Updated OBSTRN (excluding foul areas) missing images [CHECK]"
+            self.flags.obstructions.images = self._check_features_for_attribute(objects=obstrns_no_foul,
+                                                                                attribute='images')
+        if self.version in ["2022"]:
+            self.report += "New or Updated OBSTRN (excluding foul ground & areas) missing images [CHECK]"
+            self.flags.obstructions.images = self._check_features_for_attribute(objects=obstrns_no_foul_area_ground,
+                                                                                attribute='images')
 
-        # Ensure new or updated obstructions (excluding foul ground) should have valsou
-        self.report += "Warning: New or Updated OBSTRN (excluding foul ground & areas) missing mandatory attribute " \
-                       "VALSOU [CHECK]"
-        self.flags.obstructions.valsou = self._check_features_for_attribute(objects=obstrns_no_foul_area_ground,
-                                                                            attribute='VALSOU',
-                                                                            possible=True)
+        if self.version in ["2019", "2020", "2021"]:
+            # Ensure new or updated obstructions (excluding foul ground) should have valsou
+            self.report += "Warning: New or Updated OBSTRN (excluding foul ground & areas) missing mandatory attribute " \
+                           "VALSOU [CHECK]"
+            self.flags.obstructions.valsou = self._check_features_for_attribute(objects=obstrns_no_foul_area_ground,
+                                                                                attribute='VALSOU',
+                                                                                possible=True)
+
+        if self.version in ["2022"]:
+            # Ensure new or updated obstructions (excluding foul ground) should have valsou or height
+            self.report += "Warning: New or Updated OBSTRN (excluding foul ground & areas) missing mandatory attribute " \
+                           "VALSOU or HEIGHT [CHECK]"
+            self.flags.obstructions.valsou = self._check_features_for_list_attribute(objects=obstrns_no_foul_area_ground,
+                                                                                     attribute=['VALSOU','HEIGHT'],
+                                                                                     possible=True)
+
 
         # Following checks are for obstructions that are foul.
         # Ensure foul area does not have valsou
@@ -1420,6 +1498,17 @@ class Checks:
                                                      values_to_flag=["1", "3", "4", "5", "6", "7", "8", "9", "10",
                                                                      "11"],
                                                      check_attrib_existence=True)
+
+        # new warning in 2022: If feature has HEIGHT, then TECSOU and QUASOU should not be populated
+        if self.version in ["2022"]:
+            self.report += "Warning: Feature with HEIGHT should not have TECSOU [CHECK]"
+            self.flags.obstructions.height_tecsou = self._check_features_without_attribute(objects=obstrn_height,
+                                                                                     attribute='TECSOU', possible=False)
+
+            self.report += "Warning: Feature with HEIGHT should not have QUASOU [CHECK]"
+            self.flags.obstructions.height_quasou = self._check_features_without_attribute(objects=obstrn_height,
+                                                                                           attribute='QUASOU',
+                                                                                           possible=False)
 
     # OFFSHORE PLATFORMS
 

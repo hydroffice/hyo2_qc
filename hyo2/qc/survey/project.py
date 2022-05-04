@@ -29,7 +29,7 @@ from hyo2.qc.survey.gridqa.grid_qa_v6 import GridQAV6
 from hyo2.qc.survey.sbdare.base_sbdare import sbdare_algos
 from hyo2.qc.survey.sbdare.sbdare_export_v5 import SbdareExportV5
 from hyo2.qc.survey.scan.checks import Checks
-from hyo2.qc.survey.scan.feature_scan_v11 import FeatureScanV11
+from hyo2.qc.survey.scan.feature_scan_v12 import FeatureScanV12
 from hyo2.qc.survey.submission.base_submission import BaseSubmission, submission_algos
 from hyo2.qc.survey.submission.submission_checks_v4 import SubmissionChecksV4
 from hyo2.qc.survey.valsou.base_valsou import valsou_algos
@@ -949,7 +949,7 @@ class SurveyProject(BaseProject):
 
         try:
 
-            self._scan = FeatureScanV11(s57=self.cur_s57, profile=self.active_profile, version=specs_version,
+            self._scan = FeatureScanV12(s57=self.cur_s57, profile=self.active_profile, version=specs_version,
                                         survey_area=survey_area, use_mhw=use_mhw, mhw_value=mhw_value,
                                         sorind=sorind, sordat=sordat, multimedia_folder=multimedia_folder,
                                         check_image_names=check_image_names)
@@ -996,19 +996,23 @@ class SurveyProject(BaseProject):
         if not os.path.exists(output_folder):
             os.makedirs(output_folder)
 
-        if self._scan.type == 'FEATURE_SCAN_v11':
+        if self._scan.type == 'FEATURE_SCAN_v12':
 
             if self._scan.version == '2019':
-                output_pdf = os.path.join(output_folder, "%s.SFSv11.2019.pdf" % self.cur_s57_basename)
-                title_pdf = "Survey Feature Scan v10 - Tests against HSSD 2019"
+                output_pdf = os.path.join(output_folder, "%s.SFSv12.2019.pdf" % self.cur_s57_basename)
+                title_pdf = "Survey Feature Scan v12 - Tests against HSSD 2019"
 
             elif self._scan.version == '2020':
-                output_pdf = os.path.join(output_folder, "%s.SFSv11.2020.pdf" % self.cur_s57_basename)
-                title_pdf = "Survey Feature Scan v10 - Tests against HSSD 2020"
+                output_pdf = os.path.join(output_folder, "%s.SFSv12.2020.pdf" % self.cur_s57_basename)
+                title_pdf = "Survey Feature Scan v12 - Tests against HSSD 2020"
 
             elif self._scan.version == '2021':
-                output_pdf = os.path.join(output_folder, "%s.SFSv11.2021.pdf" % self.cur_s57_basename)
-                title_pdf = "Survey Feature Scan v10 - Tests against HSSD 2021"
+                output_pdf = os.path.join(output_folder, "%s.SFSv12.2021.pdf" % self.cur_s57_basename)
+                title_pdf = "Survey Feature Scan v12 - Tests against HSSD 2021"
+
+            elif self._scan.version == '2022':
+                output_pdf = os.path.join(output_folder, "%s.SFSv12.2022.pdf" % self.cur_s57_basename)
+                title_pdf = "Survey Feature Scan v12 - Tests against HSSD 2022"
 
             else:
                 raise RuntimeError("Not implemented version: %s" % self._scan.version)
