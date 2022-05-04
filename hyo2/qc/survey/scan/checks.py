@@ -84,39 +84,58 @@ class Checks:
 
         return flagged
 
-    def _check_features_for_list_attribute(self, objects: List['S57Record10'], attribute: List[str],
-                                           possible: bool = False) \
-            -> List[list]:
+    def _check_features_for_just_one_of_attributes_in_list(self, objects: List['S57Record10'], xor_attributes: List[str],
+                                                           possible: bool = False) -> List[list]:
         """Check if the passed features have the passed attribute"""
         flagged = list()
 
         for obj in objects:
             # do the test
-            internal_flags = 0
-            has_attribute = False
-            for a in attribute:
+            attrs_counter = 0
+            for a in xor_attributes:
                 for attr in obj.attributes:
                     if attr.acronym == a:
-                        has_attribute = True
-                if not has_attribute:
-                    internal_flags = internal_flags + 1
+                        attrs_counter += 1
 
             # check passed
-            if len(attribute) > internal_flags:
+            if attrs_counter == 1:
                 continue
 
-            if possible:
+            if attrs_counter == 0:
+
                 # add to the flagged report
-                self.report += 'Found missing %s at (%.7f, %.7f)' % (
-                    obj.acronym, obj.centroid.x, obj.centroid.y)
-                # add to the flagged feature list
-                self.flags.append(obj.centroid.x, obj.centroid.y, "Missing one of %s" % attribute,
-                                  self.report.cur_section())
+                if possible:
+                    # add to the flagged report
+                    self.report += 'Warning: Found missing one among %s at (%.7f, %.7f)' % (
+                        xor_attributes, obj.centroid.x, obj.centroid.y)
+                    # add to the flagged feature list
+                    self.flags.append(obj.centroid.x, obj.centroid.y, "warning: missing one among %s"
+                                      % (xor_attributes, ), self.report.cur_section())
+                else:
+                    # add to the flagged report
+                    self.report += 'Found missing one among %s at (%.7f, %.7f)' % (
+                        xor_attributes, obj.centroid.x, obj.centroid.y)
+                    # add to the flagged feature list
+                    self.flags.append(obj.centroid.x, obj.centroid.y, "missing one among %s"
+                                      % (xor_attributes, ), self.report.cur_section())
+
             else:
                 # add to the flagged report
-                self.report += 'Found missing %s at (%.7f, %.7f)' % (obj.acronym, obj.centroid.x, obj.centroid.y)
-                # add to the flagged feature list
-                self.flags.append(obj.centroid.x, obj.centroid.y, "missing one of %s" % attribute, self.report.cur_section())
+                if possible:
+                    # add to the flagged report
+                    self.report += 'Warning: Found %d among %s at (%.7f, %.7f)' % (
+                        attrs_counter, xor_attributes, obj.centroid.x, obj.centroid.y)
+                    # add to the flagged feature list
+                    self.flags.append(obj.centroid.x, obj.centroid.y, "warning: %d among %s"
+                                      % (attrs_counter, xor_attributes, ), self.report.cur_section())
+                else:
+                    # add to the flagged report
+                    self.report += 'Found %d among %s at (%.7f, %.7f)' % (
+                        attrs_counter, xor_attributes, obj.centroid.x, obj.centroid.y)
+                    # add to the flagged feature list
+                    self.flags.append(obj.centroid.x, obj.centroid.y, "%d among %s"
+                                      % (attrs_counter, xor_attributes, ), self.report.cur_section())
+
             flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
 
         if len(flagged) == 0:
@@ -1369,20 +1388,18 @@ class Checks:
 
         if self.version in ["2019", "2020", "2021"]:
             # Ensure new or updated obstructions (excluding foul ground) should have valsou
-            self.report += "Warning: New or Updated OBSTRN (excluding foul ground & areas) missing mandatory attribute " \
-                           "VALSOU [CHECK]"
+            self.report += "Warning: New or Updated OBSTRN (excluding foul ground & areas) missing mandatory " \
+                           "attribute VALSOU [CHECK]"
             self.flags.obstructions.valsou = self._check_features_for_attribute(objects=obstrns_no_foul_area_ground,
                                                                                 attribute='VALSOU',
                                                                                 possible=True)
 
-        if self.version in ["2022"]:
+        elif self.version in ["2022"]:
             # Ensure new or updated obstructions (excluding foul ground) should have valsou or height
-            self.report += "Warning: New or Updated OBSTRN (excluding foul ground & areas) missing mandatory attribute " \
-                           "VALSOU or HEIGHT [CHECK]"
-            self.flags.obstructions.valsou = self._check_features_for_list_attribute(objects=obstrns_no_foul_area_ground,
-                                                                                     attribute=['VALSOU','HEIGHT'],
-                                                                                     possible=True)
-
+            self.report += "Warning: New or Updated OBSTRN (excluding foul ground & areas) having just one of " \
+                           "mandatory attributes VALSOU or HEIGHT [CHECK]"
+            self.flags.obstructions.valsou = self._check_features_for_just_one_of_attributes_in_list(
+                objects=obstrns_no_foul_area_ground, xor_attributes=['VALSOU', 'HEIGHT'], possible=True)
 
         # Following checks are for obstructions that are foul.
         # Ensure foul area does not have valsou
