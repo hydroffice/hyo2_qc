@@ -730,7 +730,7 @@ class Checks:
                 self.report += 'Could not verify QUASOU found %s at (%.7f, %.7f) because is missing TECSOU' \
                                % (obj.acronym, obj.centroid.x, obj.centroid.y)
                 # logger.debug("checking for TECSOU...")
-                self.flags.append(obj.centroid.x, obj.centroid.y, 'missing TECSOU required for TECSOU',
+                self.flags.append(obj.centroid.x, obj.centroid.y, 'missing TECSOU required for QUASOU',
                                   self.report.cur_section())
                 flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                 continue
@@ -1284,6 +1284,15 @@ class Checks:
                                                                                         check_attrib_existence=True,
                                                                                         possible=True)
 
+            #if wreck has height, WATLEV is always dry
+            self.report += "Warning: New or Updated WRECKS with HEIGHT shall have WATLEV of 'Always Dry' [CHECK]"
+            self.flags.wrecks.height_watlev = self._flag_features_with_attribute_value(wrecks_height,
+                                                                                        attribute='WATLEV',
+                                                                                        values_to_flag=["1", "3", "4",
+                                                                                                        "5", "6", "7", ],
+                                                                                        check_attrib_existence=True,
+                                                                                        possible=True)
+
             # Ensure wrecks with unknown valsou have tecsou "unknown"
             self.report += "New or Updated WRECKS with empty VALSOU and empty HEIGHT shall have TECSOU of 'unknown' [CHECK]"
             self.flags.wrecks.unknown_tecsou = self._flag_features_with_attribute_value(wrecks_undefined_valsou_no_height,
@@ -1515,6 +1524,15 @@ class Checks:
                                                                                                               "7", ],
                                                                                               check_attrib_existence=True,
                                                                                               possible=True)
+
+            #if obstruction has height, WATLEV is always dry
+            self.report += "Warning: New or Updated WRECKS with HEIGHT shall have WATLEV of 'Always Dry' [CHECK]"
+            self.flags.obstructions.height_watlev = self._flag_features_with_attribute_value(obstrn_height,
+                                                                                        attribute='WATLEV',
+                                                                                        values_to_flag=["1", "3", "4",
+                                                                                                        "5", "6", "7", ],
+                                                                                        check_attrib_existence=True,
+                                                                                        possible=True)
 
             # Ensure obstructions with unknown valsou have tecsou "unknown"
             self.report += "New or Updated OBSTRN with empty VALSOU and empty HEIGHT shall have TECSOU of 'unknown' [CHECK]"

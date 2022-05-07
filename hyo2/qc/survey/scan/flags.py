@@ -66,7 +66,6 @@ class Flags:
                 self.invalid_paths = list()
                 self.invalid_names = list()
 
-
             def nr_of_flagged(self) -> int:
                 return len(self.invalid_paths) + len(self.invalid_names)
 
@@ -105,13 +104,16 @@ class Flags:
                 self.unknown_tecsou = list()
                 self.quasou = list()
                 self.unknown_quasou = list()
+                self.height_quasou = list()
+                self.height_tecsou = list()
+                self.height_watlev = list()
 
             def nr_of_flagged(self) -> int:
                 return len(self.images) + len(self.catwrk) + \
                        len(self.watlev) + len(self.unknown_watlev) + \
                        len(self.valsou) + len(self.tecsou) + \
                        len(self.unknown_tecsou) + len(self.quasou) + \
-                       len(self.unknown_quasou)
+                       len(self.unknown_quasou) + len(self.height_quasou) + len(self.height_tecsou)
 
         self.wrecks = Wrecks()
 
@@ -153,13 +155,17 @@ class Flags:
                 self.foul_unknown_watlev = list()
                 self.foul_unknown_tecsou = list()
                 self.foul_unknown_quasou = list()
+                self.height_tecsou = list()
+                self.height_quasou = list()
+                self.height_watlev = list()
 
             def nr_of_flagged(self) -> int:
                 return len(self.images) + len(self.valsou) + len(self.watlev) + len(self.unknown_watlev) + \
                        len(self.quasou) + + len(self.unknown_quasou) + len(self.tecsou) + len(self.unknown_tecsou) + \
                        len(self.foul_valsou) + len(self.foul_ground_valsou) + len(self.foul_ground_watlev) + \
                        len(self.foul_ground_quasou) + len(self.foul_ground_tecsou) + len(self.foul_unknown_watlev) + \
-                       len(self.foul_unknown_tecsou) + len(self.foul_unknown_quasou)
+                       len(self.foul_unknown_tecsou) + len(self.foul_unknown_quasou) + len(self.height_tecsou) +\
+                       len(self.height_quasou)
 
         self.obstructions = Obstructions()
 
