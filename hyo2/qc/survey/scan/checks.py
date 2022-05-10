@@ -1919,8 +1919,8 @@ class Checks:
         if len(atons) == 0:
             self.report += "OK"
 
-        # For office profile, check for M_QUAL attribution
-        mqual = S57Aux.select_by_object(objects=self.all_fts, object_filter=['M_QUAL', ])
+        # For office profile, check for M_QUAL attribution for new and updated M_QUAL
+        mqual = S57Aux.select_by_object(objects=self.new_updated_fts, object_filter=['M_QUAL', ])
 
         # Ensure M_QUAL has CATZOC
         self.report += "M_QUAL features with empty/missing mandatory attribute CATZOC [CHECK]"
