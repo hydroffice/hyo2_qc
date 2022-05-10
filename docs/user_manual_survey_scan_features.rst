@@ -34,7 +34,7 @@ In order to access this tool, load an S-57 file into the **Data Inputs** tab.
 .. index::
     single: feature scan
 
-* In **Execution**, click **Feature scan v11**.
+* In **Execution**, click **Feature scan v12**.
 
 .. _fig_feature_scan:
 .. figure:: _static/feature_scan_interface.png
@@ -69,7 +69,7 @@ How Does It Work?
 
 The S-57 features are scanned to ensure proper attribution per the required year of HSSD.
 
-The logic for the 2021 QC Tools feature scan is shown below. For previous years, refer to the HSSD for that year.
+The logic for the 2022 QC Tools feature scan is shown below. For previous years, refer to the HSSD for that year.
 
 * Checks for feature file consistency:
 	* Check to ensure no feature redundancy. Features that have the same position, acronym, and attribution are flagged.
@@ -83,7 +83,7 @@ The logic for the 2021 QC Tools feature scan is shown below. For previous years,
 	* All new or updated features with a VALSOU have a correct **QUASOU** per the HSSD. [2]_
 	* All features with **ELEVAT** are checked for valid value.
 * New or Deleted features = all features with **descrp = 1 or 3**:
-    * All New or Deleted features must have **remrks** and **recomd.**
+    * All New or Deleted features must have **remrks**.
 * All features with images:
 	* All **images** contain the correct naming convention and they have a corresponding image in the multimedia folder.
 	* Receive a warning if an image is used on multiple features.
@@ -92,9 +92,12 @@ The logic for the 2021 QC Tools feature scan is shown below. For previous years,
 * DTONs = all features with **descrp = 1 or 2**, **sftype = 3**:
     * All DTONs must have **images.**
 * Wrecks = all **WRECKS** with **descrp = 1 or 2**:
-    * All Wrecks must have **images, CATWRK**, and **VALSOU**. [3]_
+    * All Wrecks must have **images, CATWRK**, and **VALSOU** or **HEIGHT**. [3]_
 	* If Wreck has **VALSOU**:
 		* Must have **WATLEV**, **QUASOU**, and **TECSOU**.
+    * If Wreck has **HEIGHT**:
+        * Must have **WATLEV** = "Always Dry"
+        * **TECSOU** and **QUASOU** should be blank.
 	* If Wreck does not have **VALSOU**:
 		* Must have **QUASOU** and **TECSOU** of null/undefined.
 		* Receive a warning if **WATLEV** is not "unknown".
@@ -110,7 +113,10 @@ The logic for the 2021 QC Tools feature scan is shown below. For previous years,
     * All obsructions (excluding foul ground and foul areas) must have **VALSOU**. [3]_
     * If obstruction has **VALSOU**:
         * Obstruction must have **WATLEV**, **QUASOU**, and **TECSOU**.
-    * If obstruction does not have **VALSOU**:
+    * If obstruction has **HEIGHT**:
+        * Must have **WATLEV** = "Always Dry"
+        * **TECSOU** and **QUASOU** should be blank.
+    * If obstruction does not have **VALSOU** or **HEIGHT**:
         * Must have **QUASOU** and **TECSOU** of null/undefined.
         * Receive a warning if **WATLEV** is not "unknown".
     * If obstruction is foul ground:
@@ -144,13 +150,13 @@ The logic for the 2021 QC Tools feature scan is shown below. For previous years,
     * All features must have **hsdrec.**
     * Checks for features that are prohibited by MCD (**DRGARE, LOGPON, PIPARE, PIPOHD, PIPSOL, DMPGRD, CBLSUB, CBLARE, FAIRWY, CBLOHD, BCNSPP, BRIDGE, OBSTRN with CATOBS = 5**, and **MORFAC** with **CATMOR = 7**.
     * Flags ATONS if they are found in the file. MCD defines ATONS as: **LIGHTS, BOYLAT, BOYSAW, BOYSPP, DAYMAR, FOGSIG, RTPBCN, BOYISD, BOYINB, BOYCAR, BCNSPP, BCNLAT, BCNSAW, BCNCAR**, and **BCNISD**
-    * All **M_QUAL** features must have **CATZOC, SURSTA, SUREND,** and **TECSOU.**
+    * All new/updated **M_QUAL** features must have **CATZOC, SURSTA, SUREND,** and **TECSOU.**
     * All features must have **descrp** and **remrks**.
     * No features with onotes text input field exceeding 250 characters.
 
 .. rubric:: Footnotes
 
-.. [1] Allowable combinations of **WATLEV** per **VALSOU** depending on location are shown below as stated in Appendix E in the 2021 Hydrographic Specifications and Deliverables.
+.. [1] Allowable combinations of **WATLEV** per **VALSOU** depending on location are shown below as stated in Appendix E in the 2022 Hydrographic Specifications and Deliverables.
 
 .. _fig_WATLEV_attribution:
 .. figure:: _static/watlev_table.png
