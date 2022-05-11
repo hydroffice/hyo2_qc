@@ -109,7 +109,7 @@ The logic for the 2022 QC Tools feature scan is shown below. For previous years,
 		* Must have **QUASOU** and **TECSOU** of null/undefined.
 		* Receive a warning if **WATLEV** is not "unknown".
 * Obstructions = all **OBSTRN** with **descrp = 1 or 2**:
-    * All Obstructions (excluding foul areas) must have **images**.
+    * All obstructions (excluding foul ground and foul areas) must have **images**.
     * All obsructions (excluding foul ground and foul areas) must have **VALSOU**. [3]_
     * If obstruction has **VALSOU**:
         * Obstruction must have **WATLEV**, **QUASOU**, and **TECSOU**.
