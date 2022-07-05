@@ -365,6 +365,7 @@ class SurveyProject(BaseProject):
             osr_csar.ImportFromWkt(self._holes.crs)
             osr_geo = osr.SpatialReference()
             osr_geo.ImportFromEPSG(4326)  # geographic WGS84
+            osr_geo.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
             loc2geo = osr.CoordinateTransformation(osr_csar, osr_geo)
 
         except Exception as e:
@@ -1161,6 +1162,7 @@ class SurveyProject(BaseProject):
                 osr_grid.ImportFromWkt(self._gr2.cur_grids.bbox().hrs)
                 osr_geo = osr.SpatialReference()
                 osr_geo.ImportFromEPSG(4326)  # geographic WGS84
+                osr_geo.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
                 # self.loc2geo = osr.CoordinateTransformation(osr_bag, osr_geo)
                 geo2loc = osr.CoordinateTransformation(osr_geo, osr_grid)
 

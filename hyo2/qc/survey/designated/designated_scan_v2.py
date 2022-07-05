@@ -85,6 +85,7 @@ class DesignatedScanV2(BaseDesignated):
             osr_bag.ImportFromWkt(self.grids.bbox().hrs)
             osr_geo = osr.SpatialReference()
             osr_geo.ImportFromEPSG(4326)  # geographic WGS84
+            osr_geo.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
             self.loc2geo = osr.CoordinateTransformation(osr_bag, osr_geo)
             # geo2loc = osr.CoordinateTransformation(osr_geo, osr_bag)
 
@@ -174,6 +175,7 @@ class DesignatedScanV2(BaseDesignated):
             osr_grid.ImportFromWkt(self.grids.bbox().hrs)
             osr_geo = osr.SpatialReference()
             osr_geo.ImportFromEPSG(4326)  # geographic WGS84
+            osr_geo.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
             # self.loc2geo = osr.CoordinateTransformation(osr_bag, osr_geo)
             self.geo2loc = osr.CoordinateTransformation(osr_geo, osr_grid)
 

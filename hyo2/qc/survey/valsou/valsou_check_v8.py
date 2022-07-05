@@ -210,15 +210,17 @@ class ValsouCheckV8(BaseValsou):
 
             # append [long, lat, depth]
             self.valsou_geo.append([feature.centroid.x, feature.centroid.y, s57_valsou])
+
         # logger.debug("lon, lat, d: %s" % self.valsou_geo)
 
         # store the coordinate transform from CSAR CRS to geo (using GDAL)
         try:
             osr_grid = osr.SpatialReference()
-            # logger.debug("cur_grids: %s" % self.grids.cur_grids)
+            # logger.debug("cur grids hrs: %s" % self.grids.cur_grids.bbox().hrs)
             osr_grid.ImportFromWkt(self.grids.cur_grids.bbox().hrs)
             osr_geo = osr.SpatialReference()
             osr_geo.ImportFromEPSG(4326)  # geographic WGS84
+            osr_geo.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
             # self.loc2geo = osr.CoordinateTransformation(osr_bag, osr_geo)
             self.geo2loc = osr.CoordinateTransformation(osr_geo, osr_grid)
 
@@ -226,15 +228,16 @@ class ValsouCheckV8(BaseValsou):
             raise RuntimeError("unable to create a valid coords transform: %s" % e)
 
         # convert s57 features to grid CRS coords
-        self.valsou_utm = np.array(self.geo2loc.TransformPoints(np.array(self.valsou_geo, np.float64)),
+        self.valsou_utm = np.array(self.geo2loc.TransformPoints(np.array(yxz_geo, np.float64)),
                                    np.float64)
-        # logger.debug("x, y, z: %s" % self.valsou_loc)
+        # logger.debug("x, y, z: %s" % (self.valsou_utm))
 
         # create a list to flag the visited features
         self.valsou_visited = [False] * len(self.valsou_utm)
         # logger.debug("visited: %s" % self.valsou_visited)
 
         # convert feature to array coords
+        # logger.debug("Transform: %s" % (list(self.grids.cur_grids.bbox().transform)))
         valsou_array = np.copy(self.valsou_utm)
         valsou_array[:, 0] = \
             (self.valsou_utm[:, 0] - self.grids.cur_grids.bbox().transform[0]) / self.grids.cur_grids.bbox().transform[
