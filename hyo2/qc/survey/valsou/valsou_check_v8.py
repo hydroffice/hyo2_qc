@@ -228,7 +228,7 @@ class ValsouCheckV8(BaseValsou):
             raise RuntimeError("unable to create a valid coords transform: %s" % e)
 
         # convert s57 features to grid CRS coords
-        self.valsou_utm = np.array(self.geo2loc.TransformPoints(np.array(yxz_geo, np.float64)),
+        self.valsou_utm = np.array(self.geo2loc.TransformPoints(np.array(self.valsou_geo, np.float64)),
                                    np.float64)
         # logger.debug("x, y, z: %s" % (self.valsou_utm))
 
