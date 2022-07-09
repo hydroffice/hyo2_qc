@@ -975,12 +975,7 @@ class FindFliersV9(BaseFliers):
             # logger.debug("ys: %s" % ys)
 
             # convert to geographic
-            if gdal.__version__[0] == '3':
-                lonlat = np.array(loc2geo.TransformPoints(np.vstack((xs, ys)).transpose()), np.float64)
-                lonlat.T[[0, 1]] = lonlat.T[[1, 0]]
-                # print(lonlat)
-            else:
-                lonlat = np.array(loc2geo.TransformPoints(np.vstack((xs, ys)).transpose()), np.float64)
+            lonlat = np.array(loc2geo.TransformPoints(np.vstack((xs, ys)).transpose()), np.float64)
 
             # add checks
             lonlat[:, 2] = cks

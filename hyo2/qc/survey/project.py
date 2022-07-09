@@ -23,7 +23,6 @@ from hyo2.qc.survey.bag_checks.bag_checks_v1 import BagChecksV1
 from hyo2.qc.survey.bag_checks.bag_checks_v2 import BagChecksV2
 from hyo2.qc.survey.designated.base_designated import designated_algos
 from hyo2.qc.survey.designated.designated_scan_v2 import DesignatedScanV2
-from hyo2.qc.survey.fliers.find_fliers_v8 import FindFliersV8
 from hyo2.qc.survey.fliers.find_fliers_v9 import FindFliersV9
 from hyo2.qc.survey.gridqa.grid_qa_v6 import GridQAV6
 from hyo2.qc.survey.sbdare.base_sbdare import sbdare_algos
@@ -176,50 +175,6 @@ class SurveyProject(BaseProject):
             os.makedirs(output_folder)
 
         return output_folder
-
-    def find_fliers_v8(self, height: Optional[float],
-                       check_laplacian: bool = False, check_curv: bool = True, check_adjacent: bool = True,
-                       check_slivers: bool = True, check_isolated: bool = True, check_edges: bool = False,
-                       edges_distance: int = 3, edges_pct_tvu: float = 1.0,
-                       filter_fff: bool = False, filter_designated: bool = False,
-                       export_bathy: bool = False, export_proxies: bool = False,
-                       export_heights: bool = False, export_curvatures: bool = False,
-                       progress_bar: Optional[AbstractProgress] = None):
-        """Look for fliers using the passed parameters and the loaded grids"""
-        if not self.has_grid():
-            logger.warning("first load some grids")
-            return
-
-        try:
-            self._gr.select_layers_in_current = [self._gr.depth_layer_name(), ]
-
-            self._fliers = FindFliersV8(grids=self._gr,
-                                        height=height,  # can be None in case of just gaussian curv or isolated nodes
-                                        check_laplacian=check_laplacian,
-                                        check_curv=check_curv,
-                                        check_adjacent=check_adjacent,
-                                        check_slivers=check_slivers,
-                                        check_isolated=check_isolated,
-                                        check_edges=check_edges,
-                                        edges_distance=edges_distance,
-                                        edges_pct_tvu=edges_pct_tvu,
-                                        filter_fff=filter_fff,
-                                        filter_designated=filter_designated,
-                                        save_bathy=export_bathy,
-                                        save_proxies=export_proxies,
-                                        save_heights=export_heights,
-                                        save_curvatures=export_curvatures,
-                                        output_folder=self.make_fliers_output_folder(),
-                                        progress_bar=progress_bar)
-
-            start_time = time.time()
-            self._fliers.run()
-            logger.info("find fliers v8 -> execution time: %.3f s" % (time.time() - start_time))
-
-        except Exception as e:
-            traceback.print_exc()
-            self._fliers = None
-            raise e
 
     def find_fliers_v9(self, height: Optional[float],
                        check_laplacian: bool = False, check_curv: bool = True, check_adjacent: bool = True,

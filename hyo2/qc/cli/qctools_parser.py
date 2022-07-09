@@ -43,6 +43,8 @@ class QCToolsParser:
                                help='True to enable the Edge Slivers Check.')
         ff_parser.add_argument('-check_edges', required=False, type=bool, default=False,
                                help='True to enable the Noisy Edges Check.')
+        ff_parser.add_argument('-check_margins', required=False, type=bool, default=False,
+                               help='True to enable the Noisy Margins Check.')
         ff_parser.add_argument('-filter_designated', required=False, type=bool, default=False,
                                help='True to enable filtering of designated soundings.')
         ff_parser.add_argument('-filter_fff', required=False, type=bool, default=False,
@@ -132,13 +134,15 @@ class QCToolsParser:
         check_slivers = args.check_slivers
         check_isolated = args.check_isolated
         check_edges = args.check_edges
+        check_margins = args.check_margins
 
         filter_designated = args.filter_designated
         filter_fff = args.filter_fff
 
-        self._check_web_page(token='FFv8_%d%d%d%d%d%d_%d%d' % (check_laplacian, check_curv, check_adjacent,
-                                                               check_slivers, check_isolated, check_edges,
-                                                               filter_designated, filter_fff))
+        self._check_web_page(token='FFv8_%d%d%d%d%d%d%d_%d%d' % (check_laplacian, check_curv, check_adjacent,
+                                                                 check_slivers, check_isolated, check_edges,
+                                                                 check_margins,
+                                                                 filter_designated, filter_fff))
 
         # actual execution
         for i, grid_path in enumerate(prj.grid_list):
@@ -148,13 +152,14 @@ class QCToolsParser:
             prj.set_cur_grid(path=grid_path)
             prj.open_to_read_cur_grid(chunk_size=4294967296)
 
-            prj.find_fliers_v8(height=height_value,
+            prj.find_fliers_v9(height=height_value,
                                check_laplacian=check_laplacian,
                                check_curv=check_curv,
                                check_adjacent=check_adjacent,
                                check_slivers=check_slivers,
                                check_isolated=check_isolated,
                                check_edges=check_edges,
+                               check_margins=check_margins,
                                filter_fff=filter_fff,
                                filter_designated=filter_designated)
             prj.close_cur_grid()
