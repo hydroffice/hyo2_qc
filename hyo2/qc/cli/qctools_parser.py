@@ -53,7 +53,6 @@ class QCToolsParser:
                                help="Path to the S57 file used by '-filter_fff True'.")
         ff_parser.set_defaults(func=self.run_find_fliers)
 
-        self._loading = False
         self._web = None 
 
     def run(self):
