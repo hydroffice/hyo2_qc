@@ -19,7 +19,6 @@ from hyo2.qc.common.project import BaseProject
 from hyo2.qc.common.writers.kml_writer import KmlWriter
 from hyo2.qc.common.writers.s57_writer import S57Writer
 from hyo2.qc.common.writers.shp_writer import ShpWriter
-from hyo2.qc.survey.bag_checks.bag_checks_v1 import BagChecksV1
 from hyo2.qc.survey.bag_checks.bag_checks_v2 import BagChecksV2
 from hyo2.qc.survey.designated.base_designated import designated_algos
 from hyo2.qc.survey.designated.designated_scan_v2 import DesignatedScanV2
@@ -618,29 +617,6 @@ class SurveyProject(BaseProject):
 
     # ________________________________________________________________________________
     # ############################# BAG-CHECKS METHODS ###############################
-
-    def bag_checks_v1(self, use_nooa_nbs_profile: bool = False, check_structure: bool = False,
-                      check_metadata: bool = False, check_elevation: bool = False,
-                      check_uncertainty: bool = False, check_tracking_list: bool = False,
-                      open_output_folder: bool = True):
-        """Check the input BAG files"""
-
-        if not self.has_bag_grid():
-            raise RuntimeError("At least one BAG file is required")
-
-        self._bc = BagChecksV1(grid_list=self.grid_list, output_folder=self.output_folder,
-                               output_project_folder=self.output_project_folder,
-                               output_subfolders=self.output_subfolders,
-                               use_nooa_nbs_profile=use_nooa_nbs_profile,
-                               check_structure=check_structure,
-                               check_metadata=check_metadata,
-                               check_elevation=check_elevation,
-                               check_uncertainty=check_uncertainty,
-                               check_tracking_list=check_tracking_list,
-                               progress=self.progress,
-                               open_output_folder=open_output_folder)
-
-        self._bc.run()
 
     def bag_checks_v2(self, use_nooa_nbs_profile: bool = False, check_structure: bool = False,
                       check_metadata: bool = False, check_elevation: bool = False,
