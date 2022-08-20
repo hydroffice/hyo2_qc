@@ -494,15 +494,18 @@ class BagChecksV2:
 
             if self._cur_max_depth is None:
                 self._cur_min_depth, self._cur_max_depth = bf.depth_min_max()
-            logger.debug('min/max depth: %.2f/%.2f'
-                         % (self._cur_min_depth, self._cur_max_depth))
-            if np.isnan(self._cur_max_depth) or (self._cur_max_depth < 0.0):
-                high_unc_threshold = 4.0
+            # logger.debug('min/max depth: %.2f/%.2f'
+            #              % (self._cur_min_depth, self._cur_max_depth))
+            if np.isnan(self._cur_max_depth):
+                max_depth = 0.0
+                depth_delta = 0.0
             else:
-                high_unc_threshold = 4.0 + 0.1 * self._cur_max_depth
-            logger.debug('max uncertainty threshold: %.2f' % (high_unc_threshold, ))
+                max_depth = abs(self._cur_max_depth)
+                depth_delta = abs(self._cur_max_depth - self._cur_min_depth)
+            high_unc_threshold = 4.0 + 0.1 * max(max_depth, depth_delta)
+            logger.debug('max uncertainty threshold: %.2f m (min: %.2f m, max: %.2f m, delta: %.2f m)'
+                         % (high_unc_threshold, self._cur_max_depth, self._cur_min_depth, depth_delta))
 
-            # logger.debug('min/max elevation: %s/%s' % (min_elevation, max_elevation))
             min_uncertainty, max_uncertainty = bf.uncertainty_min_max()
             logger.debug('min/max uncertainty: %.2f/%.2f' % (min_uncertainty, max_uncertainty))
 
