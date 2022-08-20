@@ -73,7 +73,11 @@ The BAG files are inspected to ensure compliance with NOAA NBS requirements and 
     * Uncertainty values are only positive
     * VR Refinements (VR only)
     * For NOAA NBS Profile:
-        * Uncertainty values are not too high [1]_
+        * Uncertainty values higher than an uncertainty threshold (:math:`UT`):
+            * The :math:`UT` value is calculated based on the greater value between the maximum
+              depth (:math:`d _{max}`) and the delta between the maximum depth and the minimum depth
+              (:math:`\Delta = d _{max} - d _{min}`) contained in the elevation layer.
+            * The applied formula is :math:`UT = 4.0m + 0.1 * max(d _{max}, \Delta)`.
 
 **Check the tracking list**: Checks to ensure the validity of the tracking list. Checks the following:
     * For the presence of the Tracking List dataset and the VR Tracking List dataset (VR only)
@@ -82,11 +86,6 @@ The BAG files are inspected to ensure compliance with NOAA NBS requirements and 
 
 **Check GDAL Compatibility**: Checks to ensure that the surface is compatible with GDAL. Checks the following:
     * Checks that that the grid does not have more than 10,000,000 refinement grids which will result in a GDAL error
-
-
-.. rubric:: Footnotes
-
-.. [1] High uncertainty is calculated as 4.0m + 0.1 * maximum depth of the surface.
 
 |
 
