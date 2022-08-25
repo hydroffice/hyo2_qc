@@ -10,3 +10,4 @@ User Manual
     user_manual_chart
     user_manual_info
     user_manual_supported_formats
+    user_manual_list_of_references
