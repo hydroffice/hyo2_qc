@@ -37,55 +37,53 @@ In order to access this tool, load in a BAG file into the **Data Inputs** tab.
 How Does It Work?
 ^^^^^^^^^^^^^^^^^
 
-The BAG files are inspected to ensure compliance with NOAA NBS requirements and BAG Format Specification Documents.
+The BAG files are inspected to ensure compliance with NOAA NBS requirements and BAG Format Specification Documents:
 
-**Check the overall structure**: Check that the critical components of BAG structure are present.
-    * BAG Root group
-    * BAG Version attribute
-    * Metadata dataset
-    * Elevation dataset
-    * Uncertainty dataset
-    * Tracking List dataset
-    * For VR Surfaces:
-        * VR Metadata dataset
-        * VR Refinements dataset
-        * VR Tracking List dataset
+* **Check the overall structure**: Check that the critical components of BAG structure are present.
+   * BAG Root group
+   * BAG Version attribute
+   * Metadata dataset
+   * Elevation dataset
+   * Uncertainty dataset
+   * Tracking List dataset
+   * For VR Surfaces:
+      * VR Metadata dataset
+      * VR Refinements dataset
+      * VR Tracking List dataset
 
-**Check the metadata content**: Checks to ensure that metadata associated with the BAG are appropriately attributed. Checks for the presence of the following:
-    * Metadata dataset 
-    * VR Metadata dataset (VR only)
-    * For NOAA NBS Profile:
-        * Spatial reference system is projected.
-        * Vertical datum is defined.
-        * Creation date
-        * Survey start date
-        * Survey end date
-        * Product Uncertainty
+* **Check the metadata content**: Checks to ensure that metadata associated with the BAG are appropriately attributed:
+   * Metadata dataset
+   * VR Metadata dataset (VR only)
+   * For NOAA NBS Profile:
+      * Spatial reference system is projected.
+      * Vertical datum is defined.
+      * Creation date
+      * Survey start date
+      * Survey end date
+      * Product Uncertainty
 
-**Check the elevation layer**: Checks to ensure the validity of the elevation layer of BAG. Checks the following:
-    * For the presence of a Elevation dataset 
-    * All depth values are not NaN
-    * VR Refinements (VR only)
+* **Check the elevation layer**: Checks to ensure the validity of the elevation layer of BAG. Checks the following:
+   * For the presence of a Elevation dataset
+   * All depth values are not NaN
+   * VR Refinements (VR only)
 
-**Check the uncertainty layer**: Checks to ensure the validity of the uncertainty layer in the BAG. Checks the following:
-    * For the presence of an Uncertainty dataset
-    * All values are not NaN
-    * Uncertainty values are only positive
-    * VR Refinements (VR only)
-    * For NOAA NBS Profile:
-        * Uncertainty values higher than an uncertainty threshold (:math:`UT`):
-            * The :math:`UT` value is calculated based on the greater value between the maximum
-              depth (:math:`d _{max}`) and the delta between the maximum depth and the minimum depth
-              (:math:`\Delta = d _{max} - d _{min}`) contained in the elevation layer.
-            * The applied formula is :math:`UT = 4.0m + 0.1 * max(d _{max}, \Delta)`.
+* **Check the uncertainty layer**: Checks to ensure the validity of the uncertainty layer in the BAG. Checks the following:
+   * For the presence of an Uncertainty dataset
+   * All values are not NaN
+   * Uncertainty values are only positive
+   * VR Refinements (VR only)
+   * For NOAA NBS Profile:
+      * Uncertainty values are not too high:
+         * The uncertainty threshold is based on the max depth: :math:`UT = 4.0m + 0.1 * d _{max}`.
+         * This check is skipped in case of ellipsoid depths (detected from the filename).
 
-**Check the tracking list**: Checks to ensure the validity of the tracking list. Checks the following:
-    * For the presence of the Tracking List dataset and the VR Tracking List dataset (VR only)
-    * Validity of the entries in the 'row' column
-    * Validity of the entries in the 'col' column
+* **Check the tracking list**: Checks to ensure the validity of the tracking list. Checks the following:
+   * For the presence of the Tracking List dataset and the VR Tracking List dataset (VR only)
+   * Validity of the entries in the 'row' column
+   * Validity of the entries in the 'col' column
 
-**Check GDAL Compatibility**: Checks to ensure that the surface is compatible with GDAL. Checks the following:
-    * Checks that that the grid does not have more than 10,000,000 refinement grids which will result in a GDAL error
+* **Check GDAL Compatibility**: Checks to ensure that the surface is compatible with GDAL. Checks the following:
+   * Checks that that the grid does not have more than 10,000,000 refinement grids which will result in a GDAL error
 
 |
 

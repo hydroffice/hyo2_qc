@@ -58,7 +58,7 @@ copyright = u'2022, CCOM/JHC,UNH'
 # The short X.Y version.
 version = '3.8'
 # The full version, including alpha/beta/rc tags.
-release = '3.8.3'
+release = '3.8.6'
 
 numfig = True
 

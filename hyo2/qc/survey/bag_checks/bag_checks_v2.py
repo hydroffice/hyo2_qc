@@ -496,15 +496,12 @@ class BagChecksV2:
                 self._cur_min_depth, self._cur_max_depth = bf.depth_min_max()
             # logger.debug('min/max depth: %.2f/%.2f'
             #              % (self._cur_min_depth, self._cur_max_depth))
-            if np.isnan(self._cur_max_depth):
+            if np.isnan(self._cur_max_depth) or (self._cur_max_depth < 0.0):
                 max_depth = 0.0
-                depth_delta = 0.0
             else:
-                max_depth = abs(self._cur_max_depth)
-                depth_delta = abs(self._cur_max_depth - self._cur_min_depth)
-            high_unc_threshold = 4.0 + 0.1 * max(max_depth, depth_delta)
-            logger.debug('max uncertainty threshold: %.2f m (min: %.2f m, max: %.2f m, delta: %.2f m)'
-                         % (high_unc_threshold, self._cur_max_depth, self._cur_min_depth, depth_delta))
+                max_depth = self._cur_max_depth
+            high_unc_threshold = 4.0 + 0.1 * max_depth
+            logger.debug('max uncertainty threshold: %.2f m (max: %.2f m)' % (high_unc_threshold, self._cur_max_depth))
 
             min_uncertainty, max_uncertainty = bf.uncertainty_min_max()
             logger.debug('min/max uncertainty: %.2f/%.2f' % (min_uncertainty, max_uncertainty))
@@ -529,14 +526,20 @@ class BagChecksV2:
                 self._bc_report += "OK"
 
             if self._noaa_nbs_profile:
-                # CHK: negative uncertainty
-                self._bc_report += "Check that uncertainty values are not too high (<%.2fm) [CHECK]" \
-                                   % high_unc_threshold
-                if max_uncertainty >= high_unc_threshold:
-                    self._bc_uncertainty_warnings += 1
-                    self._bc_report += "[WARNING] Too high value for maximum uncertainty: %.2f" % max_uncertainty
+
+                # CHK: too high uncertainty
+                if "ellipsoid" in self._grid_basename.lower():
+                    self._bc_report += \
+                        "Check that uncertainty values are not too high (detected Ellipsoid Depths) [SKIP_CHK]"
+                    logger.debug("Ellipsoid Depths: skipping check for too high uncertainty values")
                 else:
-                    self._bc_report += "OK"
+                    self._bc_report += "Check that uncertainty values are not too high (<%.2fm) [CHECK]" \
+                                       % high_unc_threshold
+                    if max_uncertainty >= high_unc_threshold:
+                        self._bc_uncertainty_warnings += 1
+                        self._bc_report += "[WARNING] Too high value for maximum uncertainty: %.2f" % max_uncertainty
+                    else:
+                        self._bc_report += "OK"
 
             if self._is_vr:
                 # CHK: presence of VR Refinements
@@ -552,10 +555,12 @@ class BagChecksV2:
                 logger.debug('min/max elevation: %.2f/%.2f'
                              % (self._cur_vr_min_depth, self._cur_vr_max_depth))
                 if np.isnan(self._cur_vr_max_depth) or (self._cur_vr_max_depth < 0.0):
-                    vr_high_unc_threshold = 2.0
+                    vr_max_depth = 0.0
                 else:
-                    vr_high_unc_threshold = 2.0 + 0.05 * self._cur_vr_max_depth
-                logger.debug('VR uncertainty threshold: %.2f' % (vr_high_unc_threshold,))
+                    vr_max_depth = self._cur_vr_max_depth
+                vr_high_unc_threshold = 4.0 + 0.1 * vr_max_depth
+                logger.debug('max VR uncertainty threshold: %.2f m (max: %.2f m)'
+                             % (vr_high_unc_threshold, self._cur_vr_max_depth))
 
                 vr_min_uncertainty, vr_max_uncertainty = bf.vr_uncertainty_min_max()
                 logger.debug('VR min/max uncertainty: %.2f/%.2f' % (vr_min_uncertainty, vr_max_uncertainty))
@@ -580,14 +585,19 @@ class BagChecksV2:
                     self._bc_report += "OK"
 
                 if self._noaa_nbs_profile:
-                    # CHK: negative uncertainty
-                    self._bc_report += "Check that VR uncertainty values are not too high (<%.2fm) [CHECK]" \
-                                       % vr_high_unc_threshold
-                    if vr_max_uncertainty >= vr_high_unc_threshold:
-                        self._bc_uncertainty_warnings += 1
-                        self._bc_report += "[WARNING] Too high value for maximum uncertainty: %.2f" % vr_max_uncertainty
+                    # CHK: too high uncertainty
+                    if "ellipsoid" in self._grid_basename.lower():
+                        self._bc_report += \
+                            "Check that VR uncertainty values are not too high (detected Ellipsoid Depths) [SKIP_CHK]"
+                        logger.debug("Ellipsoid Depths: skipping check for too high uncertainty values")
                     else:
-                        self._bc_report += "OK"
+                        self._bc_report += "Check that VR uncertainty values are not too high (<%.2fm) [CHECK]" \
+                                           % vr_high_unc_threshold
+                        if vr_max_uncertainty >= vr_high_unc_threshold:
+                            self._bc_uncertainty_warnings += 1
+                            self._bc_report += "[WARNING] Too high value for maximum uncertainty: %.2f" % vr_max_uncertainty
+                        else:
+                            self._bc_report += "OK"
 
         except Exception as e:
             traceback.print_exc()
