@@ -160,7 +160,8 @@ if "%1" == "latexpdf" (
 	%SPHINXBUILD% -b latex %ALLSPHINXOPTS% %BUILDDIR%/latex
 	cd %BUILDDIR%/latex
 	pdflatex HydrOfficeQCTools.tex
-	cd %BUILDDIR%/..
+	cd ..
+	cd ..
 	echo.
 	echo.Build finished; the PDF files are in %BUILDDIR%/latex.
 	goto end
