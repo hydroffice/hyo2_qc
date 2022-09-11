@@ -1,13 +1,13 @@
 import logging
 import os
-
 from PySide2 import QtCore, QtWidgets
+
+from hyo2.abc.lib.logging import set_logging
 from hyo2.abc.lib.helper import Helper
-from hyo2.qc.common import default_logging
 from hyo2.qc.survey.project import SurveyProject
 
-default_logging.load()
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
+set_logging(ns_list=["hyo2.qc", ])
 
 #version: 0.1
 

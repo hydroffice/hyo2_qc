@@ -1,12 +1,12 @@
 import time
 
-from hyo2.qc.common import default_logging
+from hyo2.abc.lib.logging import set_logging
 import logging
 
-default_logging.load()
-logger = logging.getLogger()
-
 from hyo2.qc.common.progress.cli_progress import CliProgress
+
+logger = logging.getLogger(__name__)
+set_logging(ns_list=["hyo2.qc", ])
 
 progress = CliProgress()
 

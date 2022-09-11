@@ -1,19 +1,18 @@
-from hyo2.qc.common import default_logging
 import sys
 import logging
 
-default_logging.load()
-logger = logging.getLogger()
-
+from hyo2.abc.lib.logging import set_logging
 from hyo2.qc.chart.project import ChartProject
 from hyo2.qc.chart.triangle.base_triangle import sounding_units
 from hyo2.qc.common import testing
-from PySide import QtGui
+from PySide2 import QtWidgets
 from hyo2.qc.qctools.qt_progress import QtProgress
 
+logger = logging.getLogger(__name__)
+set_logging(ns_list=["hyo2.qc", ])
 
-app = QtGui.QApplication([])
-wid = QtGui.QWidget()
+app = QtWidgets.QApplication([])
+wid = QtWidgets.QWidget()
 
 prj = ChartProject(output_folder=testing.output_data_folder(), progress=QtProgress(parent=wid))
 

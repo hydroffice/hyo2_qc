@@ -1,17 +1,13 @@
 import numpy as np
-import warnings
-import warnings
-
-import numpy as np
-
-warnings.simplefilter(action="ignore", category=RuntimeWarning)
 from osgeo import osr
-import logging
-logger = logging.getLogger(__name__)
 
+import logging
+
+from hyo2.abc.lib.gdal_aux import GdalAux
 from hyo2.qc.survey.designated.base_designated import BaseDesignated, designated_algos
 from hyo2.qc.common.s57_aux import S57Aux
-from hyo2.grids.common.gdal_aux import GdalAux
+
+logger = logging.getLogger(__name__)
 
 
 class DesignatedScanV2(BaseDesignated):

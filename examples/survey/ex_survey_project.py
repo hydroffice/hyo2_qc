@@ -1,10 +1,10 @@
-from hyo2.qc.common import default_logging
 import logging
 
+from hyo2.abc.lib.logging import set_logging
 from hyo2.qc.survey.project import SurveyProject
 
-default_logging.load()
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
+set_logging(ns_list=["hyo2.qc", ])
 
 prj = SurveyProject()
 logger.debug(prj)

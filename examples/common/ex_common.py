@@ -1,9 +1,9 @@
 from hyo2.abc.lib.helper import Helper
+from hyo2.abc.lib.logging import set_logging
 from hyo2.qc.common import lib_info
-from hyo2.qc.common import default_logging
 from hyo2.qc.common import testing
 
-default_logging.load()
+set_logging(ns_list=["hyo2.qc", ])
 
 Helper.explore_folder(Helper(lib_info=lib_info).package_folder())
 Helper(lib_info=lib_info).explore_package_folder()
