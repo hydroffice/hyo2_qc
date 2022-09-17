@@ -84,7 +84,8 @@ class Checks:
 
         return flagged
 
-    def _check_features_for_just_one_of_attributes_in_list(self, objects: List['S57Record10'], xor_attributes: List[str],
+    def _check_features_for_just_one_of_attributes_in_list(self, objects: List['S57Record10'],
+                                                           xor_attributes: List[str],
                                                            possible: bool = False) -> List[list]:
         """Check if the passed features have the passed attribute"""
         flagged = list()
@@ -110,14 +111,14 @@ class Checks:
                         xor_attributes, obj.centroid.x, obj.centroid.y)
                     # add to the flagged feature list
                     self.flags.append(obj.centroid.x, obj.centroid.y, "warning: missing one among %s"
-                                      % (xor_attributes, ), self.report.cur_section())
+                                      % (xor_attributes,), self.report.cur_section())
                 else:
                     # add to the flagged report
                     self.report += 'Found missing one among %s at (%.7f, %.7f)' % (
                         xor_attributes, obj.centroid.x, obj.centroid.y)
                     # add to the flagged feature list
                     self.flags.append(obj.centroid.x, obj.centroid.y, "missing one among %s"
-                                      % (xor_attributes, ), self.report.cur_section())
+                                      % (xor_attributes,), self.report.cur_section())
 
             else:
                 # add to the flagged report
@@ -127,14 +128,14 @@ class Checks:
                         attrs_counter, xor_attributes, obj.centroid.x, obj.centroid.y)
                     # add to the flagged feature list
                     self.flags.append(obj.centroid.x, obj.centroid.y, "warning: %d among %s"
-                                      % (attrs_counter, xor_attributes, ), self.report.cur_section())
+                                      % (attrs_counter, xor_attributes,), self.report.cur_section())
                 else:
                     # add to the flagged report
                     self.report += 'Found %d among %s at (%.7f, %.7f)' % (
                         attrs_counter, xor_attributes, obj.centroid.x, obj.centroid.y)
                     # add to the flagged feature list
                     self.flags.append(obj.centroid.x, obj.centroid.y, "%d among %s"
-                                      % (attrs_counter, xor_attributes, ), self.report.cur_section())
+                                      % (attrs_counter, xor_attributes,), self.report.cur_section())
 
             flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
 
@@ -265,7 +266,7 @@ class Checks:
             if (len(ft.geo2s) == 0) and (len(ft.geo3s) == 0):
                 # logger.debug("removing: %s" % ft)
                 continue
-            
+
             tmp_features.append(ft)
 
             # get the attributes as a long string
@@ -725,7 +726,6 @@ class Checks:
                 if (tecsou is not None) and (quasou is not None):
                     break
 
-            # TODO: if TECSOU is not available?
             if tecsou is None:
                 self.report += 'Could not verify QUASOU found %s at (%.7f, %.7f) because is missing TECSOU' \
                                % (obj.acronym, obj.centroid.x, obj.centroid.y)
@@ -1245,13 +1245,14 @@ class Checks:
         # If wreck does not have VALSOU...
 
         if self.version in ["2019", "2020", "2021"]:
-
             # Warning: Ensure wrecks with unknown valsou have watlev unknown
             self.report += "Warning: New or Updated WRECKS with empty VALSOU shall have WATLEV of 'unknown' [CHECK]"
             self.flags.wrecks.unknown_watlev = self._flag_features_with_attribute_value(wrecks_undefined_valsou,
                                                                                         attribute='WATLEV',
-                                                                                        values_to_flag=["1", "2", "3", "4",
-                                                                                                        "5", "6", "7", ],
+                                                                                        values_to_flag=["1", "2", "3",
+                                                                                                        "4",
+                                                                                                        "5", "6",
+                                                                                                        "7", ],
                                                                                         check_attrib_existence=True,
                                                                                         possible=True)
 
@@ -1259,58 +1260,67 @@ class Checks:
             self.report += "New or Updated WRECKS with empty VALSOU shall have TECSOU of 'unknown' [CHECK]"
             self.flags.wrecks.unknown_tecsou = self._flag_features_with_attribute_value(wrecks_undefined_valsou,
                                                                                         attribute='TECSOU',
-                                                                                        values_to_flag=["1", "2", "3", "4",
-                                                                                                        "5", "6", "7", "8",
+                                                                                        values_to_flag=["1", "2", "3",
+                                                                                                        "4",
+                                                                                                        "5", "6", "7",
+                                                                                                        "8",
                                                                                                         "9", "10", "11",
-                                                                                                        "12", "13", "14", ],
+                                                                                                        "12", "13",
+                                                                                                        "14", ],
                                                                                         check_attrib_existence=True)
 
             # Ensure wrecks with unknown valsou have quasou "unknown"
             self.report += "New or Updated WRECKS with empty VALSOU shall have QUASOU of NULL [CHECK]"
             self.flags.wrecks.unknown_quasou = self._flag_features_with_attribute_value(wrecks_undefined_valsou,
                                                                                         attribute='QUASOU',
-                                                                                        values_to_flag=["1", "2", "3", "4",
-                                                                                                        "5", "6", "7", "8",
-                                                                                                        "9", "10", "11"])
+                                                                                        values_to_flag=["1", "2", "3",
+                                                                                                        "4",
+                                                                                                        "5", "6", "7",
+                                                                                                        "8",
+                                                                                                        "9", "10",
+                                                                                                        "11"])
 
         if self.version in ["2022"]:
-
             # Warning: Ensure wrecks with unknown valsou have watlev unknown
-            self.report += "Warning: New or Updated WRECKS with empty VALSOU and empty HEIGHT shall have WATLEV of 'unknown' [CHECK]"
-            self.flags.wrecks.unknown_watlev = self._flag_features_with_attribute_value(wrecks_undefined_valsou_no_height,
-                                                                                        attribute='WATLEV',
-                                                                                        values_to_flag=["1", "2", "3", "4",
-                                                                                                        "5", "6", "7", ],
-                                                                                        check_attrib_existence=True,
-                                                                                        possible=True)
+            self.report += "Warning: New or Updated WRECKS with empty VALSOU and empty HEIGHT shall have WATLEV of " \
+                           "'unknown' [CHECK]"
+            self.flags.wrecks.unknown_watlev = self._flag_features_with_attribute_value(
+                wrecks_undefined_valsou_no_height,
+                attribute='WATLEV',
+                values_to_flag=["1", "2", "3", "4",
+                                "5", "6", "7", ],
+                check_attrib_existence=True,
+                possible=True)
 
-            #if wreck has height, WATLEV is always dry
+            # if wreck has height, WATLEV is always dry
             self.report += "Warning: New or Updated WRECKS with HEIGHT shall have WATLEV of 'Always Dry' [CHECK]"
             self.flags.wrecks.height_watlev = self._flag_features_with_attribute_value(wrecks_height,
-                                                                                        attribute='WATLEV',
-                                                                                        values_to_flag=["1", "3", "4",
-                                                                                                        "5", "6", "7", ],
-                                                                                        check_attrib_existence=True,
-                                                                                        possible=True)
+                                                                                       attribute='WATLEV',
+                                                                                       values_to_flag=["1", "3", "4",
+                                                                                                       "5", "6", "7", ],
+                                                                                       check_attrib_existence=True,
+                                                                                       possible=True)
 
             # Ensure wrecks with unknown valsou have tecsou "unknown"
-            self.report += "New or Updated WRECKS with empty VALSOU and empty HEIGHT shall have TECSOU of 'unknown' [CHECK]"
-            self.flags.wrecks.unknown_tecsou = self._flag_features_with_attribute_value(wrecks_undefined_valsou_no_height,
-                                                                                        attribute='TECSOU',
-                                                                                        values_to_flag=["1", "2", "3", "4",
-                                                                                                        "5", "6", "7", "8",
-                                                                                                        "9", "10", "11",
-                                                                                                        "12", "13", "14", ],
-                                                                                        check_attrib_existence=True)
+            self.report += "New or Updated WRECKS with empty VALSOU and empty HEIGHT shall have TECSOU of 'unknown' " \
+                           "[CHECK]"
+            self.flags.wrecks.unknown_tecsou = self._flag_features_with_attribute_value(
+                wrecks_undefined_valsou_no_height,
+                attribute='TECSOU',
+                values_to_flag=["1", "2", "3", "4",
+                                "5", "6", "7", "8",
+                                "9", "10", "11",
+                                "12", "13", "14", ],
+                check_attrib_existence=True)
 
             # Ensure wrecks with unknown valsou have quasou "unknown"
             self.report += "New or Updated WRECKS with empty VALSOU shall have QUASOU of NULL [CHECK]"
-            self.flags.wrecks.unknown_quasou = self._flag_features_with_attribute_value(wrecks_undefined_valsou_no_height,
-                                                                                        attribute='QUASOU',
-                                                                                        values_to_flag=["1", "2", "3", "4",
-                                                                                                        "5", "6", "7", "8",
-                                                                                                        "9", "10", "11"])
-
+            self.flags.wrecks.unknown_quasou = self._flag_features_with_attribute_value(
+                wrecks_undefined_valsou_no_height,
+                attribute='QUASOU',
+                values_to_flag=["1", "2", "3", "4",
+                                "5", "6", "7", "8",
+                                "9", "10", "11"])
 
             self.report += "Warning: Feature with HEIGHT should not have TECSOU [CHECK]"
             self.flags.wrecks.height_tecsou = self._check_features_without_attribute(objects=wrecks_height,
@@ -1318,9 +1328,8 @@ class Checks:
 
             self.report += "Warning: Feature with HEIGHT should not have QUASOU [CHECK]"
             self.flags.wrecks.height_quasou = self._check_features_without_attribute(objects=wrecks_height,
-                                                                                           attribute='QUASOU',
-                                                                                           possible=False)
-        
+                                                                                     attribute='QUASOU',
+                                                                                     possible=False)
 
     # ROCKS
 
@@ -1480,80 +1489,69 @@ class Checks:
                                                                                   check_attrib_existence=True)
 
         # If obstructions does not have VALSOU...
-        
-        if self.version in ["2019", "2020", "2021"]:
 
+        if self.version in ["2019", "2020", "2021"]:
             # Warning: Ensure obstructions with unknown valsou have watlev unknown
             self.report += "Warning: New or Updated OBSTRN with empty VALSOU shall have WATLEV of 'unknown' [CHECK]"
-            self.flags.obstructions.unknown_watlev = self._flag_features_with_attribute_value(obstrn_undefined_valsou,
-                                                                                              attribute='WATLEV',
-                                                                                              values_to_flag=["1", "2", "3",
-                                                                                                              "4", "5", "6",
-                                                                                                              "7", ],
-                                                                                              check_attrib_existence=True,
-                                                                                              possible=True)
+            self.flags.obstructions.unknown_watlev = self._flag_features_with_attribute_value(
+                obstrn_undefined_valsou,
+                attribute='WATLEV',
+                values_to_flag=["1", "2", "3", "4", "5", "6", "7", ],
+                check_attrib_existence=True,
+                possible=True)
 
             # Ensure obstructions with unknown valsou have tecsou "unknown"
             self.report += "New or Updated OBSTRN with empty VALSOU shall have TECSOU of 'unknown' [CHECK]"
-            self.flags.obstructions.unknown_tecsou = self._flag_features_with_attribute_value(obstrn_undefined_valsou,
-                                                                                              attribute='TECSOU',
-                                                                                              values_to_flag=["1", "2", "3",
-                                                                                                              "4", "5", "6",
-                                                                                                              "7", "8", "9",
-                                                                                                              "10", "11",
-                                                                                                              "12", "13",
-                                                                                                              "14", ],
-                                                                                              check_attrib_existence=True)
+            self.flags.obstructions.unknown_tecsou = self._flag_features_with_attribute_value(
+                obstrn_undefined_valsou,
+                attribute='TECSOU',
+                values_to_flag=["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", ],
+                check_attrib_existence=True)
 
             # Ensure obstructions with unknown valsou have quasou "unknown"
             self.report += "New or Updated OBSTRN with empty VALSOU shall have QUASOU of NULL [CHECK]"
-            self.flags.obstructions.unknown_quasou = self._flag_features_with_attribute_value(obstrn_undefined_valsou,
-                                                                                              attribute='QUASOU',
-                                                                                              values_to_flag=["1", "2", "3",
-                                                                                                              "4", "5", "6",
-                                                                                                              "7", "8", "9",
-                                                                                                              "10", "11"])
+            self.flags.obstructions.unknown_quasou = self._flag_features_with_attribute_value(
+                obstrn_undefined_valsou,
+                attribute='QUASOU',
+                values_to_flag=["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"])
+
         if self.version in ["2022"]:
-
             # Warning: Ensure obstructions with unknown valsou have watlev unknown
-            self.report += "Warning: New or Updated OBSTRN with empty VALSOU and empty HEIGHT shall have WATLEV of 'unknown' [CHECK]"
-            self.flags.obstructions.unknown_watlev = self._flag_features_with_attribute_value(obstrn_undefined_valsou_no_height,
-                                                                                              attribute='WATLEV',
-                                                                                              values_to_flag=["1", "2", "3",
-                                                                                                              "4", "5", "6",
-                                                                                                              "7", ],
-                                                                                              check_attrib_existence=True,
-                                                                                              possible=True)
+            self.report += "Warning: New or Updated OBSTRN with empty VALSOU and empty HEIGHT shall have WATLEV of " \
+                           "'unknown' [CHECK]"
+            self.flags.obstructions.unknown_watlev = self._flag_features_with_attribute_value(
+                obstrn_undefined_valsou_no_height,
+                attribute='WATLEV',
+                values_to_flag=["1", "2", "3",
+                                "4", "5", "6",
+                                "7", ],
+                check_attrib_existence=True,
+                possible=True)
 
-            #if obstruction has height, WATLEV is always dry
+            # if obstruction has height, WATLEV is always dry
             self.report += "Warning: New or Updated WRECKS with HEIGHT shall have WATLEV of 'Always Dry' [CHECK]"
-            self.flags.obstructions.height_watlev = self._flag_features_with_attribute_value(obstrn_height,
-                                                                                        attribute='WATLEV',
-                                                                                        values_to_flag=["1", "3", "4",
-                                                                                                        "5", "6", "7", ],
-                                                                                        check_attrib_existence=True,
-                                                                                        possible=True)
+            self.flags.obstructions.height_watlev = self._flag_features_with_attribute_value(
+                obstrn_height,
+                attribute='WATLEV',
+                values_to_flag=["1", "3", "4", "5", "6", "7", ],
+                check_attrib_existence=True,
+                possible=True)
 
             # Ensure obstructions with unknown valsou have tecsou "unknown"
-            self.report += "New or Updated OBSTRN with empty VALSOU and empty HEIGHT shall have TECSOU of 'unknown' [CHECK]"
-            self.flags.obstructions.unknown_tecsou = self._flag_features_with_attribute_value(obstrn_undefined_valsou_no_height,
-                                                                                              attribute='TECSOU',
-                                                                                              values_to_flag=["1", "2", "3",
-                                                                                                              "4", "5", "6",
-                                                                                                              "7", "8", "9",
-                                                                                                              "10", "11",
-                                                                                                              "12", "13",
-                                                                                                              "14", ],
-                                                                                              check_attrib_existence=True)
+            self.report += "New or Updated OBSTRN with empty VALSOU and empty HEIGHT shall have TECSOU of 'unknown' " \
+                           "[CHECK]"
+            self.flags.obstructions.unknown_tecsou = self._flag_features_with_attribute_value(
+                obstrn_undefined_valsou_no_height,
+                attribute='TECSOU',
+                values_to_flag=["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", ],
+                check_attrib_existence=True)
 
             # Ensure obstructions with unknown valsou have quasou "unknown"
             self.report += "New or Updated OBSTRN with empty VALSOU shall have QUASOU of NULL [CHECK]"
-            self.flags.obstructions.unknown_quasou = self._flag_features_with_attribute_value(obstrn_undefined_valsou_no_height,
-                                                                                              attribute='QUASOU',
-                                                                                              values_to_flag=["1", "2", "3",
-                                                                                                              "4", "5", "6",
-                                                                                                              "7", "8", "9",
-                                                                                                              "10", "11"])
+            self.flags.obstructions.unknown_quasou = self._flag_features_with_attribute_value(
+                obstrn_undefined_valsou_no_height,
+                attribute='QUASOU',
+                values_to_flag=["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"])
 
         # New or updated foul ground obstructions shall have WATLEV
         self.report += "New or Updated foul ground OBSTRN with empty/missing mandatory attribute WATLEV [CHECK]"
@@ -1563,14 +1561,11 @@ class Checks:
             values_to_flag=['', ],
             check_attrib_existence=True)
 
-
-        # Ensure new or updated foul ground obstructions do not have valsou 
+        # Ensure new or updated foul ground obstructions do not have valsou
         self.report += "New or Updated foul ground OBSTRN must have VALSOU of NULL [CHECK]"
         self.flags.obstructions.foul_ground_valsou = self._check_features_without_attribute(objects=obstrns_foul_ground,
                                                                                             attribute='VALSOU',
                                                                                             possible=False)
-
-
 
         # Ensure new or updated foul ground obstructions do not have quasou
         self.report += "New or Updated foul ground OBSTRN must have QUASOU of NULL [CHECK]"
@@ -1578,12 +1573,11 @@ class Checks:
                                                                                             attribute='QUASOU',
                                                                                             possible=False)
 
-
         # Ensure new or updated foul ground obstructions do not have tecsou
         self.report += "New or Updated foul ground OBSTRN must have TECSOU of NULL [CHECK]"
         self.flags.obstructions.foul_ground_tecsou = self._check_features_without_attribute(objects=obstrns_foul_ground,
-                                                                                           attribute='TECSOU',
-                                                                                           possible=False)
+                                                                                            attribute='TECSOU',
+                                                                                            possible=False)
 
         # Foul area checks....
         # Warning: Ensure foul area obstructions have watlev unknown
@@ -1617,7 +1611,8 @@ class Checks:
         if self.version in ["2022"]:
             self.report += "Warning: Feature with HEIGHT should not have TECSOU [CHECK]"
             self.flags.obstructions.height_tecsou = self._check_features_without_attribute(objects=obstrn_height,
-                                                                                     attribute='TECSOU', possible=False)
+                                                                                           attribute='TECSOU',
+                                                                                           possible=False)
 
             self.report += "Warning: Feature with HEIGHT should not have QUASOU [CHECK]"
             self.flags.obstructions.height_quasou = self._check_features_without_attribute(objects=obstrn_height,
@@ -1877,36 +1872,36 @@ class Checks:
                                                                                   values_to_flag=['', ],
                                                                                   check_attrib_existence=True)
 
-        # For the office profile, check for prohibited features by feature type
-        self.report += "Features without 'Prohibited feature' keyword [CHECK]"
-        prohibited = S57Aux.select_by_object(objects=self.all_fts, object_filter=['DRGARE', 'LOGPON', 'PIPARE',
-                                                                                  'PIPOHD', 'PIPSOL', 'DMPGRD',
-                                                                                  'CBLSUB', 'CBLARE', 'FAIRWY',
-                                                                                  'CBLOHD', 'BRIDGE'])
-        self.flags.office.prohibited_kwds = self._check_for_missing_keywords(objects=prohibited, attr_acronym='onotes',
-                                                                             keywords=['Prohibited feature', ])
+        # For the office profile, check for permitted features by feature type
+        self.report += "Features without 'permitted feature' keyword [CHECK]"
+        permitted = S57Aux.select_by_object(objects=self.all_fts, object_filter=['DRGARE', 'LOGPON', 'PIPARE',
+                                                                                 'PIPOHD', 'PIPSOL', 'DMPGRD',
+                                                                                 'CBLSUB', 'CBLARE', 'FAIRWY',
+                                                                                 'CBLOHD', 'BRIDGE'])
+        self.flags.office.permitted_kwds = self._check_for_missing_keywords(objects=permitted, attr_acronym='onotes',
+                                                                            keywords=['permitted feature', ])
 
-        # For the office profile, check for prohibited fish haven
+        # For the office profile, check for permitted fish haven
         obstrn = S57Aux.select_by_object(objects=self.all_fts, object_filter=['OBSTRN', ])
         fish_haven = S57Aux.select_by_attribute_value(objects=obstrn, attribute='CATOBS', value_filter=['5', ])
 
-        self.report += "Fish havens without 'Prohibited feature' keyword [CHECK]"
+        self.report += "Fish havens without 'permitted feature' keyword [CHECK]"
         self.flags.office.fish_haven_kwds = self._check_for_missing_keywords(objects=fish_haven, attr_acronym='onotes',
-                                                                             keywords=['Prohibited feature', ])
+                                                                             keywords=['permitted feature', ])
 
-        # For the office profile, check for prohibited mooring buoys
+        # For the office profile, check for permitted mooring buoys
         morfac = S57Aux.select_by_object(objects=self.all_fts, object_filter=['MORFAC', ])
         mooring_buoy = S57Aux.select_by_attribute_value(objects=morfac, attribute='CATMOR', value_filter=['7', ])
-        self.report += "Mooring buoy without 'Prohibited feature' keyword [CHECK]"
+        self.report += "Mooring buoy without 'permitted feature' keyword [CHECK]"
         self.flags.office.mooring_buoy_kwds = self._check_for_missing_keywords(objects=mooring_buoy,
                                                                                attr_acronym='onotes',
-                                                                               keywords=['Prohibited feature', ])
+                                                                               keywords=['permitted feature', ])
 
         # For the office profile, ATONS must be removed.
         atons = S57Aux.select_by_object(objects=self.all_fts, object_filter=['LIGHTS', 'BOYLAT', 'BOYSAW', 'BOYSPP',
-                                                                            'DAYMAR', 'FOGSIG', 'RTPBCN', 'BOYISD',
-                                                                            'BOYINB', 'BOYCAR', 'BCNSPP', 'BCNLAT',
-                                                                            'BCNSAW', 'BCNCAR', 'BCNISD'])
+                                                                             'DAYMAR', 'FOGSIG', 'RTPBCN', 'BOYISD',
+                                                                             'BOYINB', 'BOYCAR', 'BCNSPP', 'BCNLAT',
+                                                                             'BCNSAW', 'BCNCAR', 'BCNISD'])
         self.report += "ATONs present in MCD deliverable [CHECK]"
         for aton in atons:
             # add to the flagged report
@@ -1949,7 +1944,6 @@ class Checks:
         # Ensure all features have remrks (per MCD)
         self.report += "Features missing mandatory attribute remarks [CHECK]"
         self.flags.office.mcd_remarks = self._check_features_for_attribute(objects=self.all_fts, attribute='remrks')
-
 
         # Requirement only for the office, onotes may not exceed 250 characters
         self.report += "Features with onotes field exceeding %d characters [CHECK]" % self.onotes_character_limit

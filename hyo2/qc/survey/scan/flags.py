@@ -244,7 +244,7 @@ class Flags:
             def __init__(self):
                 self.without_onotes = list()
                 self.hsdrec_empty = list()
-                self.prohibited_kwds = list()
+                self.permitted_kwds = list()
                 self.fish_haven_kwds = list()
                 self.mooring_buoy_kwds = list()
                 self.atons = list()
@@ -259,7 +259,7 @@ class Flags:
 
             def nr_of_flagged(self) -> int:
                 return len(self.without_onotes) + len(self.hsdrec_empty) + \
-                       len(self.prohibited_kwds) + len(self.fish_haven_kwds) + \
+                       len(self.permitted_kwds) + len(self.fish_haven_kwds) + \
                        len(self.mooring_buoy_kwds) + + len(self.atons) + len(self.m_qual_catzoc) + \
                        len(self.m_qual_sursta) + len(self.m_qual_surend) + \
                        len(self.m_qual_tecsou) + len(self.mcd_description) + \

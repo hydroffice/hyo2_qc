@@ -148,7 +148,7 @@ The logic for the 2022 QC Tools feature scan is shown below. For previous years,
 * Specific for the Office Profile:
     * All features must have **onotes.**
     * All features must have **hsdrec.**
-    * Checks for features that are prohibited by MCD (**DRGARE, LOGPON, PIPARE, PIPOHD, PIPSOL, DMPGRD, CBLSUB, CBLARE, FAIRWY, CBLOHD, BCNSPP, BRIDGE, OBSTRN with CATOBS = 5**, and **MORFAC** with **CATMOR = 7**.
+    * Checks for features that are permitted by MCD (**DRGARE, LOGPON, PIPARE, PIPOHD, PIPSOL, DMPGRD, CBLSUB, CBLARE, FAIRWY, CBLOHD, BCNSPP, BRIDGE, OBSTRN with CATOBS = 5**, and **MORFAC** with **CATMOR = 7**.
     * Flags ATONS if they are found in the file. MCD defines ATONS as: **LIGHTS, BOYLAT, BOYSAW, BOYSPP, DAYMAR, FOGSIG, RTPBCN, BOYISD, BOYINB, BOYCAR, BCNSPP, BCNLAT, BCNSAW, BCNCAR**, and **BCNISD**
     * All new/updated **M_QUAL** features must have **CATZOC, SURSTA, SUREND,** and **TECSOU.**
     * All features must have **descrp** and **remrks**.
