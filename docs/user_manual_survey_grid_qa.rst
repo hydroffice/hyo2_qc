@@ -123,7 +123,7 @@ where for:
 What do you get?
 ^^^^^^^^^^^^^^^^^
 
-Upon completion of the execution of **Detect Holidays** you will receive a pop-up verification if your statistics are complete (:numref:`fig_grid_qa_pop_up`).
+Upon completion of the execution of **Grid QA** you will receive a pop-up verification if your statistics are complete (:numref:`fig_grid_qa_pop_up`).
 
 .. _fig_grid_qa_pop_up:
 .. figure:: _static/grid_qa_pop_up.png
