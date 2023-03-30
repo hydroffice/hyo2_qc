@@ -28,29 +28,39 @@ class QCToolsParser:
                                help='The input DTM file to be searched for potential fliers.')
         ff_parser.add_argument('output_folder', type=str,
                                help='The output folder for the results of the search.')
-        ff_parser.add_argument('-enforce_height', required=False, type=float, default=None,
+        ff_parser.add_argument('--enforce_height', required=False, type=float, default=None,
                                help='Pass a value in meters (e.g., 1.0) to enforce a specific height value. '
                                     'Otherwise, the height value will be automatically estimated.')
-        ff_parser.add_argument('-check_laplacian', required=False, type=bool, default=False,
+        ff_parser.add_argument('-l', '--check_laplacian', required=False, type=bool, default=False,
                                help='True to enable the Laplacian Operator Check.')
-        ff_parser.add_argument('-check_curv', required=False, type=bool, default=True,
+        ff_parser.add_argument('-c', '--check_curv', required=False, type=bool, default=True,
                                help='True to enable the Gaussian Curvature Check.')
-        ff_parser.add_argument('-check_adjacent', required=False, type=bool, default=True,
+        ff_parser.add_argument('-a', '--check_adjacent', required=False, type=bool, default=True,
                                help='True to enable the Adjacent Cell Check.')
-        ff_parser.add_argument('-check_isolated', required=False, type=bool, default=True,
+        ff_parser.add_argument('-i', '--check_isolated', required=False, type=bool, default=True,
                                help='True to enable the Isolated Nodes Check.')
-        ff_parser.add_argument('-check_slivers', required=False, type=bool, default=True,
+        ff_parser.add_argument('-v', '--check_slivers', required=False, type=bool, default=True,
                                help='True to enable the Edge Slivers Check.')
-        ff_parser.add_argument('-check_edges', required=False, type=bool, default=False,
+        ff_parser.add_argument('-e', '--check_edges', required=False, type=bool, default=False,
                                help='True to enable the Noisy Edges Check.')
-        ff_parser.add_argument('-check_margins', required=False, type=bool, default=False,
+        ff_parser.add_argument('-m', '--check_margins', required=False, type=bool, default=False,
                                help='True to enable the Noisy Margins Check.')
-        ff_parser.add_argument('-filter_designated', required=False, type=bool, default=False,
+        ff_parser.add_argument('--filter_designated', required=False, type=bool, default=False,
                                help='True to enable filtering of designated soundings.')
-        ff_parser.add_argument('-filter_fff', required=False, type=bool, default=False,
+        ff_parser.add_argument('--filter_fff', required=False, type=bool, default=False,
                                help='True to enable filtering of S57 features.')
-        ff_parser.add_argument('-s57_path', required=False, type=str, default=None,
+        ff_parser.add_argument('--filter_distance_multiplier', type=float, default=1.0,
+                               help='Remove flags at the passed distance from the FFF or designated features. '
+                                    'Distance expressed as a multiple of the grid resolution.')
+        ff_parser.add_argument('--filter_delta_z', type=float, default=0.01,
+                               help='Remove flags within the passed delta Z from the FFF or designated features. '
+                                    'The delta Z is expressed in meters.')
+        ff_parser.add_argument('--s57_path', required=False, type=str, default=None,
                                help="Path to the S57 file used by '-filter_fff True'.")
+        ff_parser.add_argument('-k', '--enable_kml_output', required=False, type=bool, default=False,
+                               help='True to enable KML as an additional output format for the flags.')
+        ff_parser.add_argument('-s', '--enable_shp_output', required=False, type=bool, default=False,
+                               help='True to enable Shapefile as an additional output format for the flags.')
         ff_parser.set_defaults(func=self.run_find_fliers)
 
         self._web = None 
@@ -108,6 +118,10 @@ class QCToolsParser:
         # create the project
         prj = SurveyProject(output_folder=out_folder)
 
+        # handling the optional output format
+        prj.output_kml = args.enable_kml_output
+        prj.output_shp = args.enable_shp_output
+
         if not os.path.exists(args.input_dtm):
             raise RuntimeError('Unable to locate input DTM: %s' % args.input_dtm)
         dtm_file = args.input_dtm
@@ -143,6 +157,9 @@ class QCToolsParser:
                                                                  check_margins,
                                                                  filter_designated, filter_fff))
 
+        distance = args.filter_distance_multiplier
+        delta_z = args.filter_delta_z
+
         # actual execution
         for i, grid_path in enumerate(prj.grid_list):
             logger.debug(">>> #%d (%s)" % (i, grid_path))
@@ -165,7 +182,7 @@ class QCToolsParser:
 
             prj.set_cur_grid(path=grid_path)
             prj.open_to_read_cur_grid(chunk_size=4294967296)
-            prj.find_fliers_v8_apply_filters()
+            prj.find_fliers_v8_apply_filters(distance=distance, delta_z=delta_z)
 
             saved = prj.save_fliers()
             if saved:

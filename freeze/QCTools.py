@@ -1,4 +1,3 @@
-import logging
 import sys
 
 from hyo2.abc.lib.logging import set_logging

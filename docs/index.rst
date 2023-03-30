@@ -1,8 +1,8 @@
 ﻿.. HydrOffice QC Tools documentation master file.
 
-########################
-QC Tools's documentation
-########################
+#######################
+QC Tools' documentation
+#######################
 
 .. toctree::
     :maxdepth: 1
@@ -23,6 +23,6 @@ QC Tools's documentation
 
 
 .. note::
-    © University of New Hampshire, Center for Coastal and Ocean Mapping, 2022.  All rights reserved.  Portions of this
+    © University of New Hampshire, Center for Coastal and Ocean Mapping, 2023.  All rights reserved.  Portions of this
     project were developed under a cooperative agreement with NOAA Coast Survey Development Laboratory, and contain
     NOAA-developed code in the public domain.

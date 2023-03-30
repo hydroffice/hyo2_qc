@@ -103,6 +103,6 @@ setup(
         'Topic :: Office/Business :: Office Suites',
     ],
     keywords="hydrography ocean mapping survey data quality",
-    author="Giuseppe Masetti(UNH,CCOM), Tyanne Faulkes(NOAA,OCS), Julia Wallace(NOAA,OCS), Matthew Wilson(NOAA,OCS)",
-    author_email="gmasetti@ccom.unh.edu, tyanne.faulkes@noaa.gov, julia.wallace@noaa.gov, matthew.wilson@noaa.gov"
+    author="Giuseppe Masetti(UNH,CCOM), Tyanne Faulkes(NOAA,OCS), Matthew Wilson(NOAA,OCS)",
+    author_email="gmasetti@ccom.unh.edu, tyanne.faulkes@noaa.gov, matthew.wilson@noaa.gov"
 )
