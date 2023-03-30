@@ -1,14 +1,13 @@
-import argparse
 import logging
 import os
 from urllib.request import urlopen
 
 from hyo2.abc.app.web_renderer import WebRenderer
 from hyo2.abc.lib.helper import Helper
-from hyo2.qc import __version__
 from hyo2.qc.common import lib_info
 from hyo2.qc.qctools import app_info
 from hyo2.qc.survey.project import SurveyProject
+from hyo2.qc.cli.cli_commands import CliCommands
 
 logger = logging.getLogger(__name__)
 
@@ -17,64 +16,20 @@ class QCToolsParser:
 
     def __init__(self):
         self._check_latest_release()
-
-        self.parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-        self.parser.add_argument('--version', action='version', version=__version__)
-        subparsers = self.parser.add_subparsers()
-
-        ff_parser = subparsers.add_parser('FindFliers', help='Identify potential fliers in gridded bathymetry',
-                                          formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-        ff_parser.add_argument('input_dtm', type=str,
-                               help='The input DTM file to be searched for potential fliers.')
-        ff_parser.add_argument('output_folder', type=str,
-                               help='The output folder for the results of the search.')
-        ff_parser.add_argument('--enforce_height', required=False, type=float, default=None,
-                               help='Pass a value in meters (e.g., 1.0) to enforce a specific height value. '
-                                    'Otherwise, the height value will be automatically estimated.')
-        ff_parser.add_argument('-l', '--check_laplacian', required=False, type=bool, default=False,
-                               help='True to enable the Laplacian Operator Check.')
-        ff_parser.add_argument('-c', '--check_curv', required=False, type=bool, default=True,
-                               help='True to enable the Gaussian Curvature Check.')
-        ff_parser.add_argument('-a', '--check_adjacent', required=False, type=bool, default=True,
-                               help='True to enable the Adjacent Cell Check.')
-        ff_parser.add_argument('-i', '--check_isolated', required=False, type=bool, default=True,
-                               help='True to enable the Isolated Nodes Check.')
-        ff_parser.add_argument('-v', '--check_slivers', required=False, type=bool, default=True,
-                               help='True to enable the Edge Slivers Check.')
-        ff_parser.add_argument('-e', '--check_edges', required=False, type=bool, default=False,
-                               help='True to enable the Noisy Edges Check.')
-        ff_parser.add_argument('-m', '--check_margins', required=False, type=bool, default=False,
-                               help='True to enable the Noisy Margins Check.')
-        ff_parser.add_argument('--filter_designated', required=False, type=bool, default=False,
-                               help='True to enable filtering of designated soundings.')
-        ff_parser.add_argument('--filter_fff', required=False, type=bool, default=False,
-                               help='True to enable filtering of S57 features.')
-        ff_parser.add_argument('--filter_distance_multiplier', type=float, default=1.0,
-                               help='Remove flags at the passed distance from the FFF or designated features. '
-                                    'Distance expressed as a multiple of the grid resolution.')
-        ff_parser.add_argument('--filter_delta_z', type=float, default=0.01,
-                               help='Remove flags within the passed delta Z from the FFF or designated features. '
-                                    'The delta Z is expressed in meters.')
-        ff_parser.add_argument('--s57_path', required=False, type=str, default=None,
-                               help="Path to the S57 file used by '-filter_fff True'.")
-        ff_parser.add_argument('-k', '--enable_kml_output', required=False, type=bool, default=False,
-                               help='True to enable KML as an additional output format for the flags.')
-        ff_parser.add_argument('-s', '--enable_shp_output', required=False, type=bool, default=False,
-                               help='True to enable Shapefile as an additional output format for the flags.')
-        ff_parser.set_defaults(func=self.run_find_fliers)
-
+        self.cli_commands = CliCommands()
+        self.cli_commands.ff_parser.set_defaults(func=self.run_find_fliers)
         self._web = None 
 
     def run(self):
         self._web = WebRenderer(make_app=True)
-        args = self.parser.parse_args()
+        args = self.cli_commands.parser.parse_args()
         try:
             args.func(args)
         except AttributeError as e:
             if "'Namespace' object" not in str(e):
                 logger.info(e)
-            self.parser.print_help()
-            self.parser.exit()
+            self.cli_commands.parser.print_help()
+            self.cli_commands.parser.exit()
 
     def _check_web_page(self, token: str = ""):
         try:
