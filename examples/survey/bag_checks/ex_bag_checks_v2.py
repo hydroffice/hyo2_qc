@@ -9,7 +9,8 @@ from hyo2.qc.common import testing
 logger = logging.getLogger(__name__)
 set_logging(ns_list=["hyo2.qc", ])
 
-app = QtWidgets.QApplication([])
+app = QtWidgets.QApplication()
+# noinspection PyArgumentList
 wid = QtWidgets.QWidget()
 
 # options
@@ -32,7 +33,7 @@ if use_internal_test_files:
     logger.debug("- adding test grid file #%d" % grid_idx)
     prj.add_to_grid_list(path=grid_files[grid_idx])
 else:
-    prj.add_to_grid_list(r"C:\code\hyo2\processing\hyo2_qc\data\input\tiny_vr.bag")
+    prj.add_to_grid_list(r"C:\Users\GiuSilia\Downloads\JD211_Public_Release_1-5.bag")
 
 logger.debug(prj)
 

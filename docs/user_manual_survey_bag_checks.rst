@@ -55,35 +55,36 @@ The BAG files are inspected to ensure compliance with NOAA NBS requirements and 
    * Metadata dataset
    * VR Metadata dataset (VR only)
    * For NOAA NBS Profile:
+      * Resolution matches with filename (SR only).
       * Spatial reference system is projected.
       * Vertical datum is defined.
-      * Creation date
-      * Survey start date
-      * Survey end date
-      * Product Uncertainty
+      * Creation date.
+      * Survey start date.
+      * Survey end date.
+      * Product Uncertainty.
 
 * **Check the elevation layer**: Checks to ensure the validity of the elevation layer of BAG. Checks the following:
-   * For the presence of a Elevation dataset
-   * All depth values are not NaN
-   * VR Refinements (VR only)
+   * For the presence of a Elevation dataset.
+   * All depth values are not NaN.
+   * VR Refinements (VR only).
 
 * **Check the uncertainty layer**: Checks to ensure the validity of the uncertainty layer in the BAG. Checks the following:
-   * For the presence of an Uncertainty dataset
-   * All values are not NaN
-   * Uncertainty values are only positive
-   * VR Refinements (VR only)
+   * For the presence of an Uncertainty dataset.
+   * All values are not NaN.
+   * Uncertainty values are only positive.
+   * VR Refinements (VR only).
    * For NOAA NBS Profile:
       * Uncertainty values are not too high:
          * The uncertainty threshold is based on the max depth: :math:`UT = 4.0m + 0.1 * d _{max}`.
          * This check is skipped in case of ellipsoid depths (detected from the filename).
 
 * **Check the tracking list**: Checks to ensure the validity of the tracking list. Checks the following:
-   * For the presence of the Tracking List dataset and the VR Tracking List dataset (VR only)
-   * Validity of the entries in the 'row' column
-   * Validity of the entries in the 'col' column
+   * For the presence of the Tracking List dataset and the VR Tracking List dataset (VR only).
+   * Validity of the entries in the 'row' column.
+   * Validity of the entries in the 'col' column.
 
 * **Check GDAL Compatibility**: Checks to ensure that the surface is compatible with GDAL. Checks the following:
-   * Checks that that the grid does not have more than 10,000,000 refinement grids which will result in a GDAL error
+   * Checks that that the grid does not have more than 10,000,000 refinement grids which will result in a GDAL error.
 
 |
 

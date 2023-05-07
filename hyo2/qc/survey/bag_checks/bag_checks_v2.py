@@ -316,6 +316,22 @@ class BagChecksV2:
             bf.populate_metadata()
             # bf.extract_metadata('test.xml')
 
+            if self._noaa_nbs_profile and not self._is_vr:
+
+                # CHK: check resolution in metadata matches filename
+                self._bc_report += "Check that the resolution in metadata matches the filename (SR only) [CHECK]"
+                if bf.meta.res_x is None:
+                    self._bc_report += "[WARNING] The resolution entry might be NOT present"
+                    self._bc_metadata_warnings += 1
+                else:
+                    res_token = "%.0fm" % bf.meta.res_x
+                    if res_token not in self._grid_basename:
+                        self._bc_report += "[WARNING] The resolution entry [%s m] might NOT matching " \
+                                           "with the filename [%s]" % (bf.meta.res_x, self._grid_basename)
+                        self._bc_metadata_warnings += 1
+                    else:
+                        self._bc_report += "OK"
+
             if self._noaa_nbs_profile:
 
                 # CHK: use of projected spatial reference system
