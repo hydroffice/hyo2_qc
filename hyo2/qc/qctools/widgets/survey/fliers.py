@@ -540,7 +540,7 @@ class FliersTab(QtWidgets.QMainWindow):
                     return
 
         # for each file in the project grid list
-        msg = "Potential fliers per input:\n"
+        msg = "Number of potential fliers per input:<br>"
         opened_folders = list()
         for i, grid_file in enumerate(grid_list):
 
@@ -552,7 +552,7 @@ class FliersTab(QtWidgets.QMainWindow):
 
             # export the fliers
             saved = self._export_fliers()
-            msg += "- %s: %d\n" % (self.prj.cur_grid_basename, self.prj.number_of_fliers())
+            msg += "- %s: %d<br>" % (self.prj.cur_grid_basename, self.prj.number_of_fliers())
 
             # open the output folder (if not already open)
             if saved:
@@ -562,6 +562,13 @@ class FliersTab(QtWidgets.QMainWindow):
                     opened_folders.append(self.prj.fliers_output_folder)
 
             self.prj.close_cur_grid()
+
+        msg += "<p align='center'><i><span style='background-color:#ffffaa'><font color='#888888'>" \
+               "It is NOT guaranteed that<br>" \
+               "all the fliers have been identified.<br>" \
+               "Use Find Fliers in combination<br>" \
+               "with other QC methods!" \
+               "</font></i></span></p>"
 
         # noinspection PyCallByClass,PyArgumentList
         QtWidgets.QMessageBox.information(self, "Find fliers v9", msg, QtWidgets.QMessageBox.Ok)
