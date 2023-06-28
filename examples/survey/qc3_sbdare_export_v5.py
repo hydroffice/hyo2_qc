@@ -19,12 +19,13 @@ s57_files = testing.input_test_files(".000")
 prj.add_to_s57_list(s57_files[0])
 
 do_exif = True
+images_folder = None
 
 for s57_file in prj.s57_list:
 
     prj.clear_survey_label()
     prj.read_feature_file(feature_path=s57_file)
-    prj.sbdare_export_v5(exif=do_exif)
+    prj.sbdare_export_v5(exif=do_exif, images_folder=images_folder)
     saved_ascii = prj.save_sbdare()
     if saved_ascii:
         prj.open_sbdare_output_folder()
