@@ -92,8 +92,9 @@ class DesignatedScanV2(BaseDesignated):
         self._select_features()
         if len(self.fff_features) == 0:
             logger.warning("no FFF features to check!")
-        else:
-            self._convert_features_to_array_coords(depth_precision=depth_precision)
+            return
+
+        self._convert_features_to_array_coords(depth_precision=depth_precision)
 
         for idx, des in enumerate(self.grids.designated):
 

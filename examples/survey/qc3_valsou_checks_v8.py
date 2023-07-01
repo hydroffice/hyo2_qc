@@ -1,20 +1,20 @@
 import logging
+
 from PySide2 import QtWidgets
-
-from hyo2.abc.lib.logging import set_logging
-from hyo2.qc.survey.project import SurveyProject
-from hyo2.qc.common import testing
-
 from hyo2.abc.app.qt_progress import QtProgress
+from hyo2.abc.lib.logging import set_logging
+
+from hyo2.qc.common import testing
+from hyo2.qc.survey.project import SurveyProject
 
 logger = logging.getLogger(__name__)
 set_logging(ns_list=["hyo2.qc", ])
 
-app = QtWidgets.QApplication([])
-wid = QtWidgets.QWidget()
+app = QtWidgets.QApplication()
+wid = QtWidgets.QWidget(parent=None)
 
 # options
-use_internal_test_files = False
+use_internal_test_files = True
 use_internal_csar = True
 with_laser = True
 specs_version = "2021"
@@ -42,10 +42,9 @@ if use_internal_test_files:
     prj.add_to_grid_list(path=grid_files[grid_idx])
 
 else:
-    prj.add_to_s57_list(r"C:\code\hyo2\processing\hyo2_qc\data\download\H13384_FFF_testing_subset.000")
-    prj.add_to_grid_list(r"C:\code\hyo2\processing\hyo2_qc\data\download\H13384_50cm_MLLW_testing_subset.csar")
+    prj.add_to_s57_list(r"")
+    prj.add_to_grid_list(r"")
 
-logger.debug(prj)
 
 for s57_file in prj.s57_list:
 

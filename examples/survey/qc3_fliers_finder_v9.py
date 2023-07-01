@@ -14,11 +14,11 @@ from hyo2.qc.common import testing
 logger = logging.getLogger(__name__)
 set_logging(ns_list=["hyo2.qc", ])
 
-app = QtWidgets.QApplication([])
-wid = QtWidgets.QWidget()
+app = QtWidgets.QApplication()
+wid = QtWidgets.QWidget(parent=None)
 
 # options
-use_internal_test_files = False
+use_internal_test_files = True
 use_internal_csar = True
 height_value = None
 check_laplacian = False
@@ -30,6 +30,7 @@ check_edges = False
 check_margins = True
 filter_designated = False
 filter_fff = False
+export_proxies = False
 
 prj = SurveyProject(output_folder=testing.output_data_folder(), progress=QtProgress(parent=wid))
 
@@ -38,14 +39,12 @@ if use_internal_test_files:
     grid_idx = 0
     if use_internal_csar:
         grid_files = testing.input_test_files(".csar")
-        logger.debug("- test CSAR files: %d" % len(grid_files))
     else:
         grid_files = testing.input_test_files(".bag")
-        logger.debug("- test BAG files: %d" % len(grid_files))
-    logger.debug("- adding test grid file #%d" % grid_idx)
     prj.add_to_grid_list(path=grid_files[grid_idx])
+    logger.debug("adding test grid file #%d: %s" % (grid_idx, grid_files[grid_idx]))
 else:
-    prj.add_to_grid_list(r"C:\code\hyo2\processing\hyo2_qc\data\download\H13384_50cm_MLLW_testing_subset.csar")
+    prj.add_to_grid_list(r"")
 
 logger.debug(prj)
 
@@ -65,7 +64,7 @@ for grid_path in prj.grid_list:
                        check_margins=check_margins,
                        filter_fff=filter_fff,
                        filter_designated=filter_designated,
-                       export_proxies=False)
+                       export_proxies=export_proxies)
     prj.close_cur_grid()
 
     prj.set_cur_grid(path=grid_path)

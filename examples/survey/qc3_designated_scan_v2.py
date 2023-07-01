@@ -5,6 +5,7 @@ from hyo2.abc.app.qt_progress import QtProgress
 from hyo2.abc.lib.logging import set_logging
 
 from hyo2.qc.common import testing
+from hyo2.qc.common.grid_callback.qt_grid_callback import QtGridCallback
 from hyo2.qc.survey.project import SurveyProject
 
 logger = logging.getLogger(__name__)
@@ -15,29 +16,29 @@ wid = QtWidgets.QWidget(parent=None)
 
 # options
 use_internal_test_files = True
-do_exif = True
-images_folder = None
+chunk_size = 4294967296
+neighborhood = True
+specs = "2016"
+survey_scale = 20000
 
 prj = SurveyProject(output_folder=testing.output_data_folder(), progress=QtProgress(parent=wid))
+prj.set_callback(QtGridCallback(progress=prj.progress))
 
 if use_internal_test_files:
     # add a S57 file
     s57_files = testing.input_test_files(".000")
     prj.add_to_s57_list(s57_files[0])
+    # add a BAG file
+    bag_files = testing.input_test_files(".bag")
+    prj.add_to_grid_list(bag_files[0])
 else:
+    prj.add_to_s57_list(r"")
     prj.add_to_grid_list(r"")
 
-for s57_file in prj.s57_list:
-
-    prj.clear_survey_label()
-    prj.read_feature_file(feature_path=s57_file)
-    prj.sbdare_export_v5(exif=do_exif, images_folder=images_folder)
-    saved_ascii = prj.save_sbdare()
-    if saved_ascii:
-        prj.open_sbdare_output_folder()
-
-    warnings = prj.sbdare_warnings()
-    logger.debug("warnings: %d" % len(warnings))
-    for warning in warnings:
-        logger.info("- %s" % warning)
-
+prj.clear_survey_label()
+prj.read_feature_file(feature_path=prj.s57_list[0])
+prj.open_grid(path=prj.grid_list[0], chunk_size=chunk_size)
+prj.designated_scan_v2(survey_scale=survey_scale, neighborhood=neighborhood, specs=specs)
+saved = prj.save_designated()
+if saved:
+    prj.open_designated_output_folder()

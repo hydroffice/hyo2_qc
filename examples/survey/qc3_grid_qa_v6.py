@@ -15,53 +15,44 @@ from hyo2.qc.common import testing
 logger = logging.getLogger(__name__)
 set_logging(ns_list=["hyo2.qc", ])
 
-app = QtWidgets.QApplication([])
-wid = QtWidgets.QWidget()
+app = QtWidgets.QApplication()
+wid = QtWidgets.QWidget(parent=None)
 
 # create the project
 prj = SurveyProject(output_folder=testing.output_data_folder(), progress=QtProgress(parent=wid))
 
-# add a CSAR file
-# csar_files = testing.input_test_files(".csar")
-# print("- CSAR files: %d" % len(csar_files))
-
-# add a BAG file
-bag_files = testing.input_test_files(".bag")
-print("- BAG files: %d" % len(bag_files))
-
-kluster_file = r"C:\code\kluster\kluster\test_data\srgrid_mean_auto_depth_20211127_201258"
-prj.add_to_grid_list(kluster_file)
-
-# prj.add_to_grid_list(csar_files[0])
-# prj.add_to_grid_list(csar_files[1])
-# prj.add_to_grid_list(bag_files[0])
-# prj.add_to_grid_list(bag_files[1])
-# prj.add_to_grid_list(bag_files[2])
-# prj.add_to_grid_list(csar_file)
-print("%s" % (prj.grid_list,))
-
-four_gb = 4294967296
-one_mb = 1048576
-
+# options
+use_internal_test_files = True
+use_internal_csar = True
+chunk_size = 4294967296
 force_tvu_qc = True
-
 calc_object_detection = False
 calc_full_coverage = True
-
 hist_depth = True
 hist_density = True
 hist_tvu_qc = True
 hist_pct_res = True
-
 depth_vs_density = True
 depth_vs_tvu_qc = True
+
+if use_internal_test_files:
+    # add a grid file
+    grid_idx = 0
+    if use_internal_csar:
+        grid_files = testing.input_test_files(".csar")
+    else:
+        grid_files = testing.input_test_files(".bag")
+    prj.add_to_grid_list(path=grid_files[grid_idx])
+    logger.debug("adding test grid file #%d: %s" % (grid_idx, grid_files[grid_idx]))
+else:
+    prj.add_to_grid_list(r"")
 
 
 for grid_path in prj.grid_list:
 
     prj.clear_survey_label()
     prj.set_cur_grid(path=grid_path)
-    prj.open_to_read_cur_grid(chunk_size=four_gb)
+    prj.open_to_read_cur_grid(chunk_size=chunk_size)
 
     tvu_qc_layers = prj.cur_grid_tvu_qc_layers()
     if len(tvu_qc_layers) > 0:
@@ -74,7 +65,4 @@ for grid_path in prj.grid_list:
         depth_vs_density=depth_vs_density, depth_vs_tvu_qc=depth_vs_tvu_qc
     )
     prj.open_gridqa_output_folder()
-    print("passed? %s" % ret)
-
-# print project info
-logger.debug(prj)
+    logger.info("passed? %s" % ret)

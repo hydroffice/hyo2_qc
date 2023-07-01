@@ -1,20 +1,20 @@
 import logging
-from PySide2 import QtWidgets
 
-from hyo2.abc.lib.logging import set_logging
+from PySide2 import QtWidgets
 from hyo2.abc.app.qt_progress import QtProgress
-from hyo2.qc.survey.project import SurveyProject
+from hyo2.abc.lib.logging import set_logging
+
 from hyo2.qc.common import testing
+from hyo2.qc.survey.project import SurveyProject
 
 logger = logging.getLogger(__name__)
 set_logging(ns_list=["hyo2.qc", ])
 
 app = QtWidgets.QApplication()
-# noinspection PyArgumentList
-wid = QtWidgets.QWidget()
+wid = QtWidgets.QWidget(parent=None)
 
 # options
-use_internal_test_files = False
+use_internal_test_files = True
 use_noaa_nbs_profile: bool = True
 check_structure: bool = True
 check_metadata: bool = True
@@ -33,9 +33,7 @@ if use_internal_test_files:
     logger.debug("- adding test grid file #%d" % grid_idx)
     prj.add_to_grid_list(path=grid_files[grid_idx])
 else:
-    prj.add_to_grid_list(r"C:\Users\GiuSilia\Downloads\JD211_Public_Release_1-5.bag")
-
-logger.debug(prj)
+    prj.add_to_grid_list(r"")
 
 prj.bag_checks_v2(use_nooa_nbs_profile=use_noaa_nbs_profile,
                   check_structure=check_structure,
