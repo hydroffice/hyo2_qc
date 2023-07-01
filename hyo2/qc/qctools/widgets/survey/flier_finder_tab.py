@@ -10,7 +10,7 @@ from hyo2.qc.survey.fliers.find_fliers_v9 import FindFliersV9
 logger = logging.getLogger(__name__)
 
 
-class FliersTab(QtWidgets.QMainWindow):
+class FlierFinderTab(QtWidgets.QMainWindow):
     here = os.path.abspath(os.path.dirname(__file__))
 
     def __init__(self, parent_win, prj):
@@ -37,8 +37,7 @@ class FliersTab(QtWidgets.QMainWindow):
         self.vbox = QtWidgets.QVBoxLayout()
         self.panel.setLayout(self.vbox)
 
-        # - flier finder v9
-        self.flierFinderV9 = QtWidgets.QGroupBox("Flier finder v9")
+        self.flierFinderV9 = QtWidgets.QGroupBox("Flier Finder v9")
         self.vbox.addWidget(self.flierFinderV9)
         ffv9_hbox = QtWidgets.QHBoxLayout()
         self.flierFinderV9.setLayout(ffv9_hbox)
@@ -91,7 +90,7 @@ class FliersTab(QtWidgets.QMainWindow):
         #             self.text_distance_3.hide()
         #
         #       return True
-        return super(FliersTab, self).keyPressEvent(event)
+        return super(FlierFinderTab, self).keyPressEvent(event)
 
     # v9
 
@@ -467,7 +466,7 @@ class FliersTab(QtWidgets.QMainWindow):
     @classmethod
     def click_open_manual_v9(cls):
         logger.debug("open manual")
-        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_survey_detect_fliers.html")
+        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_survey_flier_finder.html")
 
     # ####### find fliers #######
 
@@ -714,21 +713,22 @@ class FliersTab(QtWidgets.QMainWindow):
             else:
                 settings.setValue("survey/ff9_designated", 0)
 
-            self.prj.find_fliers_v9(height=height,
-                                    check_laplacian=self.set_check_laplacian_ffv9.isChecked(),
-                                    check_curv=self.set_check_curv_ffv9.isChecked(),
-                                    check_adjacent=self.set_check_adjacent_ffv9.isChecked(),
-                                    check_slivers=self.set_check_slivers_ffv9.isChecked(),
-                                    check_isolated=self.set_check_isolated_ffv9.isChecked(),
-                                    check_edges=self.set_check_edges_ffv9.isChecked(),
-                                    check_margins=self.set_check_margins_ffv9.isChecked(),
-                                    filter_fff=self.set_filter_fff_ffv9.isChecked(),
-                                    filter_designated=self.set_filter_designated_ffv9.isChecked(),
-                                    export_proxies=save_proxies,
-                                    export_heights=save_heights,
-                                    export_curvatures=save_curvatures,
-                                    progress_bar=self.prj.progress
-                                    )
+            self.prj.flier_finder_v9(
+                height=height,
+                check_laplacian=self.set_check_laplacian_ffv9.isChecked(),
+                check_curv=self.set_check_curv_ffv9.isChecked(),
+                check_adjacent=self.set_check_adjacent_ffv9.isChecked(),
+                check_slivers=self.set_check_slivers_ffv9.isChecked(),
+                check_isolated=self.set_check_isolated_ffv9.isChecked(),
+                check_edges=self.set_check_edges_ffv9.isChecked(),
+                check_margins=self.set_check_margins_ffv9.isChecked(),
+                filter_fff=self.set_filter_fff_ffv9.isChecked(),
+                filter_designated=self.set_filter_designated_ffv9.isChecked(),
+                export_proxies=save_proxies,
+                export_heights=save_heights,
+                export_curvatures=save_curvatures,
+                progress_bar=self.prj.progress
+            )
 
             if self.set_filter_fff_ffv9.isChecked() or self.set_filter_designated_ffv9.isChecked():
                 self.prj.close_cur_grid()

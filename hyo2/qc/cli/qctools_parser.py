@@ -17,7 +17,7 @@ class QCToolsParser:
     def __init__(self):
         self._check_latest_release()
         self.cli_commands = CliCommands()
-        self.cli_commands.ff_parser.set_defaults(func=self.run_find_fliers)
+        self.cli_commands.ff_parser.set_defaults(func=self.run_flier_finder)
         self._web = None 
 
     def run(self):
@@ -64,7 +64,7 @@ class QCToolsParser:
         except Exception as e:
             logger.warning(e)
 
-    def run_find_fliers(self, args):
+    def run_flier_finder(self, args):
 
         if not os.path.exists(args.output_folder):
             raise RuntimeError('Unable to locate output folder: %s' % args.output_folder)
@@ -107,7 +107,7 @@ class QCToolsParser:
         filter_designated = args.filter_designated
         filter_fff = args.filter_fff
 
-        self._check_web_page(token='FFv8_%d%d%d%d%d%d%d_%d%d' % (check_laplacian, check_curv, check_adjacent,
+        self._check_web_page(token='FFv9_%d%d%d%d%d%d%d_%d%d' % (check_laplacian, check_curv, check_adjacent,
                                                                  check_slivers, check_isolated, check_edges,
                                                                  check_margins,
                                                                  filter_designated, filter_fff))
@@ -123,21 +123,21 @@ class QCToolsParser:
             prj.set_cur_grid(path=grid_path)
             prj.open_to_read_cur_grid(chunk_size=4294967296)
 
-            prj.find_fliers_v9(height=height_value,
-                               check_laplacian=check_laplacian,
-                               check_curv=check_curv,
-                               check_adjacent=check_adjacent,
-                               check_slivers=check_slivers,
-                               check_isolated=check_isolated,
-                               check_edges=check_edges,
-                               check_margins=check_margins,
-                               filter_fff=filter_fff,
-                               filter_designated=filter_designated)
+            prj.flier_finder_v9(height=height_value,
+                                check_laplacian=check_laplacian,
+                                check_curv=check_curv,
+                                check_adjacent=check_adjacent,
+                                check_slivers=check_slivers,
+                                check_isolated=check_isolated,
+                                check_edges=check_edges,
+                                check_margins=check_margins,
+                                filter_fff=filter_fff,
+                                filter_designated=filter_designated)
             prj.close_cur_grid()
 
             prj.set_cur_grid(path=grid_path)
             prj.open_to_read_cur_grid(chunk_size=4294967296)
-            prj.find_fliers_v8_apply_filters(distance=distance, delta_z=delta_z)
+            prj.flier_finder_v9_apply_filters(distance=distance, delta_z=delta_z)
 
             saved = prj.save_fliers()
             if saved:

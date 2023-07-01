@@ -175,14 +175,14 @@ class SurveyProject(BaseProject):
 
         return output_folder
 
-    def find_fliers_v9(self, height: Optional[float],
-                       check_laplacian: bool = False, check_curv: bool = True, check_adjacent: bool = True,
-                       check_slivers: bool = True, check_isolated: bool = True, check_edges: bool = False,
-                       check_margins: bool = True,
-                       filter_fff: bool = False, filter_designated: bool = False,
-                       export_bathy: bool = False, export_proxies: bool = False,
-                       export_heights: bool = False, export_curvatures: bool = False,
-                       progress_bar: Optional[AbstractProgress] = None):
+    def flier_finder_v9(self, height: Optional[float],
+                        check_laplacian: bool = False, check_curv: bool = True, check_adjacent: bool = True,
+                        check_slivers: bool = True, check_isolated: bool = True, check_edges: bool = False,
+                        check_margins: bool = True,
+                        filter_fff: bool = False, filter_designated: bool = False,
+                        export_bathy: bool = False, export_proxies: bool = False,
+                        export_heights: bool = False, export_curvatures: bool = False,
+                        progress_bar: Optional[AbstractProgress] = None):
         """Look for fliers using the passed parameters and the loaded grids"""
         if not self.has_grid():
             logger.warning("first load some grids")
@@ -219,9 +219,9 @@ class SurveyProject(BaseProject):
             raise e
 
     def find_fliers_v9_apply_filters(self, distance=1.0, delta_z=0.01) -> None:
-        self.find_fliers_v8_apply_filters(distance=distance, delta_z=delta_z)
+        self.flier_finder_v9_apply_filters(distance=distance, delta_z=delta_z)
 
-    def find_fliers_v8_apply_filters(self, distance=1.0, delta_z=0.01) -> None:
+    def flier_finder_v9_apply_filters(self, distance=1.0, delta_z=0.01) -> None:
         """Look for fliers using the passed parameters and the loaded grids"""
         if not self.has_grid():
             logger.warning("first load some grids")

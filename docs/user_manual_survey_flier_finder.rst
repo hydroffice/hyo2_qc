@@ -1,7 +1,7 @@
-.. _survey-detect-fliers:
+.. _survey-flier-finder:
 
-Detect fliers
--------------
+Flier Finder
+------------
 
 .. index::
     single: fliers
@@ -11,18 +11,18 @@ How To Use?
 
 Scan grids for anomalous grid data "fliers".
 
-* Select the **Detect fliers** tab (:numref:`fig_detect_fliers`) on the bottom of the QC Tools interface.
+* Select the **Flier Finder** tab (:numref:`fig_flier_finder`) on the bottom of the QC Tools interface.
 
 .. index::
     single: fliers; height
 
-* For **Flier finder v9**, first consider **Settings:**
+* For **Flier Finder v9**, first consider **Settings:**
 
   * The **Flier height** will be determined automatically by the program and does not need to be set, but the user may choose to do so in order to run a specific **Flier height**.
   * The automatic determination of **Flier height** is performed per tile, and is based on the `median`_ depth (characteristic depth), the `MAD`_ (variability in range), and the standard deviation of the `gaussian curvature`_ (roughness).
   * The selected **Checks** are enabled by default. You can enable or disable them in order to run custom analysis (see the "How Does It Work?" section below).
 
-* To change the **Settings** for **Flier finder v9**:
+* To change the **Settings** for **Flier Finder v9**:
 
   * Click the **Unlock** button, and click **OK** to the dialogue.
   * If desired, enter a desired Flier search height in meters in the **Force flier heights** box.
@@ -36,30 +36,30 @@ Scan grids for anomalous grid data "fliers".
 
   * Enable or disable the specific **Filters** to run.
 
-.. _fig_detect_fliers:
-.. figure:: _static/detect_fliers_interface.png
+.. _fig_flier_finder:
+.. figure:: _static/flier_finder_interface.png
     :width: 600px
     :align: center
     :alt: fliers tab
     :figclass: align-center
 
-    The **Flier finder fliers** tab.
+    The **Flier Finder** tab.
 
 .. index::
     single: find fliers
 
-* In **Execution** for **Flier finder v9**:
+* In **Execution** for **Flier Finder v9**:
 
-  * Click **Find fliers v9**. After executing, the output window opens automatically (:numref:`fig_detect_fliers_output`), and the results are shown:
+  * Click **Flier Finder v9**. After executing, the output window opens automatically (:numref:`fig_flier_finder_output`), and the results are shown:
 
-.. _fig_detect_fliers_output:
-.. figure:: _static/detect_fliers_output.png
+.. _fig_flier_finder_output:
+.. figure:: _static/flier_finder_output.png
     :width: 200px
     :align: center
     :alt: output message
     :figclass: align-center
 
-    The output message at the end of **Flier finder v9** execution.
+    The output message at the end of **Flier Finder v9** execution.
 
 * An output window will open in File Explorer. From the output window, drag-and-drop the desired output file into the processing software to guide the review. Each candidate flier is labeled using the identifier of the algorithm that detected it (e.g., "2" for Gaussian Curvature).
 

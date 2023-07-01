@@ -54,17 +54,17 @@ for grid_path in prj.grid_list:
     prj.clear_survey_label()
     prj.open_grid(path=grid_path)
 
-    prj.find_fliers_v9(height=height_value,
-                       check_laplacian=check_laplacian,
-                       check_curv=check_curv,
-                       check_adjacent=check_adjacent,
-                       check_slivers=check_slivers,
-                       check_isolated=check_isolated,
-                       check_edges=check_edges,
-                       check_margins=check_margins,
-                       filter_fff=filter_fff,
-                       filter_designated=filter_designated,
-                       export_proxies=export_proxies)
+    prj.flier_finder_v9(height=height_value,
+                        check_laplacian=check_laplacian,
+                        check_curv=check_curv,
+                        check_adjacent=check_adjacent,
+                        check_slivers=check_slivers,
+                        check_isolated=check_isolated,
+                        check_edges=check_edges,
+                        check_margins=check_margins,
+                        filter_fff=filter_fff,
+                        filter_designated=filter_designated,
+                        export_proxies=export_proxies)
     prj.close_cur_grid()
 
     prj.set_cur_grid(path=grid_path)

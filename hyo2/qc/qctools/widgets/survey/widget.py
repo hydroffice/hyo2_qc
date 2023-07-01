@@ -6,7 +6,7 @@ from hyo2.abc.app.qt_progress import QtProgress
 from hyo2.qc.common.grid_callback.qt_grid_callback import QtGridCallback
 from hyo2.qc.qctools.widgets.survey.bag_checks import BAGChecksTab
 from hyo2.qc.qctools.widgets.survey.designated import DesignatedTab
-from hyo2.qc.qctools.widgets.survey.fliers import FliersTab
+from hyo2.qc.qctools.widgets.survey.flier_finder_tab import FlierFinderTab
 from hyo2.qc.qctools.widgets.survey.gridqa import GridQATab
 from hyo2.qc.qctools.widgets.survey.holes import HolesTab
 from hyo2.qc.qctools.widgets.survey.inputs import InputsTab
@@ -79,7 +79,7 @@ class SurveyWidget(AbstractWidget):
         self.tabs.setTabToolTip(self.idx_inputs, "Data inputs")
 
         # - flier finder
-        self.tab_fliers = FliersTab(parent_win=self, prj=self.prj)
+        self.tab_fliers = FlierFinderTab(parent_win=self, prj=self.prj)
         # noinspection PyArgumentList
         self.idx_fliers = self.tabs.insertTab(1, self.tab_fliers,
                                               QtGui.QIcon(os.path.join(self.media, 'fliers.png')), "")

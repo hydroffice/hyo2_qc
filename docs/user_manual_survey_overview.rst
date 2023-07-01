@@ -8,7 +8,7 @@ The **Survey Validation** tab will:
 
 * Receive bathymetric grids and feature file inputs for analysis (see :ref:`survey-data-inputs`).
 
-* Scan grids for anomalous grid data ":index:`fliers`" (see :ref:`survey-detect-fliers`).
+* Scan grids for anomalous grid data ":index:`fliers`" (see :ref:`survey-flier-finder`).
 
 * Scan grids for empty grid nodes that meet NOAA NOS Hydrographic Survey Specifications and Deliverables (`HSSD`_) definitions of ":index:`holidays`" (see :ref:`survey-detect-holidays`).
 

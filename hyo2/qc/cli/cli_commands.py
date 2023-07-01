@@ -9,7 +9,7 @@ class CliCommands:
         self.parser.add_argument('--version', action='version', version=__version__)
         self.subparsers = self.parser.add_subparsers()
 
-        self.ff_parser = self.subparsers.add_parser('FindFliers',
+        self.ff_parser = self.subparsers.add_parser('flier_finder',
                                                     help='Identify potential fliers in gridded bathymetry',
                                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
         self.ff_parser.add_argument('input_dtm', type=str,

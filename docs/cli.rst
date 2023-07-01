@@ -6,4 +6,4 @@ Command Line Interface
    :maxdepth: 1
 
    cli_main
-   cli_find_fliers
+   cli_flier_finder

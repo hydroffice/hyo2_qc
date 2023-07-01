@@ -185,7 +185,7 @@ for i, bag_path in enumerate(prj.grid_list):
         prj.close_cur_grid()
 
         prj.open_grid(path=bag_path)
-        prj.find_fliers_v8_apply_filters()
+        prj.flier_finder_v9_apply_filters()
 
         saved = prj.save_fliers()
         if saved:
