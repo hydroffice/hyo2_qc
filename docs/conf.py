@@ -26,8 +26,8 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.intersphinx',
     'sphinxarg.ext',
-    'sphinx_multiversion',
-    'sphinx_reredirects'
+    'sphinxext.rediraffe',
+    'sphinx_multiversion'
 ]
 
 # Whitelist pattern for tags (set to None to ignore all tags)
@@ -183,11 +183,11 @@ html_show_sphinx = False
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'HydrOfficeQCToolsDoc'
 
-redirects = {
-    "user_manual_survey_detect_fliers": "user_manual_survey_flier_finder.html",
-    "user_manual_survey_detect_holidays": "user_manual_survey_holiday_finder.html",
-    "user_manual_survey_scan_designated": "user_manual_survey_designated_scan.html",
-    "user_manual_survey_scan_features": "user_manual_survey_feature_scan.html"
+rediraffe_redirects = {
+    "user_manual_survey_detect_fliers.rst": "user_manual_survey_flier_finder.rst",
+    "user_manual_survey_detect_holidays.rst": "user_manual_survey_holiday_finder.rst",
+    "user_manual_survey_scan_designated.rst": "user_manual_survey_designated_scan.rst",
+    "user_manual_survey_scan_features.rst": "user_manual_survey_feature_scan.rst"
 }
 
 # -- Options for LaTeX output ---------------------------------------------
