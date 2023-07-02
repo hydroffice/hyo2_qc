@@ -26,7 +26,7 @@ In order to access this tool, load a BAG and an S-57 file into the **Data Inputs
 
 * In **Execution**, click **Designated Scan v2**.
 
-.. _fig_scan_designated:
+.. _fig_designated_scan:
 .. figure:: _static/designated_scan_interface.png
     :width: 700px
     :align: center
