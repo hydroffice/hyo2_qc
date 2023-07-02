@@ -373,7 +373,6 @@ class FeatureScanTab(QtWidgets.QMainWindow):
         button = QtWidgets.QPushButton()
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
-        button.setFixedWidth(GuiSettings.text_button_width())
         button.setText("Feature Scan v12")
         button.setToolTip('Scan features in the loaded file checking their validity')
         # noinspection PyUnresolvedReferences

@@ -316,7 +316,7 @@ class FlierFinderTab(QtWidgets.QMainWindow):
         if self.editable_v9.isChecked():
             msg = "Do you really want to change the settings?"
             # noinspection PyCallByClass,PyArgumentList
-            ret = QtWidgets.QMessageBox.warning(self, "Find Fliers v9 settings", msg,
+            ret = QtWidgets.QMessageBox.warning(self, "Flier Finder v9 settings", msg,
                                                 QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.No)
             if ret == QtWidgets.QMessageBox.No:
                 self.editable_v9.setChecked(False)
@@ -441,9 +441,8 @@ class FlierFinderTab(QtWidgets.QMainWindow):
         button = QtWidgets.QPushButton()
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
-        button.setFixedWidth(GuiSettings.text_button_width())
-        button.setText("Find fliers v9")
-        button.setToolTip('Find fliers in the loaded surfaces')
+        button.setText("Flier Finder v9")
+        button.setToolTip('Flier Finder in the loaded surfaces')
         # noinspection PyUnresolvedReferences
         button.clicked.connect(self.click_find_fliers_v9)
         # button.setDisabled(True)
@@ -517,7 +516,7 @@ class FlierFinderTab(QtWidgets.QMainWindow):
                       "\n" \
                       "Do you want to continue with the analysis?"
                 # noinspection PyCallByClass, PyArgumentList
-                ret = QtWidgets.QMessageBox.warning(self, "Find Fliers v9 filters", msg,
+                ret = QtWidgets.QMessageBox.warning(self, "Flier Finder v9 filters", msg,
                                                     QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
                 if ret == QtWidgets.QMessageBox.No:
                     return
@@ -533,7 +532,7 @@ class FlierFinderTab(QtWidgets.QMainWindow):
                       "but no BAG files have been selected!\n\n" \
                       "Do you want to continue with the analysis?"
                 # noinspection PyCallByClass,PyArgumentList
-                ret = QtWidgets.QMessageBox.warning(self, "Find Fliers v9 filters", msg,
+                ret = QtWidgets.QMessageBox.warning(self, "Flier Finder v9 filters", msg,
                                                     QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
                 if ret == QtWidgets.QMessageBox.No:
                     return
@@ -565,12 +564,12 @@ class FlierFinderTab(QtWidgets.QMainWindow):
         msg += "<p align='center'><i><span style='background-color:#ffffaa'><font color='#888888'>" \
                "It is NOT guaranteed that<br>" \
                "all the fliers have been identified.<br>" \
-               "Use Find Fliers in combination<br>" \
+               "Use Flier Finder in combination<br>" \
                "with other QC methods!" \
                "</font></i></span></p>"
 
         # noinspection PyCallByClass,PyArgumentList
-        QtWidgets.QMessageBox.information(self, "Find fliers v9", msg, QtWidgets.QMessageBox.Ok)
+        QtWidgets.QMessageBox.information(self, "Flier Finder v9", msg, QtWidgets.QMessageBox.Ok)
 
     def _parse_user_height(self):
 
@@ -648,7 +647,7 @@ class FlierFinderTab(QtWidgets.QMainWindow):
 
         logger.debug('find fliers v9 ...')
 
-        self.prj.progress.start(title="Find Fliers v9",
+        self.prj.progress.start(title="Flier Finder v9",
                                 text="Data loading [%d/%d]" % (idx, total),
                                 init_value=2)
 

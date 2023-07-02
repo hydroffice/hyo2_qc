@@ -322,7 +322,6 @@ class GridQATab(QtWidgets.QMainWindow):
         button = QtWidgets.QPushButton()
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
-        button.setFixedWidth(GuiSettings.text_button_width())
         button.setText("Grid QA v6")
         button.setToolTip('Perform quality assessment on loaded grids')
         # noinspection PyUnresolvedReferences

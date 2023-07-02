@@ -74,7 +74,6 @@ class SBDAREExportTab(QtWidgets.QMainWindow):
         button = QtWidgets.QPushButton()
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
-        button.setFixedWidth(GuiSettings.text_button_width() + 16)
         button.setText("SBDARE Export v5")
         button.setToolTip('Export SBDARE values')
         # noinspection PyUnresolvedReferences

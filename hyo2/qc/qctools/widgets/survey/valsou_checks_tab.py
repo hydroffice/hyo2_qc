@@ -37,7 +37,7 @@ class ValsouChecksTab(QtWidgets.QMainWindow):
         self.toggle_mode_v8 = None
 
         # v8 widgets
-        self.valsouCheckv8 = QtWidgets.QGroupBox("VALSOU Check v8")
+        self.valsouCheckv8 = QtWidgets.QGroupBox("VALSOU Checks v8")
         self.valsouCheckv8.setStyleSheet("QGroupBox::title { color: rgb(155, 155, 155); }")
         self.vbox.addWidget(self.valsouCheckv8)
         vcv8_hbox = QtWidgets.QHBoxLayout()
@@ -161,8 +161,7 @@ class ValsouChecksTab(QtWidgets.QMainWindow):
         button = QtWidgets.QPushButton()
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
-        button.setFixedWidth(GuiSettings.text_button_width() + 16)
-        button.setText("VALSOU check v8")
+        button.setText("VALSOU Checks v8")
         button.setToolTip('Check VALSOU values against surface')
         # noinspection PyUnresolvedReferences
         button.clicked.connect(self.click_valsou_check_v8)
