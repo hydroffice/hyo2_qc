@@ -662,7 +662,7 @@ class FlierFinderTab(QtWidgets.QMainWindow):
             self.prj.progress.setValue(100)
             return
 
-        self.prj.progress.update(value=5, text="Find Fliers v9 [%d/%d]" % (idx, total))
+        self.prj.progress.update(value=5, text="Flier Finder v9 [%d/%d]" % (idx, total))
 
         settings = QtCore.QSettings()
         try:

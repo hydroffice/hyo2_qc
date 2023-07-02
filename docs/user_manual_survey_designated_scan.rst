@@ -1,10 +1,10 @@
-.. _survey-scan-designated-label:
+.. _survey-designated-scan-label:
 
-Scan Designated
+Designated Scan
 ---------------
 
 .. index::
-    single: scan designated
+    single: designated scan
 
 How To Use?
 ^^^^^^^^^^^    
@@ -13,10 +13,10 @@ Scans grids to ensure the validity of any soundings designated. Currently, only 
 
 In order to access this tool, load a BAG and an S-57 file into the **Data Inputs** tab. 
 
-* Select the **Scan Designated** tab (:numref:`fig_scan_designated`) on the bottom of the QC Tools interface.
+* Select the **Designated Scan** tab (:numref:`fig_designated_scan`) on the bottom of the QC Tools interface.
 
 .. index::
-    single: scan designated
+    single: designated scan
 
 * In **Parameters**: 
 
@@ -27,13 +27,13 @@ In order to access this tool, load a BAG and an S-57 file into the **Data Inputs
 * In **Execution**, click **Designated Scan v2**.
 
 .. _fig_scan_designated:
-.. figure:: _static/scan_designated_interface.png
+.. figure:: _static/designated_scan_interface.png
     :width: 700px
     :align: center
     :alt: fliers tab
     :figclass: align-center
 
-    The **Scan Designated** tab.
+    The **Designated Scan** tab.
 
 * After computing, the output window opens automatically.
 

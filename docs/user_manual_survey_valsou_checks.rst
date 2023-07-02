@@ -1,6 +1,6 @@
 .. _survey-valsou-checks:
 
-VALSOU checks
+VALSOU Checks
 -------------
 
 .. index::
@@ -13,10 +13,10 @@ Ensure surveyed features are properly accounted for in the gridded bathymetry.
 
 In order to access this tool, load a grid and an S-57 file into the **Data Inputs** tab.
 
-* Select the **VALSOU check** tab (:numref:`fig_valsou_check`) on the bottom of the QC Tools interface.
+* Select the **VALSOU Check** tab (:numref:`fig_valsou_check`) on the bottom of the QC Tools interface.
 
 .. index::
-    single: VALSOU checks
+    single: VALSOU Checks
 
 * In **Parameters**:
 
@@ -24,7 +24,7 @@ In order to access this tool, load a grid and an S-57 file into the **Data Input
     * The **Deconflict across grids** checkbox may be enabled if the grids that are loaded have overlaps. If a feature has no grid data directly underneath, the nodes of the other grids in memory will be searched to find a valid match.
     * The **Include TECSOU=laser** checkbox may be enabled (in the event of lidar bathymetry wherein we'd expect features to be represented in the grid), or disabled (as in the case of shoreline investigations wherein we'd not have this expectation).
 
-* In **Execution**, click **VALSOU check v8**
+* In **Execution**, click **VALSOU Check v8**
 
 
 .. _fig_valsou_check:
@@ -46,7 +46,7 @@ In order to access this tool, load a grid and an S-57 file into the **Data Input
     :align: center
     :figclass: align-center
 
-    The output message at the end of **VALSOU check v8** execution.
+    The output message at the end of **VALSOU Check v8** execution.
 
 
 * From the output window, drag-and-drop the output into the processing software to guide the review.

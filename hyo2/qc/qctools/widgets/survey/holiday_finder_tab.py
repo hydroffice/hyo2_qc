@@ -12,7 +12,7 @@ from hyo2.qc.qctools.gui_settings import GuiSettings
 logger = logging.getLogger(__name__)
 
 
-class HolesTab(QtWidgets.QMainWindow):
+class HolidayFinderTab(QtWidgets.QMainWindow):
     here = os.path.abspath(os.path.dirname(__file__))
 
     def __init__(self, parent_win, prj):
@@ -29,7 +29,7 @@ class HolesTab(QtWidgets.QMainWindow):
         self.panel.setLayout(self.vbox)
 
         # - holiday finder v4
-        self.holeFinderV4 = QtWidgets.QGroupBox("Holiday finder v4")
+        self.holeFinderV4 = QtWidgets.QGroupBox("Holiday Finder v4")
         self.vbox.addWidget(self.holeFinderV4)
         hfv4_hbox = QtWidgets.QHBoxLayout()
         self.holeFinderV4.setLayout(hfv4_hbox)
@@ -74,7 +74,7 @@ class HolesTab(QtWidgets.QMainWindow):
                     self.slider_pct_min_res_label_v4.hide()
 
                 return True
-        return super(HolesTab, self).keyPressEvent(event)
+        return super(HolidayFinderTab, self).keyPressEvent(event)
 
     # ########### v4 ##########
 
@@ -565,8 +565,7 @@ class HolesTab(QtWidgets.QMainWindow):
         button = QtWidgets.QPushButton()
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
-        button.setFixedWidth(GuiSettings.text_button_width())
-        button.setText("Find Holiday v4")
+        button.setText("Holiday Finder v4")
         button.setToolTip('Find holidays in the loaded surface using selected mode')
         # noinspection PyUnresolvedReferences
         button.clicked.connect(self.click_find_holes_v4)
@@ -593,7 +592,7 @@ class HolesTab(QtWidgets.QMainWindow):
     @classmethod
     def click_open_manual(cls):
         logger.debug("open manual")
-        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_survey_detect_holidays.html")
+        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_survey_holiday_finder.html")
 
     def _click_find_holes(self, version):
         """abstract the find holes calling mechanism"""
@@ -603,7 +602,7 @@ class HolesTab(QtWidgets.QMainWindow):
         if not isinstance(version, int):
             raise RuntimeError("passed invalid type for version: %s" % type(version))
         if version not in [4, ]:
-            raise RuntimeError("passed invalid Find Holiday version: %s" % version)
+            raise RuntimeError("passed invalid Holiday Finder version: %s" % version)
         # - list of grids (although the buttons should be never been enabled without grids)
         if len(self.prj.grid_list) == 0:
             raise RuntimeError("the grid list is empty")
@@ -639,16 +638,16 @@ class HolesTab(QtWidgets.QMainWindow):
                     opened_folders.append(self.prj.holes_output_folder)
 
         # noinspection PyCallByClass
-        QtWidgets.QMessageBox.information(self, "Find holidays v%d" % version, msg, QtWidgets.QMessageBox.Ok)
+        QtWidgets.QMessageBox.information(self, "Holiday Finder v%d" % version, msg, QtWidgets.QMessageBox.Ok)
 
     def _find_holes(self, grid_file, version, idx, total):
         """ find fliers in the loaded surface using passed height parameter """
 
         # GUI takes care of progress bar
 
-        logger.debug('find holidays v%d ...' % version)
+        logger.debug('Holiday Finder v%d ...' % version)
 
-        self.parent_win.progress.start(title="Find holidays v.%d" % version,
+        self.parent_win.progress.start(title="Holiday Finder v.%d" % version,
                                        text="Data processing [%d/%d]" % (idx, total),
                                        init_value=0)
 
@@ -750,7 +749,7 @@ class HolesTab(QtWidgets.QMainWindow):
         except Exception as e:
             traceback.print_exc()
             # noinspection PyCallByClass
-            QtWidgets.QMessageBox.critical(self, "Error", "While finding fliers, this exception occurred:\n\n%s"
+            QtWidgets.QMessageBox.critical(self, "Error", "While finding holidays, this exception occurred:\n\n%s"
                                            % e, QtWidgets.QMessageBox.Ok)
             self.parent_win.progress.end()
             return

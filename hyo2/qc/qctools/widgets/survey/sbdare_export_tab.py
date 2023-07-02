@@ -9,7 +9,7 @@ from hyo2.qc.qctools.gui_settings import GuiSettings
 logger = logging.getLogger(__name__)
 
 
-class SbdareTab(QtWidgets.QMainWindow):
+class SBDAREExportTab(QtWidgets.QMainWindow):
     here = os.path.abspath(os.path.dirname(__file__))
 
     def __init__(self, parent_win, prj):
@@ -26,7 +26,7 @@ class SbdareTab(QtWidgets.QMainWindow):
         self.panel.setLayout(self.vbox)
 
         # - SBDARE export v5
-        self.sbdareExportV5 = QtWidgets.QGroupBox("SBDARE export v5")
+        self.sbdareExportV5 = QtWidgets.QGroupBox("SBDARE Export v5")
         self.sbdareExportV5.setStyleSheet("QGroupBox::title { color: rgb(155, 155, 155); }")
         self.vbox.addWidget(self.sbdareExportV5)
         sav5 = QtWidgets.QHBoxLayout()
@@ -75,7 +75,7 @@ class SbdareTab(QtWidgets.QMainWindow):
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
         button.setFixedWidth(GuiSettings.text_button_width() + 16)
-        button.setText("SBDARE export v5")
+        button.setText("SBDARE Export v5")
         button.setToolTip('Export SBDARE values')
         # noinspection PyUnresolvedReferences
         button.clicked.connect(self.click_sbdare_export_v5)
@@ -127,7 +127,7 @@ class SbdareTab(QtWidgets.QMainWindow):
         total = len(s57_list)
         for i, s57_file in enumerate(s57_list):
 
-            self.parent_win.progress.start(title="SBDARE export v.%d" % version,
+            self.parent_win.progress.start(title="SBDARE Export v.%d" % version,
                                            text="Data loading [%d/%d]" % (i + 1, total),
                                            init_value=10)
 
@@ -135,16 +135,16 @@ class SbdareTab(QtWidgets.QMainWindow):
             self.prj.clear_survey_label()
 
             self.parent_win.progress.update(value=20,
-                                            text="SBDARE export v%d [%d/%d]" % (version, i + 1, total))
+                                            text="SBDARE Export v%d [%d/%d]" % (version, i + 1, total))
 
             # switcher between different versions of SBDARE export
             if version in [5]:
                 self._sbdare_export(feature_file=s57_file, version=version, idx=(i + 1), total=len(s57_list))
             else:  # this case should be never reached after the sanity checks
-                raise RuntimeError("unknown SBDARE export version: %s" % version)
+                raise RuntimeError("unknown SBDARE Export version: %s" % version)
 
             self.parent_win.progress.update(value=40,
-                                            text="SBDARE export v%d [%d/%d]" % (version, i + 1, total))
+                                            text="SBDARE Export v%d [%d/%d]" % (version, i + 1, total))
 
             # export the flagged features
             logger.debug('exporting SBDARE features ...')
@@ -177,14 +177,14 @@ class SbdareTab(QtWidgets.QMainWindow):
         self.parent_win.progress.end()
 
         # noinspection PyCallByClass
-        QtWidgets.QMessageBox.information(self, "SBDARE export v%d" % version, msg, QtWidgets.QMessageBox.Ok)
+        QtWidgets.QMessageBox.information(self, "SBDARE Export v%d" % version, msg, QtWidgets.QMessageBox.Ok)
 
     def _sbdare_export(self, feature_file, version, idx, total):
         """ SBDARE export in the loaded s57 features """
 
         # GUI takes care of progress bar
 
-        logger.debug('SBDARE export v%d ...' % version)
+        logger.debug('SBDARE Export v%d ...' % version)
 
         try:
             self.prj.read_feature_file(feature_path=feature_file)
@@ -199,10 +199,9 @@ class SbdareTab(QtWidgets.QMainWindow):
 
                 # ask for images folder
                 # noinspection PyCallByClass
-                images_folder = QtWidgets.QFileDialog.getExistingDirectory(self,
-                                                                            "Select the folder with the images",
-                                                                            QtCore.QSettings().value(
-                                                                                "bottom_samples_images_folder"), )
+                images_folder = QtWidgets.QFileDialog.getExistingDirectory(
+                    self, "Select the folder with the images", QtCore.QSettings().value("bottom_samples_images_folder"),
+                )
                 if images_folder == "":
                     logger.debug('selecting images folder: aborted')
                     images_folder = None
@@ -214,7 +213,7 @@ class SbdareTab(QtWidgets.QMainWindow):
                 self.prj.sbdare_export_v5(images_folder=images_folder)
 
             else:
-                RuntimeError("unknown SBDARE export version: %s" % version)
+                RuntimeError("unknown SBDARE Export version: %s" % version)
 
         except Exception as e:
             # noinspection PyCallByClass

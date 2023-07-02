@@ -1,7 +1,7 @@
-.. _survey-detect-holidays:
+.. _survey-holiday-finder:
 
-Detect holidays
----------------
+Holiday Finder
+--------------
 
 .. index::
     single: holidays
@@ -14,34 +14,34 @@ How To Use?
 
 Scan grids for unpopulated nodes ("holidays").
 
-* Select the **Detect holidays** tab (:numref:`fig_detect_holidays`) on the bottom of the QC Tools interface.
+* Select the **Holiday Finder** tab (:numref:`fig_holiday_finder`) on the bottom of the QC Tools interface.
 
-* In **Parameters**, turn the knob to select **All holes**, **Object detection**, or **Full coverage**, depending on the analysis you wish to run based on the coverage requirements of the survey (see 2.2.4.2 How does it work?)
+* In **Parameters**, turn the knob to select **All holes**, **Object detection**, or **Full coverage**, depending on the analysis you wish to run based on the coverage requirements of the survey (see :ref:`survey-holiday-finder-how`)
 
-* To change the **Parameters** for **Holiday finder v4**:
+* To change the **Parameters** for **Holiday Finder v4**:
 
     * Click the **Unlock** button, and click **OK** to the dialogue.
     * Set the **Upper holiday area limit (as multiple of minimum holiday size)**. Unpopulated parts of the grid larger than this setting will not be flagged as holidays.
 
-* In **Execution**, click **Find Holiday v4**.
+* In **Execution**, click **Holiday Finder v4**.
 
-.. _fig_detect_holidays:
-.. figure:: _static/detect_holidays_interface.png
+.. _fig_holiday_finder:
+.. figure:: _static/holiday_finder_interface.png
     :width: 700px
     :align: center
     :figclass: align-center
 
-    The **Detect holidays** tab.
+    The **Holiday Finder** tab.
 
-* After computing, the output window opens automatically, and the results are shown (:numref:`fig_detect_holidays_output`).
+* After computing, the output window opens automatically, and the results are shown (:numref:`fig_holiday_finder_output`).
 
-.. _fig_detect_holidays_output:
-.. figure:: _static/detect_holidays_results.png
+.. _fig_holiday_finder_output:
+.. figure:: _static/holiday_finder_results.png
     :width: 300px
     :align: center
     :figclass: align-center
 
-    The output message at the end of **Find holiday v4** execution.
+    The output message at the end of **Holiday Finder v4** execution.
 
 
 * An output window will open in File Explorer. From the output window, drag-and-drop the desired output file into the processing software to guide the review.
@@ -59,6 +59,8 @@ Scan grids for unpopulated nodes ("holidays").
 -----------------------------------------------------------
 
 |
+
+.. _survey-holiday-finder-how:
 
 How Does It Work?
 ^^^^^^^^^^^^^^^^^
@@ -146,20 +148,20 @@ For example:
 What do you get?
 ^^^^^^^^^^^^^^^^^
 
-Upon completion of the execution of **Detect Holidays** you will receive a pop-up verification if your surface contains potential holidays or not (:numref:`fig_detect_holidays_pop_up_results`).
+Upon completion of the execution of **Holiday Finder** you will receive a pop-up verification if your surface contains potential holidays or not (:numref:`fig_holiday_finder_pop_up_results`).
 
-.. _fig_detect_holidays_pop_up_results:
-.. figure:: _static/detect_holidays_pop_up_results.png
+.. _fig_holiday_finder_pop_up_results:
+.. figure:: _static/holiday_finder_pop_up_results.png
     :width: 250px
     :align: center
     :figclass: align-center
 
-    The output message at the end of **Find holiday v4** execution.
+    The output message at the end of **Holiday Finder v4** execution.
 
-**Detect Holidays** produces one .000 files containing the locations of potential holidays represented as soundings (:numref:`fig_detect_holidays_results`). Certain holidays are represented with 1 and possible holidays are represented at 2.
+**Holiday Finder** produces one .000 files containing the locations of potential holidays represented as soundings (:numref:`fig_holiday_finder_results`). Certain holidays are represented with 1 and possible holidays are represented at 2.
 
-.. _fig_detect_holidays_results:
-.. figure:: _static/detect_holidays_graphic_results.png
+.. _fig_holiday_finder_results:
+.. figure:: _static/holiday_finder_graphic_results.png
     :width: 500px
     :align: center
     :alt: fliers tab

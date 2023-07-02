@@ -14,7 +14,7 @@ from hyo2.qc.common import lib_info
 from hyo2.qc.qctools import app_info
 from hyo2.qc.qctools.widgets.chart.widget import ChartWidget
 from hyo2.qc.qctools.widgets.info import InfoWidget
-from hyo2.qc.qctools.widgets.survey.widget import SurveyWidget
+from hyo2.qc.qctools.widgets.survey.survey_widget import SurveyWidget
 
 logger = logging.getLogger(__name__)
 

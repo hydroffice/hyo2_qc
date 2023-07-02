@@ -10,7 +10,7 @@ from hyo2.qc.qctools.gui_settings import GuiSettings
 logger = logging.getLogger(__name__)
 
 
-class ValsouTab(QtWidgets.QMainWindow):
+class ValsouChecksTab(QtWidgets.QMainWindow):
 
     here = os.path.abspath(os.path.dirname(__file__))
 
@@ -37,7 +37,7 @@ class ValsouTab(QtWidgets.QMainWindow):
         self.toggle_mode_v8 = None
 
         # v8 widgets
-        self.valsouCheckv8 = QtWidgets.QGroupBox("VALSOU check v8")
+        self.valsouCheckv8 = QtWidgets.QGroupBox("VALSOU Check v8")
         self.valsouCheckv8.setStyleSheet("QGroupBox::title { color: rgb(155, 155, 155); }")
         self.vbox.addWidget(self.valsouCheckv8)
         vcv8_hbox = QtWidgets.QHBoxLayout()
@@ -224,7 +224,7 @@ class ValsouTab(QtWidgets.QMainWindow):
 
                 # de-confliction
                 if self.set_overlap_fsv8.isChecked():
-                    self.parent_win.progress.start(title="VALSOU check v.%d" % version,
+                    self.parent_win.progress.start(title="VALSOU Check v.%d" % version,
                                                    text="Deconflicting [%d/%d]" % (idx, total),
                                                    init_value=90)
                     self.prj.valsou_check_deconflict()
@@ -254,9 +254,9 @@ class ValsouTab(QtWidgets.QMainWindow):
 
         # GUI takes care of progress bar
 
-        logger.debug('VALSOU check v%d ...' % version)
+        logger.debug('VALSOU Check v%d ...' % version)
 
-        self.parent_win.progress.start(title="VALSOU check v.%d" % version,
+        self.parent_win.progress.start(title="VALSOU Check v.%d" % version,
                                        text="Data loading [%d/%d]" % (idx, total),
                                        init_value=10)
 
@@ -269,7 +269,7 @@ class ValsouTab(QtWidgets.QMainWindow):
             self.parent_win.progress.end()
             return
 
-        self.parent_win.progress.update(value=20, text="VALSOU check v%d [%d/%d]" % (version, idx, total))
+        self.parent_win.progress.update(value=20, text="VALSOU Check v%d [%d/%d]" % (version, idx, total))
 
         try:
             with_laser = self.set_include_laser_fsv8.isChecked()

@@ -8,7 +8,7 @@ from hyo2.qc.common import lib_info
 from hyo2.qc.qctools.gui_settings import GuiSettings
 
 if TYPE_CHECKING:
-    from hyo2.qc.qctools.widgets.survey.widget import SurveyWidget
+    from hyo2.qc.qctools.widgets.survey.survey_widget import SurveyWidget
     from hyo2.qc.survey.project import SurveyProject
 
 logger = logging.getLogger(__name__)

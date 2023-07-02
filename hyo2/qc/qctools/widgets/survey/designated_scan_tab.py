@@ -10,7 +10,7 @@ from hyo2.qc.qctools.gui_settings import GuiSettings
 logger = logging.getLogger(__name__)
 
 
-class DesignatedTab(QtWidgets.QMainWindow):
+class DesignatedScanTab(QtWidgets.QMainWindow):
     here = os.path.abspath(os.path.dirname(__file__))
 
     def __init__(self, parent_win, prj):
@@ -184,7 +184,9 @@ class DesignatedTab(QtWidgets.QMainWindow):
     @classmethod
     def click_open_manual_v2(cls):
         logger.debug("open manual")
-        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_survey_scan_designated.html")
+        Helper.explore_folder(
+            "https://www.hydroffice.org/manuals/qctools/stable/user_manual_survey_designated_scan.html"
+        )
 
     def click_scan_designated_v2(self):
         """trigger the scan designated v1"""
@@ -205,13 +207,11 @@ class DesignatedTab(QtWidgets.QMainWindow):
 
     # common
 
-    def _click_scan_designated(self, version):
+    def _click_scan_designated(self, version: int):
         """abstract the grid qa calling mechanism"""
 
         # sanity checks
         # - version
-        if not isinstance(version, int):
-            raise RuntimeError("passed invalid type for version: %s" % type(version))
         if version not in [2, ]:
             raise RuntimeError("passed invalid Designated Scan version: %s" % version)
         if len(self.prj.s57_list) == 0:

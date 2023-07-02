@@ -10,13 +10,13 @@ The **Survey Validation** tab will:
 
 * Scan grids for anomalous grid data ":index:`fliers`" (see :ref:`survey-flier-finder`).
 
-* Scan grids for empty grid nodes that meet NOAA NOS Hydrographic Survey Specifications and Deliverables (`HSSD`_) definitions of ":index:`holidays`" (see :ref:`survey-detect-holidays`).
+* Scan grids for empty grid nodes that meet NOAA NOS Hydrographic Survey Specifications and Deliverables (`HSSD`_) definitions of ":index:`holidays`" (see :ref:`survey-holiday-finder`).
 
 * Compute basic grid statistics to ensure compliance to uncertainty and density requirements prescribed in the HSSD (see :ref:`survey-grid-qa`).
 
-* Scan grids to ensure the eligibility of soundings :index:`designated` (see :ref:`survey-scan-designated-label`).
+* Scan grids to ensure the eligibility of soundings :index:`designated` (see :ref:`survey-designated-scan-label`).
 
-* Scan features to ensure proper attribution (see :ref:`survey-scan-features`).
+* Scan features to ensure proper attribution (see :ref:`survey-feature-scan`).
 
 * Ensure surveyed features are properly accounted for in the :index:`gridded bathymetry` (see :ref:`survey-valsou-checks`).
 

@@ -10,13 +10,13 @@ from hyo2.qc.qctools.gui_settings import GuiSettings
 from hyo2.qc.survey.scan.checks import Checks
 
 if TYPE_CHECKING:
-    from hyo2.qc.qctools.widgets.survey.widget import SurveyWidget
+    from hyo2.qc.qctools.widgets.survey.survey_widget import SurveyWidget
     from hyo2.qc.survey.project import SurveyProject
 
 logger = logging.getLogger(__name__)
 
 
-class ScanTab(QtWidgets.QMainWindow):
+class FeatureScanTab(QtWidgets.QMainWindow):
     here = os.path.abspath(os.path.dirname(__file__))
 
     def __init__(self, parent_win: 'SurveyWidget', prj: 'SurveyProject'):
@@ -374,7 +374,7 @@ class ScanTab(QtWidgets.QMainWindow):
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
         button.setFixedWidth(GuiSettings.text_button_width())
-        button.setText("Feature scan v12")
+        button.setText("Feature Scan v12")
         button.setToolTip('Scan features in the loaded file checking their validity')
         # noinspection PyUnresolvedReferences
         button.clicked.connect(self.click_feature_scan)
@@ -470,7 +470,7 @@ class ScanTab(QtWidgets.QMainWindow):
     @classmethod
     def click_open_manual(cls):
         logger.debug("open manual")
-        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_survey_scan_features.html")
+        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_survey_feature_scan.html")
 
     def click_feature_scan(self):
         """abstract the feature scan calling mechanism"""

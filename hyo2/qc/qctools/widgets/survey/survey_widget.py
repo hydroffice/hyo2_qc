@@ -4,16 +4,16 @@ import os
 from PySide2 import QtWidgets, QtGui, QtCore
 from hyo2.abc.app.qt_progress import QtProgress
 from hyo2.qc.common.grid_callback.qt_grid_callback import QtGridCallback
-from hyo2.qc.qctools.widgets.survey.bag_checks import BAGChecksTab
-from hyo2.qc.qctools.widgets.survey.designated import DesignatedTab
+from hyo2.qc.qctools.widgets.survey.bag_checks_tab import BAGChecksTab
+from hyo2.qc.qctools.widgets.survey.designated_scan_tab import DesignatedScanTab
 from hyo2.qc.qctools.widgets.survey.flier_finder_tab import FlierFinderTab
-from hyo2.qc.qctools.widgets.survey.gridqa import GridQATab
-from hyo2.qc.qctools.widgets.survey.holes import HolesTab
-from hyo2.qc.qctools.widgets.survey.inputs import InputsTab
-from hyo2.qc.qctools.widgets.survey.sbdare import SbdareTab
-from hyo2.qc.qctools.widgets.survey.scan import ScanTab
-from hyo2.qc.qctools.widgets.survey.submission import SubmissionTab
-from hyo2.qc.qctools.widgets.survey.valsou import ValsouTab
+from hyo2.qc.qctools.widgets.survey.grid_qa_tab import GridQATab
+from hyo2.qc.qctools.widgets.survey.holiday_finder_tab import HolidayFinderTab
+from hyo2.qc.qctools.widgets.survey.inputs_tab import InputsTab
+from hyo2.qc.qctools.widgets.survey.sbdare_export_tab import SBDAREExportTab
+from hyo2.qc.qctools.widgets.survey.feature_scan_tab import FeatureScanTab
+from hyo2.qc.qctools.widgets.survey.submission_checks_tab import SubmissionChecksTab
+from hyo2.qc.qctools.widgets.survey.valsou_checks_tab import ValsouChecksTab
 from hyo2.qc.qctools.widgets.widget import AbstractWidget
 from hyo2.qc.survey.project import SurveyProject
 
@@ -87,7 +87,7 @@ class SurveyWidget(AbstractWidget):
         self.tabs.setTabEnabled(self.idx_fliers, False)
 
         # - holiday finder
-        self.tab_holes = HolesTab(parent_win=self, prj=self.prj)
+        self.tab_holes = HolidayFinderTab(parent_win=self, prj=self.prj)
         # noinspection PyArgumentList
         self.idx_holes = self.tabs.insertTab(3, self.tab_holes,
                                              QtGui.QIcon(os.path.join(self.media, 'holes.png')), "")
@@ -111,7 +111,7 @@ class SurveyWidget(AbstractWidget):
         self.tabs.setTabEnabled(self.idx_bag_checks, False)
 
         # - designated
-        self.tab_designated = DesignatedTab(parent_win=self, prj=self.prj)
+        self.tab_designated = DesignatedScanTab(parent_win=self, prj=self.prj)
         # noinspection PyArgumentList
         self.idx_designated = self.tabs.insertTab(6, self.tab_designated,
                                                   QtGui.QIcon(os.path.join(self.media, 'designated.png')), "")
@@ -119,7 +119,7 @@ class SurveyWidget(AbstractWidget):
         self.tabs.setTabEnabled(self.idx_designated, False)
 
         # - scan features
-        self.tab_scan = ScanTab(parent_win=self, prj=self.prj)
+        self.tab_scan = FeatureScanTab(parent_win=self, prj=self.prj)
         # noinspection PyArgumentList
         self.idx_scan = self.tabs.insertTab(7, self.tab_scan,
                                             QtGui.QIcon(os.path.join(self.media, 'scan_features.png')), "")
@@ -127,7 +127,7 @@ class SurveyWidget(AbstractWidget):
         self.tabs.setTabEnabled(self.idx_scan, False)
 
         # - VALSOU checks
-        self.tab_valsou = ValsouTab(parent_win=self, prj=self.prj)
+        self.tab_valsou = ValsouChecksTab(parent_win=self, prj=self.prj)
         # noinspection PyArgumentList
         self.idx_valsou = self.tabs.insertTab(8, self.tab_valsou,
                                               QtGui.QIcon(os.path.join(self.media, 'valsou.png')), "")
@@ -135,7 +135,7 @@ class SurveyWidget(AbstractWidget):
         self.tabs.setTabEnabled(self.idx_valsou, False)
 
         # - SBDARE checks
-        self.tab_sbdare = SbdareTab(parent_win=self, prj=self.prj)
+        self.tab_sbdare = SBDAREExportTab(parent_win=self, prj=self.prj)
         # noinspection PyArgumentList
         self.idx_sbdare = self.tabs.insertTab(9, self.tab_sbdare,
                                               QtGui.QIcon(os.path.join(self.media, 'sbdare.png')), "")
@@ -143,7 +143,7 @@ class SurveyWidget(AbstractWidget):
         self.tabs.setTabEnabled(self.idx_sbdare, False)
 
         # - Submission tests
-        self.tab_submission = SubmissionTab(parent_win=self, prj=self.prj)
+        self.tab_submission = SubmissionChecksTab(parent_win=self, prj=self.prj)
         # noinspection PyArgumentList
         self.idx_submission = self.tabs.insertTab(10, self.tab_submission,
                                                   QtGui.QIcon(os.path.join(self.media, 'submission.png')), "")

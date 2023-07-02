@@ -1,7 +1,7 @@
-.. _survey-scan-features:
+.. _survey-feature-scan:
 
-Scan features
--------------
+Feature Scan
+------------
 
 .. index::
     single: features
@@ -13,7 +13,7 @@ Scan features to ensure proper attribution.
 
 In order to access this tool, load an S-57 file into the **Data Inputs** tab. 
 
-* Select the **Scan features** tab (:numref:`fig_feature_scan`) on the bottom of the QC Tools interface.
+* Select the **Feature Scan** tab (:numref:`fig_feature_scan`) on the bottom of the QC Tools interface.
 
 * In **Parameters**:
 
@@ -34,7 +34,7 @@ In order to access this tool, load an S-57 file into the **Data Inputs** tab.
 .. index::
     single: feature scan
 
-* In **Execution**, click **Feature scan v12**.
+* In **Execution**, click **Feature Scan v12**.
 
 .. _fig_feature_scan:
 .. figure:: _static/feature_scan_interface.png

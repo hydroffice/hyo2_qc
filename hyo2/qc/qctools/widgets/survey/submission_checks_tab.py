@@ -9,7 +9,7 @@ from hyo2.qc.qctools.gui_settings import GuiSettings
 logger = logging.getLogger(__name__)
 
 
-class SubmissionTab(QtWidgets.QMainWindow):
+class SubmissionChecksTab(QtWidgets.QMainWindow):
     here = os.path.abspath(os.path.dirname(__file__))
 
     def __init__(self, parent_win, prj):
@@ -454,19 +454,19 @@ class SubmissionTab(QtWidgets.QMainWindow):
     @classmethod
     def click_open_manual_v4(cls):
         logger.debug("open manual")
-        Helper.explore_folder("https://www.hydroffice.org/manuals/qctools/stable/user_manual_survey_submission_checks.html")
+        Helper.explore_folder(
+            "https://www.hydroffice.org/manuals/qctools/stable/user_manual_survey_submission_checks.html"
+        )
 
     def click_submission_checks_v4(self):
         """trigger the submission checks v4"""
         self._click_submission_checks(4)
 
-    def _click_submission_checks(self, version):
+    def _click_submission_checks(self, version: int):
         """abstract the calling mechanism"""
 
         # sanity checks
         # - version
-        if not isinstance(version, int):
-            raise RuntimeError("passed invalid type for version: %s" % type(version))
         if version not in [4, ]:
             raise RuntimeError("passed invalid version: %s" % version)
         # - list of folders (although the buttons should be never been enabled without a folder)
