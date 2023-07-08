@@ -7,7 +7,7 @@ Flier Finder
     single: fliers
 	
 ..warning::
-It is NOT guaranteed that the Find Fliers algorithm will identify all the fliers. As such, it is recommended to use Find Fliers in combination with other QC methods.
+It is NOT guaranteed that the Flier Finder algorithm will identify all the fliers. As such, it is recommended to use Flier Finder in combination with other QC methods.
 
 How To Use?
 ^^^^^^^^^^^
