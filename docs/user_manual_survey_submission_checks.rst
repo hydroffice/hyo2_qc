@@ -29,7 +29,7 @@ Ensures the required directory structure and completeness of survey deliverables
 * In **Execution** (:numref:`submission_check_interface`, rigth side), click **Submission checks v4**.
 
 .. _submission_check_interface:
-.. figure:: _static/submission_check_interface.png
+.. figure:: _static/submission_checks_interface.png
     :align: center
     :alt: submission check interface
 
@@ -40,10 +40,6 @@ Ensures the required directory structure and completeness of survey deliverables
 * Note that the project level (**"OPR-X###-XX-##"**) contains all the results from the surveys (**"X#####"**) contained within; thus the number of errors and warnings is equivalent to the sum of the individual components.
 
 * The results are printed to PDF, one for each root folder.
-
-* The output names adopt the following convention:
-
-    * [project].SCv4.["project" | "X#####" | "report"].[HSSD].[profile].["rec" for recursive | "exh" for exhaustive]
 
 * The output will be exported under a subfolder (**H#####**) in the output location defined on the data import tab.
   If "sub-folders" is selected in the import tab, the file will be placed in an additional "submissions" sub-folder
@@ -146,7 +142,7 @@ What do you get?
 Upon completion of the execution of **Submission checks** you will receive a pop-up verification that the tool has completed and if there were any errors or warnings associated with the data structure (:numref:`fig_submission_check_results`).
 
 .. _fig_submission_check_results:
-.. figure:: _static/submission_check_results.png
+.. figure:: _static/submission_checks_results.png
     :width: 300px
     :align: center
     :figclass: align-center
@@ -156,7 +152,7 @@ Upon completion of the execution of **Submission checks** you will receive a pop
 **Submission checks** produces a PDF document that indicates if there were errors or warnings with specific folders in the data submission structures.
 
 .. _fig_submission_check_output:
-.. figure:: _static/submission_check_output.png
+.. figure:: _static/submission_checks_output.png
     :width: 700px
     :align: center
     :alt: Example of PDF results for submission checks
@@ -164,4 +160,16 @@ Upon completion of the execution of **Submission checks** you will receive a pop
 
     An excerpt from the **Submission checks** pdf report.
 
+The naming convention of the output files contains important information about the settings that were used to execute
+Submission Checks.
+Each setting is separated by a period in the naming convention.
+See :numref:`fig_submission_checks_convention`.
 
+.. _fig_submission_checks_convention:
+.. figure:: _static/submission_checks_convention.png
+    :width: 800px
+    :align: center
+    :alt: naming convention of output file for Submission Checks
+    :figclass: align-center
+
+    Example naming convention for a Submission Checks output. In this example the user selected a "include TECSOU = laser", "deconflict across grids" and Object Detection.

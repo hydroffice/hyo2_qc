@@ -727,13 +727,12 @@ class SurveyProject(BaseProject):
             os.makedirs(output_folder)
 
         # make the filename for output
-        str_grid_res = "%.f" % self._gr.cur_grids.bbox().res_x
         algo_type = Helper.first_match(designated_algos, self._designated.type)
 
         if self._designated.type == designated_algos['DESIGNATED_SCAN_v2']:
-            s57_file = os.path.join(output_folder, "%s.%s.%s_%s.%s.000"
+            s57_file = os.path.join(output_folder, "%s.%s.DSv2.%s.000"
                                     % (self.cur_grid_basename, self.cur_s57_basename,
-                                       str_grid_res, algo_type, self._designated.specs))
+                                       self._designated.specs))
         else:
             raise RuntimeError("Not implemented find holidays algorithm")
 
@@ -930,20 +929,22 @@ class SurveyProject(BaseProject):
 
         if self._scan.type == 'FEATURE_SCAN_v12':
 
+            s57_filename = os.path.splitext(self.cur_s57_basename)[0]
+
             if self._scan.version == '2019':
-                output_pdf = os.path.join(output_folder, "%s.SFSv12.2019.pdf" % self.cur_s57_basename)
+                output_pdf = os.path.join(output_folder, "%s.FSv12.2019.pdf" % s57_filename)
                 title_pdf = "Survey Feature Scan v12 - Tests against HSSD 2019"
 
             elif self._scan.version == '2020':
-                output_pdf = os.path.join(output_folder, "%s.SFSv12.2020.pdf" % self.cur_s57_basename)
+                output_pdf = os.path.join(output_folder, "%s.FSv12.2020.pdf" % s57_filename)
                 title_pdf = "Survey Feature Scan v12 - Tests against HSSD 2020"
 
             elif self._scan.version == '2021':
-                output_pdf = os.path.join(output_folder, "%s.SFSv12.2021.pdf" % self.cur_s57_basename)
+                output_pdf = os.path.join(output_folder, "%s.FSv12.2021.pdf" % s57_filename)
                 title_pdf = "Survey Feature Scan v12 - Tests against HSSD 2021"
 
             elif self._scan.version == '2022':
-                output_pdf = os.path.join(output_folder, "%s.SFSv12.2022.pdf" % self.cur_s57_basename)
+                output_pdf = os.path.join(output_folder, "%s.FSv12.2022.pdf" % s57_filename)
                 title_pdf = "Survey Feature Scan v12 - Tests against HSSD 2022"
 
             else:

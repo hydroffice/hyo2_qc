@@ -265,7 +265,7 @@ class GridQAV6(BaseGridQA):
         # print("bathy: %s" % self.bathy_info)
         # save the histogram as png
         if self._hist_depth:
-            bathy_png_file = "%s.QAv6.depth.png" % os.path.splitext(self.grids.current_basename)[0]
+            bathy_png_file = "%s.GQv6.depth.png" % os.path.splitext(self.grids.current_basename)[0]
             bathy_png_path = os.path.join(self.output_folder, bathy_png_file)
             bathy_png_path = Helper.truncate_too_long(bathy_png_path, left_truncation=True)
             GridQAV6.plot_hysto(layer_name="Depth", bins=bathy_bins, density=bathy_density,
@@ -307,7 +307,7 @@ class GridQAV6(BaseGridQA):
                 # print("density: %s" % self.density_info)
                 # save the histogram as png
                 if self._hist_density:
-                    density_png_file = "%s.QAv6.density.png" % os.path.splitext(self.grids.current_basename)[0]
+                    density_png_file = "%s.GQv6.density.png" % os.path.splitext(self.grids.current_basename)[0]
                     density_png_path = os.path.join(self.output_folder, density_png_file)
                     density_png_path = Helper.truncate_too_long(density_png_path, left_truncation=True)
                     GridQAV6.plot_hysto(layer_name="Density", bins=density_bins, density=density_density,
@@ -354,7 +354,7 @@ class GridQAV6(BaseGridQA):
                 # print("tvu qc: %s" % self.tvu_qc_info)
                 # save the histogram as png
                 if self._hist_tvu_qc:
-                    tvu_qc_png_file = "%s.QAv6.tvu_qc.png" % os.path.splitext(self.grids.current_basename)[0]
+                    tvu_qc_png_file = "%s.GQv6.tvu_qc.png" % os.path.splitext(self.grids.current_basename)[0]
                     tvu_qc_png_path = os.path.join(self.output_folder, tvu_qc_png_file)
                     tvu_qc_png_path = Helper.truncate_too_long(tvu_qc_png_path, left_truncation=True)
                     GridQAV6.plot_hysto(layer_name="TVU QC", bins=tvu_qc_bins, density=tvu_qc_density,
@@ -403,7 +403,7 @@ class GridQAV6(BaseGridQA):
                 # print("pct od: %s" % self.pct_od_info)
                 # save the histogram as png
                 if self._hist_pct_res:
-                    pct_od_png_file = "%s.QAv6.pct_res.obj_det.png" % os.path.splitext(self.grids.current_basename)[0]
+                    pct_od_png_file = "%s.GQv6.pct_res.obj_det.png" % os.path.splitext(self.grids.current_basename)[0]
                     pct_od_png_path = os.path.join(self.output_folder, pct_od_png_file)
                     pct_od_png_path = Helper.truncate_too_long(pct_od_png_path, left_truncation=True)
                     GridQAV6.plot_hysto(layer_name="RES OD", bins=pct_od_bins, density=pct_od_density,
@@ -445,7 +445,7 @@ class GridQAV6(BaseGridQA):
                 # print("pct od: %s" % self.pct_cc_info)
                 # save the histogram as png
                 if self._hist_pct_res:
-                    pct_cc_png_file = "%s.QAv6.pct_res.full_cov.png" % os.path.splitext(self.grids.current_basename)[0]
+                    pct_cc_png_file = "%s.GQv6.pct_res.full_cov.png" % os.path.splitext(self.grids.current_basename)[0]
                     pct_cc_png_path = os.path.join(self.output_folder, pct_cc_png_file)
                     pct_cc_png_path = Helper.truncate_too_long(pct_cc_png_path, left_truncation=True)
                     GridQAV6.plot_hysto(layer_name="RES FC", bins=pct_cc_bins, density=pct_cc_density,
@@ -490,7 +490,7 @@ class GridQAV6(BaseGridQA):
                 # print("catzoc a1: %s" % self.catzoc_a1_info)
                 # save the histogram as png
                 if self._hist_catzoc_a1:
-                    catzoca1_png_file = "%s.QAv6.tvu_catzoc_a1.png" % os.path.splitext(self.grids.current_basename)[
+                    catzoca1_png_file = "%s.GQv6.tvu_catzoc_a1.png" % os.path.splitext(self.grids.current_basename)[
                         0]
                     catzoca1_png_path = os.path.join(self.output_folder, catzoca1_png_file)
                     catzoca1_png_path = Helper.truncate_too_long(catzoca1_png_path, left_truncation=True)
@@ -534,7 +534,7 @@ class GridQAV6(BaseGridQA):
                 # print("catzoc a2b: %s" % self.catzoc_a2b_info)
                 # save the histogram as png
                 if self._hist_catzoc_a2b:
-                    catzoca2b_png_file = "%s.QAv6.tvu_catzoc_a2b.png" % \
+                    catzoca2b_png_file = "%s.GQv6.tvu_catzoc_a2b.png" % \
                                          os.path.splitext(self.grids.current_basename)[0]
                     catzoca2b_png_path = os.path.join(self.output_folder, catzoca2b_png_file)
                     catzoca2b_png_path = Helper.truncate_too_long(catzoca2b_png_path, left_truncation=True)
@@ -579,7 +579,7 @@ class GridQAV6(BaseGridQA):
                 # print("catzoc c: %s" % self.catzoc_c_info)
                 # save the histogram as png
                 if self._hist_catzoc_c:
-                    catzocc_png_file = "%s.QAv6.tvu_catzoc_c.png" % os.path.splitext(self.grids.current_basename)[0]
+                    catzocc_png_file = "%s.GQv6.tvu_catzoc_c.png" % os.path.splitext(self.grids.current_basename)[0]
                     catzocc_png_path = os.path.join(self.output_folder, catzocc_png_file)
                     catzocc_png_path = Helper.truncate_too_long(catzocc_png_path, left_truncation=True)
                     GridQAV6.plot_hysto(layer_name="TVU CATZOC C", bins=catzoc_c_bins, density=catzoc_c_density,
@@ -1181,7 +1181,7 @@ class GridQAV6(BaseGridQA):
                               fontsize=12, ha='center')
         self.density_ax.set_ylabel('Depth')
 
-        png_file = "%s.QAv6.depth_vs_density.png" % os.path.splitext(self.grids.current_basename)[0]
+        png_file = "%s.GQv6.depth_vs_density.png" % os.path.splitext(self.grids.current_basename)[0]
         png_path = os.path.join(self.output_folder, png_file)
         png_path = Helper.truncate_too_long(png_path, left_truncation=True)
 
@@ -1223,7 +1223,7 @@ class GridQAV6(BaseGridQA):
                              fontsize=12, ha='center')
         self.tvu_qc_ax.set_ylabel('Depth')
 
-        png_file = "%s.QAv6.depth_vs_tvu_qc.png" % os.path.splitext(self.grids.current_basename)[0]
+        png_file = "%s.GQv6.depth_vs_tvu_qc.png" % os.path.splitext(self.grids.current_basename)[0]
         png_path = os.path.join(self.output_folder, png_file)
         png_path = Helper.truncate_too_long(png_path, left_truncation=True)
 

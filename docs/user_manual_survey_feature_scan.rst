@@ -289,4 +289,14 @@ These can be loaded into your GIS software of choice for further analysis.
 
     An example of the **Feature Scan** summary.
 
+The naming convention of the output files contains important information about Feature Scan.
+Each piece of information is separated by a period in the naming convention. See :numref:`fig_feature_scan_convention`.
 
+.. _fig_feature_scan_convention:
+.. figure:: _static/feature_scan_convention.png
+    :width: 800px
+    :align: center
+    :alt: naming convention of output file for feature scan
+    :figclass: align-center
+
+    Example naming convention for Feature Scan. In this example, the 2022 Specifications were selected for analysis.

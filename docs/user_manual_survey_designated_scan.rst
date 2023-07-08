@@ -42,10 +42,6 @@ In order to access this tool, load a BAG and an S-57 file into the **Data Inputs
 
 * From the output window, drag-and-drop the output into the processing software to guide the review.
 
-* The output names adopt the following convention:
-
-    * [grid filename].[s57 filename].DESIGNATED_SCAN_v2.[HSSD year]
-
 |
 
 -----------------------------------------------------------
@@ -96,3 +92,16 @@ As shown in the example in :numref:`ex2_ds`, at the survey scale of 1:20,000, th
     Third example of unnecessary designation.
 
 4. Finally, a designated sounding is valid if a feature exists within 1 grid node and that feature has a VALSOU value within 1 centimeter of difference from the designated sounding depth.
+
+The naming convention of the output files contains important information about Designated Scan.
+Each piece of information is separated by a period in the naming convention.
+See :numref:`fig_designated_scan_convention`.
+
+.. _fig_designated_scan_convention:
+.. figure:: _static/designated_scan_convention.png
+    :width: 800px
+    :align: center
+    :alt: naming convention of output file for designated scan
+    :figclass: align-center
+
+    Example naming convention for Designated Scan. In this example, the 2017+ Specifications were selected for analysis.

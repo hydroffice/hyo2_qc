@@ -141,7 +141,7 @@ class BagChecksV2:
 
         # we want to be sure that the label is based on the name of the new file input
         self._survey = BaseProject.make_survey_label_from_path(grid_file)
-        self._grid_basename = os.path.basename(grid_file)
+        self._grid_basename = os.path.splitext(os.path.basename(grid_file))[0]
 
         # skip CSAR
         if not bag.BAGFile.is_bag(bag_path=grid_file):  # skip CSAR

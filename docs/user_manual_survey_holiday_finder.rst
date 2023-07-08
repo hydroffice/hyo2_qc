@@ -46,11 +46,6 @@ Scan grids for unpopulated nodes ("holidays").
 
 * An output window will open in File Explorer. From the output window, drag-and-drop the desired output file into the processing software to guide the review.
 
-* The output file names adopt the following convention:
-
-    * [grid filename].HFv4.["all" for *All holes* | "obj" for *Object detection* | "cov" for *Full coverage*].[min size]
-
-
 .. note::
     For proper visualization, the software adopted to analyze the S57 output of VALSOU Checks has to represent the sounding values in meters.
 
@@ -158,7 +153,8 @@ Upon completion of the execution of **Holiday Finder** you will receive a pop-up
 
     The output message at the end of **Holiday Finder v4** execution.
 
-**Holiday Finder** produces one .000 files containing the locations of potential holidays represented as soundings (:numref:`fig_holiday_finder_results`). Certain holidays are represented with 1 and possible holidays are represented at 2.
+**Holiday Finder** produces one .000 files containing the locations of potential holidays represented as soundings
+(:numref:`fig_holiday_finder_results`). Certain holidays are represented with 1 and possible holidays are represented at 2.
 
 .. _fig_holiday_finder_results:
 .. figure:: _static/holiday_finder_graphic_results.png
@@ -169,3 +165,16 @@ Upon completion of the execution of **Holiday Finder** you will receive a pop-up
 
     An example of a certain holiday identified with a sounding.
 
+The naming convention of the output files contains important information about the settings that were used to execute
+Holiday Finder.
+Each setting is separated by a period in the naming convention.
+See :numref:`fig_holiday_finder_convention`.
+
+.. _fig_holiday_finder_convention:
+.. figure:: _static/holiday_finder_convention.png
+    :width: 800px
+    :align: center
+    :alt: naming convention for holiday finder output
+    :figclass: align-center
+
+    Example naming convention for a Holiday Finder output. In this example the user selected a Object Detection algorithm with an upper holiday limit of 1000.

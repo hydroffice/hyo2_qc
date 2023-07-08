@@ -83,7 +83,7 @@ class SurveyWidget(AbstractWidget):
         # noinspection PyArgumentList
         self.idx_fliers = self.tabs.insertTab(1, self.tab_fliers,
                                               QtGui.QIcon(os.path.join(self.media, 'fliers.png')), "")
-        self.tabs.setTabToolTip(self.idx_fliers, "Detect fliers")
+        self.tabs.setTabToolTip(self.idx_fliers, "Flier Finder")
         self.tabs.setTabEnabled(self.idx_fliers, False)
 
         # - holiday finder
@@ -91,7 +91,7 @@ class SurveyWidget(AbstractWidget):
         # noinspection PyArgumentList
         self.idx_holes = self.tabs.insertTab(3, self.tab_holes,
                                              QtGui.QIcon(os.path.join(self.media, 'holes.png')), "")
-        self.tabs.setTabToolTip(self.idx_holes, "Detect holidays")
+        self.tabs.setTabToolTip(self.idx_holes, "Holiday Finder")
         self.tabs.setTabEnabled(self.idx_holes, False)
 
         # - grid qa
@@ -115,7 +115,7 @@ class SurveyWidget(AbstractWidget):
         # noinspection PyArgumentList
         self.idx_designated = self.tabs.insertTab(6, self.tab_designated,
                                                   QtGui.QIcon(os.path.join(self.media, 'designated.png')), "")
-        self.tabs.setTabToolTip(self.idx_designated, "Scan designated (BAG only)")
+        self.tabs.setTabToolTip(self.idx_designated, "Designated Scan (BAG only)")
         self.tabs.setTabEnabled(self.idx_designated, False)
 
         # - scan features
@@ -123,7 +123,7 @@ class SurveyWidget(AbstractWidget):
         # noinspection PyArgumentList
         self.idx_scan = self.tabs.insertTab(7, self.tab_scan,
                                             QtGui.QIcon(os.path.join(self.media, 'scan_features.png')), "")
-        self.tabs.setTabToolTip(self.idx_scan, "Scan features")
+        self.tabs.setTabToolTip(self.idx_scan, "Feature Scan")
         self.tabs.setTabEnabled(self.idx_scan, False)
 
         # - VALSOU checks
@@ -131,7 +131,7 @@ class SurveyWidget(AbstractWidget):
         # noinspection PyArgumentList
         self.idx_valsou = self.tabs.insertTab(8, self.tab_valsou,
                                               QtGui.QIcon(os.path.join(self.media, 'valsou.png')), "")
-        self.tabs.setTabToolTip(self.idx_valsou, "VALSOU check")
+        self.tabs.setTabToolTip(self.idx_valsou, "VALSOU Checks")
         self.tabs.setTabEnabled(self.idx_valsou, False)
 
         # - SBDARE checks
@@ -139,7 +139,7 @@ class SurveyWidget(AbstractWidget):
         # noinspection PyArgumentList
         self.idx_sbdare = self.tabs.insertTab(9, self.tab_sbdare,
                                               QtGui.QIcon(os.path.join(self.media, 'sbdare.png')), "")
-        self.tabs.setTabToolTip(self.idx_sbdare, "SBDARE export")
+        self.tabs.setTabToolTip(self.idx_sbdare, "SBDARE Export")
         self.tabs.setTabEnabled(self.idx_sbdare, False)
 
         # - Submission tests
@@ -147,7 +147,7 @@ class SurveyWidget(AbstractWidget):
         # noinspection PyArgumentList
         self.idx_submission = self.tabs.insertTab(10, self.tab_submission,
                                                   QtGui.QIcon(os.path.join(self.media, 'submission.png')), "")
-        self.tabs.setTabToolTip(self.idx_submission, "Submission checks")
+        self.tabs.setTabToolTip(self.idx_submission, "Submission Checks")
         self.tabs.setTabEnabled(self.idx_submission, True)
 
         # noinspection PyUnresolvedReferences

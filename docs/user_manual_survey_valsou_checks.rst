@@ -13,7 +13,7 @@ Ensure surveyed features are properly accounted for in the gridded bathymetry.
 
 In order to access this tool, load a grid and an S-57 file into the **Data Inputs** tab.
 
-* Select the **VALSOU Check** tab (:numref:`fig_valsou_check`) on the bottom of the QC Tools interface.
+* Select the **VALSOU Checks** tab (:numref:`fig_valsou_check`) on the bottom of the QC Tools interface.
 
 .. index::
     single: VALSOU Checks
@@ -24,7 +24,7 @@ In order to access this tool, load a grid and an S-57 file into the **Data Input
     * The **Deconflict across grids** checkbox may be enabled if the grids that are loaded have overlaps. If a feature has no grid data directly underneath, the nodes of the other grids in memory will be searched to find a valid match.
     * The **Include TECSOU=laser** checkbox may be enabled (in the event of lidar bathymetry wherein we'd expect features to be represented in the grid), or disabled (as in the case of shoreline investigations wherein we'd not have this expectation).
 
-* In **Execution**, click **VALSOU Check v8**
+* In **Execution**, click **VALSOU Check**
 
 
 .. _fig_valsou_check:
@@ -46,14 +46,10 @@ In order to access this tool, load a grid and an S-57 file into the **Data Input
     :align: center
     :figclass: align-center
 
-    The output message at the end of **VALSOU Check v8** execution.
+    The output message at the end of **VALSOU Checks** execution.
 
 
 * From the output window, drag-and-drop the output into the processing software to guide the review.
-
-* The output names adopt the following convention:
-
-    * [grid].[s57].VCv8.[version].[".las" -> **Include TECSOU=laser**][".dec" -> deconfliction]["od"|"fc" -> mode]
 
 .. note::
 	**VR CSAR**: this tool may provide false positives due to current limitations in accessing designated soundings through the CARIS SDK.
@@ -113,3 +109,17 @@ The output of this tool is a .000 file that contains $CSYMB features which provi
     :figclass: align-center
 
     Example of a flagged depth discrepancy found with scan designated. The orange symbol is the flag.
+	
+The naming convention of the output files contains important information about the settings that were used to execute
+VALSOU Checks.
+Each setting is separated by a period in the naming convention.
+See :numref:`fig_valsou_checks_convention`.
+
+.. _fig_valsou_checks_convention:
+.. figure:: _static/valsou_checks_convention.png
+    :width: 800px
+    :align: center
+    :alt: naming convention of output file for VALSOU Checks
+    :figclass: align-center
+
+    Example naming convention for a VALSOU Checks output. In this example the user selected a "include TECSOU = laser", "deconflict across grids" and Object Detection.

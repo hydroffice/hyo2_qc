@@ -5,6 +5,9 @@ Flier Finder
 
 .. index::
     single: fliers
+	
+..warning::
+It is NOT guaranteed that the Find Fliers algorithm will identify all the fliers. As such, it is recommended to use Find Fliers in combination with other QC methods.
 
 How To Use?
 ^^^^^^^^^^^
@@ -62,10 +65,6 @@ Scan grids for anomalous grid data "fliers".
     The output message at the end of **Flier Finder v9** execution.
 
 * An output window will open in File Explorer. From the output window, drag-and-drop the desired output file into the processing software to guide the review. Each candidate flier is labeled using the identifier of the algorithm that detected it (e.g., "2" for Gaussian Curvature).
-
-* The output file names adopt the following convention:
-
-  * [grid filename].FFv9.chk[identifier of each selected algorithm].flt[identifier of each selected filter]
 
 
 |
@@ -441,3 +440,17 @@ The other type of .000 file is a sounding file that contains SOUNDG features (:n
     :figclass: align-center
 
     An example of a potential flier identified with a sounding (SOUNDG).
+	
+The naming convention of the output files contains important information about the settings that were used to execute
+Flier Finder. Each setting is separated by a period in the naming convention.
+See :numref:`fig_flier_finder_convention`.
+
+.. _fig_flier_finder_convention:
+.. figure:: _static/flier_finder_convention.png
+    :width: 800px
+    :align: center
+    :alt: naming convention of output file for flier finder
+    :figclass: align-center
+
+    Example naming convention for a Flier Finder output. In this example the user selected a 0.5 meter manual flier height, ran checks #2, #3, #4, and #5, and selected filters #1 and #2.
+	

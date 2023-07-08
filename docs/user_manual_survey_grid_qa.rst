@@ -205,3 +205,13 @@ Upon completion of the execution of **Grid QA** you will receive a pop-up verifi
 
     Similar to the uncertainty plot, the CATZOC uncertainty shows a histogram of the percentage of total nodes that contain a node uncertainty as a fraction of the specific CATZOC TVU value. Anything over 1.0 does not pass the requirements.
 
+The naming convention of the output files contains important information about the settings that were used to execute Grid QA. Each setting is separated by a period in the naming convention. See the example below.
+
+.. _fig_grid_qa_convention:
+.. figure:: _static/grid_qa_convention.png
+    :width: 800px
+    :align: center
+    :alt: naming convention for grid qa outputs
+    :figclass: align-center
+
+    Example naming convention for a Grid QA output. In this example the of an output for the TVU QC analysis.

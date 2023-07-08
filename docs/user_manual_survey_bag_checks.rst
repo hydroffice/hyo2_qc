@@ -17,7 +17,7 @@ In order to access this tool, load in a BAG file into the **Data Inputs** tab.
 
 * Check the boxes that correspond with the checks you wish to perform.
 
-* In **Execution**, click **BAG Checks v1**.
+* In **Execution**, click **BAG Checks v2**.
 
 .. _fig_bag_checks:
 .. figure:: _static/bag_checks_interface.png
@@ -125,3 +125,15 @@ Upon completion of the execution of **BAG Checks** you will receive a pop-up ver
     :figclass: align-center
 
     An example of the **BAG Checks** summary.
+	
+The naming convention of the output files contains important information about BAG Checks.
+Each piece of information is separated by a period in the naming convention. See :numref:`fig_bag_checks_convention`.
+
+.. _fig_bag_checks_convention:
+.. figure:: _static/bag_checks_convention.png
+    :width: 800px
+    :align: center
+    :alt: naming convention of output file for bag checks
+    :figclass: align-center
+
+    Example naming convention for a BAG Checks output.
