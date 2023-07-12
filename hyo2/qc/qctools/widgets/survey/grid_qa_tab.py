@@ -322,7 +322,7 @@ class GridQATab(QtWidgets.QMainWindow):
         button = QtWidgets.QPushButton()
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
-        button.setText("Grid QA v6")
+        button.setText("Grid QA")
         button.setToolTip('Perform quality assessment on loaded grids')
         # noinspection PyUnresolvedReferences
         button.clicked.connect(self.click_grid_qa_v6)
@@ -428,7 +428,7 @@ class GridQATab(QtWidgets.QMainWindow):
 
         logger.debug('grid qa v%d ...' % version)
 
-        self.prj.progress.start(title="Grid QA v.%d" % version,
+        self.prj.progress.start(title="Grid QA v%d" % version,
                                 text="Data loading [%d/%d]" % (idx, total),
                                 init_value=2)
 

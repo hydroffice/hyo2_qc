@@ -34,7 +34,7 @@ In order to access this tool, load an S-57 file into the **Data Inputs** tab.
 .. index::
     single: feature scan
 
-* In **Execution**, click **Feature Scan v12**.
+* In **Execution**, click **Feature Scan**.
 
 .. _fig_feature_scan:
 .. figure:: _static/feature_scan_interface.png
@@ -42,7 +42,7 @@ In order to access this tool, load an S-57 file into the **Data Inputs** tab.
     :align: center
     :figclass: align-center
 
-    The **Scan features** tab.
+    The **Feature Scan** tab.
 
 * After computing, the output window opens automatically, the results are shown(:numref:`fig_feature_scan_output`).
 
@@ -52,7 +52,7 @@ In order to access this tool, load an S-57 file into the **Data Inputs** tab.
     :align: center
     :figclass: align-center
 
-    The output message at the end of **Feature scan** execution.
+    The output message at the end of **Feature Scan** execution.
 
 * From the output window, drag-and-drop the output file(s) into the processing software to guide the review.
 

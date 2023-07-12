@@ -74,7 +74,7 @@ class SBDAREExportTab(QtWidgets.QMainWindow):
         button = QtWidgets.QPushButton()
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
-        button.setText("SBDARE Export v5")
+        button.setText("SBDARE Export")
         button.setToolTip('Export SBDARE values')
         # noinspection PyUnresolvedReferences
         button.clicked.connect(self.click_sbdare_export_v5)
@@ -126,7 +126,7 @@ class SBDAREExportTab(QtWidgets.QMainWindow):
         total = len(s57_list)
         for i, s57_file in enumerate(s57_list):
 
-            self.parent_win.progress.start(title="SBDARE Export v.%d" % version,
+            self.parent_win.progress.start(title="SBDARE Export v%d" % version,
                                            text="Data loading [%d/%d]" % (i + 1, total),
                                            init_value=10)
 

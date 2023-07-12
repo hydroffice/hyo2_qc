@@ -159,7 +159,7 @@ class DesignatedScanTab(QtWidgets.QMainWindow):
         button = QtWidgets.QPushButton()
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
-        button.setText("Designated Scan v2")
+        button.setText("Designated Scan")
         button.setToolTip('Perform checks on grid designated soundings')
         # noinspection PyUnresolvedReferences
         button.clicked.connect(self.click_scan_designated_v2)

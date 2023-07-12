@@ -535,7 +535,7 @@ class HolidayFinderTab(QtWidgets.QMainWindow):
         if self.locker_v4.isChecked():
             msg = "Do you really want to change the settings?"
             # noinspection PyCallByClass
-            ret = QtWidgets.QMessageBox.warning(self, "Holiday Finder v4 settings", msg,
+            ret = QtWidgets.QMessageBox.warning(self, "Holiday Finder settings", msg,
                                                 QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.No)
             if ret == QtWidgets.QMessageBox.No:
                 self.locker_v4.setChecked(False)
@@ -565,7 +565,7 @@ class HolidayFinderTab(QtWidgets.QMainWindow):
         button = QtWidgets.QPushButton()
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
-        button.setText("Holiday Finder v4")
+        button.setText("Holiday Finder")
         button.setToolTip('Find holidays in the loaded surface using selected mode')
         # noinspection PyUnresolvedReferences
         button.clicked.connect(self.click_find_holes_v4)
@@ -645,9 +645,9 @@ class HolidayFinderTab(QtWidgets.QMainWindow):
 
         # GUI takes care of progress bar
 
-        logger.debug('Holiday Finder v%d ...' % version)
+        logger.debug('Holiday Finder ...')
 
-        self.parent_win.progress.start(title="Holiday Finder v.%d" % version,
+        self.parent_win.progress.start(title="Holiday Finder v%d" % version,
                                        text="Data processing [%d/%d]" % (idx, total),
                                        init_value=0)
 

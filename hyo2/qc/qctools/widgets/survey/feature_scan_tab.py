@@ -61,7 +61,7 @@ class FeatureScanTab(QtWidgets.QMainWindow):
         self.sordat_value = None  # type: Optional[QtWidgets.QLineEdit]
 
         # - feature scan
-        self.featureScan = QtWidgets.QGroupBox("Feature scan v12")
+        self.featureScan = QtWidgets.QGroupBox("Feature Scan v12")
         self.featureScan.setStyleSheet("QGroupBox::title { color: rgb(155, 155, 155); }")
         self.vbox.addWidget(self.featureScan)
         fs_hbox = QtWidgets.QHBoxLayout()
@@ -373,7 +373,7 @@ class FeatureScanTab(QtWidgets.QMainWindow):
         button = QtWidgets.QPushButton()
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
-        button.setText("Feature Scan v12")
+        button.setText("Feature Scan")
         button.setToolTip('Scan features in the loaded file checking their validity')
         # noinspection PyUnresolvedReferences
         button.clicked.connect(self.click_feature_scan)
@@ -523,7 +523,7 @@ class FeatureScanTab(QtWidgets.QMainWindow):
                 if mhw_str == "":
                     msg = "The MHW field is empty! Enter a valid value or disable the WATLEV check."
                     # noinspection PyArgumentList
-                    QtWidgets.QMessageBox.critical(self, "Feature scan [%s]" % (specs_version,),
+                    QtWidgets.QMessageBox.critical(self, "Feature Scan v%s" % (specs_version,),
                                                    msg, QtWidgets.QMessageBox.Ok)
                     return
                 else:
@@ -538,7 +538,7 @@ class FeatureScanTab(QtWidgets.QMainWindow):
                 if not is_valid:
                     msg = "An invalid SORIND was entered!\n\nCheck: %s" % sorind
                     # noinspection PyCallByClass,PyArgumentList
-                    QtWidgets.QMessageBox.critical(self, "Feature scan [%s]" % (specs_version,),
+                    QtWidgets.QMessageBox.critical(self, "Feature Scan v%s" % (specs_version,),
                                                    msg, QtWidgets.QMessageBox.Ok)
                     return
 
@@ -548,7 +548,7 @@ class FeatureScanTab(QtWidgets.QMainWindow):
                 if not is_valid:
                     msg = "An invalid SORDAT was entered!\n\nCheck: %s" % sordat
                     # noinspection PyCallByClass,PyArgumentList
-                    QtWidgets.QMessageBox.critical(self, "Feature scan [%s]" % (specs_version,),
+                    QtWidgets.QMessageBox.critical(self, "Feature Scan v%s" % (specs_version,),
                                                    msg, QtWidgets.QMessageBox.Ok)
                     return
 
@@ -558,12 +558,12 @@ class FeatureScanTab(QtWidgets.QMainWindow):
                                   check_image_names=image_names_check)
 
             # noinspection PyCallByClass,PyArgumentList
-            QtWidgets.QMessageBox.information(self, "Feature scan [%s]" % (specs_version,),
+            QtWidgets.QMessageBox.information(self, "Feature Scan v%s" % (specs_version,),
                                               self.prj.scan_msg, QtWidgets.QMessageBox.Ok)
 
         except Exception as e:
             traceback.print_exc()
             # noinspection PyCallByClass,PyArgumentList
-            QtWidgets.QMessageBox.critical(self, "Error", "While running survey's feature scan: %s" % (e,),
+            QtWidgets.QMessageBox.critical(self, "Error", "While running survey's Feature Scan: %s" % (e,),
                                            QtWidgets.QMessageBox.Ok)
             return

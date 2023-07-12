@@ -161,7 +161,7 @@ class ValsouChecksTab(QtWidgets.QMainWindow):
         button = QtWidgets.QPushButton()
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
-        button.setText("VALSOU Checks v8")
+        button.setText("VALSOU Checks")
         button.setToolTip('Check VALSOU values against surface')
         # noinspection PyUnresolvedReferences
         button.clicked.connect(self.click_valsou_check_v8)
@@ -223,7 +223,7 @@ class ValsouChecksTab(QtWidgets.QMainWindow):
 
                 # de-confliction
                 if self.set_overlap_fsv8.isChecked():
-                    self.parent_win.progress.start(title="VALSOU Check v.%d" % version,
+                    self.parent_win.progress.start(title="VALSOU Check v%d" % version,
                                                    text="Deconflicting [%d/%d]" % (idx, total),
                                                    init_value=90)
                     self.prj.valsou_check_deconflict()
@@ -246,16 +246,16 @@ class ValsouChecksTab(QtWidgets.QMainWindow):
                 self.prj.close_cur_grid()
 
         # noinspection PyCallByClass
-        QtWidgets.QMessageBox.information(self, "VALSOU check v%d" % version, msg, QtWidgets.QMessageBox.Ok)
+        QtWidgets.QMessageBox.information(self, "VALSOU Checks v%d" % version, msg, QtWidgets.QMessageBox.Ok)
 
     def _valsou_check_v8(self, grid_file, version, idx, total):
         """ VALSOU check for the loaded s57 features and grid"""
 
         # GUI takes care of progress bar
 
-        logger.debug('VALSOU Check v%d ...' % version)
+        logger.debug('VALSOU Checks v%d ...' % version)
 
-        self.parent_win.progress.start(title="VALSOU Check v.%d" % version,
+        self.parent_win.progress.start(title="VALSOU Checks v%d" % version,
                                        text="Data loading [%d/%d]" % (idx, total),
                                        init_value=10)
 
@@ -268,7 +268,7 @@ class ValsouChecksTab(QtWidgets.QMainWindow):
             self.parent_win.progress.end()
             return
 
-        self.parent_win.progress.update(value=20, text="VALSOU Check v%d [%d/%d]" % (version, idx, total))
+        self.parent_win.progress.update(value=20, text="VALSOU Checks v%d [%d/%d]" % (version, idx, total))
 
         try:
             with_laser = self.set_include_laser_fsv8.isChecked()

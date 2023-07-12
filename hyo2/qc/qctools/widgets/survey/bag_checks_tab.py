@@ -146,7 +146,7 @@ class BAGChecksTab(QtWidgets.QMainWindow):
         button = QtWidgets.QPushButton()
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
-        button.setText("BAG Checks v2")
+        button.setText("BAG Checks")
         button.setToolTip('Perform checks on BAG files')
         # noinspection PyUnresolvedReferences
         button.clicked.connect(self.click_bag_checks_v2)

@@ -428,7 +428,7 @@ class SubmissionChecksTab(QtWidgets.QMainWindow):
         button = QtWidgets.QPushButton()
         hbox.addWidget(button)
         button.setFixedHeight(GuiSettings.single_line_height())
-        button.setText("Submission checks v4")
+        button.setText("Submission Checks")
         button.setToolTip('Check the submission data directory')
         # noinspection PyUnresolvedReferences
         button.clicked.connect(self.click_submission_checks_v4)

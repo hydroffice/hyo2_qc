@@ -13,7 +13,7 @@ Ensure surveyed features are properly accounted for in the gridded bathymetry.
 
 In order to access this tool, load a grid and an S-57 file into the **Data Inputs** tab.
 
-* Select the **VALSOU Checks** tab (:numref:`fig_valsou_check`) on the bottom of the QC Tools interface.
+* Select the **VALSOU Checks** tab (:numref:`fig_valsou_checks`) on the bottom of the QC Tools interface.
 
 .. index::
     single: VALSOU Checks
@@ -24,24 +24,24 @@ In order to access this tool, load a grid and an S-57 file into the **Data Input
     * The **Deconflict across grids** checkbox may be enabled if the grids that are loaded have overlaps. If a feature has no grid data directly underneath, the nodes of the other grids in memory will be searched to find a valid match.
     * The **Include TECSOU=laser** checkbox may be enabled (in the event of lidar bathymetry wherein we'd expect features to be represented in the grid), or disabled (as in the case of shoreline investigations wherein we'd not have this expectation).
 
-* In **Execution**, click **VALSOU Check**
+* In **Execution**, click **VALSOU Checks**
 
 
-.. _fig_valsou_check:
-.. figure:: _static/valsou_check_interface.png
+.. _fig_valsou_checks:
+.. figure:: _static/valsou_checks_interface.png
     :width: 700px
     :align: center
     :figclass: align-center
 
-    The **VALSOU check** tab.
+    The **VALSOU Checks** tab.
 
 
-* After computing, the output window opens automatically, and the results are shown (:numref:`fig_valsou_check_output`).
+* After computing, the output window opens automatically, and the results are shown (:numref:`fig_valsou_checks_results`).
   Note, the check considers all combination of grids and features files loaded. If there is no overlap found between a grid and feature file,
   no output is generated, and the summary will report "no overlap".
 
-.. _fig_valsou_check_output:
-.. figure:: _static/valsou_check_results.png
+.. _fig_valsou_checks_results:
+.. figure:: _static/valsou_checks_results.png
     :width: 400px
     :align: center
     :figclass: align-center
@@ -68,10 +68,10 @@ How Does It Work?
 
 The grid is scanned for features expected to be represented in the grid as per specification. These features are new or updated wrecks, rocks, and obstructions, and a grid node should be found that agrees with the feature VALSOU. 
 
-For each feature, 9 grid node depths are selected: the grid node depth closest in position to the feature, and the 8 grid nodes surrounding it (:numref:`fig_valsou_check_nodes`). The minimum depth is selected from those 9 grid node depths, and that minimum depth must match the feature VALSOU (to centimeter precision). If not, a flag is raised. Note, this check not only ensures parity between feature VALSOUs and the grid, but it will also ensure the VALSOU entered is the most shoal depth among the 9 grid nodes atop the feature.
+For each feature, 9 grid node depths are selected: the grid node depth closest in position to the feature, and the 8 grid nodes surrounding it (:numref:`fig_valsou_checks_nodes`). The minimum depth is selected from those 9 grid node depths, and that minimum depth must match the feature VALSOU (to centimeter precision). If not, a flag is raised. Note, this check not only ensures parity between feature VALSOUs and the grid, but it will also ensure the VALSOU entered is the most shoal depth among the 9 grid nodes atop the feature.
 
-.. _fig_valsou_check_nodes:
-.. figure:: _static/valsou_check_node_search.png
+.. _fig_valsou_checks_nodes:
+.. figure:: _static/valsou_checks_node_search.png
     :width: 400px
     :align: center
     :figclass: align-center
