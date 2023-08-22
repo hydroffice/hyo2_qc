@@ -1941,9 +1941,12 @@ class Checks:
         self.report += "Features have empty or missing mandatory attribute description [CHECK]"
         self.flags.office.mcd_description = self._check_features_for_attribute(objects=self.all_fts, attribute='descrp')
 
-        # Ensure all features have remrks (per MCD)
-        self.report += "Features missing mandatory attribute remarks [CHECK]"
-        self.flags.office.mcd_remarks = self._check_features_for_attribute(objects=self.all_fts, attribute='remrks')
+        # For the office profile, check for empty remarks (per MCD)
+        self.report += "Features with empty/unknown attribute remarks [CHECK]"
+        self.flags.office.mcd_remarks = self._flag_features_with_attribute_value(objects=self.all_fts,
+                                                                                  attribute='remarks',
+                                                                                  values_to_flag=['', ],
+                                                                                  check_attrib_existence=True)
 
         # Requirement only for the office, onotes may not exceed 250 characters
         self.report += "Features with onotes field exceeding %d characters [CHECK]" % self.onotes_character_limit
