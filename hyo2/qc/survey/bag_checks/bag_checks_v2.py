@@ -324,13 +324,22 @@ class BagChecksV2:
                     self._bc_report += "[WARNING] The resolution entry might be NOT present"
                     self._bc_metadata_warnings += 1
                 else:
-                    res_token = "%.0fm" % bf.meta.res_x
-                    if res_token not in self._grid_basename:
+                    res_token_m = "%.0fm" % bf.meta.res_x
+                    res_token_cm = "%.0fcm" % (bf.meta.res_x*100)
+
+                    if res_token_m in self._grid_basename:
+
+                        self._bc_report += "OK"
+
+                    elif res_token_cm in self._grid_basename:
+
+                        self._bc_report += "OK"
+
+                    else:
+
                         self._bc_report += "[ERROR] The resolution entry [%s m] might NOT match " \
                                            "the filename [%s]" % (bf.meta.res_x, self._grid_basename)
                         self._bc_metadata_warnings += 1
-                    else:
-                        self._bc_report += "OK"
 
             if self._noaa_nbs_profile:
 
