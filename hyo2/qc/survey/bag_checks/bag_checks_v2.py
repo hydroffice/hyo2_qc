@@ -355,6 +355,7 @@ class BagChecksV2:
                 else:
                     srs = osr.SpatialReference()
                     srs.ImportFromWkt(bf.meta.wkt_srs)
+                    srs.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
                     # check if projected coordinates
                     if not srs.IsProjected:
                         self._bc_report += "[WARNING] The spatial reference system does is NOT projected [%s...]" \

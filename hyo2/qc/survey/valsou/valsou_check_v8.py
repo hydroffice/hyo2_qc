@@ -218,6 +218,7 @@ class ValsouCheckV8(BaseValsou):
             osr_grid = osr.SpatialReference()
             # logger.debug("cur grids hrs: %s" % self.grids.cur_grids.bbox().hrs)
             osr_grid.ImportFromWkt(self.grids.cur_grids.bbox().hrs)
+            osr_grid.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
             osr_geo = osr.SpatialReference()
             osr_geo.ImportFromEPSG(4326)  # geographic WGS84
             osr_geo.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)

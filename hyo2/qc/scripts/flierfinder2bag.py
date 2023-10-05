@@ -250,11 +250,13 @@ def find_uncorrelated_features(feature_file, fliers, bag_wkt, buffer=16,
 
     # get a transformation to utmthe bag reference system
     dest_srs = osr.SpatialReference()
+    dest_srs.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
     dest_srs.ImportFromWkt(bag_wkt)
     # get the number of feature file layers to work with
     numlyrs = feature_file.GetLayerCount()
     # get the spatial info for the fliers
     flier_srs = fliers.GetSpatialRef()
+    flier_srs.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
     flier_trans = osr.CoordinateTransformation(flier_srs, dest_srs)
     # the fliers that are not correlated with features
     corr_idx = []
@@ -274,6 +276,7 @@ def find_uncorrelated_features(feature_file, fliers, bag_wkt, buffer=16,
                 if sname in feat_types:
                     slyr.ResetReading()
                     feat_srs = slyr.GetSpatialRef()
+                    feat_srs.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
                     feat_trans = osr.CoordinateTransformation(feat_srs, dest_srs)
                     # work through all the features in the layer
                     for f in slyr:

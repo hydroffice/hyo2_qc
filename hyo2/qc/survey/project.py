@@ -317,6 +317,7 @@ class SurveyProject(BaseProject):
         try:
             osr_csar = osr.SpatialReference()
             osr_csar.ImportFromWkt(self._holes.crs)
+            osr_csar.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
             osr_geo = osr.SpatialReference()
             osr_geo.ImportFromEPSG(4326)  # geographic WGS84
             osr_geo.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
@@ -1092,6 +1093,7 @@ class SurveyProject(BaseProject):
             try:
                 osr_grid = osr.SpatialReference()
                 osr_grid.ImportFromWkt(self._gr2.cur_grids.bbox().hrs)
+                osr_grid.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
                 osr_geo = osr.SpatialReference()
                 osr_geo.ImportFromEPSG(4326)  # geographic WGS84
                 osr_geo.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)

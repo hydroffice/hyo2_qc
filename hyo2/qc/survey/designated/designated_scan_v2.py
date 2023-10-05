@@ -79,6 +79,7 @@ class DesignatedScanV2(BaseDesignated):
         try:
             osr_bag = osr.SpatialReference()
             osr_bag.ImportFromWkt(self.grids.bbox().hrs)
+            osr_bag.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
             osr_geo = osr.SpatialReference()
             osr_geo.ImportFromEPSG(4326)  # geographic WGS84
             osr_geo.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
@@ -170,6 +171,7 @@ class DesignatedScanV2(BaseDesignated):
             osr_grid = osr.SpatialReference()
             # logger.debug("cur_grids: %s" % self.grids.cur_grids)
             osr_grid.ImportFromWkt(self.grids.bbox().hrs)
+            osr_grid.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
             osr_geo = osr.SpatialReference()
             osr_geo.ImportFromEPSG(4326)  # geographic WGS84
             osr_geo.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
