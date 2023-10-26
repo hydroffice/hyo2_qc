@@ -2021,95 +2021,99 @@ class Checks:
     # noinspection PyStatementEffect
     def finalize_summary(self):
         """Add a summary to the report"""
-        count = ord('A')
+        count = ord('B')
 
-        # Add a summary to the report
-        self.report += 'SUMMARY [SECTION]'
-        self.report += 'Summary by section: [CHECK]'
+        # Create a summary list
+        summary = list()
+        summary.append('SUMMARY [SECTION]')
+        summary.append('Summary by section: [CHECK]')
 
         # ### ALL FEATURES ###
-        self.report += 'Section %s - Checks for feature file consistency: %s' \
-                       % (chr(count), self.flags.all_fts.nr_of_flagged())
+        summary.append('Section %s - Checks for feature file consistency: %s' \
+                       % (chr(count), self.flags.all_fts.nr_of_flagged()))
         count += 1
 
         # ### ASSIGNED FEATURES ###
-        self.report += 'Section %s - Checks for assigned features: %s' \
-                       % (chr(count), self.flags.ass_fts.nr_of_flagged())
+        summary.append('Section %s - Checks for assigned features: %s' \
+                       % (chr(count), self.flags.ass_fts.nr_of_flagged()))
         count += 1
 
         # ### NEW OR UPDATED FEATURES ###
-        self.report += 'Section %s - Checks for new or updated features: %s' \
-                       % (chr(count), self.flags.new_updated_fts.nr_of_flagged())
+        summary.append('Section %s - Checks for new or updated features: %s' \
+                       % (chr(count), self.flags.new_updated_fts.nr_of_flagged()))
         count += 1
 
         # ### NEW OR DELETED FEATURES ###
-        self.report += 'Section %s - Checks for new or deleted features: %s' \
-                       % (chr(count), self.flags.new_deleted_fts.nr_of_flagged())
+        summary.append('Section %s - Checks for new or deleted features: %s' \
+                       % (chr(count), self.flags.new_deleted_fts.nr_of_flagged()))
         count += 1
 
         # ### IMAGES ###
-        self.report += 'Section %s - Checks for images: %s' \
-                       % (chr(count), self.flags.images.nr_of_flagged())
+        summary.append('Section %s - Checks for images: %s' \
+                       % (chr(count), self.flags.images.nr_of_flagged()))
         count += 1
 
         # SOUNDINGS
-        self.report += 'Section %s - Checks for soundings: %s' \
-                       % (chr(count), self.flags.soundings.nr_of_flagged())
+        summary.append('Section %s - Checks for soundings: %s' \
+                       % (chr(count), self.flags.soundings.nr_of_flagged()))
         count += 1
 
         # DTONS
-        self.report += 'Section %s - Checks for DTONs: %s' \
-                       % (chr(count), self.flags.dtons.nr_of_flagged())
+        summary.append('Section %s - Checks for DTONs: %s' \
+                       % (chr(count), self.flags.dtons.nr_of_flagged()))
         count += 1
 
         # WRECKS
-        self.report += 'Section %s - Checks for wrecks: %s' \
-                       % (chr(count), self.flags.wrecks.nr_of_flagged())
+        summary.append('Section %s - Checks for wrecks: %s' \
+                       % (chr(count), self.flags.wrecks.nr_of_flagged()))
         count += 1
 
         # ROCKS
-        self.report += 'Section %s - Checks for underwater rocks: %s' \
-                       % (chr(count), self.flags.rocks.nr_of_flagged())
+        summary.append('Section %s - Checks for underwater rocks: %s' \
+                       % (chr(count), self.flags.rocks.nr_of_flagged()))
         count += 1
 
         # OBSTRUCTIONS
-        self.report += 'Section %s - Checks for obstructions: %s' \
-                       % (chr(count), self.flags.obstructions.nr_of_flagged())
+        summary.append('Section %s - Checks for obstructions: %s' \
+                       % (chr(count), self.flags.obstructions.nr_of_flagged()))
         count += 1
 
         # OFFSHORE PLATFORMS
-        self.report += 'Section %s - Checks for offshore platforms: %s' \
-                       % (chr(count), self.flags.platforms.nr_of_flagged())
+        summary.append('Section %s - Checks for offshore platforms: %s' \
+                       % (chr(count), self.flags.platforms.nr_of_flagged()))
         count += 1
 
         # SEABED AREAS
-        self.report += 'Section %s - Checks for seabed areas: %s' \
-                       % (chr(count), self.flags.sbdares.nr_of_flagged())
+        summary.append('Section %s - Checks for seabed areas: %s' \
+                       % (chr(count), self.flags.sbdares.nr_of_flagged()))
         count += 1
 
         # MOORINGS
-        self.report += 'Section %s - Checks for mooring facilities: %s' \
-                       % (chr(count), self.flags.moorings.nr_of_flagged())
+        summary.append('Section %s - Checks for mooring facilities: %s' \
+                       % (chr(count), self.flags.moorings.nr_of_flagged()))
         count += 1
 
         # COASTLINES
-        self.report += 'Section %s - Checks for coastlines and shorelines: %s' \
-                       % (chr(count), self.flags.coastlines.nr_of_flagged())
+        summary.append('Section %s - Checks for coastlines and shorelines: %s' \
+                       % (chr(count), self.flags.coastlines.nr_of_flagged()))
         count += 1
 
         # LANDS
-        self.report += 'Section %s - Checks for land elevations: %s' \
-                       % (chr(count), self.flags.lands.nr_of_flagged())
+        summary.append('Section %s - Checks for land elevations: %s' \
+                       % (chr(count), self.flags.lands.nr_of_flagged()))
         count += 1
 
         # META COVERAGES
-        self.report += 'Section %s - Checks for meta coverages: %s' \
-                       % (chr(count), self.flags.coverages.nr_of_flagged())
+        summary.append('Section %s - Checks for meta coverages: %s' \
+                       % (chr(count), self.flags.coverages.nr_of_flagged()))
         count += 1
 
         # OFFICE ONLY
 
         if self.profile == 0:  # office profile
-            self.report += 'Section %s - Checks ONLY for office: %s' \
-                           % (chr(count), self.flags.office.nr_of_flagged())
+            summary.append('Section %s - Checks ONLY for office: %s' \
+                           % (chr(count), self.flags.office.nr_of_flagged()))
             count += 1
+
+        # finally prepend it to the report
+        self.report -= summary

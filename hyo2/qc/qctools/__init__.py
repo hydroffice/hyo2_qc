@@ -8,10 +8,8 @@ app_info = AppInfo()
 
 app_info.app_name = name
 app_info.app_version = __version__
-app_info.app_author = "Giuseppe Masetti(UNH,CCOM); Tyanne Faulkes(NOAA,OCS); Julia Wallace(NOAA,OCS); " \
-                      "Matthew Wilson(NOAA,OCS)"
-app_info.app_author_email = "gmasetti@ccom.unh.edu; tyanne.faulkes@noaa.gov; julia.wallace@noaa.gov; " \
-                            "matthew.wilson@noaa.gov"
+app_info.app_author = "Giuseppe Masetti(UNH,CCOM); Tyanne Faulkes(NOAA,OCS); Matthew Wilson(NOAA,OCS)"
+app_info.app_author_email = "gmasetti@ccom.unh.edu; tyanne.faulkes@noaa.gov; matthew.wilson@noaa.gov"
 
 app_info.app_license = "LGPL v3"
 app_info.app_license_url = "https://www.hydroffice.org/license/"

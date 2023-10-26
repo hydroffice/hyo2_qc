@@ -420,6 +420,20 @@ class BagChecksV2:
                 else:
                     self._bc_report += "OK"
 
+            if self._noaa_nbs_profile:
+                # CHK: presence of security constraints
+                self._bc_report += "Check the presence of Security Constraints [CHECK]"
+                if bf.meta.sec_constr is None:
+                    self._bc_metadata_warnings += 1
+                    self._bc_report += "[ERROR] Missing the Security Constraints value"
+
+                else:
+                    if bf.meta.sec_constr.lower() == "unclassified":
+                        self._bc_report += "OK"
+                    else:
+                        self._bc_report += "[WARNING] Double-check the assigned Security Constraints value: %s" \
+                                           % bf.meta.sec_constr
+
             if self._is_vr:
                 # CHK: presence of VR Metadata
                 self._bc_report += "Check the presence of the VR Metadata dataset [CHECK]"
@@ -716,31 +730,34 @@ class BagChecksV2:
             self._bc_report += "[ERROR] Unexpected issue: %s" % e
 
     def _bag_checks_v2_summary(self) -> None:
-        self._bc_report += "Summary [SECTION]"
+        summary = list()
+        summary.append("Summary [SECTION]")
         if self._structure:
-            self._bc_report += "Structure [CHECK]"
-            self._bc_report += "Errors: %d" % self._bc_structure_errors
-            self._bc_report += "Warnings: %d" % self._bc_structure_warnings
+            summary.append("Structure [CHECK]")
+            summary.append("Errors: %d" % self._bc_structure_errors)
+            summary.append("Warnings: %d" % self._bc_structure_warnings)
         if self._metadata:
-            self._bc_report += "Metadata [CHECK]"
-            self._bc_report += "Errors: %d" % self._bc_metadata_errors
-            self._bc_report += "Warnings: %d" % self._bc_metadata_warnings
+            summary.append("Metadata [CHECK]")
+            summary.append("Errors: %d" % self._bc_metadata_errors)
+            summary.append("Warnings: %d" % self._bc_metadata_warnings)
         if self._elevation:
-            self._bc_report += "Elevation [CHECK]"
-            self._bc_report += "Errors: %d" % self._bc_elevation_errors
-            self._bc_report += "Warnings: %d" % self._bc_elevation_warnings
+            summary.append("Elevation [CHECK]")
+            summary.append("Errors: %d" % self._bc_elevation_errors)
+            summary.append("Warnings: %d" % self._bc_elevation_warnings)
         if self._uncertainty:
-            self._bc_report += "Uncertainty [CHECK]"
-            self._bc_report += "Errors: %d" % self._bc_uncertainty_errors
-            self._bc_report += "Warnings: %d" % self._bc_uncertainty_warnings
+            summary.append("Uncertainty [CHECK]")
+            summary.append("Errors: %d" % self._bc_uncertainty_errors)
+            summary.append("Warnings: %d" % self._bc_uncertainty_warnings)
         if self._tracking_list:
-            self._bc_report += "Tracking List [CHECK]"
-            self._bc_report += "Errors: %d" % self._bc_tracking_list_errors
-            self._bc_report += "Warnings: %d" % self._bc_tracking_list_warnings
+            summary.append("Tracking List [CHECK]")
+            summary.append("Errors: %d" % self._bc_tracking_list_errors)
+            summary.append("Warnings: %d" % self._bc_tracking_list_warnings)
         if self._gdal_compatibility:
-            self._bc_report += "GDAL Compatibility [CHECK]"
-            self._bc_report += "Errors: %d" % self._bc_gdal_compatibility_errors
-            self._bc_report += "Warnings: %d" % self._bc_gdal_compatibility_warnings
+            summary.append("GDAL Compatibility [CHECK]")
+            summary.append("Errors: %d" % self._bc_gdal_compatibility_errors)
+            summary.append("Warnings: %d" % self._bc_gdal_compatibility_warnings)
+
+        self._bc_report -= summary
 
     @property
     def cur_bag_checks_passed(self) -> bool:

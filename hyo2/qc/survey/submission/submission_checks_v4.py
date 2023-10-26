@@ -455,10 +455,18 @@ class SubmissionChecksV4(BaseSubmission):
         return True
 
     def _finalize_summary(self):
-        """Add a summary to the report"""
+        """Prepend a summary to the report"""
 
-        # Add a summary to the report
-        self.report += 'SUMMARY [TOTAL]'
+        summary = list()
 
-        self.report += 'Identified errors: %s' % len(self.errors)
-        self.report += 'Identified warnings: %s' % len(self.warnings)
+        summary.append('SUMMARY [TOTAL]')
+
+        info_errors = 'Identified errors: %s' % len(self.errors)
+        summary.append(info_errors)
+        logger.info(info_errors)
+
+        info_warnings = 'Identified warnings: %s' % len(self.warnings)
+        summary.append(info_warnings)
+        logger.info(info_warnings)
+
+        self.report -= summary
