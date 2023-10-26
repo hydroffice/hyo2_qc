@@ -83,10 +83,10 @@ class QCToolsParser:
         logger.debug('input DTM: %s' % dtm_file)
         prj.add_to_grid_list(dtm_file)
 
-        if args.s57_path is not None:
-            if not os.path.exists(args.s57_path):
-                raise RuntimeError('Unable to locate input S57: %s' % args.s57_path)
-            s57_file = args.s57_path
+        if args.fff_s57_path is not None:
+            if not os.path.exists(args.fff_s57_path):
+                raise RuntimeError('Unable to locate input S57: %s' % args.fff_s57_path)
+            s57_file = args.fff_s57_path
             logger.debug('input S57: %s' % s57_file)
             prj.add_to_s57_list(s57_file)
 

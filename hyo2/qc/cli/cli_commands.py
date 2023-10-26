@@ -19,23 +19,23 @@ class CliCommands:
         self.ff_parser.add_argument('--enforce_height', required=False, type=float, default=None,
                                     help='Pass a value in meters (e.g., 1.0) to enforce a specific height value. '
                                          'Otherwise, the height value will be automatically estimated.')
-        self.ff_parser.add_argument('-l', '--check_laplacian', required=False, type=bool, default=False,
-                                    help='True to enable the Laplacian Operator Check.')
-        self.ff_parser.add_argument('-c', '--check_curv', required=False, type=bool, default=True,
-                                    help='True to enable the Gaussian Curvature Check.')
-        self.ff_parser.add_argument('-a', '--check_adjacent', required=False, type=bool, default=True,
-                                    help='True to enable the Adjacent Cell Check.')
-        self.ff_parser.add_argument('-i', '--check_isolated', required=False, type=bool, default=True,
-                                    help='True to enable the Isolated Nodes Check.')
-        self.ff_parser.add_argument('-v', '--check_slivers', required=False, type=bool, default=True,
-                                    help='True to enable the Edge Slivers Check.')
-        self.ff_parser.add_argument('-e', '--check_edges', required=False, type=bool, default=False,
-                                    help='True to enable the Noisy Edges Check.')
-        self.ff_parser.add_argument('-m', '--check_margins', required=False, type=bool, default=False,
-                                    help='True to enable the Noisy Margins Check.')
-        self.ff_parser.add_argument('--filter_designated', required=False, type=bool, default=False,
-                                    help='True to enable filtering of designated soundings.')
-        self.ff_parser.add_argument('--filter_fff', required=False, type=bool, default=False,
+        self.ff_parser.add_argument('-l', '--check_laplacian', action='store_true', default=False,
+                                    help='Enable the Laplacian Operator Check.')
+        self.ff_parser.add_argument('-c', '--check_curv', action='store_true', default=False,
+                                    help='Enable the Gaussian Curvature Check.')
+        self.ff_parser.add_argument('-a', '--check_adjacent', action='store_true', default=False,
+                                    help='Enable the Adjacent Cell Check.')
+        self.ff_parser.add_argument('-i', '--check_isolated', action='store_true', default=False,
+                                    help='Enable the Isolated Nodes Check.')
+        self.ff_parser.add_argument('-v', '--check_slivers', action='store_true', default=False,
+                                    help='Enable the Edge Slivers Check.')
+        self.ff_parser.add_argument('-e', '--check_edges', action='store_true', default=False,
+                                    help='Enable the Noisy Edges Check.')
+        self.ff_parser.add_argument('-m', '--check_margins', action='store_true', default=False,
+                                    help='Enable the Noisy Margins Check.')
+        self.ff_parser.add_argument('--filter_designated', action='store_true', default=False,
+                                    help='Enable filtering of designated soundings.')
+        self.ff_parser.add_argument('--filter_fff', action='store_true', default=False,
                                     help='True to enable filtering of S57 features.')
         self.ff_parser.add_argument('--filter_distance_multiplier', type=float, default=1.0,
                                     help='Remove flags at the passed distance from the FFF or designated features. '
@@ -43,12 +43,12 @@ class CliCommands:
         self.ff_parser.add_argument('--filter_delta_z', type=float, default=0.01,
                                     help='Remove flags within the passed delta Z from the FFF or designated features. '
                                          'The delta Z is expressed in meters.')
-        self.ff_parser.add_argument('--s57_path', required=False, type=str, default=None,
+        self.ff_parser.add_argument('--fff_s57_path', required=False, type=str, default=None,
                                     help="Path to the S57 file used by '-filter_fff True'.")
-        self.ff_parser.add_argument('-k', '--enable_kml_output', required=False, type=bool, default=False,
-                                    help='True to enable KML as an additional output format for the flags.')
-        self.ff_parser.add_argument('-s', '--enable_shp_output', required=False, type=bool, default=False,
-                                    help='True to enable Shapefile as an additional output format for the flags.')
+        self.ff_parser.add_argument('-k', '--enable_kml_output', action='store_true', default=False,
+                                    help='Enable KML as an additional output format for the flags.')
+        self.ff_parser.add_argument('-s', '--enable_shp_output', action='store_true', default=False,
+                                    help='Enable Shapefile as an additional output format for the flags.')
 
 
 def get_parser():
