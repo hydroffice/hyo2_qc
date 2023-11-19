@@ -49,6 +49,10 @@ class CliCommands:
                                     help='Enable KML as an additional output format for the flags.')
         self.ff_parser.add_argument('-s', '--enable_shp_output', action='store_true', default=False,
                                     help='Enable Shapefile as an additional output format for the flags.')
+        self.ff_parser.add_argument('--output_in_project_folder', action='store_true', default=False,
+                                    help='Output is put in a project folder.')
+        self.ff_parser.add_argument('--output_in_tool_folder', action='store_true', default=False,
+                                    help='Output is put in a tool folder.')
 
 
 def get_parser():

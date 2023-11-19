@@ -493,6 +493,7 @@ class BaseProject:
     @output_project_folder.setter
     def output_project_folder(self, value: bool) -> None:
         self._output_project_folder = value
+        logger.info("Output in project folder: %s" % self._output_project_folder)
 
     @property
     def output_subfolders(self) -> bool:
@@ -500,8 +501,8 @@ class BaseProject:
 
     @output_subfolders.setter
     def output_subfolders(self, value: bool) -> None:
-
         self._output_subfolders = value
+        logger.info("Output in tool folder: %s" % self._output_subfolders)
 
     # _______________________________________________________________________________
     # ############################## AUXILIARY METHODS ##############################

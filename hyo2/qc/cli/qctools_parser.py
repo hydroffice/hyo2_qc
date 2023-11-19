@@ -73,6 +73,9 @@ class QCToolsParser:
         # create the project
         prj = SurveyProject(output_folder=out_folder)
 
+        prj.output_project_folder = args.output_in_project_folder
+        prj.output_subfolders = args.output_in_tool_folder
+
         # handling the optional output format
         prj.output_kml = args.enable_kml_output
         prj.output_shp = args.enable_shp_output
