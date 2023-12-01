@@ -339,7 +339,7 @@ class BagChecksV2:
 
                         self._bc_report += "[ERROR] The resolution entry [%s m] might NOT match " \
                                            "the filename [%s]" % (bf.meta.res_x, self._grid_basename)
-                        self._bc_metadata_warnings += 1
+                        self._bc_metadata_errors += 1
 
             if self._noaa_nbs_profile:
 
@@ -424,13 +424,14 @@ class BagChecksV2:
                 # CHK: presence of security constraints
                 self._bc_report += "Check the presence of Security Constraints [CHECK]"
                 if bf.meta.sec_constr is None:
-                    self._bc_metadata_warnings += 1
+                    self._bc_metadata_errors += 1
                     self._bc_report += "[ERROR] Missing the Security Constraints value"
 
                 else:
                     if bf.meta.sec_constr.lower() == "unclassified":
                         self._bc_report += "OK"
                     else:
+                        self._bc_metadata_warnings += 1
                         self._bc_report += "[WARNING] Double-check the assigned Security Constraints value: %s" \
                                            % bf.meta.sec_constr
 
