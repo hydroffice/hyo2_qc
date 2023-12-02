@@ -644,8 +644,12 @@ class SurveyProject(BaseProject):
         self._bc.run()
 
     @property
-    def cur_bag_checks_passed(self) -> bool:
-        return self._bc.cur_bag_checks_passed
+    def cur_bag_checks_errors(self) -> int:
+        return self._bc.cur_bag_checks_errors
+
+    @property
+    def cur_bag_checks_warnings(self) -> int:
+        return self._bc.cur_bag_checks_warnings
 
     def open_bagchecks_output_folder(self) -> None:
         self._bc.open_bagchecks_output_folder()

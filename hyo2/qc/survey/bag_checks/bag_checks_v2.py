@@ -109,10 +109,16 @@ class BagChecksV2:
                 success = self._bag_checks_v2(grid_file=grid_file, idx=i, total=nr_of_files)
 
                 if success:
-                    if self.cur_bag_checks_passed:
-                        self._msg += "- %s: pass\n" % self._grid_basename
-                    else:
+                    if self.cur_bag_checks_errors > 0:
                         self._msg += "- %s: fail\n" % self._grid_basename
+                    elif self.cur_bag_checks_warnings > 0:
+                        if self.cur_bag_checks_warnings == 1:
+                            self._msg += "- %s: pass, with 1 warning\n" % self._grid_basename
+                        else:
+                            self._msg += "- %s: pass, with %d warnings\n" \
+                                         % (self._grid_basename, self.cur_bag_checks_warnings)
+                    else:
+                        self._msg += "- %s: pass\n" % self._grid_basename
 
                     if self.open_output_folder:
                         # open the output folder (if not already open)
@@ -761,33 +767,54 @@ class BagChecksV2:
         self._bc_report -= summary
 
     @property
-    def cur_bag_checks_passed(self) -> bool:
+    def cur_bag_checks_errors(self) -> int:
+
+        errors = 0
 
         if self._structure:
-            if (self._bc_structure_errors > 0) or (self._bc_structure_warnings > 0):
-                return False
+            errors += self._bc_structure_errors
 
         if self._metadata:
-            if (self._bc_metadata_errors > 0) or (self._bc_metadata_warnings > 0):
-                return False
+            errors += self._bc_metadata_errors
 
         if self._elevation:
-            if (self._bc_elevation_errors > 0) or (self._bc_elevation_warnings > 0):
-                return False
+            errors += self._bc_elevation_errors
 
         if self._uncertainty:
-            if (self._bc_uncertainty_errors > 0) or (self._bc_uncertainty_warnings > 0):
-                return False
+            errors += self._bc_uncertainty_errors
 
         if self._tracking_list:
-            if (self._bc_tracking_list_errors > 0) or (self._bc_tracking_list_warnings > 0):
-                return False
+            errors += self._bc_tracking_list_errors
 
         if self._gdal_compatibility:
-            if (self._bc_gdal_compatibility_errors > 0) or (self._bc_gdal_compatibility_warnings > 0):
-                return False
+            errors += self._bc_gdal_compatibility_errors
 
-        return True
+        return errors
+
+    @property
+    def cur_bag_checks_warnings(self) -> int:
+
+        warnings = 0
+
+        if self._structure:
+            warnings += self._bc_structure_warnings
+
+        if self._metadata:
+            warnings += self._bc_metadata_warnings
+
+        if self._elevation:
+            warnings += self._bc_elevation_warnings
+
+        if self._uncertainty:
+            warnings += self._bc_uncertainty_warnings
+
+        if self._tracking_list:
+            warnings += self._bc_tracking_list_warnings
+
+        if self._gdal_compatibility:
+            warnings += self._bc_gdal_compatibility_warnings
+
+        return warnings
 
     def open_bagchecks_output_folder(self):
         logger.info("open %s" % self.bagchecks_output_folder)
