@@ -54,7 +54,7 @@ class ValsouCheckV8(BaseValsou):
 
         GdalAux.check_gdal_data()
 
-    def run(self, max_dist: float = 3.0, depth_precision: int = 2, flag_out_of_bbox: bool = True) -> None:
+    def run(self, max_dist: float = 3.0, flag_out_of_bbox: bool = True) -> None:
         """Actually execute the checks"""
         logger.info("valsou check against HSSD %s ..." % self.version)
         logger.info("include TECSOU=laser: %s" % self.with_laser)
@@ -66,7 +66,7 @@ class ValsouCheckV8(BaseValsou):
         if len(self.valsou_features) == 0:
             logger.warning("no features to check!")
             return
-        self._convert_features_to_array_coords(depth_precision=depth_precision)
+        self._convert_features_to_array_coords()
 
         # check for features out of the bbox (skip for CSAR VR since there is not a low-res bbox)
         if flag_out_of_bbox and not (self.grids.is_vr() and self.grids.is_csar()):
@@ -94,7 +94,7 @@ class ValsouCheckV8(BaseValsou):
 
             logger.info("--->>> new tile: %03d" % count)
             count += 1
-            self._run_slice(depth_precision=depth_precision)
+            self._run_slice()
             self.grids.clear_tiles()
 
         # print(self.valsou_visited)
@@ -184,7 +184,7 @@ class ValsouCheckV8(BaseValsou):
         # not following NOAA naming rules
         return -99999, 99999
 
-    def _convert_features_to_array_coords(self, depth_precision: int) -> None:
+    def _convert_features_to_array_coords(self) -> None:
         # prepare some lists with:
         # - the geographic position of the features (self.valsou_geo)
         # - the local (projected) position of the features (self.valsou_loc)
@@ -204,8 +204,8 @@ class ValsouCheckV8(BaseValsou):
 
                 if attr.acronym == 'VALSOU':
                     # invert sign due to the CSAR/BAG convention (depths are negative)
-                    s57_valsou = -float(attr.value) - 0.00001
-                    # logger.debug("VALSOU value: %f" % s57_valsou)
+                    s57_valsou = -float(attr.value)
+                    logger.debug("VALSOU value: %.5f" % s57_valsou)
                     continue
 
             # append [long, lat, depth]
@@ -252,7 +252,7 @@ class ValsouCheckV8(BaseValsou):
         self.valsou_closest = np.empty_like(valsou_array)
         self.valsou_closest[:, 0] = np.rint(valsou_array[:, 0])
         self.valsou_closest[:, 1] = np.rint(valsou_array[:, 1])
-        self.valsou_closest[:, 2] = np.around(valsou_array[:, 2], decimals=depth_precision)
+        self.valsou_closest[:, 2] = valsou_array[:, 2]
         # logger.debug("closest: %s" % self.valsou_closest)
 
         # logger.debug("converting features to array coords ... DONE!")
@@ -281,27 +281,27 @@ class ValsouCheckV8(BaseValsou):
 
         # logger.debug("visited: %s" % self.valsou_visited)
 
-    def _run_slice(self, depth_precision: int) -> None:
+    def _run_slice(self) -> None:
         """Apply the algorithm to the current slice"""
 
         # load depths
         self._load_depths()
 
         # epsilon used to compare floating-point depths
-        eps_depth = 10 ** -(depth_precision + 1)
-        logger.debug("epsilon depth: %f" % (eps_depth,))
+        eps_depth = 0.01099
+        # logger.debug("epsilon depth: %f" % (eps_depth,))
 
-        self._calc_array_coords_in_cur_tile(depth_precision=depth_precision)
+        self._calc_array_coords_in_cur_tile()
 
         # check each features against the surface slice
         for i, closest in enumerate(self.valsou_closest):
 
-            logger.debug("%d: (%s, %s) -> (%s, %s)"
-                         % (i, closest[0], closest[1], self.valsou_geo[i][0], self.valsou_geo[i][1]))
-
             # skip if already visited in a previous slice
             if self.valsou_visited[i]:
                 continue
+
+            # logger.debug("%d: (%s, %s) -> (%s, %s)"
+            #              % (i, closest[0], closest[1], self.valsou_geo[i][0], self.valsou_geo[i][1]))
 
             # retrieve the shoalest depth value among the closest grid node and the 8 surrounding nodes
             di = int(closest[1])
@@ -312,8 +312,8 @@ class ValsouCheckV8(BaseValsou):
 
                     # skip if not in the current grid slice
                     if (jj < 0) or (jj >= self.bathy_cols) or (ii < 0) or (ii >= self.bathy_rows):
-                        logger.debug("skip: 0 < (%d, %d) >= (%d, %d)"
-                                     % (jj, ii, self.bathy_cols, self.bathy_rows))
+                        # logger.debug("skip: 0 < (%d, %d) >= (%d, %d)"
+                        #              % (jj, ii, self.bathy_cols, self.bathy_rows))
                         continue
 
                     retrieved_depth = self.bathy_values[ii, jj]
@@ -332,16 +332,22 @@ class ValsouCheckV8(BaseValsou):
             if depth_closest is None:
                 continue
 
+            ft_depth = closest[2]
+            grid_depth = depth_closest
+            delta_depth = abs(grid_depth - ft_depth)
+
             # early exit: the closest-node depth matches with the feature depth
-            if abs(round(depth_closest, depth_precision) - round(closest[2], depth_precision)) < eps_depth:
+            if delta_depth < eps_depth:
                 self.valsou_visited[i] = True
+                logger.info("feature %s at (%s, %s) MATCHES depth: %.5f vs. %.5f [%.5f]"
+                            % (self.valsou_features[i].acronym, self.valsou_geo[i][0], self.valsou_geo[i][1],
+                               ft_depth, grid_depth, delta_depth))
                 continue
 
             self.flagged_features.append([self.valsou_geo[i][0], self.valsou_geo[i][1], 'depth discrepancy'])
-            logger.info("+1  -> depth discrepancy at %s, %s: %s vs. %s"
-                        % (self.valsou_geo[i][0], self.valsou_geo[i][1],
-                           round(closest[2], depth_precision), round(depth_closest, depth_precision)))
-
+            logger.info("feature %s at (%s, %s) has depth discrepancy: %.5f vs. %.5f [%.5f] -> UPDATE"
+                        % (self.valsou_features[i].acronym, self.valsou_geo[i][0], self.valsou_geo[i][1],
+                           ft_depth, grid_depth, delta_depth))
             self.valsou_visited[i] = True
 
     def _load_depths(self) -> None:
@@ -388,7 +394,7 @@ class ValsouCheckV8(BaseValsou):
         self.bathy_cols = int(tile.bbox.cols)
         logger.debug("shape: %d, %d" % (self.bathy_rows, self.bathy_cols))
 
-    def _calc_array_coords_in_cur_tile(self, depth_precision: int) -> None:
+    def _calc_array_coords_in_cur_tile(self) -> None:
         # convert feature to array coords
         # logger.debug("geo: %s" % self.valsou_geo)
         # logger.debug("loc: %s" % self.valsou_loc)
@@ -401,5 +407,5 @@ class ValsouCheckV8(BaseValsou):
         self.valsou_closest = np.empty_like(valsou_array)
         self.valsou_closest[:, 0] = np.rint(valsou_array[:, 0])
         self.valsou_closest[:, 1] = np.rint(valsou_array[:, 1])
-        self.valsou_closest[:, 2] = np.around(valsou_array[:, 2], decimals=depth_precision)
+        self.valsou_closest[:, 2] = valsou_array[:, 2]
         # logger.debug("closest: %s" % self.valsou_closest)

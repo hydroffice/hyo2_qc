@@ -1,3 +1,4 @@
+import sys
 import logging
 
 from PySide2 import QtWidgets
@@ -14,7 +15,7 @@ app = QtWidgets.QApplication()
 wid = QtWidgets.QWidget(parent=None)
 
 # options
-use_internal_test_files = True
+use_internal_test_files = False
 use_internal_csar = True
 with_laser = True
 specs_version = "2021"
@@ -42,8 +43,8 @@ if use_internal_test_files:
     prj.add_to_grid_list(path=grid_files[grid_idx])
 
 else:
-    prj.add_to_s57_list(r"")
-    prj.add_to_grid_list(r"")
+    prj.add_to_s57_list(r"D:\google_drive\_ccom\QC Tools\data\survey\QC Tools 4\VALSOU_Checks\F00879\F00879_FFF.000")
+    prj.add_to_grid_list(r"D:\google_drive\_ccom\QC Tools\data\survey\QC Tools 4\VALSOU_Checks\F00879\F00879_MB_50cm_MLLW_Final.csar")
 
 
 for s57_file in prj.s57_list:
