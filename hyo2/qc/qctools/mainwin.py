@@ -85,7 +85,7 @@ class MainWin(QtWidgets.QMainWindow):
             settings.setValue("start_tab", start_tab)
         self.tabs.setCurrentIndex(start_tab)
 
-        self.statusBar().setStyleSheet("QStatusBar{color:rgba(0,0,0,128);font-size: 8pt;}")
+        self.statusBar().setStyleSheet("QStatusBar{color:rgba(139,0,139,200);font-size: 8pt;}")
         self.status_bar_normal_style = self.statusBar().styleSheet()
         self.statusBar().showMessage("%s" % app_info.app_version, 2000)
         timer = QtCore.QTimer(self)
@@ -93,6 +93,12 @@ class MainWin(QtWidgets.QMainWindow):
         timer.timeout.connect(self.update_gui)
         timer.start(300000)  # 5 mins
         self.update_gui()
+
+    @property
+    def splash_screen(self) -> bool:
+        settings = QtCore.QSettings()
+        ret = settings.value("splash_screen", 1)
+        return ret == 1
 
     def update_gui(self):
         msg = str()
@@ -135,6 +141,8 @@ class MainWin(QtWidgets.QMainWindow):
 
         else:
             self.statusBar().setStyleSheet(self.status_bar_normal_style)
+
+        tokens.append("To be used ONLY for 2023 HSSD or earlier")
 
         msg += "|".join(tokens)
 

@@ -71,12 +71,13 @@ class Checks:
                     obj.acronym, obj.centroid.x, obj.centroid.y)
                 # add to the flagged feature list
                 self.flags.append(obj.centroid.x, obj.centroid.y, "warning: missing %s" % attribute,
-                                  self.report.cur_section())
+                                  self.report.cur_section(with_prepended_summary=True))
             else:
                 # add to the flagged report
                 self.report += 'Found missing %s at (%.7f, %.7f)' % (obj.acronym, obj.centroid.x, obj.centroid.y)
                 # add to the flagged feature list
-                self.flags.append(obj.centroid.x, obj.centroid.y, "missing %s" % attribute, self.report.cur_section())
+                self.flags.append(obj.centroid.x, obj.centroid.y, "missing %s" % attribute,
+                                  self.report.cur_section(with_prepended_summary=True))
             flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
 
         if len(flagged) == 0:
@@ -111,14 +112,14 @@ class Checks:
                         xor_attributes, obj.centroid.x, obj.centroid.y)
                     # add to the flagged feature list
                     self.flags.append(obj.centroid.x, obj.centroid.y, "warning: missing one among %s"
-                                      % (xor_attributes,), self.report.cur_section())
+                                      % (xor_attributes,), self.report.cur_section(with_prepended_summary=True))
                 else:
                     # add to the flagged report
                     self.report += 'Found missing one among %s at (%.7f, %.7f)' % (
                         xor_attributes, obj.centroid.x, obj.centroid.y)
                     # add to the flagged feature list
                     self.flags.append(obj.centroid.x, obj.centroid.y, "missing one among %s"
-                                      % (xor_attributes,), self.report.cur_section())
+                                      % (xor_attributes,), self.report.cur_section(with_prepended_summary=True))
 
             else:
                 # add to the flagged report
@@ -128,14 +129,16 @@ class Checks:
                         attrs_counter, xor_attributes, obj.centroid.x, obj.centroid.y)
                     # add to the flagged feature list
                     self.flags.append(obj.centroid.x, obj.centroid.y, "warning: %d among %s"
-                                      % (attrs_counter, xor_attributes,), self.report.cur_section())
+                                      % (attrs_counter, xor_attributes,),
+                                      self.report.cur_section(with_prepended_summary=True))
                 else:
                     # add to the flagged report
                     self.report += 'Found %d among %s at (%.7f, %.7f)' % (
                         attrs_counter, xor_attributes, obj.centroid.x, obj.centroid.y)
                     # add to the flagged feature list
                     self.flags.append(obj.centroid.x, obj.centroid.y, "%d among %s"
-                                      % (attrs_counter, xor_attributes,), self.report.cur_section())
+                                      % (attrs_counter, xor_attributes,),
+                                      self.report.cur_section(with_prepended_summary=True))
 
             flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
 
@@ -165,13 +168,13 @@ class Checks:
                 self.report += 'Warning: Found %s at (%.7f, %.7f)' % (obj.acronym, obj.centroid.x, obj.centroid.y)
                 # add to the flagged feature list
                 self.flags.append(obj.centroid.x, obj.centroid.y, "warning: containing %s (?)" % attribute,
-                                  self.report.cur_section())
+                                  self.report.cur_section(with_prepended_summary=True))
             else:
                 # add to the flagged report
                 self.report += 'Found %s at (%.7f, %.7f)' % (obj.acronym, obj.centroid.x, obj.centroid.y)
                 # add to the flagged feature list
                 self.flags.append(obj.centroid.x, obj.centroid.y, "containing %s" % attribute,
-                                  self.report.cur_section())
+                                  self.report.cur_section(with_prepended_summary=True))
             flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
 
         if len(flagged) == 0:
@@ -204,14 +207,15 @@ class Checks:
                                        % (obj.acronym, obj.centroid.x, obj.centroid.y)
                         # add to the flagged feature list
                         self.flags.append(obj.centroid.x, obj.centroid.y,
-                                          "warning: missing attribute: %s" % attribute, self.report.cur_section())
+                                          "warning: missing attribute: %s" % attribute,
+                                          self.report.cur_section(with_prepended_summary=True))
                     else:
                         # add to the flagged report
                         self.report += 'Found missing attribute %s at (%.7f, %.7f)' \
                                        % (obj.acronym, obj.centroid.x, obj.centroid.y)
                         # add to the flagged feature list
                         self.flags.append(obj.centroid.x, obj.centroid.y, "missing attribute: %s" % attribute,
-                                          self.report.cur_section())
+                                          self.report.cur_section(with_prepended_summary=True))
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
@@ -225,13 +229,14 @@ class Checks:
                 self.report += 'Warning: Found invalid/prohibited attribute value for %s at (%.7f, %.7f)' \
                                % (obj.acronym, obj.centroid.x, obj.centroid.y)
                 self.flags.append(obj.centroid.x, obj.centroid.y,
-                                  "warning: invalid/prohibited value for %s" % attribute, self.report.cur_section())
+                                  "warning: invalid/prohibited value for %s" % attribute,
+                                  self.report.cur_section(with_prepended_summary=True))
             else:
                 # add to the flagged report
                 self.report += 'Found invalid/prohibited attribute value for %s at (%.7f, %.7f)' \
                                % (obj.acronym, obj.centroid.x, obj.centroid.y)
                 self.flags.append(obj.centroid.x, obj.centroid.y, "invalid/prohibited value for %s" % attribute,
-                                  self.report.cur_section())
+                                  self.report.cur_section(with_prepended_summary=True))
             flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
 
         if len(flagged) == 0:
@@ -297,13 +302,13 @@ class Checks:
                     self.report += 'Warning: Redundant %s at (%.7f, %.7f)' % (ft.acronym, ft.centroid.x, ft.centroid.y)
                     # add to the flagged feature list
                     self.flags.append(ft.centroid.x, ft.centroid.y, "warning: redundant %s" % ft.acronym,
-                                      self.report.cur_section())
+                                      self.report.cur_section(with_prepended_summary=True))
                 else:
                     # add to the flagged report
                     self.report += 'Redundant %s at (%.7f, %.7f)' % (ft.acronym, ft.centroid.x, ft.centroid.y)
                     # add to the flagged feature list
                     self.flags.append(ft.centroid.x, ft.centroid.y, "redundant %s" % ft.acronym,
-                                      self.report.cur_section())
+                                      self.report.cur_section(with_prepended_summary=True))
                 self.flags.all_fts.redundancy.append([ft.acronym, geo2x, geo2y])
             else:
                 # populated the feature list
@@ -457,7 +462,8 @@ class Checks:
             self.report += 'Found %s at (%.7f, %.7f) with invalid SORIND' \
                            % (obj.acronym, obj.centroid.x, obj.centroid.y)
             # add to the flagged feature list
-            self.flags.append(obj.centroid.x, obj.centroid.y, "invalid SORIND", self.report.cur_section())
+            self.flags.append(obj.centroid.x, obj.centroid.y, "invalid SORIND",
+                              self.report.cur_section(with_prepended_summary=True))
             flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
 
         if len(flagged) == 0:
@@ -485,7 +491,8 @@ class Checks:
             self.report += 'Found %s at (%.7f, %.7f) with invalid SORIND' % (
                 obj.acronym, obj.centroid.x, obj.centroid.y)
             # add to the flagged feature list
-            self.flags.append(obj.centroid.x, obj.centroid.y, "invalid SORIND", self.report.cur_section())
+            self.flags.append(obj.centroid.x, obj.centroid.y, "invalid SORIND",
+                              self.report.cur_section(with_prepended_summary=True))
             flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
 
         if len(flagged) == 0:
@@ -546,7 +553,8 @@ class Checks:
             self.report += 'Found %s at (%.7f, %.7f) with invalid SORDAT' % (
                 obj.acronym, obj.centroid.x, obj.centroid.y)
             # add to the flagged feature list
-            self.flags.append(obj.centroid.x, obj.centroid.y, "invalid SORDAT", self.report.cur_section())
+            self.flags.append(obj.centroid.x, obj.centroid.y, "invalid SORDAT",
+                              self.report.cur_section(with_prepended_summary=True))
             flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
 
         if len(flagged) == 0:
@@ -574,7 +582,8 @@ class Checks:
             self.report += 'Found %s at (%.7f, %.7f) with invalid SORDAT' % (
                 obj.acronym, obj.centroid.x, obj.centroid.y)
             # add to the flagged feature list
-            self.flags.append(obj.centroid.x, obj.centroid.y, "invalid SORDAT", self.report.cur_section())
+            self.flags.append(obj.centroid.x, obj.centroid.y, "invalid SORDAT",
+                              self.report.cur_section(with_prepended_summary=True))
             flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
 
         if len(flagged) == 0:
@@ -657,11 +666,13 @@ class Checks:
             if is_invalid_for_valsou:
                 self.report += 'Found %s at (%.7f, %.7f) with invalid VALSOU (islet ?)' % (
                     obj.acronym, obj.centroid.x, obj.centroid.y)
-                self.flags.append(obj.centroid.x, obj.centroid.y, "invalid VALSOU (islet ?)", self.report.cur_section())
+                self.flags.append(obj.centroid.x, obj.centroid.y, "invalid VALSOU (islet ?)",
+                                  self.report.cur_section(with_prepended_summary=True))
             else:
                 self.report += 'Found %s at (%.7f, %.7f) with invalid WATLEV' % (
                     obj.acronym, obj.centroid.x, obj.centroid.y)
-                self.flags.append(obj.centroid.x, obj.centroid.y, "invalid WATLEV", self.report.cur_section())
+                self.flags.append(obj.centroid.x, obj.centroid.y, "invalid WATLEV",
+                                  self.report.cur_section(with_prepended_summary=True))
             flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
 
         if len(flagged) == 0:
@@ -693,7 +704,8 @@ class Checks:
             self.report += 'Found %s at (%.7f, %.7f) with invalid ELEVAT' % (
                 obj.acronym, obj.centroid.x, obj.centroid.y)
             # add to the flagged feature list and to the flagged report
-            self.flags.append(obj.centroid.x, obj.centroid.y, "invalid ELEVAT", self.report.cur_section())
+            self.flags.append(obj.centroid.x, obj.centroid.y, "invalid ELEVAT",
+                              self.report.cur_section(with_prepended_summary=True))
             flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
 
         if len(flagged) == 0:
@@ -731,7 +743,7 @@ class Checks:
                                % (obj.acronym, obj.centroid.x, obj.centroid.y)
                 # logger.debug("checking for TECSOU...")
                 self.flags.append(obj.centroid.x, obj.centroid.y, 'missing TECSOU required for QUASOU',
-                                  self.report.cur_section())
+                                  self.report.cur_section(with_prepended_summary=True))
                 flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                 continue
 
@@ -743,7 +755,7 @@ class Checks:
                     # add to the flagged feature list
                     self.flags.append(obj.centroid.x, obj.centroid.y,
                                       "warning: TECSOU requires blank QUASOU: %s" % (tecsou,),
-                                      self.report.cur_section())
+                                      self.report.cur_section(with_prepended_summary=True))
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                 continue
 
@@ -753,7 +765,7 @@ class Checks:
                 self.report += 'Found %s at (%.7f, %.7f) is missing QUASOU required for TECSOU' \
                                % (obj.acronym, obj.centroid.x, obj.centroid.y)
                 self.flags.append(obj.centroid.x, obj.centroid.y, 'missing QUASOU required for TECSOU',
-                                  self.report.cur_section())
+                                  self.report.cur_section(with_prepended_summary=True))
                 flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                 continue
 
@@ -766,7 +778,8 @@ class Checks:
                 self.report += 'Warning: found %s at (%.7f, %.7f) contains mismatch in the number of TECSOU and ' \
                                'QUASOU attributes' % (obj.acronym, obj.centroid.x, obj.centroid.y)
                 self.flags.append(obj.centroid.x, obj.centroid.y, 'warning: mismatch in the number of TECSOU and '
-                                                                  'QUASOU attributes', self.report.cur_section())
+                                                                  'QUASOU attributes',
+                                  self.report.cur_section(with_prepended_summary=True))
                 flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                 continue
 
@@ -782,7 +795,7 @@ class Checks:
                 # add to the flagged feature list
                 self.flags.append(obj.centroid.x, obj.centroid.y,
                                   "warning: TECSOU and QUASOU combination is not allowed %s" % (check,),
-                                  self.report.cur_section())
+                                  self.report.cur_section(with_prepended_summary=True))
                 flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                 break
 
@@ -878,7 +891,8 @@ class Checks:
                     self.report += 'Found %s at (%.7f, %.7f) with image having invalid separator: %s' % \
                                    (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                     # add to the flagged feature list and to the flagged report
-                    self.flags.append(obj.centroid.x, obj.centroid.y, "invalid separator", self.report.cur_section())
+                    self.flags.append(obj.centroid.x, obj.centroid.y, "invalid separator",
+                                      self.report.cur_section(with_prepended_summary=True))
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
@@ -887,7 +901,7 @@ class Checks:
                                    (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                     # add to the flagged feature list and to the flagged report
                     self.flags.append(obj.centroid.x, obj.centroid.y, "missing images folder",
-                                      self.report.cur_section())
+                                      self.report.cur_section(with_prepended_summary=True))
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
@@ -896,7 +910,7 @@ class Checks:
                                    (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                     # add to the flagged feature list and to the flagged report
                     self.flags.append(obj.centroid.x, obj.centroid.y, "listed image names not unique",
-                                      self.report.cur_section())
+                                      self.report.cur_section(with_prepended_summary=True))
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
@@ -904,7 +918,8 @@ class Checks:
                 if not os.path.exists(img_path):
                     self.report += 'Found %s at (%.7f, %.7f) with invalid path to image: %s' % \
                                    (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
-                    self.flags.append(obj.centroid.x, obj.centroid.y, "invalid path", self.report.cur_section())
+                    self.flags.append(obj.centroid.x, obj.centroid.y, "invalid path",
+                                      self.report.cur_section(with_prepended_summary=True))
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
@@ -941,7 +956,8 @@ class Checks:
                     self.report += 'Found %s at (%.7f, %.7f) with image having invalid filenaming (nr. of "_"): %s' % \
                                    (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                     # add to the flagged feature list and to the flagged report
-                    self.flags.append(obj.centroid.x, obj.centroid.y, "invalid filenaming", self.report.cur_section())
+                    self.flags.append(obj.centroid.x, obj.centroid.y, "invalid filenaming",
+                                      self.report.cur_section(with_prepended_summary=True))
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
@@ -950,7 +966,7 @@ class Checks:
                                    (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                     # add to the flagged feature list and to the flagged report
                     self.flags.append(obj.centroid.x, obj.centroid.y, "invalid survey in filename",
-                                      self.report.cur_section())
+                                      self.report.cur_section(with_prepended_summary=True))
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
@@ -959,7 +975,7 @@ class Checks:
                                    (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                     # add to the flagged feature list and to the flagged report
                     self.flags.append(obj.centroid.x, obj.centroid.y, "invalid FIDN+FIDS in filename",
-                                      self.report.cur_section())
+                                      self.report.cur_section(with_prepended_summary=True))
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
@@ -993,7 +1009,8 @@ class Checks:
                     self.report += 'Found %s at (%.7f, %.7f) with image having invalid filenaming (nr. of "_"): %s ' % \
                                    (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                     # add to the flagged feature list and to the flagged report
-                    self.flags.append(obj.centroid.x, obj.centroid.y, "invalid filenaming", self.report.cur_section())
+                    self.flags.append(obj.centroid.x, obj.centroid.y, "invalid filenaming",
+                                      self.report.cur_section(with_prepended_summary=True))
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
@@ -1002,7 +1019,7 @@ class Checks:
                                    (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                     # add to the flagged feature list and to the flagged report
                     self.flags.append(obj.centroid.x, obj.centroid.y, "invalid survey in filename",
-                                      self.report.cur_section())
+                                      self.report.cur_section(with_prepended_summary=True))
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
@@ -1011,7 +1028,7 @@ class Checks:
                                    (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                     # add to the flagged feature list and to the flagged report
                     self.flags.append(obj.centroid.x, obj.centroid.y, "'_SBDARE_' not present in filename",
-                                      self.report.cur_section())
+                                      self.report.cur_section(with_prepended_summary=True))
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
@@ -1021,7 +1038,7 @@ class Checks:
                                        '%s ' % (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                         # add to the flagged feature list and to the flagged report
                         self.flags.append(obj.centroid.x, obj.centroid.y, "invalid timestamp in filename",
-                                          self.report.cur_section())
+                                          self.report.cur_section(with_prepended_summary=True))
                         flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                         continue
                 if self.version in ["2020", ]:
@@ -1030,7 +1047,7 @@ class Checks:
                                        '%s ' % (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                         # add to the flagged feature list and to the flagged report
                         self.flags.append(obj.centroid.x, obj.centroid.y, "invalid timestamp in filename",
-                                          self.report.cur_section())
+                                          self.report.cur_section(with_prepended_summary=True))
                         flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                         continue
 
@@ -1065,7 +1082,7 @@ class Checks:
                                    '%s ' % (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                     # add to the flagged feature list and to the flagged report
                     self.flags.append(obj.centroid.x, obj.centroid.y, "invalid filenaming",
-                                      self.report.cur_section())
+                                      self.report.cur_section(with_prepended_summary=True))
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
@@ -1074,7 +1091,7 @@ class Checks:
                                    (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                     # add to the flagged feature list and to the flagged report
                     self.flags.append(obj.centroid.x, obj.centroid.y, "invalid survey in filename",
-                                      self.report.cur_section())
+                                      self.report.cur_section(with_prepended_summary=True))
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
@@ -1083,7 +1100,7 @@ class Checks:
                                    (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                     # add to the flagged feature list and to the flagged report
                     self.flags.append(obj.centroid.x, obj.centroid.y, "'SBDARE' not stated in filename",
-                                      self.report.cur_section())
+                                      self.report.cur_section(with_prepended_summary=True))
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
@@ -1094,7 +1111,7 @@ class Checks:
                                    '%s ' % (obj.acronym, obj.centroid.x, obj.centroid.y, image_filename)
                     # add to the flagged feature list and to the flagged report
                     self.flags.append(obj.centroid.x, obj.centroid.y, "no numeric identifier in filename",
-                                      self.report.cur_section())
+                                      self.report.cur_section(with_prepended_summary=True))
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                     continue
 
@@ -1128,7 +1145,7 @@ class Checks:
                                    (obj.acronym, obj.centroid.x, obj.centroid.y, names[image_filename], image_filename)
                     # add to the flagged feature list and to the flagged report
                     self.flags.append(obj.centroid.x, obj.centroid.y, "warning: duplicated image filename",
-                                      self.report.cur_section())
+                                      self.report.cur_section(with_prepended_summary=True))
                     flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
                 else:
                     names[image_filename] = "%s at (%.7f, %.7f)" % (obj.acronym, obj.centroid.x, obj.centroid.y)
@@ -1705,13 +1722,13 @@ class Checks:
                 self.report += 'Found %s at (%.7f, %.7f) has NATSUR/NATQUA imbalance' \
                                % (point.acronym, point.centroid.x, point.centroid.y)
                 self.flags.append(point.centroid.x, point.centroid.y, 'NATSUR/NATQUA imbalance',
-                                  self.report.cur_section())
+                                  self.report.cur_section(with_prepended_summary=True))
             else:
                 # add to the flagged report
                 self.report += 'Found %s at (%.7f, %.7f) has NATSUR/COLOUR imbalance' \
                                % (point.acronym, point.centroid.x, point.centroid.y)
                 self.flags.append(point.centroid.x, point.centroid.y, 'NATSUR/COLOUR imbalance',
-                                  self.report.cur_section())
+                                  self.report.cur_section(with_prepended_summary=True))
             flagged.append([point.acronym, point.centroid.x, point.centroid.y])
 
         if len(flagged) == 0:
@@ -1764,7 +1781,8 @@ class Checks:
                                    % (sbdare.acronym, sbdare.centroid.x, sbdare.centroid.y)
                     # add to the flagged feature list
                     self.flags.append(sbdare.centroid.x, sbdare.centroid.y,
-                                      "NATQUA and NATSUR combination is not allowed", self.report.cur_section())
+                                      "NATQUA and NATSUR combination is not allowed",
+                                      self.report.cur_section(with_prepended_summary=True))
                     flagged.append([sbdare.acronym, sbdare.centroid.x, sbdare.centroid.y])
                     break
 
@@ -1909,7 +1927,7 @@ class Checks:
                            (aton.acronym, aton.centroid.x, aton.centroid.y)
             # add to the flagged feature list
             self.flags.append(aton.centroid.x, aton.centroid.y, "ATON %s" % (aton.acronym,),
-                              self.report.cur_section())
+                              self.report.cur_section(with_prepended_summary=True))
             self.flags.office.atons.append([aton.acronym, aton.centroid.x, aton.centroid.y])
         if len(atons) == 0:
             self.report += "OK"
@@ -1985,7 +2003,7 @@ class Checks:
                                (obj.acronym, obj.centroid.x, obj.centroid.y, keywords)
                 # add to the flagged feature list
                 self.flags.append(obj.centroid.x, obj.centroid.y, "missing %s in %s" % (keywords, attr_acronym),
-                                  self.report.cur_section())
+                                  self.report.cur_section(with_prepended_summary=True))
                 flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
 
         if len(flagged) == 0:
@@ -2010,7 +2028,8 @@ class Checks:
                                           nr_chars, attr.acronym)
                         # add to the flagged feature list
                         self.flags.append(obj.centroid.x, obj.centroid.y, '%d-characters limit exceeds [%d in %s]'
-                                          % (character_limit, nr_chars, attr.acronym), self.report.cur_section())
+                                          % (character_limit, nr_chars, attr.acronym),
+                                          self.report.cur_section(with_prepended_summary=True))
                         flagged.append([obj.acronym, obj.centroid.x, obj.centroid.y])
 
         if len(flagged) == 0:

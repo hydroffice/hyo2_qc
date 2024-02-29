@@ -34,4 +34,22 @@ def gui():
     main_win.show()
     # main.do()
 
+    if main_win.splash_screen:
+        main_win.setDisabled(True)
+        msg = "<p align='center'><i><span style='background-color:#ffffaa'><font color='#888888'>" \
+              "QC Tools 3 should only be used on projects assigned<br>" \
+              "the 2023 HSSD or earlier in your Project Instructions. <br><br>" \
+              "If you have been assigned a project that uses <br>" \
+              "the 2024 HSSD, please use QC Tools 4!" \
+              "</font></i></span></p>"
+        msg += "Do you still want to open QC Tools 3?"
+        # noinspection PyUnresolvedReferences,PyTypeChecker
+        ret = QtWidgets.QMessageBox.warning(main_win, "QC Tools 3", msg, QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+        if ret == QtWidgets.QMessageBox.No:
+            logger.info("Please run QC Tools 4!")
+            sys.exit()
+        main_win.setEnabled(True)
+    else:
+        logger.info("Splash screen: OFF (Use CTRL+T to reactivate it)")
+
     sys.exit(app.exec_())

@@ -157,12 +157,20 @@ class SurveyWidget(AbstractWidget):
         self.has_grid = False
         self.has_s57 = False
 
-    def keyPressEvent(self, event):
+    def keyPressEvent(self, event: QtGui.QKeyEvent) -> None:
         key = event.key()
-        # noinspection PyUnresolvedReferences
-        if key in [QtCore.Qt.Key_A, ]:
-            pass
-
+        if event.modifiers() == QtCore.Qt.ControlModifier:
+            # logger.debug("pressed CTRL + %s" % key)
+            if key == QtCore.Qt.Key_T:
+                settings = QtCore.QSettings()
+                ret = settings.value("splash_screen", 1)
+                if ret == 1:
+                    settings.setValue("splash_screen", 0)
+                    logger.info('Splash-screen: OFF')
+                else:
+                    settings.setValue("splash_screen", 1)
+                    logger.info('Splash-screen: ON')
+                return
         return super(SurveyWidget, self).keyPressEvent(event)
 
     def do(self):
