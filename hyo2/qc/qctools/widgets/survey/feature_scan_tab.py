@@ -200,11 +200,7 @@ class FeatureScanTab(QtWidgets.QMainWindow):
         vbox.addLayout(label_hbox)
         # stretch
         label_hbox.addStretch()
-        hidden = self.prj.active_profile == 1
-        if hidden:
-            self.text_office = QtWidgets.QLabel("")
-        else:
-            self.text_office = QtWidgets.QLabel(self.text_office_note)
+        self.text_office = QtWidgets.QLabel("")
         # self.text_office.stateChanged.connect(self.click_set_profile)
         self.text_office.setAlignment(QtCore.Qt.AlignCenter)
         self.text_office.setFixedWidth(300)
@@ -362,6 +358,8 @@ class FeatureScanTab(QtWidgets.QMainWindow):
 
         hbox.addStretch()
 
+        self.handle_image_folder()
+
     def _ui_execute_fs(self):
         vbox = QtWidgets.QVBoxLayout()
         self.executeFS.setLayout(vbox)
@@ -399,17 +397,22 @@ class FeatureScanTab(QtWidgets.QMainWindow):
         self.settings.setValue("survey/scan", value)
         logger.info('activated profile #%s' % value)
 
-        # check images was optional in 2019 for NOAA contractors
-        enable = self.toggle_specs.value() in [2019, ] and (value == 1)
-        self.check_image_names.setEnabled(enable)
-        self.check_image_names_text.setEnabled(enable)
+        self.handle_image_folder()
 
-        # make office text visible
-        if value == 1:
+    def handle_image_folder(self):
+        if self.prj.active_profile == 1:
             self.text_office.setText("")
+            self.check_image_names.setEnabled(True)
+            self.check_image_names.setChecked(True)
+            self.check_image_names_text.setEnabled(True)
+            self.set_images_folder.setEnabled(True)
         else:
             self.text_office.setText(self.text_office_note)
-            self.check_image_names.setChecked(True)
+            self.check_image_names.setDisabled(True)
+            self.check_image_names.setChecked(False)
+            self.check_image_names_text.setDisabled(True)
+            self.set_images_folder.setDisabled(True)
+            self.set_images_folder.setChecked(False)
 
     def change_great_lakes(self):
         logger.info('use Great Lakes: %s' % self.great_lakes.isChecked())
