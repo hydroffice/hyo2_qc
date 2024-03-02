@@ -50,7 +50,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'HydrOffice QC Tools'
-copyright = u'2023, CCOM/JHC,UNH'
+copyright = u'2024, CCOM/JHC,UNH'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -59,7 +59,7 @@ copyright = u'2023, CCOM/JHC,UNH'
 # The short X.Y version.
 version = '3.10'
 # The full version, including alpha/beta/rc tags.
-release = '3.10.7'
+release = '3.10.13'
 
 numfig = True
 
@@ -209,7 +209,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     ('index', 'HydrOfficeQCTools.tex', u'HydrOffice QC Tools Manual',
-     u'2023, CCOM/JHC,UNH', 'manual'),
+     u'2024, CCOM/JHC,UNH', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
