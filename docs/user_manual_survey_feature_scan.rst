@@ -84,9 +84,6 @@ The logic for the 2022 QC Tools feature scan is shown below. For previous years,
 	* All features with **ELEVAT** are checked for valid value.
 * New or Deleted features = all features with **descrp = 1 or 3**:
     * All New or Deleted features must have **remrks**.
-* All features with images:
-	* All **images** contain the correct naming convention and they have a corresponding image in the multimedia folder.
-	* Receive a warning if an image is used on multiple features.
 * Sounding features = all **SOUNDG.**
     * All Sounding features must have **TECSOU** and **QUASOU.**
 * DTONs = all features with **descrp = 1 or 2**, **sftype = 3**:
@@ -145,6 +142,10 @@ The logic for the 2022 QC Tools feature scan is shown below. For previous years,
 	* All **LNDELV** must have **ELEVAT.**
 * Metadata coverages:
 	* All **M_COVR** must have **CATCOV, INFORM,** and **NINFOM.**
+* Specific for the Field Profile:
+	* All features with images (Field Profile Only):
+		* All **images** contain the correct naming convention and they have a corresponding image in the multimedia folder.
+		* Receive a warning if an image is used on multiple features.
 * Specific for the Office Profile:
     * All features must have **onotes.**
     * All features must have **hsdrec.**

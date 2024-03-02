@@ -828,6 +828,10 @@ class Checks:
     # ### IMAGES ###
 
     def images(self):
+        # Field profile only
+        if self.profile != 1:  # Not field
+            logger.info('Skipping checks only for the field profile')
+            return
 
         self.report += "Checks for features with images [SECTION]"
 
@@ -2067,10 +2071,11 @@ class Checks:
                        % (chr(count), self.flags.new_deleted_fts.nr_of_flagged()))
         count += 1
 
-        # ### IMAGES ###
-        summary.append('Section %s - Checks for images: %s' \
-                       % (chr(count), self.flags.images.nr_of_flagged()))
-        count += 1
+        # ### IMAGES ### Field ONLY
+        if self.profile == 1: # field profile
+            summary.append('Section %s - Checks for images (Field Only): %s' \
+                           % (chr(count), self.flags.images.nr_of_flagged()))
+            count += 1
 
         # SOUNDINGS
         summary.append('Section %s - Checks for soundings: %s' \

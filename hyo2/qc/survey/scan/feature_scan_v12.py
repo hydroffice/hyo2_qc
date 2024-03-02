@@ -59,7 +59,6 @@ class FeatureScanV12:
         self.checks.new_or_updated_features()
         self.checks.new_or_deleted_features()
         self.checks.images()
-
         self.checks.soundings()
         self.checks.dtons()
         self.checks.wrecks()
