@@ -23,9 +23,9 @@ cpdef calc_tvu_qc_dd(double[:, :] bathy, double[:, :] product_uncertainty, doubl
     cdef int cols = bathy.shape[1]
 
     cdef int r, c
-    cdef np.float64_t bathy_value
-    cdef np.float64_t pr_unc_value
-    cdef np.float64_t NaN = np.nan
+    cdef double bathy_value
+    cdef double pr_unc_value
+    cdef double NaN = np.nan
 
     for r in range(rows):
 
@@ -56,9 +56,9 @@ cpdef calc_tvu_qc_df(double[:, :] bathy, float[:, :] product_uncertainty, float 
     cdef int cols = bathy.shape[1]
 
     cdef int r, c
-    cdef np.float64_t bathy_value
-    cdef np.float32_t pr_unc_value
-    cdef np.float64_t NaN = np.nan
+    cdef double bathy_value
+    cdef float pr_unc_value
+    cdef double NaN = np.nan
 
     for r in range(rows):
 
@@ -89,9 +89,9 @@ cpdef calc_tvu_qc_fd(float[:, :] bathy, double[:, :] product_uncertainty, double
     cdef int cols = bathy.shape[1]
 
     cdef int r, c
-    cdef np.float32_t bathy_value
-    cdef np.float64_t pr_unc_value
-    cdef np.float32_t NaN = np.nan
+    cdef float bathy_value
+    cdef double pr_unc_value
+    cdef float NaN = np.nan
 
     for r in range(rows):
 
@@ -122,9 +122,9 @@ cpdef calc_tvu_qc_ff(float[:, :] bathy, float[:, :] product_uncertainty, float p
     cdef int cols = bathy.shape[1]
 
     cdef int r, c
-    cdef np.float32_t bathy_value
-    cdef np.float32_t pr_unc_value
-    cdef np.float32_t NaN = np.nan
+    cdef float bathy_value
+    cdef float pr_unc_value
+    cdef float NaN = np.nan
 
     for r in range(rows):
 
@@ -157,9 +157,9 @@ cpdef calc_tvu_qc_a1_dd(double[:, :] bathy, double[:, :] product_uncertainty, do
     cdef int cols = bathy.shape[1]
 
     cdef int r, c
-    cdef np.float64_t bathy_value
-    cdef np.float64_t pr_unc_value
-    cdef np.float64_t NaN = np.nan
+    cdef double bathy_value
+    cdef double pr_unc_value
+    cdef double NaN = np.nan
 
     for r in range(rows):
 
@@ -187,9 +187,9 @@ cpdef calc_tvu_qc_a1_df(double[:, :] bathy, float[:, :] product_uncertainty, flo
     cdef int cols = bathy.shape[1]
 
     cdef int r, c
-    cdef np.float64_t bathy_value
-    cdef np.float32_t pr_unc_value
-    cdef np.float64_t NaN = np.nan
+    cdef double bathy_value
+    cdef float pr_unc_value
+    cdef double NaN = np.nan
 
     for r in range(rows):
 
@@ -217,9 +217,9 @@ cpdef calc_tvu_qc_a1_fd(float[:, :] bathy, double[:, :] product_uncertainty, dou
     cdef int cols = bathy.shape[1]
 
     cdef int r, c
-    cdef np.float32_t bathy_value
-    cdef np.float64_t pr_unc_value
-    cdef np.float32_t NaN = np.nan
+    cdef float bathy_value
+    cdef double pr_unc_value
+    cdef float NaN = np.nan
 
     for r in range(rows):
 
@@ -247,9 +247,9 @@ cpdef calc_tvu_qc_a1_ff(float[:, :] bathy, float[:, :] product_uncertainty, floa
     cdef int cols = bathy.shape[1]
 
     cdef int r, c
-    cdef np.float32_t bathy_value
-    cdef np.float32_t pr_unc_value
-    cdef np.float32_t NaN = np.nan
+    cdef float bathy_value
+    cdef float pr_unc_value
+    cdef float NaN = np.nan
 
     for r in range(rows):
 
@@ -280,9 +280,9 @@ cpdef calc_tvu_qc_a2b_dd(double[:, :] bathy, double[:, :] product_uncertainty, d
     cdef int cols = bathy.shape[1]
 
     cdef int r, c
-    cdef np.float64_t bathy_value
-    cdef np.float64_t pr_unc_value
-    cdef np.float64_t NaN = np.nan
+    cdef double bathy_value
+    cdef double pr_unc_value
+    cdef double NaN = np.nan
 
     for r in range(rows):
 
@@ -310,9 +310,9 @@ cpdef calc_tvu_qc_a2b_df(double[:, :] bathy, float[:, :] product_uncertainty, fl
     cdef int cols = bathy.shape[1]
 
     cdef int r, c
-    cdef np.float64_t bathy_value
-    cdef np.float32_t pr_unc_value
-    cdef np.float64_t NaN = np.nan
+    cdef double bathy_value
+    cdef float pr_unc_value
+    cdef double NaN = np.nan
 
     for r in range(rows):
 
@@ -340,9 +340,9 @@ cpdef calc_tvu_qc_a2b_fd(float[:, :] bathy, double[:, :] product_uncertainty, do
     cdef int cols = bathy.shape[1]
 
     cdef int r, c
-    cdef np.float32_t bathy_value
-    cdef np.float64_t pr_unc_value
-    cdef np.float32_t NaN = np.nan
+    cdef float bathy_value
+    cdef double pr_unc_value
+    cdef float NaN = np.nan
 
     for r in range(rows):
 
@@ -370,9 +370,9 @@ cpdef calc_tvu_qc_a2b_ff(float[:, :] bathy, float[:, :] product_uncertainty, flo
     cdef int cols = bathy.shape[1]
 
     cdef int r, c
-    cdef np.float32_t bathy_value
-    cdef np.float32_t pr_unc_value
-    cdef np.float32_t NaN = np.nan
+    cdef float bathy_value
+    cdef float pr_unc_value
+    cdef float NaN = np.nan
 
     for r in range(rows):
 
@@ -403,9 +403,9 @@ cpdef calc_tvu_qc_c_dd(double[:, :] bathy, double[:, :] product_uncertainty, dou
     cdef int cols = bathy.shape[1]
 
     cdef int r, c
-    cdef np.float64_t bathy_value
-    cdef np.float64_t pr_unc_value
-    cdef np.float64_t NaN = np.nan
+    cdef double bathy_value
+    cdef double pr_unc_value
+    cdef double NaN = np.nan
 
     for r in range(rows):
 
@@ -433,9 +433,9 @@ cpdef calc_tvu_qc_c_df(double[:, :] bathy, float[:, :] product_uncertainty, floa
     cdef int cols = bathy.shape[1]
 
     cdef int r, c
-    cdef np.float64_t bathy_value
-    cdef np.float32_t pr_unc_value
-    cdef np.float64_t NaN = np.nan
+    cdef double bathy_value
+    cdef float pr_unc_value
+    cdef double NaN = np.nan
 
     for r in range(rows):
 
@@ -463,9 +463,9 @@ cpdef calc_tvu_qc_c_fd(float[:, :] bathy, double[:, :] product_uncertainty, doub
     cdef int cols = bathy.shape[1]
 
     cdef int r, c
-    cdef np.float32_t bathy_value
-    cdef np.float64_t pr_unc_value
-    cdef np.float32_t NaN = np.nan
+    cdef float bathy_value
+    cdef double pr_unc_value
+    cdef float NaN = np.nan
 
     for r in range(rows):
 
@@ -493,9 +493,9 @@ cpdef calc_tvu_qc_c_ff(float[:, :] bathy, float[:, :] product_uncertainty, float
     cdef int cols = bathy.shape[1]
 
     cdef int r, c
-    cdef np.float32_t bathy_value
-    cdef np.float32_t pr_unc_value
-    cdef np.float32_t NaN = np.nan
+    cdef float bathy_value
+    cdef float pr_unc_value
+    cdef float NaN = np.nan
 
     for r in range(rows):
 

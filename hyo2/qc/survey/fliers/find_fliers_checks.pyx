@@ -1057,15 +1057,15 @@ cpdef check_noisy_edges_double(double[:, :] bathy, int[:, :] flag_grid, int dist
                 continue
 
             if min_dep >= -100.0:
-                th = (0.25 + (0.013 * -min_dep) ** 2) ** 0.5
+                thr = (0.25 + (0.013 * -min_dep) ** 2) ** 0.5
 
             else:
-                th = (1. + (0.023 * -min_dep) ** 2) ** 0.5
+                thr = (1. + (0.023 * -min_dep) ** 2) ** 0.5
 
-            if max_diff > cf * th:
+            if max_diff > cf * thr:
                 flag_grid[r, c] = 6  # check #6
                 logger.debug("(%s, %s) count: %s, max diff: %.2f, min z: %.2f -> th: %.2f"
-                             % (r, c, ngb_cnt, max_diff, min_dep, th))
+                             % (r, c, ngb_cnt, max_diff, min_dep, thr))
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(True)
@@ -1313,15 +1313,15 @@ cpdef check_noisy_edges_float(float[:, :] bathy, int[:, :] flag_grid, int dist, 
                 continue
 
             if min_dep >= -100.0:
-                th = (0.25 + (0.013 * -min_dep) ** 2) ** 0.5
+                thr = (0.25 + (0.013 * -min_dep) ** 2) ** 0.5
 
             else:
-                th = (1. + (0.023 * -min_dep) ** 2) ** 0.5
+                thr = (1. + (0.023 * -min_dep) ** 2) ** 0.5
 
-            if max_diff > cf * th:
+            if max_diff > cf * thr:
                 flag_grid[r, c] = 6  # check #6
                 logger.debug("(%s, %s) count: %s, max diff: %.2f, min z: %.2f -> th: %.2f"
-                             % (r, c, ngb_cnt, max_diff, min_dep, th))
+                             % (r, c, ngb_cnt, max_diff, min_dep, thr))
 
 
 # noinspection PyUnresolvedReferences
@@ -1642,15 +1642,15 @@ cpdef check_noisy_margins_double(double[:, :] bathy, int[:, :] flag_grid, int di
                 continue
 
             if min_dep >= -100.0:
-                th = (0.25 + (0.013 * -min_dep) ** 2) ** 0.5
+                thr = (0.25 + (0.013 * -min_dep) ** 2) ** 0.5
 
             else:
-                th = (1. + (0.023 * -min_dep) ** 2) ** 0.5
+                thr = (1. + (0.023 * -min_dep) ** 2) ** 0.5
 
-            if max_diff > cf * th:
+            if max_diff > cf * thr:
                 flag_grid[r, c] = 7  # check #7
                 logger.debug("(%s, %s) count: %s, max diff: %.2f, min z: %.2f -> th: %.2f"
-                             % (r, c, ngb_cnt, max_diff, min_dep, th))
+                             % (r, c, ngb_cnt, max_diff, min_dep, thr))
 
 
 # noinspection PyUnresolvedReferences
@@ -1971,12 +1971,12 @@ cpdef check_noisy_margins_float(float[:, :] bathy, int[:, :] flag_grid, int dist
                 continue
 
             if min_dep >= -100.0:
-                th = (0.25 + (0.013 * -min_dep) ** 2) ** 0.5
+                thr = (0.25 + (0.013 * -min_dep) ** 2) ** 0.5
 
             else:
-                th = (1. + (0.023 * -min_dep) ** 2) ** 0.5
+                thr = (1. + (0.023 * -min_dep) ** 2) ** 0.5
 
-            if max_diff > cf * th:
+            if max_diff > cf * thr:
                 flag_grid[r, c] = 7  # check #7
                 logger.debug("(%s, %s) count: %s, max diff: %.2f, min z: %.2f -> th: %.2f"
-                             % (r, c, ngb_cnt, max_diff, min_dep, th))
+                             % (r, c, ngb_cnt, max_diff, min_dep, thr))
