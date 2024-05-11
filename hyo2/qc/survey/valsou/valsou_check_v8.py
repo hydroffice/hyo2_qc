@@ -7,7 +7,7 @@ from osgeo import osr
 
 from hyo2.abc.lib.gdal_aux import GdalAux
 from hyo2.abc.lib.progress.abstract_progress import AbstractProgress
-from hyo2.s57.s57 import S57File
+from hyo2.enc.lib.s57.s57 import S57File
 from hyo2.grids.grids_manager import GridsManager
 # noinspection PyProtectedMember
 from hyo2.grids._grids import FLOAT as GRIDS_FLOAT, DOUBLE as GRIDS_DOUBLE

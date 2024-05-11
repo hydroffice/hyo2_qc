@@ -1,7 +1,7 @@
 import logging
 from typing import List
 
-from hyo2.s57.s57 import S57Record10
+from hyo2.enc.lib.s57.s57 import S57Record10
 
 logger = logging.getLogger(__name__)
 

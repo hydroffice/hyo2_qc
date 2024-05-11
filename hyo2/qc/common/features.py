@@ -3,7 +3,7 @@ import os
 import traceback
 from typing import List, Optional
 
-from hyo2.s57.s57 import S57, S57File
+from hyo2.enc.lib.s57.s57 import S57, S57File
 
 logger = logging.getLogger(__name__)
 

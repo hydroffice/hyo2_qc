@@ -86,7 +86,7 @@ class DesignatedScanTab(QtWidgets.QMainWindow):
         text_1 = QtWidgets.QLabel("2017+")
         text_1.setAlignment(QtCore.Qt.AlignRight)
         text_1.setFixedWidth(40)
-        # text_1.setStyleSheet("QLabel { color :  rgb(200, 0, 0, 200); }")
+        # text_1.setStyleSheet("QLabel { color :  rgba(200, 0, 0, 200); }")
         label_hbox.addWidget(text_1)
         label_hbox.addSpacing(5)
         # stretch

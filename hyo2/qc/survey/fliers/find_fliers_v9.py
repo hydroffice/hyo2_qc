@@ -16,7 +16,7 @@ from hyo2.qc.survey.fliers.find_fliers_checks import \
     check_small_groups_float, check_small_groups_double, \
     check_noisy_edges_float, check_noisy_edges_double, \
     check_noisy_margins_float, check_noisy_margins_double
-from hyo2.s57.s57 import S57
+from hyo2.enc.lib.s57.s57 import S57
 from osgeo import osr, gdal
 from scipy import ndimage
 

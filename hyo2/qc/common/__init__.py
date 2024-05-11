@@ -25,7 +25,7 @@ lib_info.lib_dep_dict = {
     "hyo2.abc": "hyo2.abc",
     "hyo2.bag": "hyo2.bag",
     "hyo2.grids": "hyo2.grids",
-    "hyo2.s57": "hyo2.s57",
+    "hyo2.enc": "hyo2.enc",
     "gdal": "osgeo",
     "h5py": "h5py",
     "numpy": "numpy",

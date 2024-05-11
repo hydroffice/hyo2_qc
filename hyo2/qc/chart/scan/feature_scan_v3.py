@@ -3,15 +3,14 @@ import logging
 import sys
 from collections import defaultdict
 
-logger = logging.getLogger(__name__)
-
 from hyo2.qc.chart.scan.base_scan import BaseScan, scan_algos
-from hyo2.qc.common.s57_aux import S57Aux
 from hyo2.qc.common.geodesy import Geodesy
+from hyo2.qc.common.s57_aux import S57Aux
+
+logger = logging.getLogger(__name__)
 
 
 class FeatureScanV3(BaseScan):
-
     rounding = 8  # ~0.0011 m (at 45 deg of latitude)
 
     def __init__(self, s57, ss, version="2016", progress=None):
@@ -248,7 +247,7 @@ class FeatureScanV3(BaseScan):
                 continue
 
             # check if the candidate flag is close to one SS
-            logger.debug('candidate CS-not-in-SS: %s' % (cs_tuple, ))
+            logger.debug('candidate CS-not-in-SS: %s' % (cs_tuple,))
             cs_is_close = False
             for ss in self.all_ss:
                 if (cs.centroid.z - ss.centroid.z) > 0.01:
@@ -307,7 +306,7 @@ class FeatureScanV3(BaseScan):
                 continue
 
             # check if the candidate flag is close to one SS
-            logger.debug('candidate VALSOU-not-in-SS: %s' % (ft_tuple, ))
+            logger.debug('candidate VALSOU-not-in-SS: %s' % (ft_tuple,))
             ft_is_close = False
             # retrieve valsou
             ft_z = None
@@ -1064,7 +1063,7 @@ class FeatureScanV3(BaseScan):
         # @ removed LNDARE, DEPARE, and DEPCNT from SORIND and SORDAT check per 2016 spec        
         feature_objects = S57Aux.filter_by_object(objects=self.all_features,
                                                   object_filter=['$AREAS', '$LINES', '$CSYMB', '$COMPS', '$TEXTS',
-                                                                 'LNDARE','DEPARE','DEPCNT'])
+                                                                 'LNDARE', 'DEPARE', 'DEPCNT'])
         new_update_features = S57Aux.select_by_attribute_value(objects=feature_objects, attribute='descrp',
                                                                value_filter=['1', '2', ])
 
@@ -1087,7 +1086,7 @@ class FeatureScanV3(BaseScan):
         self.flagged_invalid_sordat = self._check_features_for_valid_sordat(objects=new_update_features)
 
         # @ ninfom requirement no longer exists, so the ninfom check was removed
-        
+
         # > Are we sure about this? If you can to the original code there is not SOUNDG, but all the features
         # @ confirmed, this is correct. STATUS is prohibited for SOUNDG.
         self.progress.add(quantum=1, text="SOUNDG with prohibited attribute STATUS")
@@ -1395,7 +1394,7 @@ class FeatureScanV3(BaseScan):
         # @ removed LNDARE, DEPARE, and DEPCNT from SORIND and SORDAT check per 2016 spec        
         feature_objects = S57Aux.filter_by_object(objects=self.all_features,
                                                   object_filter=['$AREAS', '$LINES', '$CSYMB', '$COMPS', '$TEXTS',
-                                                                 'LNDARE', 'DEPARE','DEPCNT'])
+                                                                 'LNDARE', 'DEPARE', 'DEPCNT'])
         new_update_features = S57Aux.select_by_attribute_value(objects=feature_objects, attribute='descrp',
                                                                value_filter=['1', '2', ])
 
@@ -1418,7 +1417,7 @@ class FeatureScanV3(BaseScan):
         self.flagged_invalid_sordat = self._check_features_for_valid_sordat(objects=new_update_features)
 
         # @ ninfom requirement no longer exists, so the ninfom check was removed
-        
+
         # > Are we sure about this? If you can to the original code there is not SOUNDG, but all the features
         # @ confirmed, this is correct. STATUS is prohibited for SOUNDG.
         self.progress.add(quantum=1, text="SOUNDG with prohibited attribute STATUS")

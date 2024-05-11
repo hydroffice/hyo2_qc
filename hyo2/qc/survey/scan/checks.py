@@ -7,7 +7,7 @@ from hyo2.qc.common.s57_aux import S57Aux
 
 if TYPE_CHECKING:
     from hyo2.qc.survey.scan.flags import Flags
-    from hyo2.s57.s57 import S57Record10
+    from hyo2.enc.lib.s57.s57 import S57Record10
     from hyo2.abc.app.report import Report
 
 logger = logging.getLogger(__name__)

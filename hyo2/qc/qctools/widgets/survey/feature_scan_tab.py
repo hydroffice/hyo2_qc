@@ -188,7 +188,7 @@ class FeatureScanTab(QtWidgets.QMainWindow):
         text_2022 = QtWidgets.QLabel("2022")
         text_2022.setAlignment(QtCore.Qt.AlignCenter)
         text_2022.setFixedWidth(75)
-        # text_2021.setStyleSheet("QLabel { color :  rgb(200, 0, 0, 200); }")
+        # text_2021.setStyleSheet("QLabel { color :  rgba(200, 0, 0, 200); }")
         label_hbox.addWidget(text_2022)
         # stretch
         label_hbox.addStretch()
