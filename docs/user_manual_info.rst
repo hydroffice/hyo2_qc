@@ -65,14 +65,14 @@ How Does It Work?
 |
 
 At the top of RorI there are three toggles. In 2019, NOAA's Marine Chart Division updated how to define the WATLEV of 
-rocks and redefined when a rock becomes an islet. 
+rocks and redefined when a rock becomes an islet.
 
 Pre-2019, how rocks and islets were defined depends upon where you were surveying due to
 the tidal range that occurs in these areas. NOAA had three discrete regions: The East Coast (including the Gulf Coast),
 the West Coast (including Alaska), and the Great Lakes. The user will set the first toggle depending on the location of
 their survey.
 
-For 2019 and beyond, the definition has been unified from coast to coast. The only difference between the three options in the second toggle is that the Great Lakes region is referenced to LWD. 
+For 2019 and beyond, the definition has been unified from coast to coast. The only difference between the three options in the second toggle is that the Great Lakes region is referenced to LWD.
 
 The third toggle does not have an impact on how RorI is doing its calculations. The toggle controls two visualizations.
 First, the boxes below which show you the math being used to define the different WATLEV values. You can either view
@@ -180,19 +180,19 @@ IHO and NOAA THU utilize the same formula but with different variables.
 
 .. math::
 
-    THU\, QC = ±(k + p * depth)
+    THU\, QC = \pm(k + p * depth)
 
 where:
 
 * IHO:
 
-  * Special Order: where :math:`k = 2 m, p = 0 pct`
-  * Order 1: where :math:`k = 5 m, p = 5 pct`
-  * Order 2: where :math:`k = 20 m, p = 10 pct`
+  * Special Order: where :math:`k = 2 m, p = 0 \%`
+  * Order 1: where :math:`k = 5 m, p = 5 \%`
+  * Order 2: where :math:`k = 20 m, p = 10 \%`
 
 * NOAA:
 
-  * All Orders: where :math:`k = 5 m, p = 5 pct`
+  * All Orders: where :math:`k = 5 m, p = 5 \%`
 
 The graph at the bottom of the tool is interactive and visually represents the total vertical and total horizontal
 uncertainties at that order.
