@@ -190,7 +190,7 @@ class FindFliersV9(BaseFliers):
                                "needs the estimated height")
 
         # create a 0 grid of the same size as input grid to be used to store the flagged node
-        self.flag_grid = np.zeros(self.bathy_values.shape, dtype=np.int)
+        self.flag_grid = np.zeros(self.bathy_values.shape, dtype=int)
 
         if self.check_laplacian:
             self._check_laplacian_operator()

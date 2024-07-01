@@ -310,7 +310,7 @@ def convert_coordinates_to_index(position_list, res, xmin, ymin):
     index_array = np.array(position_list)
     index_array[:, 0] = np.round((index_array[:, 0] - xmin) / res - 0.5)
     index_array[:, 1] = np.round((index_array[:, 1] - ymin) / res - 0.5)
-    index_array = index_array.astype(np.int)
+    index_array = index_array.astype(int)
     return index_array
 
 
