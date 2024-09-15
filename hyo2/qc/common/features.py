@@ -13,13 +13,13 @@ class Features:
     def __init__(self):
 
         # features
-        self._cur_s57 = None  # type: Optional[S57File]
+        self._cur_s57: Optional[S57File] = None
         self._cur_s57_path = str()
         self._cur_s57_basename = str()
         self._s57_list = list()
 
         # SS
-        self._cur_ss = None  # type: Optional[S57File]
+        self._cur_ss: Optional[S57File] = None
         self._cur_ss_path = str()
         self._cur_ss_basename = str()
         self._ss_list = list()
@@ -117,12 +117,13 @@ class Features:
         """Read the S57 file"""
         try:
             s57 = S57()
+            # noinspection PyTypeChecker
             s57.set_input_filename(s57_path)
             s57.read()
             self._cur_s57 = s57.input_s57file
             self._cur_s57_path = s57_path
             self._cur_s57_basename = os.path.basename(self._cur_s57_path)
-            # logger.debug("Read S57 file: %s %s" % (s57_path, self._cur_s57))
+            # logger.debug("Read S57 file: %s, %s" % (s57_path, self._cur_s57))
 
         except Exception as e:
             self._cur_s57 = None
@@ -156,6 +157,7 @@ class Features:
         """Read the SS file"""
         try:
             ss = S57()
+            # noinspection PyTypeChecker
             ss.set_input_filename(ss_path)
             ss.read()
             self._cur_ss = ss.input_s57file
@@ -215,8 +217,10 @@ class Features:
 
         try:
             s57 = S57()
+            # noinspection PyTypeChecker
             s57.set_input_filename(input_file)
             s57.read()
+            # noinspection PyTypeChecker
             s57.depth_truncate(output_file, decimal_places)
 
             return True
