@@ -660,8 +660,15 @@ class FindFliersV9(BaseFliers):
         # store the coordinate transform from geo to grid CRS (using GDAL)
         try:
             osr_grid = osr.SpatialReference()
-            osr_grid.ImportFromWkt(self.grids.cur_grids.bbox().hrs)
+            epsg_str = "EPSG:"
+            if self.grids.cur_grids.bbox().hrs[:len(epsg_str)] == epsg_str:
+                osr_grid.ImportFromEPSG(int(self.grids.cur_grids.bbox().hrs[len(epsg_str):].strip()))
+            else:
+                osr_grid.ImportFromWkt(self.grids.cur_grids.bbox().hrs)
             osr_grid.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
+            if osr_grid.IsCompound():
+                osr_grid.StripVertical()
+
             osr_geo = osr.SpatialReference()
             osr_geo.ImportFromEPSG(4326)  # geographic WGS84
             osr_geo.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
@@ -933,13 +940,19 @@ class FindFliersV9(BaseFliers):
 
         # logger.debug("crs: %s" % self.bathy_crs)
         try:
-            osr_csar = osr.SpatialReference()
-            osr_csar.ImportFromWkt(self.bathy_hrs)
-            osr_csar.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
+            osr_grid = osr.SpatialReference()
+            epsg_str = "EPSG:"
+            if self.bathy_hrs[:len(epsg_str)] == epsg_str:
+                osr_grid.ImportFromEPSG(int(self.bathy_hrs[len(epsg_str):].strip()))
+            else:
+                osr_grid.ImportFromWkt(self.bathy_hrs)
+            osr_grid.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
+            if osr_grid.IsCompound():
+                osr_grid.StripVertical()
             osr_geo = osr.SpatialReference()
             osr_geo.ImportFromEPSG(4326)  # geographic WGS84
             osr_geo.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
-            loc2geo = osr.CoordinateTransformation(osr_csar, osr_geo)
+            loc2geo = osr.CoordinateTransformation(osr_grid, osr_geo)
 
         except Exception as e:
             raise IOError("unable to create a valid coords transform: %s" % e)

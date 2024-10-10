@@ -217,8 +217,14 @@ class ValsouCheckV8(BaseValsou):
         try:
             osr_grid = osr.SpatialReference()
             # logger.debug("cur grids hrs: %s" % self.grids.cur_grids.bbox().hrs)
-            osr_grid.ImportFromWkt(self.grids.cur_grids.bbox().hrs)
+            epsg_str = "EPSG:"
+            if self.grids.cur_grids.bbox().hrs[:len(epsg_str)] == epsg_str:
+                osr_grid.ImportFromEPSG(int(self.grids.cur_grids.bbox().hrs[len(epsg_str):].strip()))
+            else:
+                osr_grid.ImportFromWkt(self.grids.cur_grids.bbox().hrs)
             osr_grid.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
+            if osr_grid.IsCompound():
+                osr_grid.StripVertical()
             osr_geo = osr.SpatialReference()
             osr_geo.ImportFromEPSG(4326)  # geographic WGS84
             osr_geo.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)

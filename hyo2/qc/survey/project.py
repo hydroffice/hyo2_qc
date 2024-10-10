@@ -315,13 +315,19 @@ class SurveyProject(BaseProject):
         holes = list()
 
         try:
-            osr_csar = osr.SpatialReference()
-            osr_csar.ImportFromWkt(self._holes.crs)
-            osr_csar.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
+            osr_grid = osr.SpatialReference()
+            epsg_str = "EPSG:"
+            if self._holes.crs[:len(epsg_str)] == epsg_str:
+                osr_grid.ImportFromEPSG(int(self._holes.crs[len(epsg_str):].strip()))
+            else:
+                osr_grid.ImportFromWkt(self._holes.crs)
+            osr_grid.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
+            if osr_grid.IsCompound():
+                osr_grid.StripVertical()
             osr_geo = osr.SpatialReference()
             osr_geo.ImportFromEPSG(4326)  # geographic WGS84
             osr_geo.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
-            loc2geo = osr.CoordinateTransformation(osr_csar, osr_geo)
+            loc2geo = osr.CoordinateTransformation(osr_grid, osr_geo)
 
         except Exception as e:
             raise IOError("unable to create a valid coords transform: %s" % e)
