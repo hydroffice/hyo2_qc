@@ -12,7 +12,6 @@ logger = logging.getLogger()
 
 # path = r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\QuickTest.bag"
 path = r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\Find Fliers\VR_Test\H13015_MB_VR_MLLW_Final_Extracted_8_tiles.csar"
-DEFAULT_CHUNK_SIZE = 4294967296  # 4GB
 
 grids = GridsManager()
 
@@ -21,7 +20,7 @@ grids.add_path(path)
 for grid_path in grids.grid_list:
     logger.debug(grid_path)
     grids.set_current(grid_path)
-    grids.open_to_read_current(DEFAULT_CHUNK_SIZE)
+    grids.open_to_read_current()
     layer_names = grids.layer_names()
 
     logger.debug("bbox: %s" % grids.cur_grids.bbox())

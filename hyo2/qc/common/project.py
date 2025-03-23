@@ -323,9 +323,9 @@ class BaseProject:
         self._gr.set_current(path)
         self.make_survey_label()
 
-    def open_to_read_cur_grid(self, chunk_size=DEFAULT_CHUNK_SIZE):
+    def open_to_read_cur_grid(self):
         """Open to read the current file"""
-        self._gr.open_to_read_current(chunk_size=chunk_size)
+        self._gr.open_to_read_current()
 
     def close_cur_grid(self):
         self._gr.close_current()
@@ -405,9 +405,9 @@ class BaseProject:
         """Make current the passed file"""
         self._gr2.set_current(path)
 
-    def open_to_read_cur_grid2(self, chunk_size=DEFAULT_CHUNK_SIZE):
+    def open_to_read_cur_grid2(self):
         """Open to read the current file"""
-        self._gr2.open_to_read_current(chunk_size=chunk_size)
+        self._gr2.open_to_read_current()
 
     def has_grid2(self):
         """Return if a surface is present"""

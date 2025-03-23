@@ -124,7 +124,7 @@ class QCToolsParser:
 
             prj.clear_survey_label()
             prj.set_cur_grid(path=grid_path)
-            prj.open_to_read_cur_grid(chunk_size=4294967296)
+            prj.open_to_read_cur_grid()
 
             prj.flier_finder_v9(height=height_value,
                                 check_laplacian=check_laplacian,
@@ -139,7 +139,7 @@ class QCToolsParser:
             prj.close_cur_grid()
 
             prj.set_cur_grid(path=grid_path)
-            prj.open_to_read_cur_grid(chunk_size=4294967296)
+            prj.open_to_read_cur_grid()
             prj.flier_finder_v9_apply_filters(distance=distance, delta_z=delta_z)
 
             saved = prj.save_fliers()

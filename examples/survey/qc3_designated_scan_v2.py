@@ -16,7 +16,6 @@ wid = QtWidgets.QWidget(parent=None)
 
 # options
 use_internal_test_files = True
-chunk_size = 4294967296
 neighborhood = True
 specs = "2016"
 survey_scale = 20000
@@ -37,7 +36,7 @@ else:
 
 prj.clear_survey_label()
 prj.read_feature_file(feature_path=prj.s57_list[0])
-prj.open_grid(path=prj.grid_list[0], chunk_size=chunk_size)
+prj.open_grid(path=prj.grid_list[0])
 prj.designated_scan_v2(survey_scale=survey_scale, neighborhood=neighborhood, specs=specs)
 saved = prj.save_designated()
 if saved:

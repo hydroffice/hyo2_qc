@@ -24,7 +24,6 @@ prj = SurveyProject(output_folder=testing.output_data_folder(), progress=QtProgr
 # options
 use_internal_test_files = True
 use_internal_csar = True
-chunk_size = 4294967296
 force_tvu_qc = True
 calc_object_detection = False
 calc_full_coverage = True
@@ -52,7 +51,7 @@ for grid_path in prj.grid_list:
 
     prj.clear_survey_label()
     prj.set_cur_grid(path=grid_path)
-    prj.open_to_read_cur_grid(chunk_size=chunk_size)
+    prj.open_to_read_cur_grid()
 
     tvu_qc_layers = prj.cur_grid_tvu_qc_layers()
     if len(tvu_qc_layers) > 0:

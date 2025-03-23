@@ -48,8 +48,6 @@ else:
 
 logger.debug("input file: %s" % path)
 
-DEFAULT_CHUNK_SIZE = 4294967296  # 4GB
-
 grids = GridsManager()
 
 grids.add_path(path)
@@ -57,7 +55,7 @@ grids.add_path(path)
 for grid_path in grids.grid_list:
     logger.debug(grid_path)
     grids.set_current(grid_path)
-    grids.open_to_read_current(DEFAULT_CHUNK_SIZE)
+    grids.open_to_read_current()
     layer_names = grids.layer_names()
 
     logger.debug("bbox: %s" % grids.cur_grids.bbox())
