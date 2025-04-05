@@ -13,6 +13,7 @@ from libc.math cimport isnan
 #IHO S-44 TVU QC Calculations
 # noinspection PyUnresolvedReferences
 @cython.cdivision(False)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -46,6 +47,7 @@ cpdef calc_tvu_qc_dd(double[:, :] bathy, double[:, :] product_uncertainty, doubl
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(False)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -79,6 +81,7 @@ cpdef calc_tvu_qc_df(double[:, :] bathy, float[:, :] product_uncertainty, float 
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(False)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -112,6 +115,7 @@ cpdef calc_tvu_qc_fd(float[:, :] bathy, double[:, :] product_uncertainty, double
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(False)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -147,6 +151,7 @@ cpdef calc_tvu_qc_ff(float[:, :] bathy, float[:, :] product_uncertainty, float p
 # CATZOC A1 TVU CALCULATIONS
 # noinspection PyUnresolvedReferences
 @cython.cdivision(False)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -177,6 +182,7 @@ cpdef calc_tvu_qc_a1_dd(double[:, :] bathy, double[:, :] product_uncertainty, do
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(False)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -207,6 +213,7 @@ cpdef calc_tvu_qc_a1_df(double[:, :] bathy, float[:, :] product_uncertainty, flo
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(False)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -237,6 +244,7 @@ cpdef calc_tvu_qc_a1_fd(float[:, :] bathy, double[:, :] product_uncertainty, dou
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(False)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -270,6 +278,7 @@ cpdef calc_tvu_qc_a1_ff(float[:, :] bathy, float[:, :] product_uncertainty, floa
 # CATZOC A2/B TVU CALCULATIONS
 # noinspection PyUnresolvedReferences
 @cython.cdivision(False)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -300,6 +309,7 @@ cpdef calc_tvu_qc_a2b_dd(double[:, :] bathy, double[:, :] product_uncertainty, d
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(False)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -330,6 +340,7 @@ cpdef calc_tvu_qc_a2b_df(double[:, :] bathy, float[:, :] product_uncertainty, fl
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(False)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -360,6 +371,7 @@ cpdef calc_tvu_qc_a2b_fd(float[:, :] bathy, double[:, :] product_uncertainty, do
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(False)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -393,6 +405,7 @@ cpdef calc_tvu_qc_a2b_ff(float[:, :] bathy, float[:, :] product_uncertainty, flo
 # CATZOC C TVU CALCULATIONS
 # noinspection PyUnresolvedReferences
 @cython.cdivision(False)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -423,6 +436,7 @@ cpdef calc_tvu_qc_c_dd(double[:, :] bathy, double[:, :] product_uncertainty, dou
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(False)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -453,6 +467,7 @@ cpdef calc_tvu_qc_c_df(double[:, :] bathy, float[:, :] product_uncertainty, floa
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(False)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -483,6 +498,7 @@ cpdef calc_tvu_qc_c_fd(float[:, :] bathy, double[:, :] product_uncertainty, doub
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(False)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)

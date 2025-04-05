@@ -17,6 +17,7 @@ cdef extern from "numpy/npy_math.h":
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(True)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -37,6 +38,7 @@ cpdef check_laplacian_operator_double(double[:, :] lap, int[:, :] flag_grid, flo
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(True)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -57,6 +59,7 @@ cpdef check_laplacian_operator_float(float[:, :] lap, int[:, :] flag_grid, float
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(True)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -76,6 +79,7 @@ cpdef check_gaussian_curvature_double(double[:, :] gauss_curv, int[:, :] flag_gr
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(True)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -95,6 +99,7 @@ cpdef check_gaussian_curvature_float(float[:, :] gauss_curv, int[:, :] flag_grid
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(True)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -366,6 +371,7 @@ cpdef check_adjacent_cells_double(double[:, :] bathy, int[:, :] flag_grid, float
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(True)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -636,6 +642,7 @@ cpdef check_adjacent_cells_float(float[:, :] bathy, int[:, :] flag_grid, float t
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(True)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -725,6 +732,7 @@ cpdef check_small_groups_float(np.ndarray[np.uint8_t, ndim=2, cast=True] grid_bi
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(True)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -815,6 +823,7 @@ cpdef check_small_groups_double(np.ndarray[np.uint8_t, ndim=2, cast=True] grid_b
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(True)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -1069,6 +1078,7 @@ cpdef check_noisy_edges_double(double[:, :] bathy, int[:, :] flag_grid, int dist
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(True)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -1326,6 +1336,7 @@ cpdef check_noisy_edges_float(float[:, :] bathy, int[:, :] flag_grid, int dist, 
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(True)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
@@ -1655,6 +1666,7 @@ cpdef check_noisy_margins_double(double[:, :] bathy, int[:, :] flag_grid, int di
 
 # noinspection PyUnresolvedReferences
 @cython.cdivision(True)
+@cython.cpow(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)

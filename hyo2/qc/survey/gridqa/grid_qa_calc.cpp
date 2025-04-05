@@ -4,14 +4,14 @@
 {
     "distutils": {
         "depends": [
-            "C:\\Users\\gmasetti\\AppData\\Local\\HyOc\\Pydro24_Dev\\envs\\pydro3_11\\Lib\\site-packages\\numpy\\core\\include\\numpy\\arrayobject.h",
-            "C:\\Users\\gmasetti\\AppData\\Local\\HyOc\\Pydro24_Dev\\envs\\pydro3_11\\Lib\\site-packages\\numpy\\core\\include\\numpy\\arrayscalars.h",
-            "C:\\Users\\gmasetti\\AppData\\Local\\HyOc\\Pydro24_Dev\\envs\\pydro3_11\\Lib\\site-packages\\numpy\\core\\include\\numpy\\ndarrayobject.h",
-            "C:\\Users\\gmasetti\\AppData\\Local\\HyOc\\Pydro24_Dev\\envs\\pydro3_11\\Lib\\site-packages\\numpy\\core\\include\\numpy\\ndarraytypes.h",
-            "C:\\Users\\gmasetti\\AppData\\Local\\HyOc\\Pydro24_Dev\\envs\\pydro3_11\\Lib\\site-packages\\numpy\\core\\include\\numpy\\ufuncobject.h"
+            "C:\\Users\\giuse\\AppData\\Local\\HyOc\\Pydro24_Dev\\envs\\pydro3_11\\Lib\\site-packages\\numpy\\core\\include\\numpy\\arrayobject.h",
+            "C:\\Users\\giuse\\AppData\\Local\\HyOc\\Pydro24_Dev\\envs\\pydro3_11\\Lib\\site-packages\\numpy\\core\\include\\numpy\\arrayscalars.h",
+            "C:\\Users\\giuse\\AppData\\Local\\HyOc\\Pydro24_Dev\\envs\\pydro3_11\\Lib\\site-packages\\numpy\\core\\include\\numpy\\ndarrayobject.h",
+            "C:\\Users\\giuse\\AppData\\Local\\HyOc\\Pydro24_Dev\\envs\\pydro3_11\\Lib\\site-packages\\numpy\\core\\include\\numpy\\ndarraytypes.h",
+            "C:\\Users\\giuse\\AppData\\Local\\HyOc\\Pydro24_Dev\\envs\\pydro3_11\\Lib\\site-packages\\numpy\\core\\include\\numpy\\ufuncobject.h"
         ],
         "include_dirs": [
-            "C:\\Users\\gmasetti\\AppData\\Local\\HyOc\\Pydro24_Dev\\envs\\pydro3_11\\Lib\\site-packages\\numpy\\core\\include"
+            "C:\\Users\\giuse\\AppData\\Local\\HyOc\\Pydro24_Dev\\envs\\pydro3_11\\Lib\\site-packages\\numpy\\core\\include"
         ],
         "language": "c++",
         "name": "hyo2.qc.survey.gridqa.grid_qa_calc",
@@ -1656,7 +1656,7 @@ typedef struct {
 
 /* #### Code section: numeric_typedefs ### */
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":730
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":730
  * # in Cython to enable them only on the right systems.
  * 
  * ctypedef npy_int8       int8_t             # <<<<<<<<<<<<<<
@@ -1665,7 +1665,7 @@ typedef struct {
  */
 typedef npy_int8 __pyx_t_5numpy_int8_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":731
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":731
  * 
  * ctypedef npy_int8       int8_t
  * ctypedef npy_int16      int16_t             # <<<<<<<<<<<<<<
@@ -1674,7 +1674,7 @@ typedef npy_int8 __pyx_t_5numpy_int8_t;
  */
 typedef npy_int16 __pyx_t_5numpy_int16_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":732
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":732
  * ctypedef npy_int8       int8_t
  * ctypedef npy_int16      int16_t
  * ctypedef npy_int32      int32_t             # <<<<<<<<<<<<<<
@@ -1683,7 +1683,7 @@ typedef npy_int16 __pyx_t_5numpy_int16_t;
  */
 typedef npy_int32 __pyx_t_5numpy_int32_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":733
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":733
  * ctypedef npy_int16      int16_t
  * ctypedef npy_int32      int32_t
  * ctypedef npy_int64      int64_t             # <<<<<<<<<<<<<<
@@ -1692,7 +1692,7 @@ typedef npy_int32 __pyx_t_5numpy_int32_t;
  */
 typedef npy_int64 __pyx_t_5numpy_int64_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":737
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":737
  * #ctypedef npy_int128     int128_t
  * 
  * ctypedef npy_uint8      uint8_t             # <<<<<<<<<<<<<<
@@ -1701,7 +1701,7 @@ typedef npy_int64 __pyx_t_5numpy_int64_t;
  */
 typedef npy_uint8 __pyx_t_5numpy_uint8_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":738
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":738
  * 
  * ctypedef npy_uint8      uint8_t
  * ctypedef npy_uint16     uint16_t             # <<<<<<<<<<<<<<
@@ -1710,7 +1710,7 @@ typedef npy_uint8 __pyx_t_5numpy_uint8_t;
  */
 typedef npy_uint16 __pyx_t_5numpy_uint16_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":739
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":739
  * ctypedef npy_uint8      uint8_t
  * ctypedef npy_uint16     uint16_t
  * ctypedef npy_uint32     uint32_t             # <<<<<<<<<<<<<<
@@ -1719,7 +1719,7 @@ typedef npy_uint16 __pyx_t_5numpy_uint16_t;
  */
 typedef npy_uint32 __pyx_t_5numpy_uint32_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":740
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":740
  * ctypedef npy_uint16     uint16_t
  * ctypedef npy_uint32     uint32_t
  * ctypedef npy_uint64     uint64_t             # <<<<<<<<<<<<<<
@@ -1728,7 +1728,7 @@ typedef npy_uint32 __pyx_t_5numpy_uint32_t;
  */
 typedef npy_uint64 __pyx_t_5numpy_uint64_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":744
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":744
  * #ctypedef npy_uint128    uint128_t
  * 
  * ctypedef npy_float32    float32_t             # <<<<<<<<<<<<<<
@@ -1737,7 +1737,7 @@ typedef npy_uint64 __pyx_t_5numpy_uint64_t;
  */
 typedef npy_float32 __pyx_t_5numpy_float32_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":745
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":745
  * 
  * ctypedef npy_float32    float32_t
  * ctypedef npy_float64    float64_t             # <<<<<<<<<<<<<<
@@ -1746,7 +1746,7 @@ typedef npy_float32 __pyx_t_5numpy_float32_t;
  */
 typedef npy_float64 __pyx_t_5numpy_float64_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":754
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":754
  * # The int types are mapped a bit surprising --
  * # numpy.int corresponds to 'l' and numpy.long to 'q'
  * ctypedef npy_long       int_t             # <<<<<<<<<<<<<<
@@ -1755,7 +1755,7 @@ typedef npy_float64 __pyx_t_5numpy_float64_t;
  */
 typedef npy_long __pyx_t_5numpy_int_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":755
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":755
  * # numpy.int corresponds to 'l' and numpy.long to 'q'
  * ctypedef npy_long       int_t
  * ctypedef npy_longlong   longlong_t             # <<<<<<<<<<<<<<
@@ -1764,7 +1764,7 @@ typedef npy_long __pyx_t_5numpy_int_t;
  */
 typedef npy_longlong __pyx_t_5numpy_longlong_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":757
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":757
  * ctypedef npy_longlong   longlong_t
  * 
  * ctypedef npy_ulong      uint_t             # <<<<<<<<<<<<<<
@@ -1773,7 +1773,7 @@ typedef npy_longlong __pyx_t_5numpy_longlong_t;
  */
 typedef npy_ulong __pyx_t_5numpy_uint_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":758
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":758
  * 
  * ctypedef npy_ulong      uint_t
  * ctypedef npy_ulonglong  ulonglong_t             # <<<<<<<<<<<<<<
@@ -1782,7 +1782,7 @@ typedef npy_ulong __pyx_t_5numpy_uint_t;
  */
 typedef npy_ulonglong __pyx_t_5numpy_ulonglong_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":760
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":760
  * ctypedef npy_ulonglong  ulonglong_t
  * 
  * ctypedef npy_intp       intp_t             # <<<<<<<<<<<<<<
@@ -1791,7 +1791,7 @@ typedef npy_ulonglong __pyx_t_5numpy_ulonglong_t;
  */
 typedef npy_intp __pyx_t_5numpy_intp_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":761
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":761
  * 
  * ctypedef npy_intp       intp_t
  * ctypedef npy_uintp      uintp_t             # <<<<<<<<<<<<<<
@@ -1800,7 +1800,7 @@ typedef npy_intp __pyx_t_5numpy_intp_t;
  */
 typedef npy_uintp __pyx_t_5numpy_uintp_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":763
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":763
  * ctypedef npy_uintp      uintp_t
  * 
  * ctypedef npy_double     float_t             # <<<<<<<<<<<<<<
@@ -1809,7 +1809,7 @@ typedef npy_uintp __pyx_t_5numpy_uintp_t;
  */
 typedef npy_double __pyx_t_5numpy_float_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":764
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":764
  * 
  * ctypedef npy_double     float_t
  * ctypedef npy_double     double_t             # <<<<<<<<<<<<<<
@@ -1818,7 +1818,7 @@ typedef npy_double __pyx_t_5numpy_float_t;
  */
 typedef npy_double __pyx_t_5numpy_double_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":765
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":765
  * ctypedef npy_double     float_t
  * ctypedef npy_double     double_t
  * ctypedef npy_longdouble longdouble_t             # <<<<<<<<<<<<<<
@@ -1827,18 +1827,6 @@ typedef npy_double __pyx_t_5numpy_double_t;
  */
 typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
 /* #### Code section: complex_type_declarations ### */
-/* Declarations.proto */
-#if CYTHON_CCOMPLEX && (1) && (!0 || __cplusplus)
-  #ifdef __cplusplus
-    typedef ::std::complex< double > __pyx_t_double_complex;
-  #else
-    typedef double _Complex __pyx_t_double_complex;
-  #endif
-#else
-    typedef struct { double real, imag; } __pyx_t_double_complex;
-#endif
-static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(double, double);
-
 /* Declarations.proto */
 #if CYTHON_CCOMPLEX && (1) && (!0 || __cplusplus)
   #ifdef __cplusplus
@@ -1851,6 +1839,18 @@ static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(do
 #endif
 static CYTHON_INLINE __pyx_t_float_complex __pyx_t_float_complex_from_parts(float, float);
 
+/* Declarations.proto */
+#if CYTHON_CCOMPLEX && (1) && (!0 || __cplusplus)
+  #ifdef __cplusplus
+    typedef ::std::complex< double > __pyx_t_double_complex;
+  #else
+    typedef double _Complex __pyx_t_double_complex;
+  #endif
+#else
+    typedef struct { double real, imag; } __pyx_t_double_complex;
+#endif
+static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(double, double);
+
 /* #### Code section: type_declarations ### */
 
 /*--- Type declarations ---*/
@@ -1859,7 +1859,7 @@ struct __pyx_MemviewEnum_obj;
 struct __pyx_memoryview_obj;
 struct __pyx_memoryviewslice_obj;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":767
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":767
  * ctypedef npy_longdouble longdouble_t
  * 
  * ctypedef npy_cfloat      cfloat_t             # <<<<<<<<<<<<<<
@@ -1868,7 +1868,7 @@ struct __pyx_memoryviewslice_obj;
  */
 typedef npy_cfloat __pyx_t_5numpy_cfloat_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":768
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":768
  * 
  * ctypedef npy_cfloat      cfloat_t
  * ctypedef npy_cdouble     cdouble_t             # <<<<<<<<<<<<<<
@@ -1877,7 +1877,7 @@ typedef npy_cfloat __pyx_t_5numpy_cfloat_t;
  */
 typedef npy_cdouble __pyx_t_5numpy_cdouble_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":769
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":769
  * ctypedef npy_cfloat      cfloat_t
  * ctypedef npy_cdouble     cdouble_t
  * ctypedef npy_clongdouble clongdouble_t             # <<<<<<<<<<<<<<
@@ -1886,7 +1886,7 @@ typedef npy_cdouble __pyx_t_5numpy_cdouble_t;
  */
 typedef npy_clongdouble __pyx_t_5numpy_clongdouble_t;
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":771
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":771
  * ctypedef npy_clongdouble clongdouble_t
  * 
  * ctypedef npy_cdouble     complex_t             # <<<<<<<<<<<<<<
@@ -2609,31 +2609,6 @@ static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name);
 static CYTHON_INLINE int __Pyx_HasAttr(PyObject *, PyObject *);
 #endif
 
-/* RealImag.proto */
-#if CYTHON_CCOMPLEX
-  #ifdef __cplusplus
-    #define __Pyx_CREAL(z) ((z).real())
-    #define __Pyx_CIMAG(z) ((z).imag())
-  #else
-    #define __Pyx_CREAL(z) (__real__(z))
-    #define __Pyx_CIMAG(z) (__imag__(z))
-  #endif
-#else
-    #define __Pyx_CREAL(z) ((z).real)
-    #define __Pyx_CIMAG(z) ((z).imag)
-#endif
-#if defined(__cplusplus) && CYTHON_CCOMPLEX\
-        && (defined(_WIN32) || defined(__clang__) || (defined(__GNUC__) && (__GNUC__ >= 5 || __GNUC__ == 4 && __GNUC_MINOR__ >= 4 )) || __cplusplus >= 201103)
-    #define __Pyx_SET_CREAL(z,x) ((z).real(x))
-    #define __Pyx_SET_CIMAG(z,y) ((z).imag(y))
-#else
-    #define __Pyx_SET_CREAL(z,x) __Pyx_CREAL(z) = (x)
-    #define __Pyx_SET_CIMAG(z,y) __Pyx_CIMAG(z) = (y)
-#endif
-
-/* SoftComplexToDouble.proto */
-static double __Pyx_SoftComplexToDouble(__pyx_t_double_complex value, int have_gil);
-
 /* PyObject_GenericGetAttrNoDict.proto */
 #if CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP && PY_VERSION_HEX < 0x03070000
 static CYTHON_INLINE PyObject* __Pyx_PyObject_GenericGetAttrNoDict(PyObject* obj, PyObject* attr_name);
@@ -2936,42 +2911,26 @@ static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dsds_d
 /* ObjectToMemviewSlice.proto */
 static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dsds_float(PyObject *, int writable_flag);
 
-/* Arithmetic.proto */
-#if CYTHON_CCOMPLEX && (1) && (!0 || __cplusplus)
-    #define __Pyx_c_eq_double(a, b)   ((a)==(b))
-    #define __Pyx_c_sum_double(a, b)  ((a)+(b))
-    #define __Pyx_c_diff_double(a, b) ((a)-(b))
-    #define __Pyx_c_prod_double(a, b) ((a)*(b))
-    #define __Pyx_c_quot_double(a, b) ((a)/(b))
-    #define __Pyx_c_neg_double(a)     (-(a))
+/* RealImag.proto */
+#if CYTHON_CCOMPLEX
   #ifdef __cplusplus
-    #define __Pyx_c_is_zero_double(z) ((z)==(double)0)
-    #define __Pyx_c_conj_double(z)    (::std::conj(z))
-    #if 1
-        #define __Pyx_c_abs_double(z)     (::std::abs(z))
-        #define __Pyx_c_pow_double(a, b)  (::std::pow(a, b))
-    #endif
+    #define __Pyx_CREAL(z) ((z).real())
+    #define __Pyx_CIMAG(z) ((z).imag())
   #else
-    #define __Pyx_c_is_zero_double(z) ((z)==0)
-    #define __Pyx_c_conj_double(z)    (conj(z))
-    #if 1
-        #define __Pyx_c_abs_double(z)     (cabs(z))
-        #define __Pyx_c_pow_double(a, b)  (cpow(a, b))
-    #endif
- #endif
+    #define __Pyx_CREAL(z) (__real__(z))
+    #define __Pyx_CIMAG(z) (__imag__(z))
+  #endif
 #else
-    static CYTHON_INLINE int __Pyx_c_eq_double(__pyx_t_double_complex, __pyx_t_double_complex);
-    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_sum_double(__pyx_t_double_complex, __pyx_t_double_complex);
-    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_diff_double(__pyx_t_double_complex, __pyx_t_double_complex);
-    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_prod_double(__pyx_t_double_complex, __pyx_t_double_complex);
-    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_quot_double(__pyx_t_double_complex, __pyx_t_double_complex);
-    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_neg_double(__pyx_t_double_complex);
-    static CYTHON_INLINE int __Pyx_c_is_zero_double(__pyx_t_double_complex);
-    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_conj_double(__pyx_t_double_complex);
-    #if 1
-        static CYTHON_INLINE double __Pyx_c_abs_double(__pyx_t_double_complex);
-        static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_pow_double(__pyx_t_double_complex, __pyx_t_double_complex);
-    #endif
+    #define __Pyx_CREAL(z) ((z).real)
+    #define __Pyx_CIMAG(z) ((z).imag)
+#endif
+#if defined(__cplusplus) && CYTHON_CCOMPLEX\
+        && (defined(_WIN32) || defined(__clang__) || (defined(__GNUC__) && (__GNUC__ >= 5 || __GNUC__ == 4 && __GNUC_MINOR__ >= 4 )) || __cplusplus >= 201103)
+    #define __Pyx_SET_CREAL(z,x) ((z).real(x))
+    #define __Pyx_SET_CIMAG(z,y) ((z).imag(y))
+#else
+    #define __Pyx_SET_CREAL(z,x) __Pyx_CREAL(z) = (x)
+    #define __Pyx_SET_CIMAG(z,y) __Pyx_CIMAG(z) = (y)
 #endif
 
 /* Arithmetic.proto */
@@ -3009,6 +2968,44 @@ static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dsds_f
     #if 1
         static CYTHON_INLINE float __Pyx_c_abs_float(__pyx_t_float_complex);
         static CYTHON_INLINE __pyx_t_float_complex __Pyx_c_pow_float(__pyx_t_float_complex, __pyx_t_float_complex);
+    #endif
+#endif
+
+/* Arithmetic.proto */
+#if CYTHON_CCOMPLEX && (1) && (!0 || __cplusplus)
+    #define __Pyx_c_eq_double(a, b)   ((a)==(b))
+    #define __Pyx_c_sum_double(a, b)  ((a)+(b))
+    #define __Pyx_c_diff_double(a, b) ((a)-(b))
+    #define __Pyx_c_prod_double(a, b) ((a)*(b))
+    #define __Pyx_c_quot_double(a, b) ((a)/(b))
+    #define __Pyx_c_neg_double(a)     (-(a))
+  #ifdef __cplusplus
+    #define __Pyx_c_is_zero_double(z) ((z)==(double)0)
+    #define __Pyx_c_conj_double(z)    (::std::conj(z))
+    #if 1
+        #define __Pyx_c_abs_double(z)     (::std::abs(z))
+        #define __Pyx_c_pow_double(a, b)  (::std::pow(a, b))
+    #endif
+  #else
+    #define __Pyx_c_is_zero_double(z) ((z)==0)
+    #define __Pyx_c_conj_double(z)    (conj(z))
+    #if 1
+        #define __Pyx_c_abs_double(z)     (cabs(z))
+        #define __Pyx_c_pow_double(a, b)  (cpow(a, b))
+    #endif
+ #endif
+#else
+    static CYTHON_INLINE int __Pyx_c_eq_double(__pyx_t_double_complex, __pyx_t_double_complex);
+    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_sum_double(__pyx_t_double_complex, __pyx_t_double_complex);
+    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_diff_double(__pyx_t_double_complex, __pyx_t_double_complex);
+    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_prod_double(__pyx_t_double_complex, __pyx_t_double_complex);
+    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_quot_double(__pyx_t_double_complex, __pyx_t_double_complex);
+    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_neg_double(__pyx_t_double_complex);
+    static CYTHON_INLINE int __Pyx_c_is_zero_double(__pyx_t_double_complex);
+    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_conj_double(__pyx_t_double_complex);
+    #if 1
+        static CYTHON_INLINE double __Pyx_c_abs_double(__pyx_t_double_complex);
+        static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_pow_double(__pyx_t_double_complex, __pyx_t_double_complex);
     #endif
 #endif
 
@@ -18098,7 +18095,7 @@ static PyObject *__pyx_unpickle_Enum__set_state(struct __pyx_MemviewEnum_obj *__
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":245
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":245
  * 
  *         @property
  *         cdef inline PyObject* base(self) nogil:             # <<<<<<<<<<<<<<
@@ -18109,7 +18106,7 @@ static PyObject *__pyx_unpickle_Enum__set_state(struct __pyx_MemviewEnum_obj *__
 static CYTHON_INLINE PyObject *__pyx_f_5numpy_7ndarray_4base_base(PyArrayObject *__pyx_v_self) {
   PyObject *__pyx_r;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":248
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":248
  *             """Returns a borrowed reference to the object owning the data/memory.
  *             """
  *             return PyArray_BASE(self)             # <<<<<<<<<<<<<<
@@ -18119,7 +18116,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_7ndarray_4base_base(PyArrayObject 
   __pyx_r = PyArray_BASE(__pyx_v_self);
   goto __pyx_L0;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":245
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":245
  * 
  *         @property
  *         cdef inline PyObject* base(self) nogil:             # <<<<<<<<<<<<<<
@@ -18132,7 +18129,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_7ndarray_4base_base(PyArrayObject 
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":251
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":251
  * 
  *         @property
  *         cdef inline dtype descr(self):             # <<<<<<<<<<<<<<
@@ -18146,7 +18143,7 @@ static CYTHON_INLINE PyArray_Descr *__pyx_f_5numpy_7ndarray_5descr_descr(PyArray
   PyArray_Descr *__pyx_t_1;
   __Pyx_RefNannySetupContext("descr", 1);
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":254
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":254
  *             """Returns an owned reference to the dtype of the array.
  *             """
  *             return <dtype>PyArray_DESCR(self)             # <<<<<<<<<<<<<<
@@ -18159,7 +18156,7 @@ static CYTHON_INLINE PyArray_Descr *__pyx_f_5numpy_7ndarray_5descr_descr(PyArray
   __pyx_r = ((PyArray_Descr *)__pyx_t_1);
   goto __pyx_L0;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":251
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":251
  * 
  *         @property
  *         cdef inline dtype descr(self):             # <<<<<<<<<<<<<<
@@ -18174,7 +18171,7 @@ static CYTHON_INLINE PyArray_Descr *__pyx_f_5numpy_7ndarray_5descr_descr(PyArray
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":257
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":257
  * 
  *         @property
  *         cdef inline int ndim(self) nogil:             # <<<<<<<<<<<<<<
@@ -18185,7 +18182,7 @@ static CYTHON_INLINE PyArray_Descr *__pyx_f_5numpy_7ndarray_5descr_descr(PyArray
 static CYTHON_INLINE int __pyx_f_5numpy_7ndarray_4ndim_ndim(PyArrayObject *__pyx_v_self) {
   int __pyx_r;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":260
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":260
  *             """Returns the number of dimensions in the array.
  *             """
  *             return PyArray_NDIM(self)             # <<<<<<<<<<<<<<
@@ -18195,7 +18192,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_7ndarray_4ndim_ndim(PyArrayObject *__pyx
   __pyx_r = PyArray_NDIM(__pyx_v_self);
   goto __pyx_L0;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":257
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":257
  * 
  *         @property
  *         cdef inline int ndim(self) nogil:             # <<<<<<<<<<<<<<
@@ -18208,7 +18205,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_7ndarray_4ndim_ndim(PyArrayObject *__pyx
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":263
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":263
  * 
  *         @property
  *         cdef inline npy_intp *shape(self) nogil:             # <<<<<<<<<<<<<<
@@ -18219,7 +18216,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_7ndarray_4ndim_ndim(PyArrayObject *__pyx
 static CYTHON_INLINE npy_intp *__pyx_f_5numpy_7ndarray_5shape_shape(PyArrayObject *__pyx_v_self) {
   npy_intp *__pyx_r;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":268
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":268
  *             Can return NULL for 0-dimensional arrays.
  *             """
  *             return PyArray_DIMS(self)             # <<<<<<<<<<<<<<
@@ -18229,7 +18226,7 @@ static CYTHON_INLINE npy_intp *__pyx_f_5numpy_7ndarray_5shape_shape(PyArrayObjec
   __pyx_r = PyArray_DIMS(__pyx_v_self);
   goto __pyx_L0;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":263
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":263
  * 
  *         @property
  *         cdef inline npy_intp *shape(self) nogil:             # <<<<<<<<<<<<<<
@@ -18242,7 +18239,7 @@ static CYTHON_INLINE npy_intp *__pyx_f_5numpy_7ndarray_5shape_shape(PyArrayObjec
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":271
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":271
  * 
  *         @property
  *         cdef inline npy_intp *strides(self) nogil:             # <<<<<<<<<<<<<<
@@ -18253,7 +18250,7 @@ static CYTHON_INLINE npy_intp *__pyx_f_5numpy_7ndarray_5shape_shape(PyArrayObjec
 static CYTHON_INLINE npy_intp *__pyx_f_5numpy_7ndarray_7strides_strides(PyArrayObject *__pyx_v_self) {
   npy_intp *__pyx_r;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":275
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":275
  *             The number of elements matches the number of dimensions of the array (ndim).
  *             """
  *             return PyArray_STRIDES(self)             # <<<<<<<<<<<<<<
@@ -18263,7 +18260,7 @@ static CYTHON_INLINE npy_intp *__pyx_f_5numpy_7ndarray_7strides_strides(PyArrayO
   __pyx_r = PyArray_STRIDES(__pyx_v_self);
   goto __pyx_L0;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":271
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":271
  * 
  *         @property
  *         cdef inline npy_intp *strides(self) nogil:             # <<<<<<<<<<<<<<
@@ -18276,7 +18273,7 @@ static CYTHON_INLINE npy_intp *__pyx_f_5numpy_7ndarray_7strides_strides(PyArrayO
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":278
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":278
  * 
  *         @property
  *         cdef inline npy_intp size(self) nogil:             # <<<<<<<<<<<<<<
@@ -18287,7 +18284,7 @@ static CYTHON_INLINE npy_intp *__pyx_f_5numpy_7ndarray_7strides_strides(PyArrayO
 static CYTHON_INLINE npy_intp __pyx_f_5numpy_7ndarray_4size_size(PyArrayObject *__pyx_v_self) {
   npy_intp __pyx_r;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":281
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":281
  *             """Returns the total size (in number of elements) of the array.
  *             """
  *             return PyArray_SIZE(self)             # <<<<<<<<<<<<<<
@@ -18297,7 +18294,7 @@ static CYTHON_INLINE npy_intp __pyx_f_5numpy_7ndarray_4size_size(PyArrayObject *
   __pyx_r = PyArray_SIZE(__pyx_v_self);
   goto __pyx_L0;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":278
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":278
  * 
  *         @property
  *         cdef inline npy_intp size(self) nogil:             # <<<<<<<<<<<<<<
@@ -18310,7 +18307,7 @@ static CYTHON_INLINE npy_intp __pyx_f_5numpy_7ndarray_4size_size(PyArrayObject *
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":284
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":284
  * 
  *         @property
  *         cdef inline char* data(self) nogil:             # <<<<<<<<<<<<<<
@@ -18321,7 +18318,7 @@ static CYTHON_INLINE npy_intp __pyx_f_5numpy_7ndarray_4size_size(PyArrayObject *
 static CYTHON_INLINE char *__pyx_f_5numpy_7ndarray_4data_data(PyArrayObject *__pyx_v_self) {
   char *__pyx_r;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":290
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":290
  *             of `PyArray_DATA()` instead, which returns a 'void*'.
  *             """
  *             return PyArray_BYTES(self)             # <<<<<<<<<<<<<<
@@ -18331,7 +18328,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy_7ndarray_4data_data(PyArrayObject *__p
   __pyx_r = PyArray_BYTES(__pyx_v_self);
   goto __pyx_L0;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":284
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":284
  * 
  *         @property
  *         cdef inline char* data(self) nogil:             # <<<<<<<<<<<<<<
@@ -18344,7 +18341,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy_7ndarray_4data_data(PyArrayObject *__p
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":773
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":773
  * ctypedef npy_cdouble     complex_t
  * 
  * cdef inline object PyArray_MultiIterNew1(a):             # <<<<<<<<<<<<<<
@@ -18361,7 +18358,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew1(PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew1", 1);
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":774
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":774
  * 
  * cdef inline object PyArray_MultiIterNew1(a):
  *     return PyArray_MultiIterNew(1, <void*>a)             # <<<<<<<<<<<<<<
@@ -18375,7 +18372,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew1(PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":773
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":773
  * ctypedef npy_cdouble     complex_t
  * 
  * cdef inline object PyArray_MultiIterNew1(a):             # <<<<<<<<<<<<<<
@@ -18394,7 +18391,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew1(PyObject *__
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":776
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":776
  *     return PyArray_MultiIterNew(1, <void*>a)
  * 
  * cdef inline object PyArray_MultiIterNew2(a, b):             # <<<<<<<<<<<<<<
@@ -18411,7 +18408,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew2(PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew2", 1);
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":777
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":777
  * 
  * cdef inline object PyArray_MultiIterNew2(a, b):
  *     return PyArray_MultiIterNew(2, <void*>a, <void*>b)             # <<<<<<<<<<<<<<
@@ -18425,7 +18422,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew2(PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":776
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":776
  *     return PyArray_MultiIterNew(1, <void*>a)
  * 
  * cdef inline object PyArray_MultiIterNew2(a, b):             # <<<<<<<<<<<<<<
@@ -18444,7 +18441,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew2(PyObject *__
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":779
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":779
  *     return PyArray_MultiIterNew(2, <void*>a, <void*>b)
  * 
  * cdef inline object PyArray_MultiIterNew3(a, b, c):             # <<<<<<<<<<<<<<
@@ -18461,7 +18458,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew3(PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew3", 1);
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":780
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":780
  * 
  * cdef inline object PyArray_MultiIterNew3(a, b, c):
  *     return PyArray_MultiIterNew(3, <void*>a, <void*>b, <void*> c)             # <<<<<<<<<<<<<<
@@ -18475,7 +18472,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew3(PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":779
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":779
  *     return PyArray_MultiIterNew(2, <void*>a, <void*>b)
  * 
  * cdef inline object PyArray_MultiIterNew3(a, b, c):             # <<<<<<<<<<<<<<
@@ -18494,7 +18491,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew3(PyObject *__
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":782
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":782
  *     return PyArray_MultiIterNew(3, <void*>a, <void*>b, <void*> c)
  * 
  * cdef inline object PyArray_MultiIterNew4(a, b, c, d):             # <<<<<<<<<<<<<<
@@ -18511,7 +18508,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew4(PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew4", 1);
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":783
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":783
  * 
  * cdef inline object PyArray_MultiIterNew4(a, b, c, d):
  *     return PyArray_MultiIterNew(4, <void*>a, <void*>b, <void*>c, <void*> d)             # <<<<<<<<<<<<<<
@@ -18525,7 +18522,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew4(PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":782
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":782
  *     return PyArray_MultiIterNew(3, <void*>a, <void*>b, <void*> c)
  * 
  * cdef inline object PyArray_MultiIterNew4(a, b, c, d):             # <<<<<<<<<<<<<<
@@ -18544,7 +18541,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew4(PyObject *__
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":785
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":785
  *     return PyArray_MultiIterNew(4, <void*>a, <void*>b, <void*>c, <void*> d)
  * 
  * cdef inline object PyArray_MultiIterNew5(a, b, c, d, e):             # <<<<<<<<<<<<<<
@@ -18561,7 +18558,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew5(PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew5", 1);
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":786
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":786
  * 
  * cdef inline object PyArray_MultiIterNew5(a, b, c, d, e):
  *     return PyArray_MultiIterNew(5, <void*>a, <void*>b, <void*>c, <void*> d, <void*> e)             # <<<<<<<<<<<<<<
@@ -18575,7 +18572,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew5(PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":785
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":785
  *     return PyArray_MultiIterNew(4, <void*>a, <void*>b, <void*>c, <void*> d)
  * 
  * cdef inline object PyArray_MultiIterNew5(a, b, c, d, e):             # <<<<<<<<<<<<<<
@@ -18594,7 +18591,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew5(PyObject *__
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":788
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":788
  *     return PyArray_MultiIterNew(5, <void*>a, <void*>b, <void*>c, <void*> d, <void*> e)
  * 
  * cdef inline tuple PyDataType_SHAPE(dtype d):             # <<<<<<<<<<<<<<
@@ -18608,7 +18605,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("PyDataType_SHAPE", 1);
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":789
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":789
  * 
  * cdef inline tuple PyDataType_SHAPE(dtype d):
  *     if PyDataType_HASSUBARRAY(d):             # <<<<<<<<<<<<<<
@@ -18618,7 +18615,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
   __pyx_t_1 = PyDataType_HASSUBARRAY(__pyx_v_d);
   if (__pyx_t_1) {
 
-    /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":790
+    /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":790
  * cdef inline tuple PyDataType_SHAPE(dtype d):
  *     if PyDataType_HASSUBARRAY(d):
  *         return <tuple>d.subarray.shape             # <<<<<<<<<<<<<<
@@ -18630,7 +18627,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
     __pyx_r = ((PyObject*)__pyx_v_d->subarray->shape);
     goto __pyx_L0;
 
-    /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":789
+    /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":789
  * 
  * cdef inline tuple PyDataType_SHAPE(dtype d):
  *     if PyDataType_HASSUBARRAY(d):             # <<<<<<<<<<<<<<
@@ -18639,7 +18636,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
  */
   }
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":792
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":792
  *         return <tuple>d.subarray.shape
  *     else:
  *         return ()             # <<<<<<<<<<<<<<
@@ -18653,7 +18650,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
     goto __pyx_L0;
   }
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":788
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":788
  *     return PyArray_MultiIterNew(5, <void*>a, <void*>b, <void*>c, <void*> d, <void*> e)
  * 
  * cdef inline tuple PyDataType_SHAPE(dtype d):             # <<<<<<<<<<<<<<
@@ -18668,7 +18665,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":968
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":968
  *     int _import_umath() except -1
  * 
  * cdef inline void set_array_base(ndarray arr, object base):             # <<<<<<<<<<<<<<
@@ -18682,7 +18679,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":969
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":969
  * 
  * cdef inline void set_array_base(ndarray arr, object base):
  *     Py_INCREF(base) # important to do this before stealing the reference below!             # <<<<<<<<<<<<<<
@@ -18691,7 +18688,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
  */
   Py_INCREF(__pyx_v_base);
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":970
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":970
  * cdef inline void set_array_base(ndarray arr, object base):
  *     Py_INCREF(base) # important to do this before stealing the reference below!
  *     PyArray_SetBaseObject(arr, base)             # <<<<<<<<<<<<<<
@@ -18700,7 +18697,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
  */
   __pyx_t_1 = PyArray_SetBaseObject(__pyx_v_arr, __pyx_v_base); if (unlikely(__pyx_t_1 == ((int)-1))) __PYX_ERR(2, 970, __pyx_L1_error)
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":968
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":968
  *     int _import_umath() except -1
  * 
  * cdef inline void set_array_base(ndarray arr, object base):             # <<<<<<<<<<<<<<
@@ -18715,7 +18712,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
   __pyx_L0:;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":972
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":972
  *     PyArray_SetBaseObject(arr, base)
  * 
  * cdef inline object get_array_base(ndarray arr):             # <<<<<<<<<<<<<<
@@ -18730,7 +18727,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("get_array_base", 1);
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":973
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":973
  * 
  * cdef inline object get_array_base(ndarray arr):
  *     base = PyArray_BASE(arr)             # <<<<<<<<<<<<<<
@@ -18739,7 +18736,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
  */
   __pyx_v_base = PyArray_BASE(__pyx_v_arr);
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":974
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":974
  * cdef inline object get_array_base(ndarray arr):
  *     base = PyArray_BASE(arr)
  *     if base is NULL:             # <<<<<<<<<<<<<<
@@ -18749,7 +18746,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
   __pyx_t_1 = (__pyx_v_base == NULL);
   if (__pyx_t_1) {
 
-    /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":975
+    /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":975
  *     base = PyArray_BASE(arr)
  *     if base is NULL:
  *         return None             # <<<<<<<<<<<<<<
@@ -18760,7 +18757,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
     __pyx_r = Py_None; __Pyx_INCREF(Py_None);
     goto __pyx_L0;
 
-    /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":974
+    /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":974
  * cdef inline object get_array_base(ndarray arr):
  *     base = PyArray_BASE(arr)
  *     if base is NULL:             # <<<<<<<<<<<<<<
@@ -18769,7 +18766,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
  */
   }
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":976
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":976
  *     if base is NULL:
  *         return None
  *     return <object>base             # <<<<<<<<<<<<<<
@@ -18781,7 +18778,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
   __pyx_r = ((PyObject *)__pyx_v_base);
   goto __pyx_L0;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":972
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":972
  *     PyArray_SetBaseObject(arr, base)
  * 
  * cdef inline object get_array_base(ndarray arr):             # <<<<<<<<<<<<<<
@@ -18796,7 +18793,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":980
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":980
  * # Versions of the import_* functions which are more suitable for
  * # Cython code.
  * cdef inline int import_array() except -1:             # <<<<<<<<<<<<<<
@@ -18820,7 +18817,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("import_array", 1);
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":981
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":981
  * # Cython code.
  * cdef inline int import_array() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -18836,7 +18833,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":982
+      /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":982
  * cdef inline int import_array() except -1:
  *     try:
  *         __pyx_import_array()             # <<<<<<<<<<<<<<
@@ -18845,7 +18842,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
  */
       __pyx_t_4 = _import_array(); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(2, 982, __pyx_L3_error)
 
-      /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":981
+      /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":981
  * # Cython code.
  * cdef inline int import_array() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -18859,7 +18856,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
     goto __pyx_L8_try_end;
     __pyx_L3_error:;
 
-    /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":983
+    /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":983
  *     try:
  *         __pyx_import_array()
  *     except Exception:             # <<<<<<<<<<<<<<
@@ -18874,7 +18871,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
       __Pyx_XGOTREF(__pyx_t_6);
       __Pyx_XGOTREF(__pyx_t_7);
 
-      /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":984
+      /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":984
  *         __pyx_import_array()
  *     except Exception:
  *         raise ImportError("numpy.core.multiarray failed to import")             # <<<<<<<<<<<<<<
@@ -18889,7 +18886,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
     }
     goto __pyx_L5_except_error;
 
-    /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":981
+    /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":981
  * # Cython code.
  * cdef inline int import_array() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -18905,7 +18902,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
     __pyx_L8_try_end:;
   }
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":980
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":980
  * # Versions of the import_* functions which are more suitable for
  * # Cython code.
  * cdef inline int import_array() except -1:             # <<<<<<<<<<<<<<
@@ -18928,7 +18925,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":986
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":986
  *         raise ImportError("numpy.core.multiarray failed to import")
  * 
  * cdef inline int import_umath() except -1:             # <<<<<<<<<<<<<<
@@ -18952,7 +18949,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("import_umath", 1);
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":987
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":987
  * 
  * cdef inline int import_umath() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -18968,7 +18965,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":988
+      /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":988
  * cdef inline int import_umath() except -1:
  *     try:
  *         _import_umath()             # <<<<<<<<<<<<<<
@@ -18977,7 +18974,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
  */
       __pyx_t_4 = _import_umath(); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(2, 988, __pyx_L3_error)
 
-      /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":987
+      /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":987
  * 
  * cdef inline int import_umath() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -18991,7 +18988,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
     goto __pyx_L8_try_end;
     __pyx_L3_error:;
 
-    /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":989
+    /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":989
  *     try:
  *         _import_umath()
  *     except Exception:             # <<<<<<<<<<<<<<
@@ -19006,7 +19003,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
       __Pyx_XGOTREF(__pyx_t_6);
       __Pyx_XGOTREF(__pyx_t_7);
 
-      /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":990
+      /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":990
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
@@ -19021,7 +19018,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
     }
     goto __pyx_L5_except_error;
 
-    /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":987
+    /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":987
  * 
  * cdef inline int import_umath() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -19037,7 +19034,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
     __pyx_L8_try_end:;
   }
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":986
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":986
  *         raise ImportError("numpy.core.multiarray failed to import")
  * 
  * cdef inline int import_umath() except -1:             # <<<<<<<<<<<<<<
@@ -19060,7 +19057,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":992
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":992
  *         raise ImportError("numpy.core.umath failed to import")
  * 
  * cdef inline int import_ufunc() except -1:             # <<<<<<<<<<<<<<
@@ -19084,7 +19081,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("import_ufunc", 1);
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":993
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":993
  * 
  * cdef inline int import_ufunc() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -19100,7 +19097,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":994
+      /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":994
  * cdef inline int import_ufunc() except -1:
  *     try:
  *         _import_umath()             # <<<<<<<<<<<<<<
@@ -19109,7 +19106,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
  */
       __pyx_t_4 = _import_umath(); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(2, 994, __pyx_L3_error)
 
-      /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":993
+      /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":993
  * 
  * cdef inline int import_ufunc() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -19123,7 +19120,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
     goto __pyx_L8_try_end;
     __pyx_L3_error:;
 
-    /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":995
+    /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":995
  *     try:
  *         _import_umath()
  *     except Exception:             # <<<<<<<<<<<<<<
@@ -19138,7 +19135,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
       __Pyx_XGOTREF(__pyx_t_6);
       __Pyx_XGOTREF(__pyx_t_7);
 
-      /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":996
+      /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":996
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
@@ -19153,7 +19150,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
     }
     goto __pyx_L5_except_error;
 
-    /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":993
+    /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":993
  * 
  * cdef inline int import_ufunc() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -19169,7 +19166,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
     __pyx_L8_try_end:;
   }
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":992
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":992
  *         raise ImportError("numpy.core.umath failed to import")
  * 
  * cdef inline int import_ufunc() except -1:             # <<<<<<<<<<<<<<
@@ -19192,7 +19189,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":999
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":999
  * 
  * 
  * cdef inline bint is_timedelta64_object(object obj):             # <<<<<<<<<<<<<<
@@ -19203,7 +19200,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
 static CYTHON_INLINE int __pyx_f_5numpy_is_timedelta64_object(PyObject *__pyx_v_obj) {
   int __pyx_r;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1011
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1011
  *     bool
  *     """
  *     return PyObject_TypeCheck(obj, &PyTimedeltaArrType_Type)             # <<<<<<<<<<<<<<
@@ -19213,7 +19210,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_is_timedelta64_object(PyObject *__pyx_v_
   __pyx_r = PyObject_TypeCheck(__pyx_v_obj, (&PyTimedeltaArrType_Type));
   goto __pyx_L0;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":999
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":999
  * 
  * 
  * cdef inline bint is_timedelta64_object(object obj):             # <<<<<<<<<<<<<<
@@ -19226,7 +19223,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_is_timedelta64_object(PyObject *__pyx_v_
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1014
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1014
  * 
  * 
  * cdef inline bint is_datetime64_object(object obj):             # <<<<<<<<<<<<<<
@@ -19237,7 +19234,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_is_timedelta64_object(PyObject *__pyx_v_
 static CYTHON_INLINE int __pyx_f_5numpy_is_datetime64_object(PyObject *__pyx_v_obj) {
   int __pyx_r;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1026
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1026
  *     bool
  *     """
  *     return PyObject_TypeCheck(obj, &PyDatetimeArrType_Type)             # <<<<<<<<<<<<<<
@@ -19247,7 +19244,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_is_datetime64_object(PyObject *__pyx_v_o
   __pyx_r = PyObject_TypeCheck(__pyx_v_obj, (&PyDatetimeArrType_Type));
   goto __pyx_L0;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1014
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1014
  * 
  * 
  * cdef inline bint is_datetime64_object(object obj):             # <<<<<<<<<<<<<<
@@ -19260,7 +19257,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_is_datetime64_object(PyObject *__pyx_v_o
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1029
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1029
  * 
  * 
  * cdef inline npy_datetime get_datetime64_value(object obj) nogil:             # <<<<<<<<<<<<<<
@@ -19271,7 +19268,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_is_datetime64_object(PyObject *__pyx_v_o
 static CYTHON_INLINE npy_datetime __pyx_f_5numpy_get_datetime64_value(PyObject *__pyx_v_obj) {
   npy_datetime __pyx_r;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1036
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1036
  *     also needed.  That can be found using `get_datetime64_unit`.
  *     """
  *     return (<PyDatetimeScalarObject*>obj).obval             # <<<<<<<<<<<<<<
@@ -19281,7 +19278,7 @@ static CYTHON_INLINE npy_datetime __pyx_f_5numpy_get_datetime64_value(PyObject *
   __pyx_r = ((PyDatetimeScalarObject *)__pyx_v_obj)->obval;
   goto __pyx_L0;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1029
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1029
  * 
  * 
  * cdef inline npy_datetime get_datetime64_value(object obj) nogil:             # <<<<<<<<<<<<<<
@@ -19294,7 +19291,7 @@ static CYTHON_INLINE npy_datetime __pyx_f_5numpy_get_datetime64_value(PyObject *
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1039
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1039
  * 
  * 
  * cdef inline npy_timedelta get_timedelta64_value(object obj) nogil:             # <<<<<<<<<<<<<<
@@ -19305,7 +19302,7 @@ static CYTHON_INLINE npy_datetime __pyx_f_5numpy_get_datetime64_value(PyObject *
 static CYTHON_INLINE npy_timedelta __pyx_f_5numpy_get_timedelta64_value(PyObject *__pyx_v_obj) {
   npy_timedelta __pyx_r;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1043
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1043
  *     returns the int64 value underlying scalar numpy timedelta64 object
  *     """
  *     return (<PyTimedeltaScalarObject*>obj).obval             # <<<<<<<<<<<<<<
@@ -19315,7 +19312,7 @@ static CYTHON_INLINE npy_timedelta __pyx_f_5numpy_get_timedelta64_value(PyObject
   __pyx_r = ((PyTimedeltaScalarObject *)__pyx_v_obj)->obval;
   goto __pyx_L0;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1039
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1039
  * 
  * 
  * cdef inline npy_timedelta get_timedelta64_value(object obj) nogil:             # <<<<<<<<<<<<<<
@@ -19328,7 +19325,7 @@ static CYTHON_INLINE npy_timedelta __pyx_f_5numpy_get_timedelta64_value(PyObject
   return __pyx_r;
 }
 
-/* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1046
+/* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1046
  * 
  * 
  * cdef inline NPY_DATETIMEUNIT get_datetime64_unit(object obj) nogil:             # <<<<<<<<<<<<<<
@@ -19339,7 +19336,7 @@ static CYTHON_INLINE npy_timedelta __pyx_f_5numpy_get_timedelta64_value(PyObject
 static CYTHON_INLINE NPY_DATETIMEUNIT __pyx_f_5numpy_get_datetime64_unit(PyObject *__pyx_v_obj) {
   NPY_DATETIMEUNIT __pyx_r;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1050
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1050
  *     returns the unit part of the dtype for a numpy datetime64 object.
  *     """
  *     return <NPY_DATETIMEUNIT>(<PyDatetimeScalarObject*>obj).obmeta.base             # <<<<<<<<<<<<<<
@@ -19347,7 +19344,7 @@ static CYTHON_INLINE NPY_DATETIMEUNIT __pyx_f_5numpy_get_datetime64_unit(PyObjec
   __pyx_r = ((NPY_DATETIMEUNIT)((PyDatetimeScalarObject *)__pyx_v_obj)->obmeta.base);
   goto __pyx_L0;
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1046
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":1046
  * 
  * 
  * cdef inline NPY_DATETIMEUNIT get_datetime64_unit(object obj) nogil:             # <<<<<<<<<<<<<<
@@ -19360,7 +19357,7 @@ static CYTHON_INLINE NPY_DATETIMEUNIT __pyx_f_5numpy_get_datetime64_unit(PyObjec
   return __pyx_r;
 }
 
-/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":20
+/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":21
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_dd(double[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -19398,14 +19395,12 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_dd
   Py_ssize_t __pyx_t_11;
   int __pyx_t_12;
   int __pyx_t_13;
-  __pyx_t_double_complex __pyx_t_14;
-  __pyx_t_double_complex __pyx_t_15;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_dd", 1);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":22
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":23
  * cpdef calc_tvu_qc_dd(double[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, double[:,:] tvu_qc):
  * 
  *     cdef int rows = bathy.shape[0]             # <<<<<<<<<<<<<<
@@ -19414,7 +19409,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_dd
  */
   __pyx_v_rows = (__pyx_v_bathy.shape[0]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":23
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":24
  * 
  *     cdef int rows = bathy.shape[0]
  *     cdef int cols = bathy.shape[1]             # <<<<<<<<<<<<<<
@@ -19423,23 +19418,23 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_dd
  */
   __pyx_v_cols = (__pyx_v_bathy.shape[1]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":28
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":29
  *     cdef double bathy_value
  *     cdef double pr_unc_value
  *     cdef double NaN = np.nan             # <<<<<<<<<<<<<<
  * 
  *     for r in range(rows):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 28, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 28, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 28, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_NaN = __pyx_t_3;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":30
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":31
  *     cdef double NaN = np.nan
  * 
  *     for r in range(rows):             # <<<<<<<<<<<<<<
@@ -19451,7 +19446,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_dd
   for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_r = __pyx_t_6;
 
-    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":32
+    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":33
  *     for r in range(rows):
  * 
  *         for c in range(cols):             # <<<<<<<<<<<<<<
@@ -19463,7 +19458,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_dd
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_c = __pyx_t_9;
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":34
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":35
  *         for c in range(cols):
  * 
  *             bathy_value = bathy[r, c]             # <<<<<<<<<<<<<<
@@ -19474,7 +19469,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_dd
       __pyx_t_11 = __pyx_v_c;
       __pyx_v_bathy_value = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_bathy.data + __pyx_t_10 * __pyx_v_bathy.strides[0]) ) + __pyx_t_11 * __pyx_v_bathy.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":35
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":36
  * 
  *             bathy_value = bathy[r, c]
  *             pr_unc_value = product_uncertainty[r, c]             # <<<<<<<<<<<<<<
@@ -19485,7 +19480,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_dd
       __pyx_t_10 = __pyx_v_c;
       __pyx_v_pr_unc_value = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_product_uncertainty.data + __pyx_t_11 * __pyx_v_product_uncertainty.strides[0]) ) + __pyx_t_10 * __pyx_v_product_uncertainty.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":37
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":38
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -19503,7 +19498,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_dd
       __pyx_L8_bool_binop_done:;
       if (__pyx_t_12) {
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":38
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":39
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):
  *                 tvu_qc[r, c] = NaN             # <<<<<<<<<<<<<<
@@ -19514,7 +19509,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_dd
         __pyx_t_11 = __pyx_v_c;
         *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_v_NaN;
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":37
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":38
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -19524,7 +19519,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_dd
         goto __pyx_L7;
       }
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":40
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":41
  *                 tvu_qc[r, c] = NaN
  * 
  *             elif bathy_value <= 100.0:             # <<<<<<<<<<<<<<
@@ -19534,25 +19529,23 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_dd
       __pyx_t_12 = (__pyx_v_bathy_value <= 100.0);
       if (__pyx_t_12) {
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":41
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":42
  * 
  *             elif bathy_value <= 100.0:
  *                 tvu_qc[r, c] = pr_unc_value / ((0.25 + (0.013 * bathy_value) ** 2) ** 0.5)             # <<<<<<<<<<<<<<
  * 
  *             else:
  */
-        __pyx_t_14 = __pyx_t_double_complex_from_parts(__pyx_v_pr_unc_value, 0);
-        __pyx_t_15 = __Pyx_c_pow_double(__pyx_t_double_complex_from_parts((0.25 + pow((0.013 * __pyx_v_bathy_value), 2.0)), 0), __pyx_t_double_complex_from_parts(0.5, 0));
-        if (unlikely(__Pyx_c_is_zero_double(__pyx_t_15))) {
+        __pyx_t_3 = pow((0.25 + pow((0.013 * __pyx_v_bathy_value), 2.0)), 0.5);
+        if (unlikely(__pyx_t_3 == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-          __PYX_ERR(0, 41, __pyx_L1_error)
+          __PYX_ERR(0, 42, __pyx_L1_error)
         }
-        __pyx_t_3 = __Pyx_SoftComplexToDouble(__Pyx_c_quot_double(__pyx_t_14, __pyx_t_15), 1); if (unlikely(__pyx_t_3 == ((double)-1) && PyErr_Occurred())) __PYX_ERR(0, 41, __pyx_L1_error)
         __pyx_t_11 = __pyx_v_r;
         __pyx_t_10 = __pyx_v_c;
-        *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_11 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_10 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_t_3;
+        *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_11 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_10 * __pyx_v_tvu_qc.strides[1]) )) = (__pyx_v_pr_unc_value / __pyx_t_3);
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":40
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":41
  *                 tvu_qc[r, c] = NaN
  * 
  *             elif bathy_value <= 100.0:             # <<<<<<<<<<<<<<
@@ -19562,7 +19555,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_dd
         goto __pyx_L7;
       }
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":44
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":45
  * 
  *             else:
  *                 tvu_qc[r, c] = pr_unc_value / ((1. + (0.023 * bathy_value) ** 2) ** 0.5)             # <<<<<<<<<<<<<<
@@ -19570,22 +19563,20 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_dd
  * 
  */
       /*else*/ {
-        __pyx_t_15 = __pyx_t_double_complex_from_parts(__pyx_v_pr_unc_value, 0);
-        __pyx_t_14 = __Pyx_c_pow_double(__pyx_t_double_complex_from_parts((1. + pow((0.023 * __pyx_v_bathy_value), 2.0)), 0), __pyx_t_double_complex_from_parts(0.5, 0));
-        if (unlikely(__Pyx_c_is_zero_double(__pyx_t_14))) {
+        __pyx_t_3 = pow((1. + pow((0.023 * __pyx_v_bathy_value), 2.0)), 0.5);
+        if (unlikely(__pyx_t_3 == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-          __PYX_ERR(0, 44, __pyx_L1_error)
+          __PYX_ERR(0, 45, __pyx_L1_error)
         }
-        __pyx_t_3 = __Pyx_SoftComplexToDouble(__Pyx_c_quot_double(__pyx_t_15, __pyx_t_14), 1); if (unlikely(__pyx_t_3 == ((double)-1) && PyErr_Occurred())) __PYX_ERR(0, 44, __pyx_L1_error)
         __pyx_t_10 = __pyx_v_r;
         __pyx_t_11 = __pyx_v_c;
-        *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_t_3;
+        *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = (__pyx_v_pr_unc_value / __pyx_t_3);
       }
       __pyx_L7:;
     }
   }
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":20
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":21
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_dd(double[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -19669,7 +19660,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 20, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -19677,9 +19668,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 20, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_dd", 1, 4, 4, 1); __PYX_ERR(0, 20, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_dd", 1, 4, 4, 1); __PYX_ERR(0, 21, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -19687,9 +19678,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 20, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_dd", 1, 4, 4, 2); __PYX_ERR(0, 20, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_dd", 1, 4, 4, 2); __PYX_ERR(0, 21, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -19697,14 +19688,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 20, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_dd", 1, 4, 4, 3); __PYX_ERR(0, 20, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_dd", 1, 4, 4, 3); __PYX_ERR(0, 21, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_dd") < 0)) __PYX_ERR(0, 20, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_dd") < 0)) __PYX_ERR(0, 21, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -19714,14 +19705,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
       values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
     }
-    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 20, __pyx_L3_error)
-    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 20, __pyx_L3_error)
-    __pyx_v_pu_nodata = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_pu_nodata == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 20, __pyx_L3_error)
-    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 20, __pyx_L3_error)
+    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 21, __pyx_L3_error)
+    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 21, __pyx_L3_error)
+    __pyx_v_pu_nodata = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_pu_nodata == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L3_error)
+    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 21, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_dd", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 20, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_dd", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 21, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -19763,10 +19754,10 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_d
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_dd", 1);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 20, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 20, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 20, __pyx_L1_error) }
-  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_dd(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 20, __pyx_L1_error)
+  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 21, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 21, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 21, __pyx_L1_error) }
+  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_dd(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -19783,7 +19774,7 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_d
   return __pyx_r;
 }
 
-/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":53
+/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":55
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_df(double[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -19821,14 +19812,12 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_df
   Py_ssize_t __pyx_t_11;
   int __pyx_t_12;
   int __pyx_t_13;
-  __pyx_t_double_complex __pyx_t_14;
-  __pyx_t_double_complex __pyx_t_15;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_df", 1);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":55
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":57
  * cpdef calc_tvu_qc_df(double[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, double[:,:] tvu_qc):
  * 
  *     cdef int rows = bathy.shape[0]             # <<<<<<<<<<<<<<
@@ -19837,7 +19826,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_df
  */
   __pyx_v_rows = (__pyx_v_bathy.shape[0]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":56
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":58
  * 
  *     cdef int rows = bathy.shape[0]
  *     cdef int cols = bathy.shape[1]             # <<<<<<<<<<<<<<
@@ -19846,23 +19835,23 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_df
  */
   __pyx_v_cols = (__pyx_v_bathy.shape[1]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":61
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":63
  *     cdef double bathy_value
  *     cdef float pr_unc_value
  *     cdef double NaN = np.nan             # <<<<<<<<<<<<<<
  * 
  *     for r in range(rows):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 61, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_NaN = __pyx_t_3;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":63
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":65
  *     cdef double NaN = np.nan
  * 
  *     for r in range(rows):             # <<<<<<<<<<<<<<
@@ -19874,7 +19863,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_df
   for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_r = __pyx_t_6;
 
-    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":65
+    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":67
  *     for r in range(rows):
  * 
  *         for c in range(cols):             # <<<<<<<<<<<<<<
@@ -19886,7 +19875,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_df
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_c = __pyx_t_9;
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":67
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":69
  *         for c in range(cols):
  * 
  *             bathy_value = bathy[r, c]             # <<<<<<<<<<<<<<
@@ -19897,7 +19886,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_df
       __pyx_t_11 = __pyx_v_c;
       __pyx_v_bathy_value = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_bathy.data + __pyx_t_10 * __pyx_v_bathy.strides[0]) ) + __pyx_t_11 * __pyx_v_bathy.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":68
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":70
  * 
  *             bathy_value = bathy[r, c]
  *             pr_unc_value = product_uncertainty[r, c]             # <<<<<<<<<<<<<<
@@ -19908,7 +19897,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_df
       __pyx_t_10 = __pyx_v_c;
       __pyx_v_pr_unc_value = (*((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_product_uncertainty.data + __pyx_t_11 * __pyx_v_product_uncertainty.strides[0]) ) + __pyx_t_10 * __pyx_v_product_uncertainty.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":70
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":72
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -19926,7 +19915,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_df
       __pyx_L8_bool_binop_done:;
       if (__pyx_t_12) {
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":71
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":73
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):
  *                 tvu_qc[r, c] = NaN             # <<<<<<<<<<<<<<
@@ -19937,7 +19926,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_df
         __pyx_t_11 = __pyx_v_c;
         *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_v_NaN;
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":70
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":72
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -19947,7 +19936,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_df
         goto __pyx_L7;
       }
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":74
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":76
  *                 # logger.debug("is nan: %d %d" % (r, c))
  * 
  *             elif bathy_value <= 100.0:             # <<<<<<<<<<<<<<
@@ -19957,25 +19946,23 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_df
       __pyx_t_12 = (__pyx_v_bathy_value <= 100.0);
       if (__pyx_t_12) {
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":75
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":77
  * 
  *             elif bathy_value <= 100.0:
  *                 tvu_qc[r, c] = pr_unc_value / ((0.25 + (0.013 * bathy_value) ** 2) ** 0.5)             # <<<<<<<<<<<<<<
  * 
  *             else:
  */
-        __pyx_t_14 = __pyx_t_double_complex_from_parts(__pyx_v_pr_unc_value, 0);
-        __pyx_t_15 = __Pyx_c_pow_double(__pyx_t_double_complex_from_parts((0.25 + pow((0.013 * __pyx_v_bathy_value), 2.0)), 0), __pyx_t_double_complex_from_parts(0.5, 0));
-        if (unlikely(__Pyx_c_is_zero_double(__pyx_t_15))) {
+        __pyx_t_3 = pow((0.25 + pow((0.013 * __pyx_v_bathy_value), 2.0)), 0.5);
+        if (unlikely(__pyx_t_3 == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-          __PYX_ERR(0, 75, __pyx_L1_error)
+          __PYX_ERR(0, 77, __pyx_L1_error)
         }
-        __pyx_t_3 = __Pyx_SoftComplexToDouble(__Pyx_c_quot_double(__pyx_t_14, __pyx_t_15), 1); if (unlikely(__pyx_t_3 == ((double)-1) && PyErr_Occurred())) __PYX_ERR(0, 75, __pyx_L1_error)
         __pyx_t_11 = __pyx_v_r;
         __pyx_t_10 = __pyx_v_c;
-        *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_11 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_10 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_t_3;
+        *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_11 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_10 * __pyx_v_tvu_qc.strides[1]) )) = (((double)__pyx_v_pr_unc_value) / __pyx_t_3);
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":74
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":76
  *                 # logger.debug("is nan: %d %d" % (r, c))
  * 
  *             elif bathy_value <= 100.0:             # <<<<<<<<<<<<<<
@@ -19985,7 +19972,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_df
         goto __pyx_L7;
       }
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":78
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":80
  * 
  *             else:
  *                 tvu_qc[r, c] = pr_unc_value / ((1. + (0.023 * bathy_value) ** 2) ** 0.5)             # <<<<<<<<<<<<<<
@@ -19993,22 +19980,20 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_df
  * # noinspection PyUnresolvedReferences
  */
       /*else*/ {
-        __pyx_t_15 = __pyx_t_double_complex_from_parts(__pyx_v_pr_unc_value, 0);
-        __pyx_t_14 = __Pyx_c_pow_double(__pyx_t_double_complex_from_parts((1. + pow((0.023 * __pyx_v_bathy_value), 2.0)), 0), __pyx_t_double_complex_from_parts(0.5, 0));
-        if (unlikely(__Pyx_c_is_zero_double(__pyx_t_14))) {
+        __pyx_t_3 = pow((1. + pow((0.023 * __pyx_v_bathy_value), 2.0)), 0.5);
+        if (unlikely(__pyx_t_3 == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-          __PYX_ERR(0, 78, __pyx_L1_error)
+          __PYX_ERR(0, 80, __pyx_L1_error)
         }
-        __pyx_t_3 = __Pyx_SoftComplexToDouble(__Pyx_c_quot_double(__pyx_t_15, __pyx_t_14), 1); if (unlikely(__pyx_t_3 == ((double)-1) && PyErr_Occurred())) __PYX_ERR(0, 78, __pyx_L1_error)
         __pyx_t_10 = __pyx_v_r;
         __pyx_t_11 = __pyx_v_c;
-        *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_t_3;
+        *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = (((double)__pyx_v_pr_unc_value) / __pyx_t_3);
       }
       __pyx_L7:;
     }
   }
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":53
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":55
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_df(double[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -20092,7 +20077,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 53, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 55, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -20100,9 +20085,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 53, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 55, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_df", 1, 4, 4, 1); __PYX_ERR(0, 53, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_df", 1, 4, 4, 1); __PYX_ERR(0, 55, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -20110,9 +20095,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 53, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 55, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_df", 1, 4, 4, 2); __PYX_ERR(0, 53, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_df", 1, 4, 4, 2); __PYX_ERR(0, 55, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -20120,14 +20105,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 53, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 55, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_df", 1, 4, 4, 3); __PYX_ERR(0, 53, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_df", 1, 4, 4, 3); __PYX_ERR(0, 55, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_df") < 0)) __PYX_ERR(0, 53, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_df") < 0)) __PYX_ERR(0, 55, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -20137,14 +20122,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
       values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
     }
-    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 53, __pyx_L3_error)
-    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 53, __pyx_L3_error)
-    __pyx_v_pu_nodata = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_pu_nodata == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 53, __pyx_L3_error)
-    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 53, __pyx_L3_error)
+    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 55, __pyx_L3_error)
+    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 55, __pyx_L3_error)
+    __pyx_v_pu_nodata = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_pu_nodata == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 55, __pyx_L3_error)
+    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 55, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_df", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 53, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_df", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 55, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -20186,10 +20171,10 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_2calc_tvu_qc_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_df", 1);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 53, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 53, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 53, __pyx_L1_error) }
-  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_df(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
+  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 55, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 55, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 55, __pyx_L1_error) }
+  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_df(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 55, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -20206,7 +20191,7 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_2calc_tvu_qc_
   return __pyx_r;
 }
 
-/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":86
+/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":89
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_fd(float[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -20244,15 +20229,13 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_fd
   Py_ssize_t __pyx_t_11;
   int __pyx_t_12;
   int __pyx_t_13;
-  __pyx_t_double_complex __pyx_t_14;
-  __pyx_t_double_complex __pyx_t_15;
-  double __pyx_t_16;
+  double __pyx_t_14;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_fd", 1);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":88
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":91
  * cpdef calc_tvu_qc_fd(float[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, float[:,:] tvu_qc):
  * 
  *     cdef int rows = bathy.shape[0]             # <<<<<<<<<<<<<<
@@ -20261,7 +20244,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_fd
  */
   __pyx_v_rows = (__pyx_v_bathy.shape[0]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":89
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":92
  * 
  *     cdef int rows = bathy.shape[0]
  *     cdef int cols = bathy.shape[1]             # <<<<<<<<<<<<<<
@@ -20270,23 +20253,23 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_fd
  */
   __pyx_v_cols = (__pyx_v_bathy.shape[1]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":94
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":97
  *     cdef float bathy_value
  *     cdef double pr_unc_value
  *     cdef float NaN = np.nan             # <<<<<<<<<<<<<<
  * 
  *     for r in range(rows):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_NaN = __pyx_t_3;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":96
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":99
  *     cdef float NaN = np.nan
  * 
  *     for r in range(rows):             # <<<<<<<<<<<<<<
@@ -20298,7 +20281,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_fd
   for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_r = __pyx_t_6;
 
-    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":98
+    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":101
  *     for r in range(rows):
  * 
  *         for c in range(cols):             # <<<<<<<<<<<<<<
@@ -20310,7 +20293,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_fd
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_c = __pyx_t_9;
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":100
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":103
  *         for c in range(cols):
  * 
  *             bathy_value = bathy[r, c]             # <<<<<<<<<<<<<<
@@ -20321,7 +20304,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_fd
       __pyx_t_11 = __pyx_v_c;
       __pyx_v_bathy_value = (*((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_bathy.data + __pyx_t_10 * __pyx_v_bathy.strides[0]) ) + __pyx_t_11 * __pyx_v_bathy.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":101
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":104
  * 
  *             bathy_value = bathy[r, c]
  *             pr_unc_value = product_uncertainty[r, c]             # <<<<<<<<<<<<<<
@@ -20332,7 +20315,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_fd
       __pyx_t_10 = __pyx_v_c;
       __pyx_v_pr_unc_value = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_product_uncertainty.data + __pyx_t_11 * __pyx_v_product_uncertainty.strides[0]) ) + __pyx_t_10 * __pyx_v_product_uncertainty.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":103
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":106
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -20350,7 +20333,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_fd
       __pyx_L8_bool_binop_done:;
       if (__pyx_t_12) {
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":104
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":107
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):
  *                 tvu_qc[r, c] = NaN             # <<<<<<<<<<<<<<
@@ -20361,7 +20344,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_fd
         __pyx_t_11 = __pyx_v_c;
         *((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_v_NaN;
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":103
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":106
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -20371,7 +20354,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_fd
         goto __pyx_L7;
       }
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":106
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":109
  *                 tvu_qc[r, c] = NaN
  * 
  *             elif bathy_value <= 100.0:             # <<<<<<<<<<<<<<
@@ -20381,25 +20364,23 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_fd
       __pyx_t_12 = (__pyx_v_bathy_value <= 100.0);
       if (__pyx_t_12) {
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":107
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":110
  * 
  *             elif bathy_value <= 100.0:
  *                 tvu_qc[r, c] = pr_unc_value / ((0.25 + (0.013 * bathy_value) ** 2) ** 0.5)             # <<<<<<<<<<<<<<
  * 
  *             else:
  */
-        __pyx_t_14 = __pyx_t_double_complex_from_parts(__pyx_v_pr_unc_value, 0);
-        __pyx_t_15 = __Pyx_c_pow_double(__pyx_t_double_complex_from_parts((0.25 + pow((0.013 * __pyx_v_bathy_value), 2.0)), 0), __pyx_t_double_complex_from_parts(0.5, 0));
-        if (unlikely(__Pyx_c_is_zero_double(__pyx_t_15))) {
+        __pyx_t_14 = pow((0.25 + pow((0.013 * __pyx_v_bathy_value), 2.0)), 0.5);
+        if (unlikely(__pyx_t_14 == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-          __PYX_ERR(0, 107, __pyx_L1_error)
+          __PYX_ERR(0, 110, __pyx_L1_error)
         }
-        __pyx_t_16 = __Pyx_SoftComplexToDouble(__Pyx_c_quot_double(__pyx_t_14, __pyx_t_15), 1); if (unlikely(__pyx_t_16 == ((double)-1) && PyErr_Occurred())) __PYX_ERR(0, 107, __pyx_L1_error)
         __pyx_t_11 = __pyx_v_r;
         __pyx_t_10 = __pyx_v_c;
-        *((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_11 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_10 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_t_16;
+        *((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_11 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_10 * __pyx_v_tvu_qc.strides[1]) )) = (__pyx_v_pr_unc_value / __pyx_t_14);
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":106
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":109
  *                 tvu_qc[r, c] = NaN
  * 
  *             elif bathy_value <= 100.0:             # <<<<<<<<<<<<<<
@@ -20409,7 +20390,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_fd
         goto __pyx_L7;
       }
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":110
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":113
  * 
  *             else:
  *                 tvu_qc[r, c] = pr_unc_value / ((1. + (0.023 * bathy_value) ** 2) ** 0.5)             # <<<<<<<<<<<<<<
@@ -20417,22 +20398,20 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_fd
  * 
  */
       /*else*/ {
-        __pyx_t_15 = __pyx_t_double_complex_from_parts(__pyx_v_pr_unc_value, 0);
-        __pyx_t_14 = __Pyx_c_pow_double(__pyx_t_double_complex_from_parts((1. + pow((0.023 * __pyx_v_bathy_value), 2.0)), 0), __pyx_t_double_complex_from_parts(0.5, 0));
-        if (unlikely(__Pyx_c_is_zero_double(__pyx_t_14))) {
+        __pyx_t_14 = pow((1. + pow((0.023 * __pyx_v_bathy_value), 2.0)), 0.5);
+        if (unlikely(__pyx_t_14 == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-          __PYX_ERR(0, 110, __pyx_L1_error)
+          __PYX_ERR(0, 113, __pyx_L1_error)
         }
-        __pyx_t_16 = __Pyx_SoftComplexToDouble(__Pyx_c_quot_double(__pyx_t_15, __pyx_t_14), 1); if (unlikely(__pyx_t_16 == ((double)-1) && PyErr_Occurred())) __PYX_ERR(0, 110, __pyx_L1_error)
         __pyx_t_10 = __pyx_v_r;
         __pyx_t_11 = __pyx_v_c;
-        *((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_t_16;
+        *((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = (__pyx_v_pr_unc_value / __pyx_t_14);
       }
       __pyx_L7:;
     }
   }
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":86
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":89
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_fd(float[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -20516,7 +20495,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 86, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 89, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -20524,9 +20503,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 86, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 89, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_fd", 1, 4, 4, 1); __PYX_ERR(0, 86, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_fd", 1, 4, 4, 1); __PYX_ERR(0, 89, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -20534,9 +20513,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 86, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 89, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_fd", 1, 4, 4, 2); __PYX_ERR(0, 86, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_fd", 1, 4, 4, 2); __PYX_ERR(0, 89, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -20544,14 +20523,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 86, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 89, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_fd", 1, 4, 4, 3); __PYX_ERR(0, 86, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_fd", 1, 4, 4, 3); __PYX_ERR(0, 89, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_fd") < 0)) __PYX_ERR(0, 86, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_fd") < 0)) __PYX_ERR(0, 89, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -20561,14 +20540,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
       values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
     }
-    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 86, __pyx_L3_error)
-    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 86, __pyx_L3_error)
-    __pyx_v_pu_nodata = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_pu_nodata == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 86, __pyx_L3_error)
-    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 86, __pyx_L3_error)
+    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 89, __pyx_L3_error)
+    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 89, __pyx_L3_error)
+    __pyx_v_pu_nodata = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_pu_nodata == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 89, __pyx_L3_error)
+    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 89, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_fd", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 86, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_fd", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 89, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -20610,10 +20589,10 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_4calc_tvu_qc_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_fd", 1);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 86, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 86, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 86, __pyx_L1_error) }
-  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_fd(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 86, __pyx_L1_error)
+  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 89, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 89, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 89, __pyx_L1_error) }
+  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_fd(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -20630,7 +20609,7 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_4calc_tvu_qc_
   return __pyx_r;
 }
 
-/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":119
+/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":123
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_ff(float[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -20668,15 +20647,13 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_ff
   Py_ssize_t __pyx_t_11;
   int __pyx_t_12;
   int __pyx_t_13;
-  __pyx_t_double_complex __pyx_t_14;
-  __pyx_t_double_complex __pyx_t_15;
-  double __pyx_t_16;
+  double __pyx_t_14;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_ff", 1);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":121
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":125
  * cpdef calc_tvu_qc_ff(float[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, float[:,:] tvu_qc):
  * 
  *     cdef int rows = bathy.shape[0]             # <<<<<<<<<<<<<<
@@ -20685,7 +20662,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_ff
  */
   __pyx_v_rows = (__pyx_v_bathy.shape[0]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":122
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":126
  * 
  *     cdef int rows = bathy.shape[0]
  *     cdef int cols = bathy.shape[1]             # <<<<<<<<<<<<<<
@@ -20694,23 +20671,23 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_ff
  */
   __pyx_v_cols = (__pyx_v_bathy.shape[1]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":127
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":131
  *     cdef float bathy_value
  *     cdef float pr_unc_value
  *     cdef float NaN = np.nan             # <<<<<<<<<<<<<<
  * 
  *     for r in range(rows):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 127, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 127, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 127, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_NaN = __pyx_t_3;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":129
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":133
  *     cdef float NaN = np.nan
  * 
  *     for r in range(rows):             # <<<<<<<<<<<<<<
@@ -20722,7 +20699,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_ff
   for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_r = __pyx_t_6;
 
-    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":131
+    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":135
  *     for r in range(rows):
  * 
  *         for c in range(cols):             # <<<<<<<<<<<<<<
@@ -20734,7 +20711,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_ff
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_c = __pyx_t_9;
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":133
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":137
  *         for c in range(cols):
  * 
  *             bathy_value = bathy[r, c]             # <<<<<<<<<<<<<<
@@ -20745,7 +20722,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_ff
       __pyx_t_11 = __pyx_v_c;
       __pyx_v_bathy_value = (*((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_bathy.data + __pyx_t_10 * __pyx_v_bathy.strides[0]) ) + __pyx_t_11 * __pyx_v_bathy.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":134
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":138
  * 
  *             bathy_value = bathy[r, c]
  *             pr_unc_value = product_uncertainty[r, c]             # <<<<<<<<<<<<<<
@@ -20756,7 +20733,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_ff
       __pyx_t_10 = __pyx_v_c;
       __pyx_v_pr_unc_value = (*((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_product_uncertainty.data + __pyx_t_11 * __pyx_v_product_uncertainty.strides[0]) ) + __pyx_t_10 * __pyx_v_product_uncertainty.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":136
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":140
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -20774,7 +20751,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_ff
       __pyx_L8_bool_binop_done:;
       if (__pyx_t_12) {
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":137
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":141
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):
  *                 tvu_qc[r, c] = NaN             # <<<<<<<<<<<<<<
@@ -20785,7 +20762,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_ff
         __pyx_t_11 = __pyx_v_c;
         *((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_v_NaN;
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":136
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":140
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -20795,7 +20772,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_ff
         goto __pyx_L7;
       }
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":140
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":144
  *                 # logger.debug("is nan: %d %d" % (r, c))
  * 
  *             elif bathy_value <= 100.0:             # <<<<<<<<<<<<<<
@@ -20805,25 +20782,23 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_ff
       __pyx_t_12 = (__pyx_v_bathy_value <= 100.0);
       if (__pyx_t_12) {
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":141
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":145
  * 
  *             elif bathy_value <= 100.0:
  *                 tvu_qc[r, c] = pr_unc_value / ((0.25 + (0.013 * bathy_value) ** 2) ** 0.5)             # <<<<<<<<<<<<<<
  * 
  *             else:
  */
-        __pyx_t_14 = __pyx_t_double_complex_from_parts(__pyx_v_pr_unc_value, 0);
-        __pyx_t_15 = __Pyx_c_pow_double(__pyx_t_double_complex_from_parts((0.25 + pow((0.013 * __pyx_v_bathy_value), 2.0)), 0), __pyx_t_double_complex_from_parts(0.5, 0));
-        if (unlikely(__Pyx_c_is_zero_double(__pyx_t_15))) {
+        __pyx_t_14 = pow((0.25 + pow((0.013 * __pyx_v_bathy_value), 2.0)), 0.5);
+        if (unlikely(__pyx_t_14 == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-          __PYX_ERR(0, 141, __pyx_L1_error)
+          __PYX_ERR(0, 145, __pyx_L1_error)
         }
-        __pyx_t_16 = __Pyx_SoftComplexToDouble(__Pyx_c_quot_double(__pyx_t_14, __pyx_t_15), 1); if (unlikely(__pyx_t_16 == ((double)-1) && PyErr_Occurred())) __PYX_ERR(0, 141, __pyx_L1_error)
         __pyx_t_11 = __pyx_v_r;
         __pyx_t_10 = __pyx_v_c;
-        *((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_11 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_10 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_t_16;
+        *((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_11 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_10 * __pyx_v_tvu_qc.strides[1]) )) = (((double)__pyx_v_pr_unc_value) / __pyx_t_14);
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":140
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":144
  *                 # logger.debug("is nan: %d %d" % (r, c))
  * 
  *             elif bathy_value <= 100.0:             # <<<<<<<<<<<<<<
@@ -20833,7 +20808,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_ff
         goto __pyx_L7;
       }
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":144
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":148
  * 
  *             else:
  *                 tvu_qc[r, c] = pr_unc_value / ((1. + (0.023 * bathy_value) ** 2) ** 0.5)             # <<<<<<<<<<<<<<
@@ -20841,22 +20816,20 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_ff
  * 
  */
       /*else*/ {
-        __pyx_t_15 = __pyx_t_double_complex_from_parts(__pyx_v_pr_unc_value, 0);
-        __pyx_t_14 = __Pyx_c_pow_double(__pyx_t_double_complex_from_parts((1. + pow((0.023 * __pyx_v_bathy_value), 2.0)), 0), __pyx_t_double_complex_from_parts(0.5, 0));
-        if (unlikely(__Pyx_c_is_zero_double(__pyx_t_14))) {
+        __pyx_t_14 = pow((1. + pow((0.023 * __pyx_v_bathy_value), 2.0)), 0.5);
+        if (unlikely(__pyx_t_14 == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-          __PYX_ERR(0, 144, __pyx_L1_error)
+          __PYX_ERR(0, 148, __pyx_L1_error)
         }
-        __pyx_t_16 = __Pyx_SoftComplexToDouble(__Pyx_c_quot_double(__pyx_t_15, __pyx_t_14), 1); if (unlikely(__pyx_t_16 == ((double)-1) && PyErr_Occurred())) __PYX_ERR(0, 144, __pyx_L1_error)
         __pyx_t_10 = __pyx_v_r;
         __pyx_t_11 = __pyx_v_c;
-        *((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_t_16;
+        *((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = (((double)__pyx_v_pr_unc_value) / __pyx_t_14);
       }
       __pyx_L7:;
     }
   }
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":119
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":123
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_ff(float[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -20940,7 +20913,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 119, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 123, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -20948,9 +20921,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 119, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 123, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_ff", 1, 4, 4, 1); __PYX_ERR(0, 119, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_ff", 1, 4, 4, 1); __PYX_ERR(0, 123, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -20958,9 +20931,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 119, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 123, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_ff", 1, 4, 4, 2); __PYX_ERR(0, 119, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_ff", 1, 4, 4, 2); __PYX_ERR(0, 123, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -20968,14 +20941,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 119, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 123, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_ff", 1, 4, 4, 3); __PYX_ERR(0, 119, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_ff", 1, 4, 4, 3); __PYX_ERR(0, 123, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_ff") < 0)) __PYX_ERR(0, 119, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_ff") < 0)) __PYX_ERR(0, 123, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -20985,14 +20958,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
       values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
     }
-    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 119, __pyx_L3_error)
-    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 119, __pyx_L3_error)
-    __pyx_v_pu_nodata = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_pu_nodata == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 119, __pyx_L3_error)
-    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 119, __pyx_L3_error)
+    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 123, __pyx_L3_error)
+    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 123, __pyx_L3_error)
+    __pyx_v_pu_nodata = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_pu_nodata == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 123, __pyx_L3_error)
+    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 123, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_ff", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 119, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_ff", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 123, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -21034,10 +21007,10 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_6calc_tvu_qc_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_ff", 1);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 119, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 119, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 119, __pyx_L1_error) }
-  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_ff(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
+  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 123, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 123, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 123, __pyx_L1_error) }
+  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_ff(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -21054,7 +21027,7 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_6calc_tvu_qc_
   return __pyx_r;
 }
 
-/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":154
+/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":159
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a1_dd(double[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -21097,7 +21070,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_a1_dd", 1);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":156
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":161
  * cpdef calc_tvu_qc_a1_dd(double[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, double[:,:] tvu_qc):
  * 
  *     cdef int rows = bathy.shape[0]             # <<<<<<<<<<<<<<
@@ -21106,7 +21079,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
  */
   __pyx_v_rows = (__pyx_v_bathy.shape[0]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":157
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":162
  * 
  *     cdef int rows = bathy.shape[0]
  *     cdef int cols = bathy.shape[1]             # <<<<<<<<<<<<<<
@@ -21115,23 +21088,23 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
  */
   __pyx_v_cols = (__pyx_v_bathy.shape[1]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":162
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":167
  *     cdef double bathy_value
  *     cdef double pr_unc_value
  *     cdef double NaN = np.nan             # <<<<<<<<<<<<<<
  * 
  *     for r in range(rows):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 167, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 162, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 167, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_NaN = __pyx_t_3;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":164
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":169
  *     cdef double NaN = np.nan
  * 
  *     for r in range(rows):             # <<<<<<<<<<<<<<
@@ -21143,7 +21116,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
   for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_r = __pyx_t_6;
 
-    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":166
+    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":171
  *     for r in range(rows):
  * 
  *         for c in range(cols):             # <<<<<<<<<<<<<<
@@ -21155,7 +21128,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_c = __pyx_t_9;
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":168
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":173
  *         for c in range(cols):
  * 
  *             bathy_value = bathy[r, c]             # <<<<<<<<<<<<<<
@@ -21166,7 +21139,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
       __pyx_t_11 = __pyx_v_c;
       __pyx_v_bathy_value = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_bathy.data + __pyx_t_10 * __pyx_v_bathy.strides[0]) ) + __pyx_t_11 * __pyx_v_bathy.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":169
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":174
  * 
  *             bathy_value = bathy[r, c]
  *             pr_unc_value = product_uncertainty[r, c]             # <<<<<<<<<<<<<<
@@ -21177,7 +21150,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
       __pyx_t_10 = __pyx_v_c;
       __pyx_v_pr_unc_value = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_product_uncertainty.data + __pyx_t_11 * __pyx_v_product_uncertainty.strides[0]) ) + __pyx_t_10 * __pyx_v_product_uncertainty.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":171
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":176
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -21195,7 +21168,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
       __pyx_L8_bool_binop_done:;
       if (__pyx_t_12) {
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":172
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":177
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):
  *                 tvu_qc[r, c] = NaN             # <<<<<<<<<<<<<<
@@ -21206,7 +21179,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
         __pyx_t_11 = __pyx_v_c;
         *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_v_NaN;
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":171
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":176
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -21216,7 +21189,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
         goto __pyx_L7;
       }
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":175
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":180
  * 
  *             else:
  *                 tvu_qc[r, c] = pr_unc_value / (0.5 + (0.01 * bathy_value))             # <<<<<<<<<<<<<<
@@ -21227,7 +21200,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
         __pyx_t_3 = (0.5 + (0.01 * __pyx_v_bathy_value));
         if (unlikely(__pyx_t_3 == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-          __PYX_ERR(0, 175, __pyx_L1_error)
+          __PYX_ERR(0, 180, __pyx_L1_error)
         }
         __pyx_t_11 = __pyx_v_r;
         __pyx_t_10 = __pyx_v_c;
@@ -21237,7 +21210,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
     }
   }
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":154
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":159
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a1_dd(double[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -21321,7 +21294,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 154, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 159, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -21329,9 +21302,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 154, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 159, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_dd", 1, 4, 4, 1); __PYX_ERR(0, 154, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_dd", 1, 4, 4, 1); __PYX_ERR(0, 159, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -21339,9 +21312,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 154, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 159, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_dd", 1, 4, 4, 2); __PYX_ERR(0, 154, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_dd", 1, 4, 4, 2); __PYX_ERR(0, 159, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -21349,14 +21322,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 154, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 159, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_dd", 1, 4, 4, 3); __PYX_ERR(0, 154, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_dd", 1, 4, 4, 3); __PYX_ERR(0, 159, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_a1_dd") < 0)) __PYX_ERR(0, 154, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_a1_dd") < 0)) __PYX_ERR(0, 159, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -21366,14 +21339,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
       values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
     }
-    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 154, __pyx_L3_error)
-    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 154, __pyx_L3_error)
-    __pyx_v_pu_nodata = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_pu_nodata == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 154, __pyx_L3_error)
-    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 154, __pyx_L3_error)
+    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 159, __pyx_L3_error)
+    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 159, __pyx_L3_error)
+    __pyx_v_pu_nodata = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_pu_nodata == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 159, __pyx_L3_error)
+    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 159, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_dd", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 154, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_dd", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 159, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -21415,10 +21388,10 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_8calc_tvu_qc_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_a1_dd", 1);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 154, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 154, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 154, __pyx_L1_error) }
-  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1_dd(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 154, __pyx_L1_error)
+  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 159, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 159, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 159, __pyx_L1_error) }
+  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1_dd(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -21435,7 +21408,7 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_8calc_tvu_qc_
   return __pyx_r;
 }
 
-/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":184
+/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":190
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a1_df(double[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -21478,7 +21451,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_a1_df", 1);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":186
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":192
  * cpdef calc_tvu_qc_a1_df(double[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, double[:,:] tvu_qc):
  * 
  *     cdef int rows = bathy.shape[0]             # <<<<<<<<<<<<<<
@@ -21487,7 +21460,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
  */
   __pyx_v_rows = (__pyx_v_bathy.shape[0]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":187
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":193
  * 
  *     cdef int rows = bathy.shape[0]
  *     cdef int cols = bathy.shape[1]             # <<<<<<<<<<<<<<
@@ -21496,23 +21469,23 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
  */
   __pyx_v_cols = (__pyx_v_bathy.shape[1]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":192
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":198
  *     cdef double bathy_value
  *     cdef float pr_unc_value
  *     cdef double NaN = np.nan             # <<<<<<<<<<<<<<
  * 
  *     for r in range(rows):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 192, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 192, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 192, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 198, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_NaN = __pyx_t_3;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":194
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":200
  *     cdef double NaN = np.nan
  * 
  *     for r in range(rows):             # <<<<<<<<<<<<<<
@@ -21524,7 +21497,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
   for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_r = __pyx_t_6;
 
-    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":196
+    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":202
  *     for r in range(rows):
  * 
  *         for c in range(cols):             # <<<<<<<<<<<<<<
@@ -21536,7 +21509,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_c = __pyx_t_9;
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":198
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":204
  *         for c in range(cols):
  * 
  *             bathy_value = bathy[r, c]             # <<<<<<<<<<<<<<
@@ -21547,7 +21520,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
       __pyx_t_11 = __pyx_v_c;
       __pyx_v_bathy_value = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_bathy.data + __pyx_t_10 * __pyx_v_bathy.strides[0]) ) + __pyx_t_11 * __pyx_v_bathy.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":199
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":205
  * 
  *             bathy_value = bathy[r, c]
  *             pr_unc_value = product_uncertainty[r, c]             # <<<<<<<<<<<<<<
@@ -21558,7 +21531,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
       __pyx_t_10 = __pyx_v_c;
       __pyx_v_pr_unc_value = (*((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_product_uncertainty.data + __pyx_t_11 * __pyx_v_product_uncertainty.strides[0]) ) + __pyx_t_10 * __pyx_v_product_uncertainty.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":201
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":207
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -21576,7 +21549,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
       __pyx_L8_bool_binop_done:;
       if (__pyx_t_12) {
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":202
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":208
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):
  *                 tvu_qc[r, c] = NaN             # <<<<<<<<<<<<<<
@@ -21587,7 +21560,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
         __pyx_t_11 = __pyx_v_c;
         *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_v_NaN;
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":201
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":207
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -21597,7 +21570,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
         goto __pyx_L7;
       }
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":206
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":212
  * 
  *             else:
  *                 tvu_qc[r, c] = pr_unc_value / (0.5 + (0.01 * bathy_value))             # <<<<<<<<<<<<<<
@@ -21608,7 +21581,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
         __pyx_t_3 = (0.5 + (0.01 * __pyx_v_bathy_value));
         if (unlikely(__pyx_t_3 == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-          __PYX_ERR(0, 206, __pyx_L1_error)
+          __PYX_ERR(0, 212, __pyx_L1_error)
         }
         __pyx_t_11 = __pyx_v_r;
         __pyx_t_10 = __pyx_v_c;
@@ -21618,7 +21591,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
     }
   }
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":184
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":190
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a1_df(double[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -21702,7 +21675,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 184, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 190, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -21710,9 +21683,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 184, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 190, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_df", 1, 4, 4, 1); __PYX_ERR(0, 184, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_df", 1, 4, 4, 1); __PYX_ERR(0, 190, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -21720,9 +21693,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 184, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 190, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_df", 1, 4, 4, 2); __PYX_ERR(0, 184, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_df", 1, 4, 4, 2); __PYX_ERR(0, 190, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -21730,14 +21703,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 184, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 190, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_df", 1, 4, 4, 3); __PYX_ERR(0, 184, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_df", 1, 4, 4, 3); __PYX_ERR(0, 190, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_a1_df") < 0)) __PYX_ERR(0, 184, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_a1_df") < 0)) __PYX_ERR(0, 190, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -21747,14 +21720,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
       values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
     }
-    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 184, __pyx_L3_error)
-    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 184, __pyx_L3_error)
-    __pyx_v_pu_nodata = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_pu_nodata == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 184, __pyx_L3_error)
-    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 184, __pyx_L3_error)
+    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 190, __pyx_L3_error)
+    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 190, __pyx_L3_error)
+    __pyx_v_pu_nodata = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_pu_nodata == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 190, __pyx_L3_error)
+    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 190, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_df", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 184, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_df", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 190, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -21796,10 +21769,10 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_10calc_tvu_qc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_a1_df", 1);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 184, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 184, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 184, __pyx_L1_error) }
-  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1_df(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 184, __pyx_L1_error)
+  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 190, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 190, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 190, __pyx_L1_error) }
+  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1_df(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -21816,7 +21789,7 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_10calc_tvu_qc
   return __pyx_r;
 }
 
-/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":214
+/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":221
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a1_fd(float[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -21860,7 +21833,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_a1_fd", 1);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":216
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":223
  * cpdef calc_tvu_qc_a1_fd(float[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, float[:,:] tvu_qc):
  * 
  *     cdef int rows = bathy.shape[0]             # <<<<<<<<<<<<<<
@@ -21869,7 +21842,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
  */
   __pyx_v_rows = (__pyx_v_bathy.shape[0]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":217
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":224
  * 
  *     cdef int rows = bathy.shape[0]
  *     cdef int cols = bathy.shape[1]             # <<<<<<<<<<<<<<
@@ -21878,23 +21851,23 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
  */
   __pyx_v_cols = (__pyx_v_bathy.shape[1]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":222
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":229
  *     cdef float bathy_value
  *     cdef double pr_unc_value
  *     cdef float NaN = np.nan             # <<<<<<<<<<<<<<
  * 
  *     for r in range(rows):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 222, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 229, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_NaN = __pyx_t_3;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":224
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":231
  *     cdef float NaN = np.nan
  * 
  *     for r in range(rows):             # <<<<<<<<<<<<<<
@@ -21906,7 +21879,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
   for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_r = __pyx_t_6;
 
-    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":226
+    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":233
  *     for r in range(rows):
  * 
  *         for c in range(cols):             # <<<<<<<<<<<<<<
@@ -21918,7 +21891,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_c = __pyx_t_9;
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":228
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":235
  *         for c in range(cols):
  * 
  *             bathy_value = bathy[r, c]             # <<<<<<<<<<<<<<
@@ -21929,7 +21902,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
       __pyx_t_11 = __pyx_v_c;
       __pyx_v_bathy_value = (*((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_bathy.data + __pyx_t_10 * __pyx_v_bathy.strides[0]) ) + __pyx_t_11 * __pyx_v_bathy.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":229
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":236
  * 
  *             bathy_value = bathy[r, c]
  *             pr_unc_value = product_uncertainty[r, c]             # <<<<<<<<<<<<<<
@@ -21940,7 +21913,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
       __pyx_t_10 = __pyx_v_c;
       __pyx_v_pr_unc_value = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_product_uncertainty.data + __pyx_t_11 * __pyx_v_product_uncertainty.strides[0]) ) + __pyx_t_10 * __pyx_v_product_uncertainty.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":231
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":238
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -21958,7 +21931,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
       __pyx_L8_bool_binop_done:;
       if (__pyx_t_12) {
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":232
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":239
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):
  *                 tvu_qc[r, c] = NaN             # <<<<<<<<<<<<<<
@@ -21969,7 +21942,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
         __pyx_t_11 = __pyx_v_c;
         *((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_v_NaN;
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":231
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":238
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -21979,7 +21952,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
         goto __pyx_L7;
       }
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":235
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":242
  * 
  *             else:
  *                 tvu_qc[r, c] = pr_unc_value / (0.5 + (0.01 * bathy_value))             # <<<<<<<<<<<<<<
@@ -21990,7 +21963,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
         __pyx_t_14 = (0.5 + (0.01 * __pyx_v_bathy_value));
         if (unlikely(__pyx_t_14 == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-          __PYX_ERR(0, 235, __pyx_L1_error)
+          __PYX_ERR(0, 242, __pyx_L1_error)
         }
         __pyx_t_11 = __pyx_v_r;
         __pyx_t_10 = __pyx_v_c;
@@ -22000,7 +21973,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
     }
   }
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":214
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":221
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a1_fd(float[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -22084,7 +22057,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 214, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 221, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -22092,9 +22065,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 214, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 221, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_fd", 1, 4, 4, 1); __PYX_ERR(0, 214, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_fd", 1, 4, 4, 1); __PYX_ERR(0, 221, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -22102,9 +22075,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 214, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 221, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_fd", 1, 4, 4, 2); __PYX_ERR(0, 214, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_fd", 1, 4, 4, 2); __PYX_ERR(0, 221, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -22112,14 +22085,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 214, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 221, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_fd", 1, 4, 4, 3); __PYX_ERR(0, 214, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_fd", 1, 4, 4, 3); __PYX_ERR(0, 221, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_a1_fd") < 0)) __PYX_ERR(0, 214, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_a1_fd") < 0)) __PYX_ERR(0, 221, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -22129,14 +22102,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
       values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
     }
-    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 214, __pyx_L3_error)
-    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 214, __pyx_L3_error)
-    __pyx_v_pu_nodata = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_pu_nodata == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 214, __pyx_L3_error)
-    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 214, __pyx_L3_error)
+    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 221, __pyx_L3_error)
+    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 221, __pyx_L3_error)
+    __pyx_v_pu_nodata = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_pu_nodata == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 221, __pyx_L3_error)
+    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 221, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_fd", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 214, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_fd", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 221, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -22178,10 +22151,10 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_12calc_tvu_qc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_a1_fd", 1);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 214, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 214, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 214, __pyx_L1_error) }
-  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1_fd(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 214, __pyx_L1_error)
+  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 221, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 221, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 221, __pyx_L1_error) }
+  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1_fd(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 221, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -22198,7 +22171,7 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_12calc_tvu_qc
   return __pyx_r;
 }
 
-/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":244
+/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":252
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a1_ff(float[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -22242,7 +22215,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_a1_ff", 1);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":246
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":254
  * cpdef calc_tvu_qc_a1_ff(float[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, float[:,:] tvu_qc):
  * 
  *     cdef int rows = bathy.shape[0]             # <<<<<<<<<<<<<<
@@ -22251,7 +22224,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
  */
   __pyx_v_rows = (__pyx_v_bathy.shape[0]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":247
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":255
  * 
  *     cdef int rows = bathy.shape[0]
  *     cdef int cols = bathy.shape[1]             # <<<<<<<<<<<<<<
@@ -22260,23 +22233,23 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
  */
   __pyx_v_cols = (__pyx_v_bathy.shape[1]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":252
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":260
  *     cdef float bathy_value
  *     cdef float pr_unc_value
  *     cdef float NaN = np.nan             # <<<<<<<<<<<<<<
  * 
  *     for r in range(rows):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 252, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 252, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 252, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 260, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_NaN = __pyx_t_3;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":254
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":262
  *     cdef float NaN = np.nan
  * 
  *     for r in range(rows):             # <<<<<<<<<<<<<<
@@ -22288,7 +22261,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
   for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_r = __pyx_t_6;
 
-    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":256
+    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":264
  *     for r in range(rows):
  * 
  *         for c in range(cols):             # <<<<<<<<<<<<<<
@@ -22300,7 +22273,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_c = __pyx_t_9;
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":258
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":266
  *         for c in range(cols):
  * 
  *             bathy_value = bathy[r, c]             # <<<<<<<<<<<<<<
@@ -22311,7 +22284,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
       __pyx_t_11 = __pyx_v_c;
       __pyx_v_bathy_value = (*((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_bathy.data + __pyx_t_10 * __pyx_v_bathy.strides[0]) ) + __pyx_t_11 * __pyx_v_bathy.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":259
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":267
  * 
  *             bathy_value = bathy[r, c]
  *             pr_unc_value = product_uncertainty[r, c]             # <<<<<<<<<<<<<<
@@ -22322,7 +22295,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
       __pyx_t_10 = __pyx_v_c;
       __pyx_v_pr_unc_value = (*((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_product_uncertainty.data + __pyx_t_11 * __pyx_v_product_uncertainty.strides[0]) ) + __pyx_t_10 * __pyx_v_product_uncertainty.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":261
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":269
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -22340,7 +22313,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
       __pyx_L8_bool_binop_done:;
       if (__pyx_t_12) {
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":262
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":270
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):
  *                 tvu_qc[r, c] = NaN             # <<<<<<<<<<<<<<
@@ -22351,7 +22324,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
         __pyx_t_11 = __pyx_v_c;
         *((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_v_NaN;
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":261
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":269
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -22361,7 +22334,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
         goto __pyx_L7;
       }
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":266
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":274
  * 
  *             else:
  *                 tvu_qc[r, c] = pr_unc_value / (0.5 + (0.01 * bathy_value))             # <<<<<<<<<<<<<<
@@ -22372,7 +22345,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
         __pyx_t_14 = (0.5 + (0.01 * __pyx_v_bathy_value));
         if (unlikely(__pyx_t_14 == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-          __PYX_ERR(0, 266, __pyx_L1_error)
+          __PYX_ERR(0, 274, __pyx_L1_error)
         }
         __pyx_t_11 = __pyx_v_r;
         __pyx_t_10 = __pyx_v_c;
@@ -22382,7 +22355,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1
     }
   }
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":244
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":252
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a1_ff(float[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -22466,7 +22439,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 244, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 252, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -22474,9 +22447,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 244, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 252, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_ff", 1, 4, 4, 1); __PYX_ERR(0, 244, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_ff", 1, 4, 4, 1); __PYX_ERR(0, 252, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -22484,9 +22457,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 244, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 252, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_ff", 1, 4, 4, 2); __PYX_ERR(0, 244, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_ff", 1, 4, 4, 2); __PYX_ERR(0, 252, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -22494,14 +22467,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 244, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 252, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_ff", 1, 4, 4, 3); __PYX_ERR(0, 244, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_ff", 1, 4, 4, 3); __PYX_ERR(0, 252, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_a1_ff") < 0)) __PYX_ERR(0, 244, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_a1_ff") < 0)) __PYX_ERR(0, 252, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -22511,14 +22484,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
       values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
     }
-    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 244, __pyx_L3_error)
-    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 244, __pyx_L3_error)
-    __pyx_v_pu_nodata = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_pu_nodata == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 244, __pyx_L3_error)
-    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 244, __pyx_L3_error)
+    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 252, __pyx_L3_error)
+    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 252, __pyx_L3_error)
+    __pyx_v_pu_nodata = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_pu_nodata == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 252, __pyx_L3_error)
+    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 252, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_ff", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 244, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a1_ff", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 252, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -22560,10 +22533,10 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_14calc_tvu_qc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_a1_ff", 1);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 244, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 244, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 244, __pyx_L1_error) }
-  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1_ff(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 244, __pyx_L1_error)
+  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 252, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 252, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 252, __pyx_L1_error) }
+  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a1_ff(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 252, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -22580,7 +22553,7 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_14calc_tvu_qc
   return __pyx_r;
 }
 
-/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":277
+/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":286
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a2b_dd(double[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -22623,7 +22596,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_a2b_dd", 1);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":279
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":288
  * cpdef calc_tvu_qc_a2b_dd(double[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, double[:,:] tvu_qc):
  * 
  *     cdef int rows = bathy.shape[0]             # <<<<<<<<<<<<<<
@@ -22632,7 +22605,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
  */
   __pyx_v_rows = (__pyx_v_bathy.shape[0]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":280
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":289
  * 
  *     cdef int rows = bathy.shape[0]
  *     cdef int cols = bathy.shape[1]             # <<<<<<<<<<<<<<
@@ -22641,23 +22614,23 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
  */
   __pyx_v_cols = (__pyx_v_bathy.shape[1]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":285
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":294
  *     cdef double bathy_value
  *     cdef double pr_unc_value
  *     cdef double NaN = np.nan             # <<<<<<<<<<<<<<
  * 
  *     for r in range(rows):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 285, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 294, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 285, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 294, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 285, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 294, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_NaN = __pyx_t_3;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":287
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":296
  *     cdef double NaN = np.nan
  * 
  *     for r in range(rows):             # <<<<<<<<<<<<<<
@@ -22669,7 +22642,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
   for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_r = __pyx_t_6;
 
-    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":289
+    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":298
  *     for r in range(rows):
  * 
  *         for c in range(cols):             # <<<<<<<<<<<<<<
@@ -22681,7 +22654,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_c = __pyx_t_9;
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":291
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":300
  *         for c in range(cols):
  * 
  *             bathy_value = bathy[r, c]             # <<<<<<<<<<<<<<
@@ -22692,7 +22665,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
       __pyx_t_11 = __pyx_v_c;
       __pyx_v_bathy_value = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_bathy.data + __pyx_t_10 * __pyx_v_bathy.strides[0]) ) + __pyx_t_11 * __pyx_v_bathy.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":292
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":301
  * 
  *             bathy_value = bathy[r, c]
  *             pr_unc_value = product_uncertainty[r, c]             # <<<<<<<<<<<<<<
@@ -22703,7 +22676,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
       __pyx_t_10 = __pyx_v_c;
       __pyx_v_pr_unc_value = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_product_uncertainty.data + __pyx_t_11 * __pyx_v_product_uncertainty.strides[0]) ) + __pyx_t_10 * __pyx_v_product_uncertainty.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":294
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":303
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -22721,7 +22694,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
       __pyx_L8_bool_binop_done:;
       if (__pyx_t_12) {
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":295
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":304
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):
  *                 tvu_qc[r, c] = NaN             # <<<<<<<<<<<<<<
@@ -22732,7 +22705,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
         __pyx_t_11 = __pyx_v_c;
         *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_v_NaN;
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":294
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":303
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -22742,7 +22715,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
         goto __pyx_L7;
       }
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":298
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":307
  * 
  *             else:
  *                 tvu_qc[r, c] = pr_unc_value / (1.0 + (0.02 * bathy_value))             # <<<<<<<<<<<<<<
@@ -22753,7 +22726,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
         __pyx_t_3 = (1.0 + (0.02 * __pyx_v_bathy_value));
         if (unlikely(__pyx_t_3 == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-          __PYX_ERR(0, 298, __pyx_L1_error)
+          __PYX_ERR(0, 307, __pyx_L1_error)
         }
         __pyx_t_11 = __pyx_v_r;
         __pyx_t_10 = __pyx_v_c;
@@ -22763,7 +22736,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
     }
   }
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":277
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":286
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a2b_dd(double[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -22847,7 +22820,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 277, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 286, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -22855,9 +22828,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 277, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 286, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_dd", 1, 4, 4, 1); __PYX_ERR(0, 277, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_dd", 1, 4, 4, 1); __PYX_ERR(0, 286, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -22865,9 +22838,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 277, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 286, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_dd", 1, 4, 4, 2); __PYX_ERR(0, 277, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_dd", 1, 4, 4, 2); __PYX_ERR(0, 286, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -22875,14 +22848,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 277, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 286, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_dd", 1, 4, 4, 3); __PYX_ERR(0, 277, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_dd", 1, 4, 4, 3); __PYX_ERR(0, 286, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_a2b_dd") < 0)) __PYX_ERR(0, 277, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_a2b_dd") < 0)) __PYX_ERR(0, 286, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -22892,14 +22865,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
       values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
     }
-    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 277, __pyx_L3_error)
-    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 277, __pyx_L3_error)
-    __pyx_v_pu_nodata = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_pu_nodata == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 277, __pyx_L3_error)
-    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 277, __pyx_L3_error)
+    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 286, __pyx_L3_error)
+    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 286, __pyx_L3_error)
+    __pyx_v_pu_nodata = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_pu_nodata == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 286, __pyx_L3_error)
+    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 286, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_dd", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 277, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_dd", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 286, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -22941,10 +22914,10 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_16calc_tvu_qc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_a2b_dd", 1);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 277, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 277, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 277, __pyx_L1_error) }
-  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2b_dd(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 277, __pyx_L1_error)
+  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 286, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 286, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 286, __pyx_L1_error) }
+  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2b_dd(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 286, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -22961,7 +22934,7 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_16calc_tvu_qc
   return __pyx_r;
 }
 
-/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":307
+/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":317
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a2b_df(double[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -23004,7 +22977,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_a2b_df", 1);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":309
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":319
  * cpdef calc_tvu_qc_a2b_df(double[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, double[:,:] tvu_qc):
  * 
  *     cdef int rows = bathy.shape[0]             # <<<<<<<<<<<<<<
@@ -23013,7 +22986,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
  */
   __pyx_v_rows = (__pyx_v_bathy.shape[0]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":310
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":320
  * 
  *     cdef int rows = bathy.shape[0]
  *     cdef int cols = bathy.shape[1]             # <<<<<<<<<<<<<<
@@ -23022,23 +22995,23 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
  */
   __pyx_v_cols = (__pyx_v_bathy.shape[1]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":315
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":325
  *     cdef double bathy_value
  *     cdef float pr_unc_value
  *     cdef double NaN = np.nan             # <<<<<<<<<<<<<<
  * 
  *     for r in range(rows):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 315, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 325, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 315, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 325, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 315, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 325, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_NaN = __pyx_t_3;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":317
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":327
  *     cdef double NaN = np.nan
  * 
  *     for r in range(rows):             # <<<<<<<<<<<<<<
@@ -23050,7 +23023,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
   for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_r = __pyx_t_6;
 
-    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":319
+    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":329
  *     for r in range(rows):
  * 
  *         for c in range(cols):             # <<<<<<<<<<<<<<
@@ -23062,7 +23035,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_c = __pyx_t_9;
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":321
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":331
  *         for c in range(cols):
  * 
  *             bathy_value = bathy[r, c]             # <<<<<<<<<<<<<<
@@ -23073,7 +23046,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
       __pyx_t_11 = __pyx_v_c;
       __pyx_v_bathy_value = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_bathy.data + __pyx_t_10 * __pyx_v_bathy.strides[0]) ) + __pyx_t_11 * __pyx_v_bathy.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":322
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":332
  * 
  *             bathy_value = bathy[r, c]
  *             pr_unc_value = product_uncertainty[r, c]             # <<<<<<<<<<<<<<
@@ -23084,7 +23057,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
       __pyx_t_10 = __pyx_v_c;
       __pyx_v_pr_unc_value = (*((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_product_uncertainty.data + __pyx_t_11 * __pyx_v_product_uncertainty.strides[0]) ) + __pyx_t_10 * __pyx_v_product_uncertainty.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":324
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":334
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -23102,7 +23075,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
       __pyx_L8_bool_binop_done:;
       if (__pyx_t_12) {
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":325
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":335
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):
  *                 tvu_qc[r, c] = NaN             # <<<<<<<<<<<<<<
@@ -23113,7 +23086,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
         __pyx_t_11 = __pyx_v_c;
         *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_v_NaN;
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":324
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":334
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -23123,7 +23096,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
         goto __pyx_L7;
       }
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":329
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":339
  * 
  *             else:
  *                 tvu_qc[r, c] = pr_unc_value / (1.0 + (0.02 * bathy_value))             # <<<<<<<<<<<<<<
@@ -23134,7 +23107,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
         __pyx_t_3 = (1.0 + (0.02 * __pyx_v_bathy_value));
         if (unlikely(__pyx_t_3 == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-          __PYX_ERR(0, 329, __pyx_L1_error)
+          __PYX_ERR(0, 339, __pyx_L1_error)
         }
         __pyx_t_11 = __pyx_v_r;
         __pyx_t_10 = __pyx_v_c;
@@ -23144,7 +23117,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
     }
   }
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":307
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":317
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a2b_df(double[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -23228,7 +23201,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 307, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 317, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -23236,9 +23209,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 307, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 317, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_df", 1, 4, 4, 1); __PYX_ERR(0, 307, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_df", 1, 4, 4, 1); __PYX_ERR(0, 317, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -23246,9 +23219,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 307, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 317, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_df", 1, 4, 4, 2); __PYX_ERR(0, 307, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_df", 1, 4, 4, 2); __PYX_ERR(0, 317, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -23256,14 +23229,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 307, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 317, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_df", 1, 4, 4, 3); __PYX_ERR(0, 307, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_df", 1, 4, 4, 3); __PYX_ERR(0, 317, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_a2b_df") < 0)) __PYX_ERR(0, 307, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_a2b_df") < 0)) __PYX_ERR(0, 317, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -23273,14 +23246,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
       values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
     }
-    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 307, __pyx_L3_error)
-    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 307, __pyx_L3_error)
-    __pyx_v_pu_nodata = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_pu_nodata == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 307, __pyx_L3_error)
-    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 307, __pyx_L3_error)
+    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 317, __pyx_L3_error)
+    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 317, __pyx_L3_error)
+    __pyx_v_pu_nodata = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_pu_nodata == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 317, __pyx_L3_error)
+    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 317, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_df", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 307, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_df", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 317, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -23322,10 +23295,10 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_18calc_tvu_qc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_a2b_df", 1);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 307, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 307, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 307, __pyx_L1_error) }
-  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2b_df(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 307, __pyx_L1_error)
+  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 317, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 317, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 317, __pyx_L1_error) }
+  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2b_df(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 317, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -23342,7 +23315,7 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_18calc_tvu_qc
   return __pyx_r;
 }
 
-/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":337
+/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":348
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a2b_fd(float[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -23386,7 +23359,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_a2b_fd", 1);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":339
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":350
  * cpdef calc_tvu_qc_a2b_fd(float[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, float[:,:] tvu_qc):
  * 
  *     cdef int rows = bathy.shape[0]             # <<<<<<<<<<<<<<
@@ -23395,7 +23368,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
  */
   __pyx_v_rows = (__pyx_v_bathy.shape[0]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":340
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":351
  * 
  *     cdef int rows = bathy.shape[0]
  *     cdef int cols = bathy.shape[1]             # <<<<<<<<<<<<<<
@@ -23404,23 +23377,23 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
  */
   __pyx_v_cols = (__pyx_v_bathy.shape[1]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":345
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":356
  *     cdef float bathy_value
  *     cdef double pr_unc_value
  *     cdef float NaN = np.nan             # <<<<<<<<<<<<<<
  * 
  *     for r in range(rows):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 345, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 356, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 345, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 356, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 345, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 356, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_NaN = __pyx_t_3;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":347
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":358
  *     cdef float NaN = np.nan
  * 
  *     for r in range(rows):             # <<<<<<<<<<<<<<
@@ -23432,7 +23405,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
   for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_r = __pyx_t_6;
 
-    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":349
+    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":360
  *     for r in range(rows):
  * 
  *         for c in range(cols):             # <<<<<<<<<<<<<<
@@ -23444,7 +23417,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_c = __pyx_t_9;
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":351
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":362
  *         for c in range(cols):
  * 
  *             bathy_value = bathy[r, c]             # <<<<<<<<<<<<<<
@@ -23455,7 +23428,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
       __pyx_t_11 = __pyx_v_c;
       __pyx_v_bathy_value = (*((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_bathy.data + __pyx_t_10 * __pyx_v_bathy.strides[0]) ) + __pyx_t_11 * __pyx_v_bathy.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":352
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":363
  * 
  *             bathy_value = bathy[r, c]
  *             pr_unc_value = product_uncertainty[r, c]             # <<<<<<<<<<<<<<
@@ -23466,7 +23439,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
       __pyx_t_10 = __pyx_v_c;
       __pyx_v_pr_unc_value = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_product_uncertainty.data + __pyx_t_11 * __pyx_v_product_uncertainty.strides[0]) ) + __pyx_t_10 * __pyx_v_product_uncertainty.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":354
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":365
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -23484,7 +23457,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
       __pyx_L8_bool_binop_done:;
       if (__pyx_t_12) {
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":355
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":366
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):
  *                 tvu_qc[r, c] = NaN             # <<<<<<<<<<<<<<
@@ -23495,7 +23468,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
         __pyx_t_11 = __pyx_v_c;
         *((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_v_NaN;
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":354
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":365
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -23505,7 +23478,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
         goto __pyx_L7;
       }
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":358
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":369
  * 
  *             else:
  *                 tvu_qc[r, c] = pr_unc_value / (1.0 + (0.02 * bathy_value))             # <<<<<<<<<<<<<<
@@ -23516,7 +23489,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
         __pyx_t_14 = (1.0 + (0.02 * __pyx_v_bathy_value));
         if (unlikely(__pyx_t_14 == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-          __PYX_ERR(0, 358, __pyx_L1_error)
+          __PYX_ERR(0, 369, __pyx_L1_error)
         }
         __pyx_t_11 = __pyx_v_r;
         __pyx_t_10 = __pyx_v_c;
@@ -23526,7 +23499,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
     }
   }
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":337
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":348
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a2b_fd(float[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -23610,7 +23583,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 337, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 348, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -23618,9 +23591,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 337, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 348, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_fd", 1, 4, 4, 1); __PYX_ERR(0, 337, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_fd", 1, 4, 4, 1); __PYX_ERR(0, 348, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -23628,9 +23601,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 337, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 348, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_fd", 1, 4, 4, 2); __PYX_ERR(0, 337, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_fd", 1, 4, 4, 2); __PYX_ERR(0, 348, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -23638,14 +23611,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 337, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 348, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_fd", 1, 4, 4, 3); __PYX_ERR(0, 337, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_fd", 1, 4, 4, 3); __PYX_ERR(0, 348, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_a2b_fd") < 0)) __PYX_ERR(0, 337, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_a2b_fd") < 0)) __PYX_ERR(0, 348, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -23655,14 +23628,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
       values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
     }
-    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 337, __pyx_L3_error)
-    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 337, __pyx_L3_error)
-    __pyx_v_pu_nodata = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_pu_nodata == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 337, __pyx_L3_error)
-    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 337, __pyx_L3_error)
+    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 348, __pyx_L3_error)
+    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 348, __pyx_L3_error)
+    __pyx_v_pu_nodata = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_pu_nodata == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 348, __pyx_L3_error)
+    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 348, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_fd", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 337, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_fd", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 348, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -23704,10 +23677,10 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_20calc_tvu_qc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_a2b_fd", 1);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 337, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 337, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 337, __pyx_L1_error) }
-  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2b_fd(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 337, __pyx_L1_error)
+  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 348, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 348, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 348, __pyx_L1_error) }
+  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2b_fd(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 348, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -23724,7 +23697,7 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_20calc_tvu_qc
   return __pyx_r;
 }
 
-/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":367
+/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":379
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a2b_ff(float[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -23768,7 +23741,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_a2b_ff", 1);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":369
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":381
  * cpdef calc_tvu_qc_a2b_ff(float[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, float[:,:] tvu_qc):
  * 
  *     cdef int rows = bathy.shape[0]             # <<<<<<<<<<<<<<
@@ -23777,7 +23750,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
  */
   __pyx_v_rows = (__pyx_v_bathy.shape[0]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":370
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":382
  * 
  *     cdef int rows = bathy.shape[0]
  *     cdef int cols = bathy.shape[1]             # <<<<<<<<<<<<<<
@@ -23786,23 +23759,23 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
  */
   __pyx_v_cols = (__pyx_v_bathy.shape[1]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":375
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":387
  *     cdef float bathy_value
  *     cdef float pr_unc_value
  *     cdef float NaN = np.nan             # <<<<<<<<<<<<<<
  * 
  *     for r in range(rows):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 375, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 387, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 375, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 387, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 375, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 387, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_NaN = __pyx_t_3;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":377
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":389
  *     cdef float NaN = np.nan
  * 
  *     for r in range(rows):             # <<<<<<<<<<<<<<
@@ -23814,7 +23787,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
   for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_r = __pyx_t_6;
 
-    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":379
+    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":391
  *     for r in range(rows):
  * 
  *         for c in range(cols):             # <<<<<<<<<<<<<<
@@ -23826,7 +23799,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_c = __pyx_t_9;
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":381
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":393
  *         for c in range(cols):
  * 
  *             bathy_value = bathy[r, c]             # <<<<<<<<<<<<<<
@@ -23837,7 +23810,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
       __pyx_t_11 = __pyx_v_c;
       __pyx_v_bathy_value = (*((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_bathy.data + __pyx_t_10 * __pyx_v_bathy.strides[0]) ) + __pyx_t_11 * __pyx_v_bathy.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":382
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":394
  * 
  *             bathy_value = bathy[r, c]
  *             pr_unc_value = product_uncertainty[r, c]             # <<<<<<<<<<<<<<
@@ -23848,7 +23821,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
       __pyx_t_10 = __pyx_v_c;
       __pyx_v_pr_unc_value = (*((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_product_uncertainty.data + __pyx_t_11 * __pyx_v_product_uncertainty.strides[0]) ) + __pyx_t_10 * __pyx_v_product_uncertainty.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":384
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":396
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -23866,7 +23839,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
       __pyx_L8_bool_binop_done:;
       if (__pyx_t_12) {
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":385
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":397
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):
  *                 tvu_qc[r, c] = NaN             # <<<<<<<<<<<<<<
@@ -23877,7 +23850,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
         __pyx_t_11 = __pyx_v_c;
         *((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_v_NaN;
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":384
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":396
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -23887,7 +23860,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
         goto __pyx_L7;
       }
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":389
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":401
  * 
  *             else:
  *                 tvu_qc[r, c] = pr_unc_value / (1.0 + (0.02 * bathy_value))             # <<<<<<<<<<<<<<
@@ -23898,7 +23871,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
         __pyx_t_14 = (1.0 + (0.02 * __pyx_v_bathy_value));
         if (unlikely(__pyx_t_14 == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-          __PYX_ERR(0, 389, __pyx_L1_error)
+          __PYX_ERR(0, 401, __pyx_L1_error)
         }
         __pyx_t_11 = __pyx_v_r;
         __pyx_t_10 = __pyx_v_c;
@@ -23908,7 +23881,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2
     }
   }
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":367
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":379
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a2b_ff(float[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -23992,7 +23965,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 367, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 379, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -24000,9 +23973,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 367, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 379, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_ff", 1, 4, 4, 1); __PYX_ERR(0, 367, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_ff", 1, 4, 4, 1); __PYX_ERR(0, 379, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -24010,9 +23983,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 367, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 379, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_ff", 1, 4, 4, 2); __PYX_ERR(0, 367, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_ff", 1, 4, 4, 2); __PYX_ERR(0, 379, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -24020,14 +23993,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 367, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 379, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_ff", 1, 4, 4, 3); __PYX_ERR(0, 367, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_ff", 1, 4, 4, 3); __PYX_ERR(0, 379, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_a2b_ff") < 0)) __PYX_ERR(0, 367, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_a2b_ff") < 0)) __PYX_ERR(0, 379, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -24037,14 +24010,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
       values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
     }
-    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 367, __pyx_L3_error)
-    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 367, __pyx_L3_error)
-    __pyx_v_pu_nodata = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_pu_nodata == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 367, __pyx_L3_error)
-    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 367, __pyx_L3_error)
+    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 379, __pyx_L3_error)
+    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 379, __pyx_L3_error)
+    __pyx_v_pu_nodata = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_pu_nodata == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 379, __pyx_L3_error)
+    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 379, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_ff", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 367, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_a2b_ff", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 379, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -24086,10 +24059,10 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_22calc_tvu_qc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_a2b_ff", 1);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 367, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 367, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 367, __pyx_L1_error) }
-  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2b_ff(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 367, __pyx_L1_error)
+  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 379, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 379, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 379, __pyx_L1_error) }
+  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_a2b_ff(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 379, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -24106,7 +24079,7 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_22calc_tvu_qc
   return __pyx_r;
 }
 
-/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":400
+/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":413
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_c_dd(double[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -24149,7 +24122,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_c_dd", 1);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":402
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":415
  * cpdef calc_tvu_qc_c_dd(double[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, double[:,:] tvu_qc):
  * 
  *     cdef int rows = bathy.shape[0]             # <<<<<<<<<<<<<<
@@ -24158,7 +24131,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
  */
   __pyx_v_rows = (__pyx_v_bathy.shape[0]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":403
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":416
  * 
  *     cdef int rows = bathy.shape[0]
  *     cdef int cols = bathy.shape[1]             # <<<<<<<<<<<<<<
@@ -24167,23 +24140,23 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
  */
   __pyx_v_cols = (__pyx_v_bathy.shape[1]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":408
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":421
  *     cdef double bathy_value
  *     cdef double pr_unc_value
  *     cdef double NaN = np.nan             # <<<<<<<<<<<<<<
  * 
  *     for r in range(rows):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 408, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 421, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 408, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 421, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 408, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 421, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_NaN = __pyx_t_3;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":410
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":423
  *     cdef double NaN = np.nan
  * 
  *     for r in range(rows):             # <<<<<<<<<<<<<<
@@ -24195,7 +24168,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
   for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_r = __pyx_t_6;
 
-    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":412
+    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":425
  *     for r in range(rows):
  * 
  *         for c in range(cols):             # <<<<<<<<<<<<<<
@@ -24207,7 +24180,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_c = __pyx_t_9;
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":414
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":427
  *         for c in range(cols):
  * 
  *             bathy_value = bathy[r, c]             # <<<<<<<<<<<<<<
@@ -24218,7 +24191,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
       __pyx_t_11 = __pyx_v_c;
       __pyx_v_bathy_value = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_bathy.data + __pyx_t_10 * __pyx_v_bathy.strides[0]) ) + __pyx_t_11 * __pyx_v_bathy.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":415
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":428
  * 
  *             bathy_value = bathy[r, c]
  *             pr_unc_value = product_uncertainty[r, c]             # <<<<<<<<<<<<<<
@@ -24229,7 +24202,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
       __pyx_t_10 = __pyx_v_c;
       __pyx_v_pr_unc_value = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_product_uncertainty.data + __pyx_t_11 * __pyx_v_product_uncertainty.strides[0]) ) + __pyx_t_10 * __pyx_v_product_uncertainty.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":417
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":430
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -24247,7 +24220,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
       __pyx_L8_bool_binop_done:;
       if (__pyx_t_12) {
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":418
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":431
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):
  *                 tvu_qc[r, c] = NaN             # <<<<<<<<<<<<<<
@@ -24258,7 +24231,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
         __pyx_t_11 = __pyx_v_c;
         *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_v_NaN;
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":417
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":430
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -24268,7 +24241,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
         goto __pyx_L7;
       }
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":421
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":434
  * 
  *             else:
  *                 tvu_qc[r, c] = pr_unc_value / (2.0 + (0.05 * bathy_value))             # <<<<<<<<<<<<<<
@@ -24279,7 +24252,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
         __pyx_t_3 = (2.0 + (0.05 * __pyx_v_bathy_value));
         if (unlikely(__pyx_t_3 == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-          __PYX_ERR(0, 421, __pyx_L1_error)
+          __PYX_ERR(0, 434, __pyx_L1_error)
         }
         __pyx_t_11 = __pyx_v_r;
         __pyx_t_10 = __pyx_v_c;
@@ -24289,7 +24262,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
     }
   }
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":400
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":413
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_c_dd(double[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -24373,7 +24346,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 400, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 413, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -24381,9 +24354,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 400, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 413, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_dd", 1, 4, 4, 1); __PYX_ERR(0, 400, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_dd", 1, 4, 4, 1); __PYX_ERR(0, 413, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -24391,9 +24364,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 400, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 413, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_dd", 1, 4, 4, 2); __PYX_ERR(0, 400, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_dd", 1, 4, 4, 2); __PYX_ERR(0, 413, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -24401,14 +24374,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 400, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 413, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_dd", 1, 4, 4, 3); __PYX_ERR(0, 400, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_dd", 1, 4, 4, 3); __PYX_ERR(0, 413, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_c_dd") < 0)) __PYX_ERR(0, 400, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_c_dd") < 0)) __PYX_ERR(0, 413, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -24418,14 +24391,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
       values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
     }
-    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 400, __pyx_L3_error)
-    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 400, __pyx_L3_error)
-    __pyx_v_pu_nodata = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_pu_nodata == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 400, __pyx_L3_error)
-    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 400, __pyx_L3_error)
+    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 413, __pyx_L3_error)
+    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 413, __pyx_L3_error)
+    __pyx_v_pu_nodata = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_pu_nodata == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 413, __pyx_L3_error)
+    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 413, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_dd", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 400, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_dd", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 413, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -24467,10 +24440,10 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_24calc_tvu_qc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_c_dd", 1);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 400, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 400, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 400, __pyx_L1_error) }
-  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_dd(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 400, __pyx_L1_error)
+  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 413, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 413, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 413, __pyx_L1_error) }
+  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_dd(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 413, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -24487,7 +24460,7 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_24calc_tvu_qc
   return __pyx_r;
 }
 
-/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":430
+/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":444
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_c_df(double[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -24530,7 +24503,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_c_df", 1);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":432
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":446
  * cpdef calc_tvu_qc_c_df(double[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, double[:,:] tvu_qc):
  * 
  *     cdef int rows = bathy.shape[0]             # <<<<<<<<<<<<<<
@@ -24539,7 +24512,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
  */
   __pyx_v_rows = (__pyx_v_bathy.shape[0]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":433
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":447
  * 
  *     cdef int rows = bathy.shape[0]
  *     cdef int cols = bathy.shape[1]             # <<<<<<<<<<<<<<
@@ -24548,23 +24521,23 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
  */
   __pyx_v_cols = (__pyx_v_bathy.shape[1]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":438
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":452
  *     cdef double bathy_value
  *     cdef float pr_unc_value
  *     cdef double NaN = np.nan             # <<<<<<<<<<<<<<
  * 
  *     for r in range(rows):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 438, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 452, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 438, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 452, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 438, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 452, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_NaN = __pyx_t_3;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":440
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":454
  *     cdef double NaN = np.nan
  * 
  *     for r in range(rows):             # <<<<<<<<<<<<<<
@@ -24576,7 +24549,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
   for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_r = __pyx_t_6;
 
-    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":442
+    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":456
  *     for r in range(rows):
  * 
  *         for c in range(cols):             # <<<<<<<<<<<<<<
@@ -24588,7 +24561,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_c = __pyx_t_9;
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":444
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":458
  *         for c in range(cols):
  * 
  *             bathy_value = bathy[r, c]             # <<<<<<<<<<<<<<
@@ -24599,7 +24572,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
       __pyx_t_11 = __pyx_v_c;
       __pyx_v_bathy_value = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_bathy.data + __pyx_t_10 * __pyx_v_bathy.strides[0]) ) + __pyx_t_11 * __pyx_v_bathy.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":445
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":459
  * 
  *             bathy_value = bathy[r, c]
  *             pr_unc_value = product_uncertainty[r, c]             # <<<<<<<<<<<<<<
@@ -24610,7 +24583,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
       __pyx_t_10 = __pyx_v_c;
       __pyx_v_pr_unc_value = (*((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_product_uncertainty.data + __pyx_t_11 * __pyx_v_product_uncertainty.strides[0]) ) + __pyx_t_10 * __pyx_v_product_uncertainty.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":447
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":461
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -24628,7 +24601,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
       __pyx_L8_bool_binop_done:;
       if (__pyx_t_12) {
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":448
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":462
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):
  *                 tvu_qc[r, c] = NaN             # <<<<<<<<<<<<<<
@@ -24639,7 +24612,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
         __pyx_t_11 = __pyx_v_c;
         *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_v_NaN;
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":447
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":461
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -24649,7 +24622,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
         goto __pyx_L7;
       }
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":452
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":466
  * 
  *             else:
  *                 tvu_qc[r, c] = pr_unc_value / (2.0 + (0.05 * bathy_value))             # <<<<<<<<<<<<<<
@@ -24660,7 +24633,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
         __pyx_t_3 = (2.0 + (0.05 * __pyx_v_bathy_value));
         if (unlikely(__pyx_t_3 == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-          __PYX_ERR(0, 452, __pyx_L1_error)
+          __PYX_ERR(0, 466, __pyx_L1_error)
         }
         __pyx_t_11 = __pyx_v_r;
         __pyx_t_10 = __pyx_v_c;
@@ -24670,7 +24643,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
     }
   }
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":430
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":444
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_c_df(double[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -24754,7 +24727,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 430, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 444, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -24762,9 +24735,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 430, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 444, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_df", 1, 4, 4, 1); __PYX_ERR(0, 430, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_df", 1, 4, 4, 1); __PYX_ERR(0, 444, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -24772,9 +24745,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 430, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 444, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_df", 1, 4, 4, 2); __PYX_ERR(0, 430, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_df", 1, 4, 4, 2); __PYX_ERR(0, 444, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -24782,14 +24755,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 430, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 444, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_df", 1, 4, 4, 3); __PYX_ERR(0, 430, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_df", 1, 4, 4, 3); __PYX_ERR(0, 444, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_c_df") < 0)) __PYX_ERR(0, 430, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_c_df") < 0)) __PYX_ERR(0, 444, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -24799,14 +24772,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
       values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
     }
-    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 430, __pyx_L3_error)
-    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 430, __pyx_L3_error)
-    __pyx_v_pu_nodata = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_pu_nodata == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 430, __pyx_L3_error)
-    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 430, __pyx_L3_error)
+    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 444, __pyx_L3_error)
+    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 444, __pyx_L3_error)
+    __pyx_v_pu_nodata = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_pu_nodata == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 444, __pyx_L3_error)
+    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 444, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_df", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 430, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_df", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 444, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -24848,10 +24821,10 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_26calc_tvu_qc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_c_df", 1);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 430, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 430, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 430, __pyx_L1_error) }
-  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_df(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 430, __pyx_L1_error)
+  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 444, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 444, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 444, __pyx_L1_error) }
+  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_df(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 444, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -24868,7 +24841,7 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_26calc_tvu_qc
   return __pyx_r;
 }
 
-/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":460
+/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":475
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_c_fd(float[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -24912,7 +24885,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_c_fd", 1);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":462
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":477
  * cpdef calc_tvu_qc_c_fd(float[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, float[:,:] tvu_qc):
  * 
  *     cdef int rows = bathy.shape[0]             # <<<<<<<<<<<<<<
@@ -24921,7 +24894,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
  */
   __pyx_v_rows = (__pyx_v_bathy.shape[0]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":463
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":478
  * 
  *     cdef int rows = bathy.shape[0]
  *     cdef int cols = bathy.shape[1]             # <<<<<<<<<<<<<<
@@ -24930,23 +24903,23 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
  */
   __pyx_v_cols = (__pyx_v_bathy.shape[1]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":468
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":483
  *     cdef float bathy_value
  *     cdef double pr_unc_value
  *     cdef float NaN = np.nan             # <<<<<<<<<<<<<<
  * 
  *     for r in range(rows):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 468, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 483, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 468, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 483, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 468, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 483, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_NaN = __pyx_t_3;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":470
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":485
  *     cdef float NaN = np.nan
  * 
  *     for r in range(rows):             # <<<<<<<<<<<<<<
@@ -24958,7 +24931,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
   for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_r = __pyx_t_6;
 
-    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":472
+    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":487
  *     for r in range(rows):
  * 
  *         for c in range(cols):             # <<<<<<<<<<<<<<
@@ -24970,7 +24943,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_c = __pyx_t_9;
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":474
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":489
  *         for c in range(cols):
  * 
  *             bathy_value = bathy[r, c]             # <<<<<<<<<<<<<<
@@ -24981,7 +24954,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
       __pyx_t_11 = __pyx_v_c;
       __pyx_v_bathy_value = (*((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_bathy.data + __pyx_t_10 * __pyx_v_bathy.strides[0]) ) + __pyx_t_11 * __pyx_v_bathy.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":475
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":490
  * 
  *             bathy_value = bathy[r, c]
  *             pr_unc_value = product_uncertainty[r, c]             # <<<<<<<<<<<<<<
@@ -24992,7 +24965,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
       __pyx_t_10 = __pyx_v_c;
       __pyx_v_pr_unc_value = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_product_uncertainty.data + __pyx_t_11 * __pyx_v_product_uncertainty.strides[0]) ) + __pyx_t_10 * __pyx_v_product_uncertainty.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":477
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":492
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -25010,7 +24983,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
       __pyx_L8_bool_binop_done:;
       if (__pyx_t_12) {
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":478
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":493
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):
  *                 tvu_qc[r, c] = NaN             # <<<<<<<<<<<<<<
@@ -25021,7 +24994,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
         __pyx_t_11 = __pyx_v_c;
         *((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_v_NaN;
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":477
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":492
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -25031,7 +25004,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
         goto __pyx_L7;
       }
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":481
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":496
  * 
  *             else:
  *                 tvu_qc[r, c] = pr_unc_value / (2.0 + (0.05 * bathy_value))             # <<<<<<<<<<<<<<
@@ -25042,7 +25015,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
         __pyx_t_14 = (2.0 + (0.05 * __pyx_v_bathy_value));
         if (unlikely(__pyx_t_14 == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-          __PYX_ERR(0, 481, __pyx_L1_error)
+          __PYX_ERR(0, 496, __pyx_L1_error)
         }
         __pyx_t_11 = __pyx_v_r;
         __pyx_t_10 = __pyx_v_c;
@@ -25052,7 +25025,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
     }
   }
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":460
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":475
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_c_fd(float[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -25136,7 +25109,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 460, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 475, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -25144,9 +25117,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 460, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 475, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_fd", 1, 4, 4, 1); __PYX_ERR(0, 460, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_fd", 1, 4, 4, 1); __PYX_ERR(0, 475, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -25154,9 +25127,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 460, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 475, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_fd", 1, 4, 4, 2); __PYX_ERR(0, 460, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_fd", 1, 4, 4, 2); __PYX_ERR(0, 475, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -25164,14 +25137,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 460, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 475, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_fd", 1, 4, 4, 3); __PYX_ERR(0, 460, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_fd", 1, 4, 4, 3); __PYX_ERR(0, 475, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_c_fd") < 0)) __PYX_ERR(0, 460, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_c_fd") < 0)) __PYX_ERR(0, 475, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -25181,14 +25154,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
       values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
     }
-    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 460, __pyx_L3_error)
-    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 460, __pyx_L3_error)
-    __pyx_v_pu_nodata = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_pu_nodata == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 460, __pyx_L3_error)
-    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 460, __pyx_L3_error)
+    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 475, __pyx_L3_error)
+    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 475, __pyx_L3_error)
+    __pyx_v_pu_nodata = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_pu_nodata == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 475, __pyx_L3_error)
+    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 475, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_fd", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 460, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_fd", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 475, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -25230,10 +25203,10 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_28calc_tvu_qc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_c_fd", 1);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 460, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 460, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 460, __pyx_L1_error) }
-  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_fd(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 460, __pyx_L1_error)
+  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 475, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 475, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 475, __pyx_L1_error) }
+  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_fd(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 475, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -25250,7 +25223,7 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_28calc_tvu_qc
   return __pyx_r;
 }
 
-/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":490
+/* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":506
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_c_ff(float[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -25294,7 +25267,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_c_ff", 1);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":492
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":508
  * cpdef calc_tvu_qc_c_ff(float[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, float[:,:] tvu_qc):
  * 
  *     cdef int rows = bathy.shape[0]             # <<<<<<<<<<<<<<
@@ -25303,7 +25276,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
  */
   __pyx_v_rows = (__pyx_v_bathy.shape[0]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":493
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":509
  * 
  *     cdef int rows = bathy.shape[0]
  *     cdef int cols = bathy.shape[1]             # <<<<<<<<<<<<<<
@@ -25312,23 +25285,23 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
  */
   __pyx_v_cols = (__pyx_v_bathy.shape[1]);
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":498
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":514
  *     cdef float bathy_value
  *     cdef float pr_unc_value
  *     cdef float NaN = np.nan             # <<<<<<<<<<<<<<
  * 
  *     for r in range(rows):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 498, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 514, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 498, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 514, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 498, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 514, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_NaN = __pyx_t_3;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":500
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":516
  *     cdef float NaN = np.nan
  * 
  *     for r in range(rows):             # <<<<<<<<<<<<<<
@@ -25340,7 +25313,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
   for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_r = __pyx_t_6;
 
-    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":502
+    /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":518
  *     for r in range(rows):
  * 
  *         for c in range(cols):             # <<<<<<<<<<<<<<
@@ -25352,7 +25325,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_c = __pyx_t_9;
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":504
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":520
  *         for c in range(cols):
  * 
  *             bathy_value = bathy[r, c]             # <<<<<<<<<<<<<<
@@ -25363,7 +25336,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
       __pyx_t_11 = __pyx_v_c;
       __pyx_v_bathy_value = (*((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_bathy.data + __pyx_t_10 * __pyx_v_bathy.strides[0]) ) + __pyx_t_11 * __pyx_v_bathy.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":505
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":521
  * 
  *             bathy_value = bathy[r, c]
  *             pr_unc_value = product_uncertainty[r, c]             # <<<<<<<<<<<<<<
@@ -25374,7 +25347,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
       __pyx_t_10 = __pyx_v_c;
       __pyx_v_pr_unc_value = (*((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_product_uncertainty.data + __pyx_t_11 * __pyx_v_product_uncertainty.strides[0]) ) + __pyx_t_10 * __pyx_v_product_uncertainty.strides[1]) )));
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":507
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":523
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -25392,7 +25365,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
       __pyx_L8_bool_binop_done:;
       if (__pyx_t_12) {
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":508
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":524
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):
  *                 tvu_qc[r, c] = NaN             # <<<<<<<<<<<<<<
@@ -25403,7 +25376,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
         __pyx_t_11 = __pyx_v_c;
         *((float *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_tvu_qc.data + __pyx_t_10 * __pyx_v_tvu_qc.strides[0]) ) + __pyx_t_11 * __pyx_v_tvu_qc.strides[1]) )) = __pyx_v_NaN;
 
-        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":507
+        /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":523
  *             pr_unc_value = product_uncertainty[r, c]
  * 
  *             if isnan(bathy_value) or (pr_unc_value == pu_nodata):             # <<<<<<<<<<<<<<
@@ -25413,7 +25386,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
         goto __pyx_L7;
       }
 
-      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":512
+      /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":528
  * 
  *             else:
  *                 tvu_qc[r, c] = pr_unc_value / (2.0 + (0.05 * bathy_value))             # <<<<<<<<<<<<<<
@@ -25422,7 +25395,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
         __pyx_t_14 = (2.0 + (0.05 * __pyx_v_bathy_value));
         if (unlikely(__pyx_t_14 == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-          __PYX_ERR(0, 512, __pyx_L1_error)
+          __PYX_ERR(0, 528, __pyx_L1_error)
         }
         __pyx_t_11 = __pyx_v_r;
         __pyx_t_10 = __pyx_v_c;
@@ -25432,7 +25405,7 @@ static PyObject *__pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_
     }
   }
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":490
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":506
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_c_ff(float[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
@@ -25516,7 +25489,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 490, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 506, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -25524,9 +25497,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 490, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 506, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_ff", 1, 4, 4, 1); __PYX_ERR(0, 490, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_ff", 1, 4, 4, 1); __PYX_ERR(0, 506, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -25534,9 +25507,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 490, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 506, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_ff", 1, 4, 4, 2); __PYX_ERR(0, 490, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_ff", 1, 4, 4, 2); __PYX_ERR(0, 506, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -25544,14 +25517,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 490, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 506, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_ff", 1, 4, 4, 3); __PYX_ERR(0, 490, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_ff", 1, 4, 4, 3); __PYX_ERR(0, 506, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_c_ff") < 0)) __PYX_ERR(0, 490, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "calc_tvu_qc_c_ff") < 0)) __PYX_ERR(0, 506, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -25561,14 +25534,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
       values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
     }
-    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 490, __pyx_L3_error)
-    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 490, __pyx_L3_error)
-    __pyx_v_pu_nodata = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_pu_nodata == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 490, __pyx_L3_error)
-    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 490, __pyx_L3_error)
+    __pyx_v_bathy = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_bathy.memview)) __PYX_ERR(0, 506, __pyx_L3_error)
+    __pyx_v_product_uncertainty = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_product_uncertainty.memview)) __PYX_ERR(0, 506, __pyx_L3_error)
+    __pyx_v_pu_nodata = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_pu_nodata == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 506, __pyx_L3_error)
+    __pyx_v_tvu_qc = __Pyx_PyObject_to_MemoryviewSlice_dsds_float(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_tvu_qc.memview)) __PYX_ERR(0, 506, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_ff", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 490, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("calc_tvu_qc_c_ff", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 506, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -25610,10 +25583,10 @@ static PyObject *__pyx_pf_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_30calc_tvu_qc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_tvu_qc_c_ff", 1);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 490, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 490, __pyx_L1_error) }
-  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 490, __pyx_L1_error) }
-  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_ff(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 490, __pyx_L1_error)
+  if (unlikely(!__pyx_v_bathy.memview)) { __Pyx_RaiseUnboundLocalError("bathy"); __PYX_ERR(0, 506, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_product_uncertainty.memview)) { __Pyx_RaiseUnboundLocalError("product_uncertainty"); __PYX_ERR(0, 506, __pyx_L1_error) }
+  if (unlikely(!__pyx_v_tvu_qc.memview)) { __Pyx_RaiseUnboundLocalError("tvu_qc"); __PYX_ERR(0, 506, __pyx_L1_error) }
+  __pyx_t_1 = __pyx_f_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_calc_tvu_qc_c_ff(__pyx_v_bathy, __pyx_v_product_uncertainty, __pyx_v_pu_nodata, __pyx_v_tvu_qc, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 506, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -26755,7 +26728,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
 /* #### Code section: cached_builtins ### */
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_RuntimeWarning = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeWarning); if (!__pyx_builtin_RuntimeWarning) __PYX_ERR(0, 6, __pyx_L1_error)
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 30, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 31, __pyx_L1_error)
   __pyx_builtin___import__ = __Pyx_GetBuiltinName(__pyx_n_s_import); if (!__pyx_builtin___import__) __PYX_ERR(1, 100, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 141, __pyx_L1_error)
   __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) __PYX_ERR(1, 156, __pyx_L1_error)
@@ -26812,7 +26785,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":984
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":984
  *         __pyx_import_array()
  *     except Exception:
  *         raise ImportError("numpy.core.multiarray failed to import")             # <<<<<<<<<<<<<<
@@ -26823,7 +26796,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
 
-  /* "../../../Users/gmasetti/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":990
+  /* "../../../Users/giuse/AppData/Local/HyOc/Pydro24_Dev/envs/pydro3_11/Lib/site-packages/numpy/__init__.cython-30.pxd":990
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
@@ -26935,152 +26908,152 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__20);
   __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_Enum, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(1, 1, __pyx_L1_error)
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":20
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":21
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_dd(double[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_tuple__22 = PyTuple_Pack(4, __pyx_n_s_bathy, __pyx_n_s_product_uncertainty, __pyx_n_s_pu_nodata, __pyx_n_s_tvu_qc); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_tuple__22 = PyTuple_Pack(4, __pyx_n_s_bathy, __pyx_n_s_product_uncertainty, __pyx_n_s_pu_nodata, __pyx_n_s_tvu_qc); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__22);
   __Pyx_GIVEREF(__pyx_tuple__22);
-  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_dd, 20, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_dd, 21, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 21, __pyx_L1_error)
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":53
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":55
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_df(double[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_df, 53, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_df, 55, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 55, __pyx_L1_error)
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":86
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":89
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_fd(float[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_fd, 86, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_fd, 89, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 89, __pyx_L1_error)
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":119
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":123
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_ff(float[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_ff, 119, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 119, __pyx_L1_error)
+  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_ff, 123, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 123, __pyx_L1_error)
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":154
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":159
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a1_dd(double[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_a1_dd, 154, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_a1_dd, 159, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(0, 159, __pyx_L1_error)
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":184
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":190
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a1_df(double[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_a1_df, 184, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 184, __pyx_L1_error)
+  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_a1_df, 190, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 190, __pyx_L1_error)
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":214
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":221
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a1_fd(float[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_a1_fd, 214, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 214, __pyx_L1_error)
+  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_a1_fd, 221, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 221, __pyx_L1_error)
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":244
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":252
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a1_ff(float[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_a1_ff, 244, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 244, __pyx_L1_error)
+  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_a1_ff, 252, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 252, __pyx_L1_error)
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":277
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":286
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a2b_dd(double[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_a2b_dd, 277, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 277, __pyx_L1_error)
+  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_a2b_dd, 286, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 286, __pyx_L1_error)
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":307
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":317
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a2b_df(double[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_a2b_df, 307, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 307, __pyx_L1_error)
+  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_a2b_df, 317, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 317, __pyx_L1_error)
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":337
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":348
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a2b_fd(float[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_a2b_fd, 337, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) __PYX_ERR(0, 337, __pyx_L1_error)
+  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_a2b_fd, 348, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) __PYX_ERR(0, 348, __pyx_L1_error)
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":367
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":379
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a2b_ff(float[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_a2b_ff, 367, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 367, __pyx_L1_error)
+  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_a2b_ff, 379, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 379, __pyx_L1_error)
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":400
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":413
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_c_dd(double[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_c_dd, 400, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 400, __pyx_L1_error)
+  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_c_dd, 413, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 413, __pyx_L1_error)
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":430
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":444
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_c_df(double[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_c_df, 430, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) __PYX_ERR(0, 430, __pyx_L1_error)
+  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_c_df, 444, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) __PYX_ERR(0, 444, __pyx_L1_error)
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":460
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":475
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_c_fd(float[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_c_fd, 460, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) __PYX_ERR(0, 460, __pyx_L1_error)
+  __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_c_fd, 475, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) __PYX_ERR(0, 475, __pyx_L1_error)
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":490
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":506
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_c_ff(float[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_c_ff, 490, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 490, __pyx_L1_error)
+  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyo2_qc_survey_gridqa_grid_qa_ca, __pyx_n_s_calc_tvu_qc_c_ff, 506, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 506, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -28265,196 +28238,196 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_logger, __pyx_t_4) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":20
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":21
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_dd(double[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_1calc_tvu_qc_dd, 0, __pyx_n_s_calc_tvu_qc_dd, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__23)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_1calc_tvu_qc_dd, 0, __pyx_n_s_calc_tvu_qc_dd, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__23)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_dd, __pyx_t_4) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_dd, __pyx_t_4) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":53
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":55
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_df(double[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_3calc_tvu_qc_df, 0, __pyx_n_s_calc_tvu_qc_df, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__24)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_3calc_tvu_qc_df, 0, __pyx_n_s_calc_tvu_qc_df, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__24)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 55, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_df, __pyx_t_4) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_df, __pyx_t_4) < 0) __PYX_ERR(0, 55, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":86
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":89
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_fd(float[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_5calc_tvu_qc_fd, 0, __pyx_n_s_calc_tvu_qc_fd, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_5calc_tvu_qc_fd, 0, __pyx_n_s_calc_tvu_qc_fd, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_fd, __pyx_t_4) < 0) __PYX_ERR(0, 86, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_fd, __pyx_t_4) < 0) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":119
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":123
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_ff(float[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_7calc_tvu_qc_ff, 0, __pyx_n_s_calc_tvu_qc_ff, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 119, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_7calc_tvu_qc_ff, 0, __pyx_n_s_calc_tvu_qc_ff, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_ff, __pyx_t_4) < 0) __PYX_ERR(0, 119, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_ff, __pyx_t_4) < 0) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":154
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":159
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a1_dd(double[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_9calc_tvu_qc_a1_dd, 0, __pyx_n_s_calc_tvu_qc_a1_dd, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__27)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_9calc_tvu_qc_a1_dd, 0, __pyx_n_s_calc_tvu_qc_a1_dd, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__27)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_a1_dd, __pyx_t_4) < 0) __PYX_ERR(0, 154, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_a1_dd, __pyx_t_4) < 0) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":184
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":190
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a1_df(double[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_11calc_tvu_qc_a1_df, 0, __pyx_n_s_calc_tvu_qc_a1_df, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 184, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_11calc_tvu_qc_a1_df, 0, __pyx_n_s_calc_tvu_qc_a1_df, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_a1_df, __pyx_t_4) < 0) __PYX_ERR(0, 184, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_a1_df, __pyx_t_4) < 0) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":214
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":221
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a1_fd(float[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_13calc_tvu_qc_a1_fd, 0, __pyx_n_s_calc_tvu_qc_a1_fd, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 214, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_13calc_tvu_qc_a1_fd, 0, __pyx_n_s_calc_tvu_qc_a1_fd, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 221, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_a1_fd, __pyx_t_4) < 0) __PYX_ERR(0, 214, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_a1_fd, __pyx_t_4) < 0) __PYX_ERR(0, 221, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":244
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":252
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a1_ff(float[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_15calc_tvu_qc_a1_ff, 0, __pyx_n_s_calc_tvu_qc_a1_ff, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 244, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_15calc_tvu_qc_a1_ff, 0, __pyx_n_s_calc_tvu_qc_a1_ff, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 252, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_a1_ff, __pyx_t_4) < 0) __PYX_ERR(0, 244, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_a1_ff, __pyx_t_4) < 0) __PYX_ERR(0, 252, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":277
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":286
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a2b_dd(double[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_17calc_tvu_qc_a2b_dd, 0, __pyx_n_s_calc_tvu_qc_a2b_dd, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 277, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_17calc_tvu_qc_a2b_dd, 0, __pyx_n_s_calc_tvu_qc_a2b_dd, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 286, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_a2b_dd, __pyx_t_4) < 0) __PYX_ERR(0, 277, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_a2b_dd, __pyx_t_4) < 0) __PYX_ERR(0, 286, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":307
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":317
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a2b_df(double[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_19calc_tvu_qc_a2b_df, 0, __pyx_n_s_calc_tvu_qc_a2b_df, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 307, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_19calc_tvu_qc_a2b_df, 0, __pyx_n_s_calc_tvu_qc_a2b_df, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 317, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_a2b_df, __pyx_t_4) < 0) __PYX_ERR(0, 307, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_a2b_df, __pyx_t_4) < 0) __PYX_ERR(0, 317, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":337
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":348
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a2b_fd(float[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_21calc_tvu_qc_a2b_fd, 0, __pyx_n_s_calc_tvu_qc_a2b_fd, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 337, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_21calc_tvu_qc_a2b_fd, 0, __pyx_n_s_calc_tvu_qc_a2b_fd, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 348, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_a2b_fd, __pyx_t_4) < 0) __PYX_ERR(0, 337, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_a2b_fd, __pyx_t_4) < 0) __PYX_ERR(0, 348, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":367
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":379
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_a2b_ff(float[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_23calc_tvu_qc_a2b_ff, 0, __pyx_n_s_calc_tvu_qc_a2b_ff, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__34)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 367, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_23calc_tvu_qc_a2b_ff, 0, __pyx_n_s_calc_tvu_qc_a2b_ff, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__34)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 379, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_a2b_ff, __pyx_t_4) < 0) __PYX_ERR(0, 367, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_a2b_ff, __pyx_t_4) < 0) __PYX_ERR(0, 379, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":400
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":413
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_c_dd(double[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_25calc_tvu_qc_c_dd, 0, __pyx_n_s_calc_tvu_qc_c_dd, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 400, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_25calc_tvu_qc_c_dd, 0, __pyx_n_s_calc_tvu_qc_c_dd, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 413, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_c_dd, __pyx_t_4) < 0) __PYX_ERR(0, 400, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_c_dd, __pyx_t_4) < 0) __PYX_ERR(0, 413, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":430
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":444
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_c_df(double[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, double[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_27calc_tvu_qc_c_df, 0, __pyx_n_s_calc_tvu_qc_c_df, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__36)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 430, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_27calc_tvu_qc_c_df, 0, __pyx_n_s_calc_tvu_qc_c_df, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__36)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 444, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_c_df, __pyx_t_4) < 0) __PYX_ERR(0, 430, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_c_df, __pyx_t_4) < 0) __PYX_ERR(0, 444, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":460
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":475
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_c_fd(float[:, :] bathy, double[:, :] product_uncertainty, double pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_29calc_tvu_qc_c_fd, 0, __pyx_n_s_calc_tvu_qc_c_fd, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__37)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 460, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_29calc_tvu_qc_c_fd, 0, __pyx_n_s_calc_tvu_qc_c_fd, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__37)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 475, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_c_fd, __pyx_t_4) < 0) __PYX_ERR(0, 460, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_c_fd, __pyx_t_4) < 0) __PYX_ERR(0, 475, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":490
+  /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":506
  * @cython.nonecheck(False)
  * #@cython.profile(True)
  * cpdef calc_tvu_qc_c_ff(float[:, :] bathy, float[:, :] product_uncertainty, float pu_nodata, float[:,:] tvu_qc):             # <<<<<<<<<<<<<<
  * 
  *     cdef int rows = bathy.shape[0]
  */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_31calc_tvu_qc_c_ff, 0, __pyx_n_s_calc_tvu_qc_c_ff, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__38)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 490, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_4hyo2_2qc_6survey_6gridqa_12grid_qa_calc_31calc_tvu_qc_c_ff, 0, __pyx_n_s_calc_tvu_qc_c_ff, NULL, __pyx_n_s_hyo2_qc_survey_gridqa_grid_qa_ca_2, __pyx_d, ((PyObject *)__pyx_codeobj__38)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 506, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_c_ff, __pyx_t_4) < 0) __PYX_ERR(0, 490, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_tvu_qc_c_ff, __pyx_t_4) < 0) __PYX_ERR(0, 506, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "hyo2/qc/survey/gridqa/grid_qa_calc.pyx":1
@@ -30952,24 +30925,6 @@ static CYTHON_INLINE int __Pyx_HasAttr(PyObject *o, PyObject *n) {
     }
 }
 #endif
-
-/* SoftComplexToDouble */
-static double __Pyx_SoftComplexToDouble(__pyx_t_double_complex value, int have_gil) {
-    if (unlikely(__Pyx_CIMAG(value))) {
-        PyGILState_STATE gilstate;
-        if (!have_gil)
-            gilstate = PyGILState_Ensure();
-        PyErr_SetString(PyExc_TypeError,
-            "Cannot convert 'complex' with non-zero imaginary component to 'double' "
-            "(this most likely comes from the '**' operator; "
-            "use 'cython.cpow(True)' to return 'nan' instead of a "
-            "complex number).");
-        if (!have_gil)
-            PyGILState_Release(gilstate);
-        return -1.;
-    }
-    return __Pyx_CREAL(value);
-}
 
 /* PyObject_GenericGetAttrNoDict */
 #if CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP && PY_VERSION_HEX < 0x03070000
@@ -34062,160 +34017,6 @@ __pyx_fail:
 /* Declarations */
   #if CYTHON_CCOMPLEX && (1) && (!0 || __cplusplus)
   #ifdef __cplusplus
-    static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(double x, double y) {
-      return ::std::complex< double >(x, y);
-    }
-  #else
-    static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(double x, double y) {
-      return x + y*(__pyx_t_double_complex)_Complex_I;
-    }
-  #endif
-#else
-    static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(double x, double y) {
-      __pyx_t_double_complex z;
-      z.real = x;
-      z.imag = y;
-      return z;
-    }
-#endif
-
-/* Arithmetic */
-  #if CYTHON_CCOMPLEX && (1) && (!0 || __cplusplus)
-#else
-    static CYTHON_INLINE int __Pyx_c_eq_double(__pyx_t_double_complex a, __pyx_t_double_complex b) {
-       return (a.real == b.real) && (a.imag == b.imag);
-    }
-    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_sum_double(__pyx_t_double_complex a, __pyx_t_double_complex b) {
-        __pyx_t_double_complex z;
-        z.real = a.real + b.real;
-        z.imag = a.imag + b.imag;
-        return z;
-    }
-    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_diff_double(__pyx_t_double_complex a, __pyx_t_double_complex b) {
-        __pyx_t_double_complex z;
-        z.real = a.real - b.real;
-        z.imag = a.imag - b.imag;
-        return z;
-    }
-    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_prod_double(__pyx_t_double_complex a, __pyx_t_double_complex b) {
-        __pyx_t_double_complex z;
-        z.real = a.real * b.real - a.imag * b.imag;
-        z.imag = a.real * b.imag + a.imag * b.real;
-        return z;
-    }
-    #if 1
-    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_quot_double(__pyx_t_double_complex a, __pyx_t_double_complex b) {
-        if (b.imag == 0) {
-            return __pyx_t_double_complex_from_parts(a.real / b.real, a.imag / b.real);
-        } else if (fabs(b.real) >= fabs(b.imag)) {
-            if (b.real == 0 && b.imag == 0) {
-                return __pyx_t_double_complex_from_parts(a.real / b.real, a.imag / b.imag);
-            } else {
-                double r = b.imag / b.real;
-                double s = (double)(1.0) / (b.real + b.imag * r);
-                return __pyx_t_double_complex_from_parts(
-                    (a.real + a.imag * r) * s, (a.imag - a.real * r) * s);
-            }
-        } else {
-            double r = b.real / b.imag;
-            double s = (double)(1.0) / (b.imag + b.real * r);
-            return __pyx_t_double_complex_from_parts(
-                (a.real * r + a.imag) * s, (a.imag * r - a.real) * s);
-        }
-    }
-    #else
-    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_quot_double(__pyx_t_double_complex a, __pyx_t_double_complex b) {
-        if (b.imag == 0) {
-            return __pyx_t_double_complex_from_parts(a.real / b.real, a.imag / b.real);
-        } else {
-            double denom = b.real * b.real + b.imag * b.imag;
-            return __pyx_t_double_complex_from_parts(
-                (a.real * b.real + a.imag * b.imag) / denom,
-                (a.imag * b.real - a.real * b.imag) / denom);
-        }
-    }
-    #endif
-    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_neg_double(__pyx_t_double_complex a) {
-        __pyx_t_double_complex z;
-        z.real = -a.real;
-        z.imag = -a.imag;
-        return z;
-    }
-    static CYTHON_INLINE int __Pyx_c_is_zero_double(__pyx_t_double_complex a) {
-       return (a.real == 0) && (a.imag == 0);
-    }
-    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_conj_double(__pyx_t_double_complex a) {
-        __pyx_t_double_complex z;
-        z.real =  a.real;
-        z.imag = -a.imag;
-        return z;
-    }
-    #if 1
-        static CYTHON_INLINE double __Pyx_c_abs_double(__pyx_t_double_complex z) {
-          #if !defined(HAVE_HYPOT) || defined(_MSC_VER)
-            return sqrt(z.real*z.real + z.imag*z.imag);
-          #else
-            return hypot(z.real, z.imag);
-          #endif
-        }
-        static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_pow_double(__pyx_t_double_complex a, __pyx_t_double_complex b) {
-            __pyx_t_double_complex z;
-            double r, lnr, theta, z_r, z_theta;
-            if (b.imag == 0 && b.real == (int)b.real) {
-                if (b.real < 0) {
-                    double denom = a.real * a.real + a.imag * a.imag;
-                    a.real = a.real / denom;
-                    a.imag = -a.imag / denom;
-                    b.real = -b.real;
-                }
-                switch ((int)b.real) {
-                    case 0:
-                        z.real = 1;
-                        z.imag = 0;
-                        return z;
-                    case 1:
-                        return a;
-                    case 2:
-                        return __Pyx_c_prod_double(a, a);
-                    case 3:
-                        z = __Pyx_c_prod_double(a, a);
-                        return __Pyx_c_prod_double(z, a);
-                    case 4:
-                        z = __Pyx_c_prod_double(a, a);
-                        return __Pyx_c_prod_double(z, z);
-                }
-            }
-            if (a.imag == 0) {
-                if (a.real == 0) {
-                    return a;
-                } else if ((b.imag == 0) && (a.real >= 0)) {
-                    z.real = pow(a.real, b.real);
-                    z.imag = 0;
-                    return z;
-                } else if (a.real > 0) {
-                    r = a.real;
-                    theta = 0;
-                } else {
-                    r = -a.real;
-                    theta = atan2(0.0, -1.0);
-                }
-            } else {
-                r = __Pyx_c_abs_double(a);
-                theta = atan2(a.imag, a.real);
-            }
-            lnr = log(r);
-            z_r = exp(lnr * b.real - theta * b.imag);
-            z_theta = theta * b.real + lnr * b.imag;
-            z.real = z_r * cos(z_theta);
-            z.imag = z_r * sin(z_theta);
-            return z;
-        }
-    #endif
-#endif
-
-/* Declarations */
-  #if CYTHON_CCOMPLEX && (1) && (!0 || __cplusplus)
-  #ifdef __cplusplus
     static CYTHON_INLINE __pyx_t_float_complex __pyx_t_float_complex_from_parts(float x, float y) {
       return ::std::complex< float >(x, y);
     }
@@ -34362,6 +34163,160 @@ __pyx_fail:
             z_theta = theta * b.real + lnr * b.imag;
             z.real = z_r * cosf(z_theta);
             z.imag = z_r * sinf(z_theta);
+            return z;
+        }
+    #endif
+#endif
+
+/* Declarations */
+  #if CYTHON_CCOMPLEX && (1) && (!0 || __cplusplus)
+  #ifdef __cplusplus
+    static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(double x, double y) {
+      return ::std::complex< double >(x, y);
+    }
+  #else
+    static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(double x, double y) {
+      return x + y*(__pyx_t_double_complex)_Complex_I;
+    }
+  #endif
+#else
+    static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(double x, double y) {
+      __pyx_t_double_complex z;
+      z.real = x;
+      z.imag = y;
+      return z;
+    }
+#endif
+
+/* Arithmetic */
+  #if CYTHON_CCOMPLEX && (1) && (!0 || __cplusplus)
+#else
+    static CYTHON_INLINE int __Pyx_c_eq_double(__pyx_t_double_complex a, __pyx_t_double_complex b) {
+       return (a.real == b.real) && (a.imag == b.imag);
+    }
+    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_sum_double(__pyx_t_double_complex a, __pyx_t_double_complex b) {
+        __pyx_t_double_complex z;
+        z.real = a.real + b.real;
+        z.imag = a.imag + b.imag;
+        return z;
+    }
+    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_diff_double(__pyx_t_double_complex a, __pyx_t_double_complex b) {
+        __pyx_t_double_complex z;
+        z.real = a.real - b.real;
+        z.imag = a.imag - b.imag;
+        return z;
+    }
+    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_prod_double(__pyx_t_double_complex a, __pyx_t_double_complex b) {
+        __pyx_t_double_complex z;
+        z.real = a.real * b.real - a.imag * b.imag;
+        z.imag = a.real * b.imag + a.imag * b.real;
+        return z;
+    }
+    #if 1
+    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_quot_double(__pyx_t_double_complex a, __pyx_t_double_complex b) {
+        if (b.imag == 0) {
+            return __pyx_t_double_complex_from_parts(a.real / b.real, a.imag / b.real);
+        } else if (fabs(b.real) >= fabs(b.imag)) {
+            if (b.real == 0 && b.imag == 0) {
+                return __pyx_t_double_complex_from_parts(a.real / b.real, a.imag / b.imag);
+            } else {
+                double r = b.imag / b.real;
+                double s = (double)(1.0) / (b.real + b.imag * r);
+                return __pyx_t_double_complex_from_parts(
+                    (a.real + a.imag * r) * s, (a.imag - a.real * r) * s);
+            }
+        } else {
+            double r = b.real / b.imag;
+            double s = (double)(1.0) / (b.imag + b.real * r);
+            return __pyx_t_double_complex_from_parts(
+                (a.real * r + a.imag) * s, (a.imag * r - a.real) * s);
+        }
+    }
+    #else
+    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_quot_double(__pyx_t_double_complex a, __pyx_t_double_complex b) {
+        if (b.imag == 0) {
+            return __pyx_t_double_complex_from_parts(a.real / b.real, a.imag / b.real);
+        } else {
+            double denom = b.real * b.real + b.imag * b.imag;
+            return __pyx_t_double_complex_from_parts(
+                (a.real * b.real + a.imag * b.imag) / denom,
+                (a.imag * b.real - a.real * b.imag) / denom);
+        }
+    }
+    #endif
+    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_neg_double(__pyx_t_double_complex a) {
+        __pyx_t_double_complex z;
+        z.real = -a.real;
+        z.imag = -a.imag;
+        return z;
+    }
+    static CYTHON_INLINE int __Pyx_c_is_zero_double(__pyx_t_double_complex a) {
+       return (a.real == 0) && (a.imag == 0);
+    }
+    static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_conj_double(__pyx_t_double_complex a) {
+        __pyx_t_double_complex z;
+        z.real =  a.real;
+        z.imag = -a.imag;
+        return z;
+    }
+    #if 1
+        static CYTHON_INLINE double __Pyx_c_abs_double(__pyx_t_double_complex z) {
+          #if !defined(HAVE_HYPOT) || defined(_MSC_VER)
+            return sqrt(z.real*z.real + z.imag*z.imag);
+          #else
+            return hypot(z.real, z.imag);
+          #endif
+        }
+        static CYTHON_INLINE __pyx_t_double_complex __Pyx_c_pow_double(__pyx_t_double_complex a, __pyx_t_double_complex b) {
+            __pyx_t_double_complex z;
+            double r, lnr, theta, z_r, z_theta;
+            if (b.imag == 0 && b.real == (int)b.real) {
+                if (b.real < 0) {
+                    double denom = a.real * a.real + a.imag * a.imag;
+                    a.real = a.real / denom;
+                    a.imag = -a.imag / denom;
+                    b.real = -b.real;
+                }
+                switch ((int)b.real) {
+                    case 0:
+                        z.real = 1;
+                        z.imag = 0;
+                        return z;
+                    case 1:
+                        return a;
+                    case 2:
+                        return __Pyx_c_prod_double(a, a);
+                    case 3:
+                        z = __Pyx_c_prod_double(a, a);
+                        return __Pyx_c_prod_double(z, a);
+                    case 4:
+                        z = __Pyx_c_prod_double(a, a);
+                        return __Pyx_c_prod_double(z, z);
+                }
+            }
+            if (a.imag == 0) {
+                if (a.real == 0) {
+                    return a;
+                } else if ((b.imag == 0) && (a.real >= 0)) {
+                    z.real = pow(a.real, b.real);
+                    z.imag = 0;
+                    return z;
+                } else if (a.real > 0) {
+                    r = a.real;
+                    theta = 0;
+                } else {
+                    r = -a.real;
+                    theta = atan2(0.0, -1.0);
+                }
+            } else {
+                r = __Pyx_c_abs_double(a);
+                theta = atan2(a.imag, a.real);
+            }
+            lnr = log(r);
+            z_r = exp(lnr * b.real - theta * b.imag);
+            z_theta = theta * b.real + lnr * b.imag;
+            z.real = z_r * cos(z_theta);
+            z.imag = z_r * sin(z_theta);
             return z;
         }
     #endif
