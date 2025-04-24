@@ -20,8 +20,6 @@ class BaseProject:
         'field': 1,
     }
 
-    DEFAULT_CHUNK_SIZE = 4294967296  # 4GB
-
     def __init__(self, projects_folder, profile=project_profiles['office'], progress=CliProgress()):
 
         # output folder
@@ -314,9 +312,9 @@ class BaseProject:
     def clear_grid_list(self):
         self._gr.clear_grid_list()
 
-    def open_grid(self, path, chunk_size=DEFAULT_CHUNK_SIZE):
+    def open_grid(self, path):
         self.set_cur_grid(path=path)
-        self.open_to_read_cur_grid(chunk_size=chunk_size)
+        self.open_to_read_cur_grid()
 
     def set_cur_grid(self, path, ):
         """Make current the passed file"""
