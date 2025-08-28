@@ -3,7 +3,7 @@ Changelog
 
 Main changes to QC Tools:
 
-Version 4.7.X (2025-MM-DD)
+Version 4.Y.X (2025-MM-DD)
 --------------------------
 
 - Added current HSSD and quality metrics (uncertainty and feature detection) on status bar
