@@ -417,7 +417,8 @@ class SurveyProject(BaseProject):
 
             logger.debug("max size: %s" % (max_size if (max_size != 0.0) else "unlimited"))
 
-            self._holes = _gappy.Gappy(support_path, path, gappy_mode, max_size, hole_sizer, ref_depth)
+            hssd = 20250000  # unused
+            self._holes = _gappy.Gappy(support_path, path, gappy_mode, hssd, max_size, hole_sizer, ref_depth)
             self._holes.visual_debug = visual_debug
             self._holes.export_ascii = export_ascii
             self._gr.set_current(path)
