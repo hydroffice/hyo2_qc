@@ -3,7 +3,7 @@ Changelog
 
 Main changes to QC Tools:
 
-Version 4.Y.X (2025-MM-DD)
+Version 4.7.5 (2025-09-03)
 --------------------------
 
 - Added HSSD version to Grid Stats plots
