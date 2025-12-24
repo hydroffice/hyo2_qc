@@ -105,7 +105,7 @@ if is_darwin:
 
 a = Analysis(['RorI.py'],
              pathex=[],
-             hiddenimports=["PIL", "scipy.linalg", "hyo2.grids._gappy", "scipy._lib.messagestream"],
+             hiddenimports=["PIL", "scipy.linalg", "hyo2.grids._grids", "scipy._lib.messagestream"],
              excludes=["IPython", "PyQt4", "pandas", "sphinx", "sphinx_rtd_theme", "OpenGL_accelerate",
                        "FixTk", "tcl", "tk", "_tkinter", "tkinter", "Tkinter",
                        "wx"],

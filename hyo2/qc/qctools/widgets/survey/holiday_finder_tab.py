@@ -5,7 +5,7 @@ import traceback
 from PySide2 import QtCore, QtGui, QtWidgets
 from hyo2.abc.lib.helper import Helper
 # noinspection PyProtectedMember
-from hyo2.grids import _gappy
+from hyo2.grids import _grids
 from hyo2.qc.common import lib_info
 from hyo2.qc.qctools.gui_settings import GuiSettings
 
@@ -721,7 +721,7 @@ class HolidayFinderTab(QtWidgets.QMainWindow):
                 # else:
                 #     raise RuntimeError("unknown mode: %s" % algo_mode)
 
-                class ProgressCallback(_gappy.ProgressCallback):
+                class ProgressCallback(_grids.AbstractProgressCallback):
 
                     progress = self.parent_win.progress
 

@@ -110,7 +110,7 @@ if is_darwin:
 a = Analysis(['QCTools.py'],
              binaries = [],
              pathex=[],
-             hiddenimports=["PIL", "scipy.linalg", "hyo2.grids._gappy", "scipy._lib.messagestream",
+             hiddenimports=["PIL", "scipy.linalg", "hyo2.grids._grids", "scipy._lib.messagestream",
              "PySide2.QtPrintSupport", "pkg_resources.py2_warn"],
              excludes=["IPython", "PyQt4", "PyQt5", "pandas", "sphinx", "sphinx_rtd_theme", "OpenGL_accelerate",
                        "PySide6",

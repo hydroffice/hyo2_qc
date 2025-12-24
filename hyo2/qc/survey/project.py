@@ -11,7 +11,7 @@ from hyo2.abc.lib.helper import Helper
 from hyo2.abc.lib.progress.abstract_progress import AbstractProgress
 from hyo2.abc.lib.progress.cli_progress import CliProgress
 # noinspection PyProtectedMember
-from hyo2.grids import _gappy
+from hyo2.grids import _grids
 # noinspection PyProtectedMember
 from hyo2.grids._grids import FLOAT as GRIDS_FLOAT, DOUBLE as GRIDS_DOUBLE
 from hyo2.grids.grids_manager import layer_types
@@ -384,45 +384,30 @@ class SurveyProject(BaseProject):
         """Look for fliers using the passed parameters and the loaded grids"""
 
         try:
-            support_path = os.path.dirname(_gappy.__file__).replace("\\", "/")
+            support_path = os.path.dirname(_grids.__file__).replace("\\", "/")
             logger.debug("support path: %s" % support_path)
-
-            if sizer == "TWO_TIMES":
-                hole_sizer = _gappy.GappyHoleSizer_TWO_TIMES
-                logger.debug("hole sizer: TWO_TIMES")
-            elif sizer == "TWO_TIMES_PLUS_ONE_NODE":
-                hole_sizer = _gappy.GappyHoleSizer_TWO_TIMES_PLUS_ONE_NODE
-                logger.debug("hole sizer: TWO_TIMES_PLUS_ONE_NODE")
-            else:  # if sizer == "THREE_TIMES":
-                hole_sizer = _gappy.GappyHoleSizer_THREE_TIMES
-                logger.debug("hole sizer: THREE_TIMES")
-
-            if local_perimeter:
-                ref_depth = _gappy.GappyHoleReferenceDepth_PERIMETER_MEDIAN
-                logger.debug("ref depth: PERIMETER_MEDIAN")
-            else:
-                ref_depth = _gappy.GappyHoleReferenceDepth_TILE_MEDIAN
-                logger.debug("ref depth: TILE_MEDIAN")
 
             start_time = time.time()
             if mode == "FULL_COVERAGE":
-                gappy_mode = _gappy.GappyMode_FULL_COVERAGE
+                gappy_mode = _grids.GappyMode_FULL_COVERAGE
                 logger.debug("gappy mode: FULL_COVERAGE")
             elif mode == "OBJECT_DETECTION":
-                gappy_mode = _gappy.GappyMode_OBJECT_DETECTION
+                gappy_mode = _grids.GappyMode_OBJECT_DETECTION
                 logger.debug("gappy mode: OBJECT_DETECTION")
             else:  # if mode == "ALL_HOLES":
-                gappy_mode = _gappy.GappyMode_ALL_HOLES
+                gappy_mode = _grids.GappyMode_ALL_HOLES
                 logger.debug("gappy mode: ALL_HOLES")
 
             logger.debug("max size: %s" % (max_size if (max_size != 0.0) else "unlimited"))
 
+            self.clear_survey_label()
+            self.open_grid(path=path)
+            self.make_survey_label()
+
             hssd = 20250000  # unused
-            self._holes = _gappy.Gappy(support_path, path, gappy_mode, hssd, max_size, hole_sizer, ref_depth)
+            self._holes = _grids.Gappy(support_path, path, gappy_mode, hssd, max_size)
             self._holes.visual_debug = visual_debug
             self._holes.export_ascii = export_ascii
-            self._gr.set_current(path)
-            self.make_survey_label()
 
             if cb:
                 # noinspection PyArgumentList
@@ -430,7 +415,7 @@ class SurveyProject(BaseProject):
 
             if brute_force:
                 logger.debug("brute force: pct of minimum resolution: %.1f" % (pct_min_res * 100.0,))
-                success = self._holes.detect_brute_force(True, pct_min_res)
+                success = self._holes.detect_brute_force(pct_min_res)
             else:
                 # noinspection PyArgumentList
                 success = self._holes.detect_per_tile()
