@@ -3,10 +3,21 @@ Changelog
 
 Main changes to QC Tools:
 
-Version 4.N.N (2025-MM-DD)
+Version 4.8.5 (2026-03-01)
 --------------------------
 
+- Added support for SSS mosaic name without vessel to Delivery Structure Checks
 - Added file-naming check for ISD to Delivery Structure Checks
+- Added option to extract CSAR/BAG geotiff to the Input Tab
+- Removed beta from HSSD 2026.0
+- Disabled splash screen
+- Added limited min and max values for Grid QA
+- Added checks for very low values for uncertainty and VR uncertainty
+
+Version 4.8.2 (2026-01-13)
+--------------------------
+
+- Updated order of Flier Finder execution
 
 
 Version 4.7.5 (2025-09-03)
