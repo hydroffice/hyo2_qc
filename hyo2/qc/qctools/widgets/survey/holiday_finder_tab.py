@@ -48,7 +48,6 @@ class HolidayFinderTab(QtWidgets.QMainWindow):
         self.slider_pct_min_res_label_v4 = None
         # self.slider_strategy_v4 = None
         # self.slider_ref_depth_v4 = None
-        self.slider_visual_debug_v4 = None
         self.slider_export_ascii_v4 = None
         self._ui_settings_hfv4()
         # -- execution
@@ -474,32 +473,6 @@ class HolidayFinderTab(QtWidgets.QMainWindow):
         slider_gbox = QtWidgets.QGridLayout()
         slider_hbox.addLayout(slider_gbox)
 
-        # # labels
-        # text_sz = 36
-        # text_value = QtWidgets.QLabel("On")
-        # text_value.setFixedWidth(text_sz + 8)
-        # text_value.setAlignment(QtCore.Qt.AlignLeft)
-        # text_value.setStyleSheet(GuiSettings.stylesheet_slider_labels())
-        # slider_gbox.addWidget(text_value, 0, 0, 1, 1)
-        # text_value = QtWidgets.QLabel("Off")
-        # text_value.setFixedWidth(text_sz)
-        # text_value.setAlignment(QtCore.Qt.AlignCenter)
-        # text_value.setStyleSheet(GuiSettings.stylesheet_slider_labels())
-        # slider_gbox.addWidget(text_value, 0, 1, 1, 1)
-        # # slider
-        # self.slider_visual_debug_v4 = QtWidgets.QSlider(QtCore.Qt.Horizontal)
-        # self.slider_visual_debug_v4.setRange(1, 2)
-        # self.slider_visual_debug_v4.setSingleStep(1)
-        # self.slider_visual_debug_v4.setValue(2)
-        # self.slider_visual_debug_v4.setTickInterval(1)
-        # self.slider_visual_debug_v4.setTickPosition(QtWidgets.QSlider.TicksBelow)
-        # slider_gbox.addWidget(self.slider_visual_debug_v4, 1, 0, 1, 2)
-        #
-        # spacer = QtWidgets.QSpacerItem(1, 1)
-        # slider_gbox.addItem(spacer, 1, 2, 1, 1)
-        #
-        # slider_hbox.addSpacing(30)
-
         # ascii export
 
         slider_gbox = QtWidgets.QGridLayout()
@@ -655,12 +628,8 @@ class HolidayFinderTab(QtWidgets.QMainWindow):
             if version == 4:
 
                 algo_mode = self.toggle_mode_v4.value()
-                # sizer_mode = self.slider_hole_sizer_v4.value()
                 area_value = self.upper_limit_v4.value()
                 pct_res_value = self.slider_pct_min_res_v4.value()
-                # debug_value = self.slider_visual_debug_v4.value()
-                # ref_depth_value = self.slider_ref_depth_v4.value()
-                # strategy_value = self.slider_strategy_v4.value()
                 export_value = self.slider_export_ascii_v4.value()
 
                 if pct_res_value == 1:
@@ -686,17 +655,9 @@ class HolidayFinderTab(QtWidgets.QMainWindow):
                 elif area_value == 5:
                     max_size = 0
 
-                visual_debug = False
-                # if debug_value == 1:
-                #     visual_debug = True
-
                 export_ascii = False
                 if export_value == 1:
                     export_ascii = True
-
-                # local_perimeter = False
-                # if ref_depth_value == 1:
-                local_perimeter = True
 
                 # brute_force = False
                 # if strategy_value == 1:
@@ -711,20 +672,11 @@ class HolidayFinderTab(QtWidgets.QMainWindow):
                 else:
                     raise RuntimeError("unknown mode: %s" % algo_mode)
 
-                # if sizer_mode == 1:
-                #     sizer = "TWO_TIMES"
-                # elif sizer_mode == 2:
-                #     sizer = "TWO_TIMES_PLUS_ONE_NODE"
-                # elif sizer_mode == 3:
-                sizer = "THREE_TIMES"
-
-                # else:
-                #     raise RuntimeError("unknown mode: %s" % algo_mode)
-
                 class ProgressCallback(_grids.AbstractProgressCallback):
 
                     progress = self.parent_win.progress
 
+                    # noinspection PyMethodOverriding
                     def update(self, n, tot):
 
                         try:
@@ -742,8 +694,7 @@ class HolidayFinderTab(QtWidgets.QMainWindow):
 
                 cb = ProgressCallback()
 
-                self.prj.find_holes_v4(path=grid_file, mode=mode, sizer=sizer, max_size=max_size, pct_min_res=pct_value,
-                                       local_perimeter=local_perimeter, visual_debug=visual_debug,
+                self.prj.find_holes_v4(path=grid_file, mode=mode, max_size=max_size, pct_min_res=pct_value,
                                        export_ascii=export_ascii, brute_force=brute_force, cb=cb)
 
         except Exception as e:

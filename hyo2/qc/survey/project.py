@@ -379,8 +379,8 @@ class SurveyProject(BaseProject):
             return 0
         return len(self._holes.possible_xs)
 
-    def find_holes_v4(self, path, mode="FULL_COVERAGE", sizer="THREE_TIMES", max_size=0, pct_min_res=1.0,
-                      local_perimeter=True, visual_debug=False, export_ascii=False, brute_force=True, cb=None):
+    def find_holes_v4(self, path, mode="FULL_COVERAGE", max_size=0, pct_min_res=1.0,
+                      export_ascii=False, brute_force=True, cb=None):
         """Look for fliers using the passed parameters and the loaded grids"""
 
         try:
@@ -405,8 +405,7 @@ class SurveyProject(BaseProject):
             self.make_survey_label()
 
             hssd = 20250000  # unused
-            self._holes = _grids.Gappy(support_path, path, gappy_mode, hssd, max_size)
-            self._holes.visual_debug = visual_debug
+            self._holes = _grids.Gappy(self._gr.cur_grids, gappy_mode, hssd, max_size)
             self._holes.export_ascii = export_ascii
 
             if cb:

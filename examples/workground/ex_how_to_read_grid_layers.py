@@ -1,13 +1,14 @@
 import logging
+# noinspection PyUnusedImports
 from PySide2 import QtWidgets
 from matplotlib import pyplot as plt
 import numpy as np
 
-from hyo2.grids._grids import FLOAT as GRIDS_FLOAT, DOUBLE as GRIDS_DOUBLE
+from hyo2.abc2.lib.logging import set_logging
+from hyo2.grids._grids import DOUBLE as GRIDS_DOUBLE
 from hyo2.grids.grids_manager import GridsManager
-from hyo2.grids.common import default_logging
 
-default_logging.load()
+set_logging(ns_list=["hyo2.qc4", ])
 logger = logging.getLogger()
 
 # path = r"C:\Users\gmasetti\Google Drive\QC Tools\data\survey\QuickTest.bag"

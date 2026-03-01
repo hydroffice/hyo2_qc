@@ -16,12 +16,9 @@ wid = QtWidgets.QWidget(parent=None)
 # options
 use_internal_test_files = True
 use_internal_csar = True
-sizer = "THREE_TIMES"
 mode = "FULL_COVERAGE"  # "ALL_HOLES" "OBJECT_DETECTION"
-local_perimeter = True
 max_size = 0
 pct_min_res = 1.0
-visual_debug = True
 
 # create the project
 prj = SurveyProject(output_folder=testing.output_data_folder(), progress=QtProgress(parent=wid))
@@ -41,8 +38,7 @@ else:
 for grid_path in prj.grid_list:
     prj.clear_survey_label()
 
-    prj.find_holes_v4(path=grid_path, sizer=sizer, mode=mode, local_perimeter=local_perimeter,
-                      max_size=max_size, pct_min_res=pct_min_res, visual_debug=visual_debug)
+    prj.find_holes_v4(path=grid_path, mode=mode, max_size=max_size, pct_min_res=pct_min_res)
     saved = prj.save_holes()
     if saved:
         prj.open_holes_output_folder()

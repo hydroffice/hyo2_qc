@@ -1,14 +1,15 @@
 import logging
 import os
 
+from matplotlib import pyplot as plt
 import numpy as np
 from PySide2 import QtWidgets, QtCore
-from hyo2.grids._grids import DOUBLE as GRIDS_DOUBLE
-from hyo2.grids.common import default_logging
-from hyo2.grids.grids_manager import GridsManager
-from matplotlib import pyplot as plt
 
-default_logging.load()
+from hyo2.abc2.lib.logging import set_logging
+from hyo2.grids._grids import DOUBLE as GRIDS_DOUBLE
+from hyo2.grids.grids_manager import GridsManager
+
+set_logging(ns_list=["hyo2.qc", ])
 logger = logging.getLogger()
 
 # set settings
