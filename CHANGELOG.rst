@@ -3,6 +3,19 @@ Changelog
 
 Main changes to QC Tools:
 
+Version 4.10.1 (2026-03-01)
+---------------------------
+
+- Fixed crash in case of missing survey sub-folders for Delivery Structure Checks
+- Added skipping of existence check (when unflagged) for Delivery Structure Checks
+
+
+Version 4.9.10 (2026-07-06)
+---------------------------
+
+- Fixed issue with density-only execution with Grid Stats
+
+
 Version 4.8.5 (2026-03-01)
 --------------------------
 
